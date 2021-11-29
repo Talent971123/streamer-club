@@ -8,11 +8,11 @@ type Props = {
 
 // ----------------------------------------------------------
 const ContainerContent = styled.div`
-  padding: 0 82px;
+  padding: 0 30px;
   margin: 0 auto;
   max-width: none;
   @media screen and (max-width: 768px) {
-    padding: 0 55px;
+    padding: 0 37px;
   }
   @media screen and (max-width: 580px) {
     padding: 0 25px;

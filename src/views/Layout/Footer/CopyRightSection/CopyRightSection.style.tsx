@@ -5,10 +5,18 @@ import { themeGet } from "@styled-system/theme-get";
 // -----------------------------------------------
 
 export const CopyRightSectionWrapper = styled.div`
-  padding: 20px 0 58px 0;
+  padding: 20px 0 60px 0;
   font-size: 11px;
   color: ${themeGet("colors.gray.100")};
-  border-top: 1px solid ${themeGet("colors.gray.200")};
+  ::after {
+    content: " ";
+    width: 100%;
+    height: 1px;
+    background: ${themeGet("colors.gray.300")};
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
   @media screen and (max-width: 1024px) {
     border: none;
   }
@@ -16,12 +24,5 @@ export const CopyRightSectionWrapper = styled.div`
     color: ${themeGet("colors.white")};
     font-size: 12px;
     font-weight: 400;
-  }
-`;
-export const StyledLinkItem = styled.div`
-  cursor: pointer;
-  transition: color 300ms ease-in-out, background-color 300ms ease-in-out;
-  :hover {
-    color: ${themeGet("colors.white")};
   }
 `;

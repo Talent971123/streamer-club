@@ -25,7 +25,7 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
       fontWeight: "900",
       fontSize: "12px",
       lineHeight: "1.5",
-      backgroundColor: "white",
+      backgroundColor: get(theme, "colors.black.100"),
       WebkitTextSizeAdjust: "100%",
       WebkitFontSmoothing: "antialiased",
       MozOsxFontSmoothing: "grayscale",
