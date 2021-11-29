@@ -99,7 +99,11 @@ const getResponsive = (responsive, flexDirection, display, gap) => {
 // func getter for gap
 const getGap = (flexDirection, gap, display) => {
   if (display === "grid") {
-    return `
+    return typeof gap === "string"
+      ? `
+    gap: ${gap};
+   `
+      : `
      gap: ${gap}px;
     `;
   } else if (flexDirection === "column") {

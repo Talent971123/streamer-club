@@ -23,3 +23,9 @@ export const RedMarker = styled.div`
 export const HeaderMenuItem = styled.div`
   cursor: pointer;
 `;
+
+export const Border = styled.div`
+  height: 24px;
+  width: 1px;
+  background-color: ${themeGet("colors.gray.300")};
+`;

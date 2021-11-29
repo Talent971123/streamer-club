@@ -10,6 +10,7 @@ export interface LayoutColProps extends FlexLayoutProps {
   flex?: string;
   item?: number;
   mWidth?: number;
+  minWidth?: number;
 }
 export interface LayoutRowProps extends FlexLayoutProps {
   display?: "grid" | "flex" | "block" | "none";

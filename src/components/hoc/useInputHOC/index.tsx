@@ -8,7 +8,7 @@ import { InputHocProps } from "types/components/Input";
 
 // -----------------------------------------------------------------
 
-const useInputHoc = (IconWrapper: ComponentType) => {
+const useInputHOC = (IconWrapper: ComponentType) => {
   // eslint-disable-next-line react/display-name
   return ({ inputIcon, ...props }: InputHocProps) => {
     return (
@@ -24,4 +24,4 @@ const useInputHoc = (IconWrapper: ComponentType) => {
   };
 };
 
-export default useInputHoc;
+export default useInputHOC;

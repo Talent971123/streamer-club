@@ -8,17 +8,16 @@ import { InputWrapper, SeachButtonContainer } from "./SearchInput.style";
 
 // -----------------------------------------------------------
 
-const Input = useInputHOC(SeachButtonContainer);
-
 const SearchInput = () => {
+  const Input = useInputHOC(SeachButtonContainer);
   return (
     <InputWrapper>
       <Input
         inputIcon={<SearchIcon />}
-        iColor="outlinedRed"
-        iSize="medium"
+        iColor="outlinedGray"
+        iSize="small"
         iFont="smbold"
-        placeholder="Search over 10,000 + products "
+        placeholder="Search Item... "
       />
     </InputWrapper>
   );

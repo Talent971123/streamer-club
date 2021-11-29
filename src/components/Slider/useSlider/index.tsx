@@ -1,18 +1,15 @@
 import React, { ComponentType } from "react";
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
 //  Swiper components
 import { Swiper, SwiperSlide } from "swiper/react";
 // Swiper modules
-import SwiperCore, { Pagination, Autoplay } from "swiper";
+import SwiperCore, { Parallax, Pagination, Autoplay, Navigation } from "swiper";
+
 // types
 import { SliderProps } from "types/components/Slider";
 // styled component
 import { BannerWrapper } from "./useSlider.style";
 // install Swiper modules
-SwiperCore.use([Pagination, Autoplay]);
+SwiperCore.use([Parallax, Pagination, Autoplay, Navigation]);
 
 // -----------------------------------------------------------------------------
 

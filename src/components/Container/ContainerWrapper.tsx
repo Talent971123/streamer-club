@@ -9,12 +9,12 @@ type Props = {
 
 // ----------------------------------------------------------
 const ContainerWrapper = styled.div<Props>`
-  max-width: ${({ mWidth }) => mWidth}px;
+  max-width: ${({ mWidth }) => (mWidth ? `${mWidth}px` : "none")};
   margin: 0 auto;
   position: relative;
 `;
 
-const Container: React.FC<Props> = ({ children, mWidth = 1366 }) => {
+const Container: React.FC<Props> = ({ children, mWidth = 1440 }) => {
   return <ContainerWrapper mWidth={mWidth}>{children}</ContainerWrapper>;
 };
 

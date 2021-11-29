@@ -1,8 +1,8 @@
 import React, { ComponentType } from "react";
-// next
-import Router from "next/router";
 // component
 import { Row, Col } from "components/Layout";
+// hook
+import { useRouter } from "hooks";
 // type
 import {
   LinkItemWrapperProps,
@@ -38,8 +38,9 @@ const useLinkItem = (
       alignVertical = "center",
       alignHorizontal = "initial",
     }: LinkItemWrapperProps) => {
+      const { move } = useRouter();
       const handleOnClick = () => {
-        if (href != "") Router.push(href);
+        if (href != "") move(href);
       };
 
       return (
@@ -67,8 +68,9 @@ const useLinkItem = (
   if (mode === "icon") {
     // eslint-disable-next-line react/display-name
     return ({ href = "", icon }: LinkItemWrapperProps) => {
+      const { move } = useRouter();
       const handleOnClick = () => {
-        if (href != "") Router.push(href);
+        if (href != "") move(href);
       };
 
       return <LinkItemWrapper onClick={handleOnClick}>{icon}</LinkItemWrapper>;

@@ -2,28 +2,22 @@ import React from "react";
 // next
 import Image from "next/image";
 // type
-type ImageComponentProps = {
-  src: any;
-  alt?: string;
-  width?: number;
-  height?: number;
-  mode?: "intrinsic" | "fill";
-  oFit?: "cover" | "contain" | "none" | "fill";
-};
+import { ImageProps } from "types/components/Image";
 // styeld component
 import { ImageWrapper, ImageInner } from "./Image.style";
 
 // ----------------------------------------------------
-const ImageComponent: React.FC<ImageComponentProps> = ({
+const ImageComponent: React.FC<ImageProps> = ({
   src,
   alt = "No Image, Please reload.",
   width,
   height,
   mode = "intrinsic",
   oFit = "fill",
+  ...props
 }) => {
   return mode === "fill" ? (
-    <ImageWrapper>
+    <ImageWrapper {...props}>
       <ImageInner>
         <Image
           src={src}
@@ -42,6 +36,7 @@ const ImageComponent: React.FC<ImageComponentProps> = ({
       height={height}
       layout={mode}
       objectFit={oFit}
+      {...props}
     />
   );
 };

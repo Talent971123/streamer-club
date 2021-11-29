@@ -8,22 +8,24 @@ type Props = {
 
 // ----------------------------------------------------------
 const ContainerContent = styled.div`
-  padding: 0 30px;
+  padding: 0 10px;
   margin: 0 auto;
   max-width: none;
   @media screen and (max-width: 768px) {
-    padding: 0 37px;
+    padding: 0 8px;
   }
   @media screen and (max-width: 580px) {
-    padding: 0 25px;
+    padding: 0 5px;
   }
   @media screen and (max-width: 425px) {
-    padding: 0 15px;
+    padding: 0 3px;
   }
 `;
 
 const Container: React.FC<Props> = ({ children }) => {
-  return <ContainerContent>{children}</ContainerContent>;
+  return (
+    <ContainerContent className="containerContent">{children}</ContainerContent>
+  );
 };
 
 export default Container;

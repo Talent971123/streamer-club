@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from "styled-components";
 import { get } from "styled-system";
 import css from "@styled-system/css";
 
@@ -15,14 +15,17 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
     html: {
       scrollBehavior: "smooth",
       overflowX: "hidden",
+      margin: 0,
+      padding: 0,
     },
     body: {
       scrollBehavior: "smooth",
+      padding: 0,
       color: get(theme, "colors.black.200"),
       margin: "0 auto",
       transition: get(theme, "transition.normal"),
       fontFamily: '"Roboto" ,sans-serif !important',
-      fontWeight: "900",
+      fontWeight: "500",
       fontSize: "12px",
       lineHeight: "1.5",
       backgroundColor: get(theme, "colors.black.100"),
@@ -51,7 +54,7 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
     },
     h1: {
       color: get(theme, "colors.black.100"),
-      fontFamily: "base",
+      fontFamily: "MartelSans",
       fontSize: "5xl",
       fontWeight: "bolder",
       zIndex: 10,
@@ -59,7 +62,7 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
     },
     h2: {
       color: get(theme, "colors.black.100"),
-      fontFamily: "base",
+      fontFamily: "MartelSans",
       fontSize: "4xl",
       fontWeight: "bold",
       zIndex: 10,
@@ -67,7 +70,7 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
     },
     h3: {
       color: get(theme, "colors.black.100"),
-      fontFamily: "base",
+      fontFamily: "MartelSans",
       fontSize: "xl",
       fontWeight: "bold",
       zIndex: 10,
@@ -75,7 +78,7 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
     },
     h4: {
       color: get(theme, "colors.black.100"),
-      fontFamily: "base",
+      fontFamily: "MartelSans",
       fontSize: "xl",
       fontWeight: "regular",
       zIndex: 10,
@@ -83,26 +86,26 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
     },
     h5: {
       color: get(theme, "colors.black.100"),
-      fontFamily: "base",
+      fontFamily: "MartelSans",
       fontSize: "mm",
       fontWeight: "regular",
       zIndex: 10,
       margin: 0,
     },
     h6: {
-      fontFamily: "base",
-      fontSize: "base",
+      fontFamily: "MartelSans",
+      fontSize: "MartelSans",
       fontWeight: "medium",
       zIndex: 10,
       margin: 0,
     },
 
     "p,span,button,li,div": {
-      fontFamily: "base",
+      fontFamily: "MartelSans",
       margin: 0,
     },
     a: {
-      fontFamily: "base",
+      fontFamily: "MartelSans",
       textDecoration: "none",
     },
     ul: {

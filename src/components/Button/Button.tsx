@@ -36,7 +36,6 @@ const StyledButton = styled.button(
     textAlign: "center",
     height: "38px",
     textDecoration: "none",
-    fontFamily: "inherit",
     borderRadius: "5px",
 
     "&:focus": {
@@ -50,10 +49,8 @@ const StyledButton = styled.button(
     variants: {
       primary: {
         color: "white",
-        bg: "primary.regular",
-        border: "none",
-
-        "&:hover": { bg: "primary.dark" },
+        bg: "transparent",
+        border: `0.5px solid ${themeGet("black.100")}`,
       },
       success: {
         color: "white",
@@ -81,7 +78,7 @@ const StyledButton = styled.button(
       },
       normal: { borderRadius: 0, height: "42px", width: "150px", fontSize: 12 },
       medium: { height: "42px", fontSize: 16, px: 10, py: 10 },
-      small: { height: "38px", fontSize: 16, px: 25, py: 10 },
+      small: { height: "36px", fontSize: 16, px: 12, py: 10 },
     },
   }),
   compose(border, space, layout)
@@ -108,7 +105,7 @@ const ButtonInner = styled.div`
   display: flex;
   align-items: center;
   & > *:not(:last-child) {
-    margin-right: 3px;
+    margin-right: 5px;
   }
 `;
 // eslint-disable-next-line react/display-name
@@ -123,9 +120,9 @@ const Button = React.forwardRef<Ref, ButtonItemProps>(
         aria-label="warehouse"
       >
         <ButtonInner>
-          <div>{children}</div>
           {loading && <Spinner />}
           {!loading && buttonIcon}
+          <div>{children}</div>
         </ButtonInner>
       </StyledButton>
     );

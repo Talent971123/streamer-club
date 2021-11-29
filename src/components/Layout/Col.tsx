@@ -10,6 +10,7 @@ const ColWrapper = styled.div<ResponsivedLayoutColProps>`
   flex: ${({ flex }) => flex};
   width: ${({ item }) => getItem(item)};
   max-width: ${({ mWidth }) => (mWidth ? `${mWidth}px` : "none")};
+  min-width: ${({ minWidth }) => (minWidth ? `${minWidth}px` : "0px")};
   ${({ responsive }) => responsive && getResponsive(responsive)}
 `;
 
@@ -42,6 +43,13 @@ const getResponsive = (responsive) => {
           ? pointitem.mWidth == -1
             ? "max-width:none;"
             : `max-width: ${pointitem.mWidth}px;`
+          : ""
+      }
+      ${
+        pointitem.minWidth
+          ? pointitem.minWidth == -1
+            ? "min-width: 0;"
+            : `min-width: ${pointitem.minWidth}px;`
           : ""
       }
     }`;
