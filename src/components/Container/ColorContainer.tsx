@@ -6,6 +6,7 @@ import { ColorContainerProps } from "types/components/Container";
 // ------------------------------------------------------------
 
 const ColorContainer = styled.div<ColorContainerProps>`
-  background: ${({ cColor }) => themeGet(`colors.${cColor}`, "white")};
+  background: ${({ cColor }) =>
+    themeGet(`colors.${cColor}`, "colors.black.100")};
 `;
 export default ColorContainer;

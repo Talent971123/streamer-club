@@ -22,7 +22,7 @@ const MenuItems = [
   },
   {
     title: "Admin",
-    path: "/admin",
+    path: "/club/admin",
   },
 ];
 

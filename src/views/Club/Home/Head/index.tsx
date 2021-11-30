@@ -20,7 +20,7 @@ const HeadView: React.FC = () => {
               <Image src={Mark} width={89} height={90} />
             </Col>
             <Col>
-              <Text fColor="red.100" fSize={45} fWeight={800}>
+              <Text fColor="red.100" fSize={40} fWeight={800}>
                 Perth Football Club
               </Text>
             </Col>

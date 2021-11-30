@@ -44,8 +44,8 @@ const StyledInput = styled.input(
   variant({
     variants: {
       primary: {
-        color: "red.regular",
-        bg: "white",
+        color: "black.100",
+        bg: "gray.600",
         border: "none",
       },
       red: {
@@ -102,6 +102,14 @@ const StyledInput = styled.input(
     },
   }),
   variant({
+    prop: "iRadius",
+    variants: {
+      circle: { borderRadius: "50%" },
+      small: { borderRadius: "7px" },
+      none: { borderRadius: "0px" },
+    },
+  }),
+  variant({
     prop: "ifont",
     variants: {
       medium: { fontSize: 15, fontWeight: 900 },
@@ -132,7 +140,13 @@ const Input = React.forwardRef<Ref, InputItemProps>(
 // eslint-disable-next-line react/display-name
 const InputContainer = React.forwardRef<Ref, InputContainerProps>(
   (
-    { iColor = "primary", iSize = "medium", iFont = "medium", ...props },
+    {
+      iColor = "primary",
+      iSize = "medium",
+      iFont = "medium",
+      iRadius = "none",
+      ...props
+    },
     ref
   ) => (
     <Input
@@ -140,6 +154,7 @@ const InputContainer = React.forwardRef<Ref, InputContainerProps>(
       variant={iColor}
       isize={iSize}
       ifont={iFont}
+      iRadius={iRadius}
       {...props}
     ></Input>
   )
