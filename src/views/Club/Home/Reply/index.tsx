@@ -4,9 +4,8 @@ import { Col, Row } from "components/Layout";
 import { GameCard } from "components/GameCard";
 import { Text } from "components/Text";
 import Slider from "react-slick";
-
 // import styled component
-import { GameDayWrapper } from "./Gameday.style";
+import { ReplyWrapper } from "./Reply.style";
 // import types
 import { GameCardProps } from "types/components/GameCard";
 
@@ -25,29 +24,8 @@ const data: GameCardProps[] = [
     clubName2: "Claremont FC",
     divisionImage: marker,
     divisionName: "Mens Division 1",
-    progress: "IN PROGRESS",
-    users: 36,
-  },
-  {
-    backgroundImage,
-    clubImage1,
-    clubImage2,
-    clubName1: "Perth FC",
-    clubName2: "Claremont FC",
-    divisionImage: marker,
-    divisionName: "Mens Division 1",
-    progress: "IN PROGRESS",
-    users: 12,
-  },
-  {
-    backgroundImage,
-    clubImage1,
-    clubImage2,
-    clubName1: "Perth FC",
-    clubName2: "Claremont FC",
-    divisionImage: marker,
-    divisionName: "Mens Division 1",
-    progress: "IN PROGRESS",
+    progress: "20 NOV 21 10:30AM",
+    mode: "Reply",
   },
   {
     backgroundImage,
@@ -58,6 +36,7 @@ const data: GameCardProps[] = [
     divisionImage: marker,
     divisionName: "Mens Division 1",
     progress: "20 NOV 21 10:30AM",
+    mode: "Reply",
   },
   {
     backgroundImage,
@@ -68,6 +47,29 @@ const data: GameCardProps[] = [
     divisionImage: marker,
     divisionName: "Mens Division 1",
     progress: "20 NOV 21 10:30AM",
+    mode: "Reply",
+  },
+  {
+    backgroundImage,
+    clubImage1,
+    clubImage2,
+    clubName1: "Perth FC",
+    clubName2: "Claremont FC",
+    divisionImage: marker,
+    divisionName: "Mens Division 1",
+    progress: "20 NOV 21 10:30AM",
+    mode: "Reply",
+  },
+  {
+    backgroundImage,
+    clubImage1,
+    clubImage2,
+    clubName1: "Perth FC",
+    clubName2: "Claremont FC",
+    divisionImage: marker,
+    divisionName: "Mens Division 1",
+    progress: "20 NOV 21 10:30AM",
+    mode: "Reply",
   },
 ];
 
@@ -113,13 +115,13 @@ const settings = {
   prevArrow: <BeforeArrow />,
 };
 
-const GameDayView: React.FC = () => {
+const ReplyView: React.FC = () => {
   return (
-    <GameDayWrapper>
+    <ReplyWrapper>
       <Row flexDirection="column" gap={5}>
         <Col item={24}>
           <Text fColor="white" fSize={24} fWeight={700}>
-            {"Game Day - Live & Upcoming"}
+            {"Replays"}
           </Text>
         </Col>
         <Col item={24}>
@@ -130,8 +132,8 @@ const GameDayView: React.FC = () => {
           </Slider>
         </Col>
       </Row>
-    </GameDayWrapper>
+    </ReplyWrapper>
   );
 };
 
-export default GameDayView;
+export default ReplyView;

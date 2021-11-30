@@ -13,7 +13,7 @@ export const InputWrapper = styled.div`
 export const SeachButtonContainer = styled.div`
   border: none;
   padding: 13px;
-  height: 44px;
+  height: 38px;
   display: flex;
   justify-content: center;
   align-items: center;

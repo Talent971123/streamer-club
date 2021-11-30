@@ -6,6 +6,7 @@ import { themeGet } from "@styled-system/theme-get";
 export const HeaderWrapper = styled.div`
   height: 62px;
   width: 100%;
+  border-bottom: 1px solid ${themeGet("colors.gray.300")};
 `;
 
 export const RedMarker = styled.div`

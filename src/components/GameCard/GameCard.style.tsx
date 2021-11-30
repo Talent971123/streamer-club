@@ -3,6 +3,7 @@ import { themeGet } from "@styled-system/theme-get";
 
 export const GameCardWrapper = styled.div`
   width: 314px;
+  padding: 0 7px;
 `;
 
 export const LayerWrapper = styled.div`

@@ -15,7 +15,7 @@ const BellIcon: React.FC<IconProps> = ({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_761_1825)">
+      <g clipPath="url(#clip0_761_1825)">
         <path
           d="M9.99999 20.7383C11.1416 20.7383 12.08 19.8685 12.1887 18.7554H7.81128C7.92003 19.8685 8.85835 20.7383 9.99999 20.7383Z"
           fill={iColor}

@@ -2,7 +2,7 @@ import React from "react";
 // import component
 import { Row, Col } from "components/Layout";
 import { Image } from "components/Image";
-import { UserIcone } from "assets/icon";
+import { Text } from "components/Text";
 // import type
 import { GameCardProps } from "types/components/GameCard";
 // styled component
@@ -14,7 +14,9 @@ import {
   LiveWrapper,
   UserWrapper,
 } from "./GameCard.style";
-import { Text } from "components/Text";
+//  import asssets
+import { UserIcon } from "assets/icon";
+import Play from "assets/images/home/play.png";
 
 const GameCard: React.FC<GameCardProps> = ({
   backgroundImage,
@@ -37,9 +39,9 @@ const GameCard: React.FC<GameCardProps> = ({
           oFit="cover"
           width={314}
           height={181}
-        ></Image>
+        />
         <Row flexDirection="column" alignItems="center">
-          {users != 0 ? (
+          {users != 0 && mode == "Day" ? (
             <Col item={24}>
               <Row alignItems="center" gap={10} padding="7px 0 0 10px">
                 <Col>
@@ -52,7 +54,7 @@ const GameCard: React.FC<GameCardProps> = ({
                 <Col>
                   <UserWrapper>
                     <Row alignItems="center" justifyContent="center" gap={5}>
-                      <UserIcone />
+                      <UserIcon />
                       <Text fColor="white" fSize={14} fWeight={500}>
                         {users}
                       </Text>
@@ -66,12 +68,22 @@ const GameCard: React.FC<GameCardProps> = ({
             <Row
               alignItems="center"
               justifyContent="space-between"
-              padding={users !== 0 ? "24px 40px" : "40px"}
+              padding={
+                mode == "Reply"
+                  ? "50px 20px"
+                  : users !== 0
+                  ? "24px 40px"
+                  : "50px 40px"
+              }
             >
               <Col>
                 <Image src={clubImage1} width={89} height={90} />
               </Col>
-              {mode === "Day" ? <Col></Col> : null}
+              {mode === "Reply" ? (
+                <Col>
+                  <Image src={Play} width={69} height={69} />
+                </Col>
+              ) : null}
               <Col>
                 <Image src={clubImage2} width={89} height={90} />
               </Col>
