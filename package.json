@@ -6,7 +6,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "heroku-postbuild": "next build"
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "babel-plugin-styled-components": "^2.0.2",
