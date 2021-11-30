@@ -1,10 +1,9 @@
 import React from "react";
-import { ContactWrapper, Commmon } from "./contact.style";
 import { Text } from "components/Text";
 import { useInputHOC } from "components/hoc";
-// import styled component
 import { Col, Row } from "components/Layout";
-
+// import styled component
+import { ContactWrapper, Commmon } from "./contact.style";
 const Input = useInputHOC(Commmon);
 
 const ContactSection: React.FC = () => {
@@ -16,7 +15,7 @@ const ContactSection: React.FC = () => {
             {"Contact Details"}
           </Text>
           <Text fSize={14} fWeight={500} fColor="gray.300">
-            {"This information will appear on your Club Portal."}
+            {"This information will not be shared publicly."}
           </Text>
         </Col>
         <Col item={24}>
