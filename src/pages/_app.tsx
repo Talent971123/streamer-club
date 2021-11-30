@@ -1,11 +1,13 @@
 // import next
 import type { AppProps } from "next/app";
 import { Router } from "next/router";
+import NProgress from "nprogress";
 // import React
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 // import layout
 import AppLayout from "layouts/app-layout";
-import NProgress from "nprogress";
+// import component
+import Loading from "components/Loading";
 // import context providers
 import { ThemeProvider } from "styled-components";
 
@@ -16,11 +18,18 @@ import { GlobalStyle } from "theme/global.state";
 
 NProgress.configure({ showSpinner: false });
 
-Router.events.on("routeChangeStart", () => NProgress.start());
-Router.events.on("routeChangeComplete", () => NProgress.done());
-Router.events.on("routeChangeError", () => NProgress.done());
-
 function Streamer({ Component, pageProps }: AppProps) {
+  const [loading, setLoading] = useState(false);
+  Router.events.on("routeChangeStart", () => {
+    setLoading(true);
+    NProgress.start();
+  });
+  Router.events.on("routeChangeComplete", () => {
+    setLoading(false);
+    NProgress.done();
+  });
+  Router.events.on("routeChangeError", () => NProgress.done());
+
   useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector("#jss-server-side");
@@ -32,7 +41,7 @@ function Streamer({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={defaultTheme}>
       <AppLayout>
-        <Component {...pageProps} />
+        {!loading ? <Component {...pageProps} /> : <Loading />}
       </AppLayout>
       <GlobalStyle />
     </ThemeProvider>

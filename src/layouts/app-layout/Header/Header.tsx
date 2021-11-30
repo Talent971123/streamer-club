@@ -1,31 +1,36 @@
 import React from "react";
+import router from "next/router";
 // components
 import { ContainerWrapper } from "components/Container";
 import { Row, Col } from "components/Layout";
 import { Image } from "components/Image";
 import { SearchInput } from "components/Input";
-import { CartState } from "components/State";
-import { Hidden } from "components/Hidden";
-// views
-import { MenuView } from "views/Layout/Header/Menu";
 // assets
 import { BellIcon, DownIcon, MarkIcon } from "assets/icon";
 import LogoImage from "assets/images/layout/logo.png";
 import ProfileImage from "assets/images/layout/profile.png";
 // HOC
-import { useLinkItem } from "components/hoc";
 // styled component
-import {
-  HeaderWrapper,
-  RedMarker,
-  HeaderMenuItem,
-  Border,
-} from "./Header.style";
+import { HeaderWrapper, RedMarker, MenuItem, Border } from "./Header.style";
 import { Text } from "components/Text";
 // -------------------------------------------------------------------
 
-const MenuItem = useLinkItem(HeaderMenuItem);
+const MenuItems = [
+  {
+    title: "Home",
+    path: "/",
+  },
+  {
+    title: "Admin",
+    path: "/admin",
+  },
+];
+
 const Header = () => {
+  const handleMenuClick = (to: any) => {
+    router.push(to);
+  };
+
   return (
     <HeaderWrapper>
       <ContainerWrapper>
@@ -48,12 +53,16 @@ const Header = () => {
               <Col>
                 <Border />
               </Col>
-              <Col>
-                <MenuItem title="HOME" />
-              </Col>
-              <Col>
-                <MenuItem title="ADMIN" />
-              </Col>
+              {MenuItems.map((item: any, index: number) => {
+                return (
+                  <MenuItem
+                    key={index}
+                    onClick={() => handleMenuClick(item.path)}
+                  >
+                    <Text fColor="white">{item.title}</Text>
+                  </MenuItem>
+                );
+              })}
             </Row>
           </Col>
           <Col item={12}>

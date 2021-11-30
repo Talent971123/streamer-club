@@ -21,7 +21,7 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
     body: {
       scrollBehavior: "smooth",
       padding: 0,
-      color: get(theme, "colors.black.200"),
+      color: get(theme, "colors.white"),
       margin: "0 auto",
       transition: get(theme, "transition.normal"),
       fontFamily: '"Roboto" ,sans-serif !important',
@@ -53,7 +53,6 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
       },
     },
     h1: {
-      color: get(theme, "colors.black.100"),
       fontFamily: "MartelSans",
       fontSize: "5xl",
       fontWeight: "bolder",
@@ -61,7 +60,6 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
       margin: 0,
     },
     h2: {
-      color: get(theme, "colors.black.100"),
       fontFamily: "MartelSans",
       fontSize: "4xl",
       fontWeight: "bold",
@@ -69,7 +67,6 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
       margin: 0,
     },
     h3: {
-      color: get(theme, "colors.black.100"),
       fontFamily: "MartelSans",
       fontSize: "xl",
       fontWeight: "bold",
@@ -77,7 +74,6 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
       margin: 0,
     },
     h4: {
-      color: get(theme, "colors.black.100"),
       fontFamily: "MartelSans",
       fontSize: "xl",
       fontWeight: "regular",
@@ -85,7 +81,6 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
       margin: 0,
     },
     h5: {
-      color: get(theme, "colors.black.100"),
       fontFamily: "MartelSans",
       fontSize: "mm",
       fontWeight: "regular",

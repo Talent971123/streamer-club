@@ -1,6 +1,7 @@
 // styled component
 import styled from "styled-components";
 import { themeGet } from "@styled-system/theme-get";
+
 // -------------------------------------------------
 
 export const HeaderWrapper = styled.div`
@@ -21,8 +22,30 @@ export const RedMarker = styled.div`
   }
 `;
 
-export const HeaderMenuItem = styled.div`
+export const MenuItem = styled.div`
+  display: inline-block;
+  font-weight: 600;
+  text-transform: uppercase;
+  position: relative;
   cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease-in-out;
+  ::after {
+    transition: all 0.2s ease-in-out;
+    position: absolute;
+    content: "";
+    height: 2px;
+    background-color: ${themeGet("colors.white")};
+    width: 100%;
+    left: 0;
+    bottom: -5px;
+    transform: scaleX(0);
+  }
+  :hover {
+    ::after {
+      transform: scaleX(1);
+    }
+  }
 `;
 
 export const Border = styled.div`
