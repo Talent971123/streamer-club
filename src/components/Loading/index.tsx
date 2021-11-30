@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import React from "react";
-import theme from "theme/colors";
 
 const CustomLoadingWrapper = styled.div`
   display: flex;

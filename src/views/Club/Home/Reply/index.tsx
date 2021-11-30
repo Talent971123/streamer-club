@@ -10,8 +10,8 @@ import { ReplyWrapper } from "./Reply.style";
 import { GameCardProps } from "types/components/GameCard";
 
 // define example data
-import clubImage1 from "assets/images/home/image12.png";
-import clubImage2 from "assets/images/home/image9.png";
+import clubImage1 from "assets/images/home/team2.png";
+import clubImage2 from "assets/images/home/team1.png";
 import backgroundImage from "assets/images/home/background.png";
 import marker from "assets/images/home/mark.png";
 

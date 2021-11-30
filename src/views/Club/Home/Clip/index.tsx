@@ -10,7 +10,7 @@ import { ClipProps } from "types/components/ClipCard";
 import { ClipWrapper } from "./Clip.style";
 
 //  define the example data
-import backImage from "assets/images/home/image1.png";
+import backImage from "assets/images/home/gameday.png";
 
 const data: ClipProps[] = [
   {

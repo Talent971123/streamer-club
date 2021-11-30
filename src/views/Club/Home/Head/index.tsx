@@ -8,7 +8,7 @@ import { FiShare2 } from "react-icons/fi";
 // import styled component
 import { HeadWrapper } from "./Head.style";
 // import assets
-import Mark from "assets/images/home/image12.png";
+import Mark from "assets/images/home/team2.png";
 
 const HeadView: React.FC = () => {
   return (
