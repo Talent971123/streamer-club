@@ -1,11 +1,9 @@
 import React from "react";
 import { Text } from "components/Text";
-import { useInputHOC } from "components/hoc";
 import { Col, Row } from "components/Layout";
+import ReactToggle from "react-toggle";
 // import styled component
-import { PrivacyWrapper, Commmon } from "./privacy.style";
-const Input = useInputHOC(Commmon);
-
+import { PrivacyWrapper } from "./privacy.style";
 const PrivacySection: React.FC = () => {
   return (
     <PrivacyWrapper>
@@ -26,7 +24,7 @@ const PrivacySection: React.FC = () => {
         </Col>
         <Col item={24}>
           <Row gap={10} flexDirection="column">
-            <Row>
+            <Row justifyContent="space-between">
               <Col>
                 <Text fSize={14} fWeight={500} fColor="gray.300">
                   {
@@ -34,15 +32,19 @@ const PrivacySection: React.FC = () => {
                   }
                 </Text>
               </Col>
-              <Col></Col>
+              <Col>
+                <ReactToggle onChange={() => console.log(`1`)} />
+              </Col>
             </Row>
-            <Row>
+            <Row justifyContent="space-between">
               <Col>
                 <Text fSize={14} fWeight={500} fColor="gray.300">
                   {"Placeholder."}
                 </Text>
               </Col>
-              <Col></Col>
+              <Col>
+                <ReactToggle onChange={() => console.log(`2`)} />
+              </Col>
             </Row>
           </Row>
         </Col>

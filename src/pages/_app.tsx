@@ -12,8 +12,11 @@ import Loading from "components/Loading";
 import { ThemeProvider } from "styled-components";
 
 // import CSS
-import "react-multi-carousel/lib/styles.css";
+
 import { defaultTheme } from "theme";
+import "react-multi-carousel/lib/styles.css";
+import "react-toggle/style.css";
+
 import { GlobalStyle } from "theme/global.state";
 
 NProgress.configure({ showSpinner: false });
