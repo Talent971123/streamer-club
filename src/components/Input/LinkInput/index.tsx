@@ -5,7 +5,7 @@ import { Input } from "components/Input";
 import { InputWrapper, LinkContent, CopyWrapper } from "./LinkInput.style";
 import { Col } from "components/Layout";
 import { Text } from "components/Text";
-import { copyFile } from "fs";
+
 //  assets
 
 const LinkInput: React.FC<{ prefix: string; onCopyLink?: any }> = ({
@@ -19,7 +19,7 @@ const LinkInput: React.FC<{ prefix: string; onCopyLink?: any }> = ({
   }, []);
 
   const onHandleCopy = () => {
-    let data: string = link + state;
+    const data: string = link + state;
     onCopyLink(data);
   };
   return (

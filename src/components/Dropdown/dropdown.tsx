@@ -5,7 +5,7 @@ import { themeGet } from "@styled-system/theme-get";
 
 interface dropdownProps {
   data: any;
-  onChange?: Function;
+  onChange?: any;
 }
 
 const Select = styled.select`
