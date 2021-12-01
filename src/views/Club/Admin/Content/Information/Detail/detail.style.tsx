@@ -5,5 +5,3 @@ export const DetailWrapper = styled.div`
   border-bottom: 1px solid ${themeGet("colors.gray.300")};
   padding: 30px 0;
 `;
-
-export const Commmon = styled.div``;

@@ -5,5 +5,3 @@ export const ContentWrapper = styled.div`
   border: 1px solid ${themeGet("colors.gray.300")};
   border-radius: 5px;
 `;
-
-export const MenuWrapper = styled.div``;

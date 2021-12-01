@@ -4,11 +4,11 @@ import { Col, Row } from "components/Layout";
 import { Button } from "components/Button";
 import { Table } from "components/Table";
 // import styled component
-import { DetailWrapper, Commmon } from "./detail.style";
+import { DetailWrapper } from "./detail.style";
 //  import react icons
 import { BsPlus } from "react-icons/bs";
 
-export const data = [
+const data = [
   {
     Name: "Adrian Casey",
     Email: "adrian@harken.cc",

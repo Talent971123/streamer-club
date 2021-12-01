@@ -13,8 +13,9 @@ export const StyledTable = styled.table`
       background-color: ${themeGet("colors.gray.300")};
     }
   }
+  th {
+  }
   thead > tr {
-    text-align: center;
     font-size: 17px;
     font-weight: 700;
     color: ${themeGet("colors.gray.300")};
