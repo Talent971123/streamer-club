@@ -6,4 +6,4 @@ export const ProfileWrapper = styled.div`
   padding: 30px 0;
 `;
 
-export const Commmon = styled.div``;
+export const DropdownList = styled.div``;

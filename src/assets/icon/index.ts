@@ -6,3 +6,4 @@ export { default as UserIcon } from "./user";
 export { default as BeforeIcon } from "./before";
 export { default as ArrowsIcon } from "./arrows";
 export { default as CartIcon } from "./cart";
+export { default as UploadIcon } from "./upload";

@@ -35,7 +35,6 @@ const StyledInput = styled.input(
     textAlign: "left",
     height: "38px",
     textDecoration: "none",
-    fontFamily: "fonts.roboto",
     lineHeight: "10px",
     "&:focus": {
       outline: "none",

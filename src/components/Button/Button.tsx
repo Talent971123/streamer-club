@@ -131,7 +131,7 @@ const Button = React.forwardRef<Ref, ButtonItemProps>(
 
 // eslint-disable-next-line react/display-name
 const ButtonContainer = React.forwardRef<Ref, ButtonContainerProps>(
-  ({ children, bColor = "primary", bSize = "medium", ...props }, ref) => (
+  ({ children, bColor = "primary", bSize = "small", ...props }, ref) => (
     <Button ref={ref} variant={bColor} size={bSize} {...props}>
       {children}
     </Button>

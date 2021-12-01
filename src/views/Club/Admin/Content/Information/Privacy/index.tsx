@@ -32,7 +32,7 @@ const PrivacySection: React.FC = () => {
                   }
                 </Text>
               </Col>
-              <Col>
+              <Col item={1}>
                 <ReactToggle onChange={() => console.log(`1`)} />
               </Col>
             </Row>
@@ -42,7 +42,7 @@ const PrivacySection: React.FC = () => {
                   {"Placeholder."}
                 </Text>
               </Col>
-              <Col>
+              <Col item={1}>
                 <ReactToggle onChange={() => console.log(`2`)} />
               </Col>
             </Row>
