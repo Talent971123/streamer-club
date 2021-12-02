@@ -9,6 +9,7 @@ import { GameCardProps } from "types/components/GameCard";
 import {
   CardContent,
   GameCardWrapper,
+  Content,
   LayerWrapper,
   CardFooter,
   LiveWrapper,
@@ -40,56 +41,58 @@ const GameCard: React.FC<GameCardProps> = ({
           width={314}
           height={181}
         />
-        <Row flexDirection="column" alignItems="center">
-          {users != 0 && mode == "Day" ? (
-            <Col item={24}>
-              <Row alignItems="center" gap={10} padding="7px 0 0 10px">
-                <Col>
-                  <LiveWrapper>
-                    <Text fColor="white" fSize={15} fWeight={600}>
-                      {"LIVE"}
-                    </Text>
-                  </LiveWrapper>
-                </Col>
-                <Col>
-                  <UserWrapper>
-                    <Row alignItems="center" justifyContent="center" gap={5}>
-                      <UserIcon />
-                      <Text fColor="white" fSize={14} fWeight={500}>
-                        {users}
+        <Content>
+          <Row flexDirection="column" alignItems="center">
+            {users != 0 && mode == "Day" ? (
+              <Col item={24}>
+                <Row alignItems="center" gap={10} padding="7px 0 0 10px">
+                  <Col>
+                    <LiveWrapper>
+                      <Text fColor="white" fSize={15} fWeight={600}>
+                        {"LIVE"}
                       </Text>
-                    </Row>
-                  </UserWrapper>
+                    </LiveWrapper>
+                  </Col>
+                  <Col>
+                    <UserWrapper>
+                      <Row alignItems="center" justifyContent="center" gap={5}>
+                        <UserIcon />
+                        <Text fColor="white" fSize={14} fWeight={500}>
+                          {users}
+                        </Text>
+                      </Row>
+                    </UserWrapper>
+                  </Col>
+                </Row>
+              </Col>
+            ) : null}
+            <Col item={24}>
+              <Row
+                alignItems="center"
+                justifyContent="space-between"
+                padding={
+                  mode == "Reply"
+                    ? "50px 20px"
+                    : users !== 0
+                    ? "24px 40px"
+                    : "50px 40px"
+                }
+              >
+                <Col>
+                  <Image src={clubImage1} width={89} height={90} />
+                </Col>
+                {mode === "Reply" ? (
+                  <Col>
+                    <Image src={Play} width={69} height={69} />
+                  </Col>
+                ) : null}
+                <Col>
+                  <Image src={clubImage2} width={89} height={90} />
                 </Col>
               </Row>
             </Col>
-          ) : null}
-          <Col item={24}>
-            <Row
-              alignItems="center"
-              justifyContent="space-between"
-              padding={
-                mode == "Reply"
-                  ? "50px 20px"
-                  : users !== 0
-                  ? "24px 40px"
-                  : "50px 40px"
-              }
-            >
-              <Col>
-                <Image src={clubImage1} width={89} height={90} />
-              </Col>
-              {mode === "Reply" ? (
-                <Col>
-                  <Image src={Play} width={69} height={69} />
-                </Col>
-              ) : null}
-              <Col>
-                <Image src={clubImage2} width={89} height={90} />
-              </Col>
-            </Row>
-          </Col>
-        </Row>
+          </Row>
+        </Content>
         <LayerWrapper />
       </CardContent>
       <CardFooter>

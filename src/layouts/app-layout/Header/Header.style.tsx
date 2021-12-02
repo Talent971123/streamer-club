@@ -24,18 +24,16 @@ export const RedMarker = styled.div`
 
 export const MenuItem = styled.div`
   display: inline-block;
-  font-weight: 600;
-  text-transform: uppercase;
   position: relative;
   cursor: pointer;
-  font-size: 14px;
+  margin: 0 10px;
   transition: all 0.2s ease-in-out;
   ::after {
     transition: all 0.2s ease-in-out;
     position: absolute;
     content: "";
     height: 2px;
-    background-color: ${themeGet("colors.white")};
+    background-color: ${themeGet("colors.red.100")};
     width: 100%;
     left: 0;
     bottom: -5px;

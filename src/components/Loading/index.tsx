@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import React from "react";
+import { themeGet } from "@styled-system/theme-get";
 
 const CustomLoadingWrapper = styled.div`
   display: flex;
@@ -28,10 +29,10 @@ const CustomLoadingContent = styled.div`
   line-height: 150px;
   font-family: sans-serif;
   font-size: 20px;
-  color: #fff000;
+  color: ${themeGet("colors.red.100")};
   letter-spacing: 4px;
   text-transform: uppercase;
-  text-shadow: 0 0 10px #fff000;
+  text-shadow: 0 0 10px ${themeGet("colors.red.100")};
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   &:before {
     content: "";
@@ -41,8 +42,8 @@ const CustomLoadingContent = styled.div`
     width: 100%;
     height: 100%;
     border: 3px solid transparent;
-    border-top: 3px solid #fff000;
-    border-right: 3px solid #fff000;
+    border-top: 3px solid ${themeGet("colors.red.100")};
+    border-right: 3px solid ${themeGet("colors.red.100")};
     border-radius: 50%;
     animation: animateC 2s linear infinite;
     @keyframes animateC {
@@ -79,10 +80,10 @@ export const Label = styled.span`
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    background: #fff000;
+    background: ${themeGet("colors.red.100")};
     top: -6px;
     right: -8px;
-    box-shadow: 0 0 20px #fff000;
+    box-shadow: 0 0 20px ${themeGet("colors.red.100")};
   }
 `;
 
@@ -90,7 +91,7 @@ const Loading = () => {
   return (
     <CustomLoadingWrapper>
       <CustomLoadingContent>
-        Loading
+        Streamer
         <Label />
       </CustomLoadingContent>
     </CustomLoadingWrapper>

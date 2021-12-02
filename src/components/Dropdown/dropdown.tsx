@@ -17,6 +17,7 @@ const Select = styled.select`
   border: none;
   font-size: 16px;
   font-weight: 400;
+  background-color: ${themeGet("colors.gray.600")};
   option {
     color: ${themeGet("colors.black.100")};
     background: ${themeGet("colors.white")};

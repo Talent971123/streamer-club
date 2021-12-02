@@ -52,6 +52,7 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
         borderRadius: "6px",
       },
     },
+
     h1: {
       fontFamily: "MartelSans",
       fontSize: "5xl",
@@ -141,6 +142,7 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
     img: {
       maxWidth: "100%",
     },
+
     // custom
     "#nprogress": {
       pointerEvents: "none",

@@ -1,7 +1,7 @@
 import React from "react";
 // import component
 import { Col, Row } from "components/Layout";
-import { ClipCard } from "components/ClipCard";
+import { ClipCard } from "components/Card";
 import { Text } from "components/Text";
 import Slider from "react-slick";
 //  import types
@@ -92,7 +92,7 @@ const ClipView: React.FC = () => {
     <ClipWrapper>
       <Row flexDirection="column" gap={5}>
         <Col item={24}>
-          <Text fColor="white" fSize={24} fWeight={700}>
+          <Text fColor="white" fSize={22} fWeight={700}>
             {"Featured Clips"}
           </Text>
         </Col>

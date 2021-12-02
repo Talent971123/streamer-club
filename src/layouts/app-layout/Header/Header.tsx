@@ -21,6 +21,22 @@ const MenuItems = [
     path: "/",
   },
   {
+    title: "Matches",
+    path: "/club/match",
+  },
+  {
+    title: "Team",
+    path: "/club/team",
+  },
+  {
+    title: "Player",
+    path: "/club/player",
+  },
+  {
+    title: "Community",
+    path: "/club/community",
+  },
+  {
     title: "Admin",
     path: "/club/admin",
   },
@@ -35,7 +51,7 @@ const Header = () => {
     <HeaderWrapper>
       <ContainerWrapper>
         <Row alignItems="center" justifyContent="space-between">
-          <Col item={12}>
+          <Col item={13}>
             <Row alignItems="center" gap={15}>
               <Col>
                 <RedMarker>
@@ -59,13 +75,19 @@ const Header = () => {
                     key={index}
                     onClick={() => handleMenuClick(item.path)}
                   >
-                    <Text fColor="white">{item.title}</Text>
+                    <Text
+                      fColor="white"
+                      fSize={17}
+                      hoverStyle={{ fColor: "red.100" }}
+                    >
+                      {item.title}
+                    </Text>
                   </MenuItem>
                 );
               })}
             </Row>
           </Col>
-          <Col item={12}>
+          <Col item={11}>
             <Row
               gap={18}
               alignItems="center"

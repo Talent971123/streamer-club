@@ -1,7 +1,7 @@
 import React from "react";
 // import component
 import { Col, Row } from "components/Layout";
-import { GameCard } from "components/GameCard";
+import { GameCard } from "components/Card";
 import { Text } from "components/Text";
 import Slider from "react-slick";
 
@@ -13,7 +13,7 @@ import { GameCardProps } from "types/components/GameCard";
 // define example data
 import clubImage1 from "assets/images/home/team2.png";
 import clubImage2 from "assets/images/home/team1.png";
-import backgroundImage from "assets/images/home/background.png";
+import backgroundImage from "assets/images/home/background.jpg";
 import marker from "assets/images/home/mark.png";
 
 const data: GameCardProps[] = [
@@ -118,7 +118,7 @@ const GameDayView: React.FC = () => {
     <GameDayWrapper>
       <Row flexDirection="column" gap={5}>
         <Col item={24}>
-          <Text fColor="white" fSize={24} fWeight={700}>
+          <Text fColor="white" fSize={22} fWeight={700}>
             {"Game Day - Live & Upcoming"}
           </Text>
         </Col>

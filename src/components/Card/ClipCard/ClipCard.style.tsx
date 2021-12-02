@@ -17,7 +17,9 @@ export const ClipCardWrapper = styled.div<{ mode: string }>`
         `;
     }
   }};
-  padding: 0 5px;
+  width: 98%;
+  border-radius: 10px;
+  contain: content;
 `;
 
 export const ClipContent = styled.div<{ mode: string }>`
@@ -43,7 +45,7 @@ export const ClipContent = styled.div<{ mode: string }>`
 `;
 
 export const ClipFooter = styled.div`
-  padding-top: 10px;
+  padding: 10px 5px;
 `;
 
 export const PlayWrapper = styled.div`

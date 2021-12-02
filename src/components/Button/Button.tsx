@@ -58,11 +58,11 @@ const StyledButton = styled.button(
         border: "none",
         "&:active": { bg: "green.dark" },
       },
-      outlinedRed: {
+      outlined: {
         color: "white",
-        border: `2px solid white`,
-        borderRadius: "0",
-        bg: "red.regular",
+        border: `1px solid white`,
+        borderRadius: "20px",
+        bg: "transparent",
         "&:hover": { bg: "white", color: "red.regular" },
       },
     },
