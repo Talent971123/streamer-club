@@ -7,10 +7,9 @@ import Slider from "react-slick";
 import { useLinkItem } from "components/hoc";
 import { IoArrowRedoOutline } from "react-icons/io5";
 // import styled component
-import { ReplyWrapper, LinkWrapper } from "./Reply.style";
+import { GameDayWrapper, LinkWrapper } from "./Upcoming.style";
 // import types
 import { GameCardProps } from "types/components/GameCard";
-
 // define example data
 import clubImage1 from "assets/images/home/team2.png";
 import clubImage2 from "assets/images/home/team1.png";
@@ -26,8 +25,29 @@ const data: GameCardProps[] = [
     clubName2: "Claremont FC",
     divisionImage: marker,
     divisionName: "Mens Division 1",
-    progress: "20 NOV 21 10:30AM",
-    mode: "Reply",
+    progress: "IN PROGRESS",
+    users: 36,
+  },
+  {
+    backgroundImage,
+    clubImage1,
+    clubImage2,
+    clubName1: "Perth FC",
+    clubName2: "Claremont FC",
+    divisionImage: marker,
+    divisionName: "Mens Division 1",
+    progress: "IN PROGRESS",
+    users: 12,
+  },
+  {
+    backgroundImage,
+    clubImage1,
+    clubImage2,
+    clubName1: "Perth FC",
+    clubName2: "Claremont FC",
+    divisionImage: marker,
+    divisionName: "Mens Division 1",
+    progress: "IN PROGRESS",
   },
   {
     backgroundImage,
@@ -38,7 +58,6 @@ const data: GameCardProps[] = [
     divisionImage: marker,
     divisionName: "Mens Division 1",
     progress: "20 NOV 21 10:30AM",
-    mode: "Reply",
   },
   {
     backgroundImage,
@@ -49,29 +68,6 @@ const data: GameCardProps[] = [
     divisionImage: marker,
     divisionName: "Mens Division 1",
     progress: "20 NOV 21 10:30AM",
-    mode: "Reply",
-  },
-  {
-    backgroundImage,
-    clubImage1,
-    clubImage2,
-    clubName1: "Perth FC",
-    clubName2: "Claremont FC",
-    divisionImage: marker,
-    divisionName: "Mens Division 1",
-    progress: "20 NOV 21 10:30AM",
-    mode: "Reply",
-  },
-  {
-    backgroundImage,
-    clubImage1,
-    clubImage2,
-    clubName1: "Perth FC",
-    clubName2: "Claremont FC",
-    divisionImage: marker,
-    divisionName: "Mens Division 1",
-    progress: "20 NOV 21 10:30AM",
-    mode: "Reply",
   },
 ];
 
@@ -116,18 +112,17 @@ const settings = {
   nextArrow: <NextArrow />,
   prevArrow: <BeforeArrow />,
 };
-
 const SeeAll = useLinkItem(LinkWrapper);
 
-const ReplyView: React.FC = () => {
+const UpcomeSection: React.FC = () => {
   const onHandleSeeAll = () => {
     alert();
   };
   return (
-    <ReplyWrapper>
+    <GameDayWrapper>
       <Row alignItems="center" justifyContent="space-between">
-        <Text fColor="white" fSize={22} fWeight={700}>
-          {"Replays"}
+        <Text fColor="white" fSize={22} fWeight={700} mode="p">
+          {"Game Day - Live & Upcoming"}
         </Text>
         <SeeAll
           handleClick={onHandleSeeAll}
@@ -146,8 +141,8 @@ const ReplyView: React.FC = () => {
           </Slider>
         </Col>
       </Row>
-    </ReplyWrapper>
+    </GameDayWrapper>
   );
 };
 
-export default ReplyView;
+export default UpcomeSection;

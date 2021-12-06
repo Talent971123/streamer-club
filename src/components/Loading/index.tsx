@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import React from "react";
 import { themeGet } from "@styled-system/theme-get";
-
+import { Image } from "components/Image";
+import logo from "assets/images/layout/logo.png";
 const CustomLoadingWrapper = styled.div`
   display: flex;
   width: 100%;
@@ -91,8 +92,7 @@ const Loading = () => {
   return (
     <CustomLoadingWrapper>
       <CustomLoadingContent>
-        Streamer
-        <Label />
+        <Image src={logo} oFit="contain" />
       </CustomLoadingContent>
     </CustomLoadingWrapper>
   );

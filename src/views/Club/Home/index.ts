@@ -6,3 +6,4 @@ export { default as TeamsView } from "./Teams";
 export { default as PlayerView } from "./Player";
 export { default as BannerView } from "./Banner";
 export { default as NewsView } from "./News";
+export { default as SupportView } from "./Support";

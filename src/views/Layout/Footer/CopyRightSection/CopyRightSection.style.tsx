@@ -5,7 +5,7 @@ import { themeGet } from "@styled-system/theme-get";
 // -----------------------------------------------
 
 export const CopyRightSectionWrapper = styled.div`
-  padding: 20px 0 60px 0;
+  padding: 20px 0;
   font-size: 11px;
   color: ${themeGet("colors.gray.100")};
   ::after {

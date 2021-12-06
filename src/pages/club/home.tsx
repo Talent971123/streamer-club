@@ -11,6 +11,7 @@ import {
   PlayerView,
   BannerView,
   NewsView,
+  SupportView,
 } from "views/Club/Home";
 const HomePage: React.FC = () => {
   return (
@@ -23,6 +24,7 @@ const HomePage: React.FC = () => {
       <WithContainer mode="container" SectionView={TeamsView} />
       <WithContainer mode="container" SectionView={PlayerView} />
       <WithContainer mode="container" SectionView={NewsView} />
+      <WithContainer mode="container" SectionView={SupportView} />
     </>
   );
 };
