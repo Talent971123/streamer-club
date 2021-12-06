@@ -12,6 +12,7 @@ import {
 } from "types/components/LinkItem";
 // styled system
 import styled from "styled-components";
+import { Text } from "components/Text";
 
 // -----------------------------------------------------------------
 const IconWrapper = styled.div<IconWrapperProps>`
@@ -56,9 +57,14 @@ const useLinkItem = (
             {icon && iconSlot === "start" && (
               <IconWrapper iconWidth={iconWidth}>{icon}</IconWrapper>
             )}
-            <Col onClick={handleOnClick} className="link_title">
+            <Text
+              onClick={handleOnClick}
+              className="link_title"
+              mode="p"
+              lHeight={0}
+            >
               {title}
-            </Col>
+            </Text>
             {icon && iconSlot === "end" && (
               <IconWrapper iconWidth={iconWidth}>{icon}</IconWrapper>
             )}

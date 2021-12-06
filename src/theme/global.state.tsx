@@ -97,7 +97,7 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
     },
 
     "p,span,button,li,div": {
-      fontFamily: "MartelSans",
+      fontFamily: "base",
       margin: 0,
     },
     a: {
