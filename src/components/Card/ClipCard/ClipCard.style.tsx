@@ -5,40 +5,31 @@ export const ClipCardWrapper = styled.div<{ mode: string }>`
     switch (mode) {
       case "clip":
         return css`
-          width: 312px;
+          width: 98%;
         `;
       case "teams":
         return css`
-          width: 176px;
+          width: 97%;
         `;
       case "player":
         return css`
-          width: 185px;
+          width: 95%;
         `;
     }
   }};
-  width: 98%;
-  border-radius: 10px;
   contain: content;
 `;
 
 export const ClipContent = styled.div<{ mode: string }>`
   ${({ mode }) => {
-    switch (mode) {
-      case "clip":
-        return css`
-          height: 202px;
-        `;
-      case "teams":
-        return css`
-          height: 200px;
-        `;
-      case "player":
-        return css`
-          height: 170px;
-        `;
+    if (mode === "photos" || mode === "videos") {
+      return css`
+        img {
+          border-radius: 10px;
+        }
+      `;
     }
-  }};
+  }}
   border-radius: ${({ mode }) => (mode === "player" ? "50%" : "")};
   width: 100%;
   position: relative;
@@ -48,13 +39,24 @@ export const ClipFooter = styled.div`
   padding: 10px 5px;
 `;
 
-export const PlayWrapper = styled.div`
+export const PlayWrapper = styled.div<{ mode: string }>`
   position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
-  top: 0;
-  left: 0;
+  ${({ mode }) => {
+    if (mode === "videos") {
+      return css`
+        top: 0;
+        left: -5px;
+      `;
+    } else {
+      return css`
+        top: 0;
+        left: 0;
+      `;
+    }
+  }};
 `;

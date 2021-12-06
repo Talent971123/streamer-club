@@ -6,7 +6,7 @@ export interface GameCardProps {
   clubName2: string;
   divisionImage: StaticImageData;
   divisionName: string;
-  progress: string;
+  progress?: string;
   users?: number;
   mode?: "Day" | "Reply";
 }

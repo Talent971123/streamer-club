@@ -23,48 +23,56 @@ const ClipCard: React.FC<ClipProps> = ({
   return (
     <ClipCardWrapper mode={mode}>
       <ClipContent mode={mode}>
-        <Image src={backgroundImage} oFit="cover" />
-        {mode === "clip" ? (
-          <PlayWrapper>
+        <Image
+          src={backgroundImage}
+          oFit="cover"
+          width={mode == "photos" || mode == "videos" ? 142 : 0}
+          height={mode == "photos" || mode == "videos" ? 142 : 0}
+        />
+        {mode === "clip" || mode === "videos" ? (
+          <PlayWrapper mode={mode}>
             <Image src={Play} width={69} height={69} />
           </PlayWrapper>
         ) : null}
       </ClipContent>
-      <ClipFooter>
-        <Row flexDirection="column">
-          <Col item={24}>
-            <Text
-              fColor={
-                mode === "clip"
-                  ? "gray.600"
-                  : mode === "teams"
-                  ? "white"
-                  : "red.100"
-              }
-              fSize={mode === "clip" ? 14 : mode === "teams" ? 16 : 14}
-              tAlign={mode === "clip" ? "left" : "center"}
-              fWeight={700}
-            >
-              {title}
-            </Text>
-          </Col>
-          <Col item={24}>
-            <Text
-              fColor={
-                mode === "clip"
-                  ? "gray.600"
-                  : mode === "teams"
-                  ? "white"
-                  : "gray.300"
-              }
-              tAlign={mode === "clip" ? "left" : "center"}
-              fSize={mode === "clip" ? 12 : mode === "teams" ? 16 : 12}
-            >
-              {content}
-            </Text>
-          </Col>
-        </Row>
-      </ClipFooter>
+
+      {mode !== "photos" && mode !== "videos" ? (
+        <ClipFooter>
+          <Row flexDirection="column">
+            <Col item={24}>
+              <Text
+                fColor={
+                  mode === "clip"
+                    ? "gray.600"
+                    : mode === "teams"
+                    ? "white"
+                    : "red.100"
+                }
+                fSize={mode === "clip" ? 14 : mode === "teams" ? 16 : 14}
+                tAlign={mode === "clip" ? "left" : "center"}
+                fWeight={700}
+              >
+                {title}
+              </Text>
+            </Col>
+            <Col item={24}>
+              <Text
+                fColor={
+                  mode === "clip"
+                    ? "gray.600"
+                    : mode === "teams"
+                    ? "white"
+                    : "gray.300"
+                }
+                tAlign={mode === "clip" ? "left" : "center"}
+                fSize={mode === "clip" ? 12 : mode === "teams" ? 16 : 12}
+              >
+                {content}
+              </Text>
+            </Col>
+          </Row>
+        </ClipFooter>
+      ) : null}
     </ClipCardWrapper>
   );
 };

@@ -65,6 +65,11 @@ const StyledButton = styled.button(
         bg: "transparent",
         "&:hover": { bg: "white", color: "red.regular" },
       },
+      warning: {
+        color: "white",
+        bg: "red.100",
+        border: "none",
+      },
     },
   }),
   variant({
@@ -78,7 +83,7 @@ const StyledButton = styled.button(
       },
       normal: { borderRadius: 0, height: "42px", width: "150px", fontSize: 12 },
       medium: { height: "42px", fontSize: 16, px: 10, py: 10 },
-      small: { height: "36px", fontSize: 16, px: 12, py: 10 },
+      small: { height: "33px", fontSize: 16, px: 12, py: 10 },
     },
   }),
   compose(border, space, layout)

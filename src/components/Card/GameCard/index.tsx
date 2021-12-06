@@ -104,10 +104,10 @@ const GameCard: React.FC<GameCardProps> = ({
               </Col>
               <Col>
                 <Row>
-                  <Text fColor="red.100" fSize={18} fWeight={800}>
+                  <Text fColor="red.100" fSize={15} fWeight={800}>
                     {"WAFL - "} &nbsp;
                   </Text>
-                  <Text fColor="red.100" fSize={18} fWeight={500}>
+                  <Text fColor="red.100" fSize={15} fWeight={500}>
                     {divisionName}
                   </Text>
                 </Row>
