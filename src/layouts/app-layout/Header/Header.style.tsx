@@ -1,5 +1,5 @@
 // styled component
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { themeGet } from "@styled-system/theme-get";
 
 // -------------------------------------------------
@@ -22,7 +22,7 @@ export const RedMarker = styled.div`
   }
 `;
 
-export const MenuItem = styled.div`
+export const MenuItem = styled.div<{ mode: boolean }>`
   display: inline-block;
   position: relative;
   cursor: pointer;
@@ -44,6 +44,18 @@ export const MenuItem = styled.div`
       transform: scaleX(1);
     }
   }
+  ${({ mode }) => {
+    if (mode) {
+      return css`
+        p {
+          color: ${themeGet("colors.red.100")};
+        }
+        ::after {
+          transform: scaleX(1);
+        }
+      `;
+    }
+  }}
 `;
 
 export const Border = styled.div`

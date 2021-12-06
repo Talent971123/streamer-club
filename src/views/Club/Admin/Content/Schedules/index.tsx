@@ -3,8 +3,8 @@ import React from "react";
 import { WithContainer } from "components/Container";
 //  import sections
 
-const Schedules: React.FC = () => {
+const SchedulesView: React.FC = () => {
   return <>Here is Billing Section</>;
 };
 
-export default Schedules;
+export default SchedulesView;

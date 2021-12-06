@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "hooks";
 // import component
 import { Col, Row } from "components/Layout";
 import { ClipCard } from "components/Card";
@@ -16,48 +17,56 @@ import TeamsImage from "assets/images/home/team.png";
 
 const data: ClipProps[] = [
   {
+    id: 1,
     backgroundImage: TeamsImage,
     title: "Mens",
     content: "Opens 1",
     mode: "teams",
   },
   {
+    id: 2,
     backgroundImage: TeamsImage,
     title: "Mens",
     content: "Opens 1",
     mode: "teams",
   },
   {
+    id: 3,
     backgroundImage: TeamsImage,
     title: "Mens",
     content: "Opens 1",
     mode: "teams",
   },
   {
+    id: 4,
     backgroundImage: TeamsImage,
     title: "Mens",
     content: "Opens 1",
     mode: "teams",
   },
   {
+    id: 5,
     backgroundImage: TeamsImage,
     title: "Mens",
     content: "Opens 1",
     mode: "teams",
   },
   {
+    id: 6,
     backgroundImage: TeamsImage,
     title: "Mens",
     content: "Opens 1",
     mode: "teams",
   },
   {
+    id: 7,
     backgroundImage: TeamsImage,
     title: "Mens",
     content: "Opens 1",
     mode: "teams",
   },
   {
+    id: 8,
     backgroundImage: TeamsImage,
     title: "Mens",
     content: "Opens 1",
@@ -110,9 +119,20 @@ const settings = {
 const SeeAll = useLinkItem(LinkWrapper);
 
 const TeamView: React.FC = () => {
+  const { move } = useRouter();
+
   const onHandleSeeAll = () => {
     alert();
   };
+
+  const onHandleClick = (id: number) => {
+    const route = {
+      path: `/club/team/${id}`,
+      param: { id },
+    };
+    move(route.path, route.param);
+  };
+
   return (
     <TeamWrapper>
       <Row flexDirection="column" gap={5}>
@@ -131,7 +151,9 @@ const TeamView: React.FC = () => {
         <Col item={24}>
           <Slider {...settings}>
             {data.map((item: ClipProps, index: number) => {
-              return <ClipCard {...item} key={index} />;
+              return (
+                <ClipCard {...item} key={index} handleClick={onHandleClick} />
+              );
             })}
           </Slider>
         </Col>

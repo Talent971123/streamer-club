@@ -15,13 +15,18 @@ import {
 //  import asssets
 import Play from "assets/images/home/play.png";
 const ClipCard: React.FC<ClipProps> = ({
+  id,
   backgroundImage,
   content,
   title,
   mode = "clip",
+  handleClick,
 }) => {
+  const onHandleClick = (id: number) => {
+    handleClick && handleClick(id);
+  };
   return (
-    <ClipCardWrapper mode={mode}>
+    <ClipCardWrapper mode={mode} onClick={() => onHandleClick(id)}>
       <ClipContent mode={mode}>
         <Image
           src={backgroundImage}

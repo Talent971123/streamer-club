@@ -3,8 +3,8 @@ import React from "react";
 import { WithContainer } from "components/Container";
 //  import sections
 
-const Community: React.FC = () => {
+const CommunityView: React.FC = () => {
   return <>Here is Community Section</>;
 };
 
-export default Community;
+export default CommunityView;

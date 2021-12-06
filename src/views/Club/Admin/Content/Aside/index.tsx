@@ -5,7 +5,7 @@ import { AsideWrapper, MenuItem } from "./Aside.style";
 import { Text } from "components/Text";
 import { commonItem } from "types/common/common";
 
-const Aside: React.FC<{
+const AsideView: React.FC<{
   menudata: commonItem[];
   select: string;
   onHandleSelect: any;
@@ -40,4 +40,4 @@ const Aside: React.FC<{
   );
 };
 
-export default Aside;
+export default AsideView;

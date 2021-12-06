@@ -3,8 +3,8 @@ import React from "react";
 import { WithContainer } from "components/Container";
 //  import sections
 
-const Sponsorship: React.FC = () => {
+const SponsorshipView: React.FC = () => {
   return <>Here is Sponsorship Section</>;
 };
 
-export default Sponsorship;
+export default SponsorshipView;

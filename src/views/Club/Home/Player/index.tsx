@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "hooks";
 // import component
 import { Col, Row } from "components/Layout";
 import { ClipCard } from "components/Card";
@@ -16,48 +17,56 @@ import PlayerImage from "assets/images/home/player.png";
 
 const data: ClipProps[] = [
   {
+    id: 1,
     backgroundImage: PlayerImage,
     title: "Liam Sinclair",
     content: "Senior Mens Divison 1",
     mode: "player",
   },
   {
+    id: 2,
     backgroundImage: PlayerImage,
     title: "Liam Sinclair",
     content: "Senior Mens Divison 1",
     mode: "player",
   },
   {
+    id: 3,
     backgroundImage: PlayerImage,
     title: "Liam Sinclair",
     content: "Senior Mens Divison 1",
     mode: "player",
   },
   {
+    id: 4,
     backgroundImage: PlayerImage,
     title: "Liam Sinclair",
     content: "Senior Mens Divison 1",
     mode: "player",
   },
   {
+    id: 5,
     backgroundImage: PlayerImage,
     title: "Liam Sinclair",
     content: "Senior Mens Divison 1",
     mode: "player",
   },
   {
+    id: 6,
     backgroundImage: PlayerImage,
     title: "Liam Sinclair",
     content: "Senior Mens Divison 1",
     mode: "player",
   },
   {
+    id: 7,
     backgroundImage: PlayerImage,
     title: "Liam Sinclair",
     content: "Senior Mens Divison 1",
     mode: "player",
   },
   {
+    id: 8,
     backgroundImage: PlayerImage,
     title: "Liam Sinclair",
     content: "Senior Mens Divison 1",
@@ -110,9 +119,20 @@ const settings = {
 const SeeAll = useLinkItem(LinkWrapper);
 
 const PlayerView: React.FC = () => {
+  const { move } = useRouter();
+
   const onHandleSeeAll = () => {
     alert();
   };
+
+  const onHandleClick = (id: number) => {
+    const route = {
+      path: `/club/player/${id}`,
+      param: { id },
+    };
+    move(route.path, route.param);
+  };
+
   return (
     <PlayerWrapper>
       <Row alignItems="center" justifyContent="space-between">
@@ -131,7 +151,9 @@ const PlayerView: React.FC = () => {
         <Col item={24}>
           <Slider {...settings}>
             {data.map((item: ClipProps, index: number) => {
-              return <ClipCard {...item} key={index} />;
+              return (
+                <ClipCard {...item} key={index} handleClick={onHandleClick} />
+              );
             })}
           </Slider>
         </Col>

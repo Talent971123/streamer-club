@@ -82,6 +82,7 @@ const baseColor = {
     regular: "#E31E31",
     dark: "#d70023",
     100: "#FA3737",
+    200: "#fa7070",
   },
   purple: {
     100: "#621F9F",

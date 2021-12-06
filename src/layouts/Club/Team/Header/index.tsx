@@ -20,7 +20,6 @@ import {
   AiFillFire,
 } from "react-icons/ai";
 import { HiOutlineRefresh } from "react-icons/hi";
-import { ContactWrapper } from "views/Club/Admin/Content/Information/Contact/contact.style";
 
 //  type
 interface menu_type {

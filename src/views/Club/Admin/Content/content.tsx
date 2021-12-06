@@ -54,8 +54,8 @@ const menudata: commonItem[] = [
   },
 ];
 
-const Content: React.FC = () => {
-  const [select, setSelect] = useState<string>(menudata[1].path);
+const ContentView: React.FC = () => {
+  const [select, setSelect] = useState<string>(menudata[0].path);
 
   const onHandleSelect = (item: string) => {
     setSelect(item);
@@ -84,4 +84,4 @@ const Content: React.FC = () => {
   );
 };
 
-export default Content;
+export default ContentView;

@@ -4,7 +4,7 @@ import { WithContainer } from "components/Container";
 //  import sections
 import { default as DisplaySection } from "./Display";
 
-const Players: React.FC = () => {
+const PlayersView: React.FC = () => {
   return (
     <>
       <WithContainer SectionView={DisplaySection} />
@@ -12,4 +12,4 @@ const Players: React.FC = () => {
   );
 };
 
-export default Players;
+export default PlayersView;

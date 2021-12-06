@@ -17,6 +17,7 @@ export const ClipCardWrapper = styled.div<{ mode: string }>`
         `;
     }
   }};
+  cursor: pointer;
   contain: content;
 `;
 

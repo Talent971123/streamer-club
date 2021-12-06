@@ -1,5 +1,6 @@
 import React from "react";
-import router from "next/router";
+import { useEffect, useState } from "react";
+import { useRouter } from "hooks";
 // components
 import { ContainerWrapper } from "components/Container";
 import { Row, Col } from "components/Layout";
@@ -18,15 +19,22 @@ import { Text } from "components/Text";
 const MenuItems = [
   { title: "Home", path: "/" },
   { title: "Matches", path: "/club/match" },
-  { title: "Team", path: "/club/team" },
-  { title: "Player", path: "/club/player" },
+  { title: "Teams", path: "/club/team/all" },
+  { title: "Players", path: "/club/player/all" },
   { title: "Community", path: "/club/community" },
   { title: "Admin", path: "/club/admin" },
 ];
 
 const Header = () => {
+  const { move, path } = useRouter();
+  const [flag, setFlag] = useState<string>("/");
+
+  useEffect(() => {
+    setFlag(path);
+  }, [path]);
+
   const handleMenuClick = (to: any) => {
-    router.push(to);
+    move(to);
   };
 
   return (
@@ -54,13 +62,14 @@ const Header = () => {
               {MenuItems.map((item: any, index: number) => {
                 return (
                   <MenuItem
+                    mode={flag === item.path ? true : false}
                     key={index}
                     onClick={() => handleMenuClick(item.path)}
                   >
                     <Text
                       fColor="white"
                       fSize={17}
-                      hoverStyle={{ fColor: "red.100" }}
+                      hoverStyle={{ fColor: "red.200" }}
                     >
                       {item.title}
                     </Text>

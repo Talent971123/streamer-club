@@ -6,7 +6,7 @@ import { default as ProfileSection } from "./Profile";
 import { default as ContactSection } from "./Contact";
 import { default as DetailSection } from "./Detail";
 import { default as PrivacySection } from "./Privacy";
-const Information: React.FC = () => {
+const InformationView: React.FC = () => {
   return (
     <>
       <WithContainer SectionView={ProfileSection} />
@@ -17,4 +17,4 @@ const Information: React.FC = () => {
   );
 };
 
-export default Information;
+export default InformationView;
