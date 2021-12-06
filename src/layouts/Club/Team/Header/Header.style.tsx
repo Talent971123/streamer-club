@@ -7,7 +7,6 @@ export const HeaderWrapper = styled.div`
   background-color: rgba(29, 48, 112, 0.4);
   border-bottom: 1px solid rgba(124, 128, 141, 0.479);
   position: absolute;
-  top: 62px;
   z-index: 3;
 `;
 

@@ -5,9 +5,9 @@ import { ScrollTop } from "components/Button";
 // layout
 import { Header, Footer } from "layouts/app-layout/index";
 import { TeamHeader } from "layouts/Club/Team";
+import { WithContainer } from "components/Container";
 // styled component
 import { AppLayoutWrapper } from "./app-layout.style";
-import router from "next/router";
 // -----------------------------------------------------------
 
 const Layout = ({ children }) => {
@@ -21,7 +21,9 @@ const Layout = ({ children }) => {
   return (
     <AppLayoutWrapper>
       <Header />
-      {mode === "team" ? <TeamHeader /> : null}
+      {mode === "team" ? (
+        <WithContainer SectionView={TeamHeader} mode="wrapper" />
+      ) : null}
       {children}
       <Footer />
       <ScrollTop />
