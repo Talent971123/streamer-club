@@ -36,13 +36,15 @@ export const CardFooter = styled.div`
 export const LiveWrapper = styled.div`
   background-color: ${themeGet("colors.red.100")};
   width: 45px;
-  height: 23px;
+  height: 25px;
   text-align: center;
+  border-radius: 8px;
 `;
 
 export const UserWrapper = styled.div`
   background-color: ${themeGet("colors.black.regular")}60;
   width: 48px;
-  height: 23px;
+  height: 25px;
+  border-radius: 8px;
   text-align: center;
 `;

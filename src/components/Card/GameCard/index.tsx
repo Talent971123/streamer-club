@@ -57,7 +57,7 @@ const GameCard: React.FC<GameCardProps> = ({
                     <UserWrapper>
                       <Row alignItems="center" justifyContent="center" gap={5}>
                         <UserIcon />
-                        <Text fColor="white" fSize={14} fWeight={500}>
+                        <Text fColor="white" fSize={15} fWeight={500}>
                           {users}
                         </Text>
                       </Row>
