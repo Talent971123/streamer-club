@@ -36,7 +36,7 @@ const Banner: React.FC = () => {
                 <Image src={waflLogo} width={40} height={40} />
               </Col>
               <Col>
-                <Row gap={80}>
+                <Row gap={70}>
                   <Col>
                     <Text mode="p" fColor="white" fSize={16}>
                       Perth

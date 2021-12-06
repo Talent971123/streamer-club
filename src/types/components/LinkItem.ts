@@ -9,6 +9,7 @@ export interface LinkItemWrapperProps extends IconWrapperProps {
   alignHorizontal?: "center" | "initial" | "flex-end" | "flex-start";
   alignVertical?: "center" | "initial" | "flex-end" | "flex-start";
   iconGaping?: number;
+  handleClick?: () => void;
   [key: string]: unknown;
 }
 export interface IconWrapperProps {

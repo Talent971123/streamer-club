@@ -1,8 +1,10 @@
 import React from "react";
 //  component
 import { TeamCard } from "components/Card";
+import { useLinkItem } from "components/hoc";
+import { IoArrowRedoOutline } from "react-icons/io5";
 //  styled component
-import { TrendWrapper } from "./trend.style";
+import { TrendWrapper, LinkWrapper } from "./trend.style";
 //  type
 import { TeamCardProps } from "types/components/TeamCard";
 // assets
@@ -45,15 +47,27 @@ const settings = {
   slidesToScroll: 1,
 };
 
+const SeeAll = useLinkItem(LinkWrapper);
+
 const JuniorSection: React.FC = () => {
+  const onHandleSeeAll = () => {
+    alert();
+  };
   return (
     <TrendWrapper>
-      <Row flexDirection="column" gap={5}>
-        <Col item={24}>
-          <Text fColor="white" fSize={22} fWeight={700}>
-            {"Trendig Now"}
-          </Text>
-        </Col>
+      <Row alignItems="center" justifyContent="space-between">
+        <Text fColor="white" fSize={22} fWeight={700}>
+          {"Trendig Now"}
+        </Text>
+        <SeeAll
+          handleClick={onHandleSeeAll}
+          title="See all"
+          icon={<IoArrowRedoOutline />}
+          iconDirection="row-reverse"
+          alignVertical="center"
+        />
+      </Row>
+      <Row padding="10px 0 0 0">
         <Col item={24}>
           <Slider {...settings}>
             {data.map((item: TeamCardProps, index: number) => {

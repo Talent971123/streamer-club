@@ -5,3 +5,4 @@ export { default as ClipView } from "./Clip";
 export { default as TeamsView } from "./Teams";
 export { default as PlayerView } from "./Player";
 export { default as BannerView } from "./Banner";
+export { default as NewsView } from "./News";

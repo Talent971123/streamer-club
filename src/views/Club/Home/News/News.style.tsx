@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import { themeGet } from "@styled-system/theme-get";
 
-export const TeamWrapper = styled.div`
+export const NewsWrapper = styled.div`
   margin: 30px 0;
 `;
+
 export const LinkWrapper = styled.div`
   cursor: pointer;
   color: ${themeGet("colors.gray.200")};

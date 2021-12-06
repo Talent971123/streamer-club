@@ -4,10 +4,12 @@ import { Col, Row } from "components/Layout";
 import { ClipCard } from "components/Card";
 import { Text } from "components/Text";
 import Slider from "react-slick";
+import { useLinkItem } from "components/hoc";
+import { IoArrowRedoOutline } from "react-icons/io5";
 //  import types
 import { ClipProps } from "types/components/ClipCard";
 //  import styled component
-import { ClipWrapper } from "./Clip.style";
+import { ClipWrapper, LinkWrapper } from "./Clip.style";
 
 //  define the example data
 import backImage from "assets/images/home/gameday.png";
@@ -64,6 +66,7 @@ const NextArrow: React.FC = (props: any) => {
 
 const BeforeArrow: React.FC = (props: any) => {
   const { className, style, onClick } = props;
+
   return (
     <div
       className={className}
@@ -87,15 +90,28 @@ const settings = {
   prevArrow: <BeforeArrow />,
 };
 
+const SeeAll = useLinkItem(LinkWrapper);
+
 const ClipView: React.FC = () => {
+  const onHandleSeeAll = () => {
+    alert();
+  };
+
   return (
     <ClipWrapper>
-      <Row flexDirection="column" gap={5}>
-        <Col item={24}>
-          <Text fColor="white" fSize={22} fWeight={700}>
-            {"Featured Clips"}
-          </Text>
-        </Col>
+      <Row alignItems="center" justifyContent="space-between">
+        <Text fColor="white" fSize={22} fWeight={700}>
+          {"Featured Clips"}
+        </Text>
+        <SeeAll
+          handleClick={onHandleSeeAll}
+          title="See all"
+          icon={<IoArrowRedoOutline />}
+          iconDirection="row-reverse"
+          alignVertical="center"
+        />
+      </Row>
+      <Row padding="10px 0 0 0">
         <Col item={24}>
           <Slider {...settings}>
             {data.map((item: ClipProps, index: number) => {

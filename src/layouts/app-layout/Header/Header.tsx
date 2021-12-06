@@ -16,30 +16,12 @@ import { Text } from "components/Text";
 // -------------------------------------------------------------------
 
 const MenuItems = [
-  {
-    title: "Home",
-    path: "/",
-  },
-  {
-    title: "Matches",
-    path: "/club/match",
-  },
-  {
-    title: "Team",
-    path: "/club/team",
-  },
-  {
-    title: "Player",
-    path: "/club/player",
-  },
-  {
-    title: "Community",
-    path: "/club/community",
-  },
-  {
-    title: "Admin",
-    path: "/club/admin",
-  },
+  { title: "Home", path: "/" },
+  { title: "Matches", path: "/club/match" },
+  { title: "Team", path: "/club/team" },
+  { title: "Player", path: "/club/player" },
+  { title: "Community", path: "/club/community" },
+  { title: "Admin", path: "/club/admin" },
 ];
 
 const Header = () => {

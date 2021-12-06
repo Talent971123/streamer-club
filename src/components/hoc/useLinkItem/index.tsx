@@ -1,3 +1,5 @@
+/* eslint-disable react/display-name */
+/* eslint-disable @typescript-eslint/no-empty-function */
 import React, { ComponentType } from "react";
 // component
 import { Row, Col } from "components/Layout";
@@ -26,7 +28,6 @@ const useLinkItem = (
   mode: "title" | "icon" = "title"
 ) => {
   if (mode === "title") {
-    // eslint-disable-next-line react/display-name
     return ({
       title = "",
       href = "",
@@ -37,12 +38,13 @@ const useLinkItem = (
       iconWidth,
       alignVertical = "center",
       alignHorizontal = "initial",
+      handleClick = () => {},
     }: LinkItemWrapperProps) => {
       const { move } = useRouter();
       const handleOnClick = () => {
+        handleClick();
         if (href != "") move(href);
       };
-
       return (
         <LinkItemWrapper>
           <Row
@@ -66,17 +68,20 @@ const useLinkItem = (
     };
   }
   if (mode === "icon") {
-    // eslint-disable-next-line react/display-name
-    return ({ href = "", icon }: LinkItemWrapperProps) => {
+    return ({
+      href = "",
+      icon,
+      handleClick = () => {},
+    }: LinkItemWrapperProps) => {
       const { move } = useRouter();
       const handleOnClick = () => {
+        handleClick();
         if (href != "") move(href);
       };
 
       return <LinkItemWrapper onClick={handleOnClick}>{icon}</LinkItemWrapper>;
     };
   }
-  // eslint-disable-next-line react/display-name
   return () => <></>;
 };
 

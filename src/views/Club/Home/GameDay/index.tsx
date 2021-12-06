@@ -4,12 +4,12 @@ import { Col, Row } from "components/Layout";
 import { GameCard } from "components/Card";
 import { Text } from "components/Text";
 import Slider from "react-slick";
-
+import { useLinkItem } from "components/hoc";
+import { IoArrowRedoOutline } from "react-icons/io5";
 // import styled component
-import { GameDayWrapper } from "./Gameday.style";
+import { GameDayWrapper, LinkWrapper } from "./Gameday.style";
 // import types
 import { GameCardProps } from "types/components/GameCard";
-
 // define example data
 import clubImage1 from "assets/images/home/team2.png";
 import clubImage2 from "assets/images/home/team1.png";
@@ -112,16 +112,27 @@ const settings = {
   nextArrow: <NextArrow />,
   prevArrow: <BeforeArrow />,
 };
+const SeeAll = useLinkItem(LinkWrapper);
 
 const GameDayView: React.FC = () => {
+  const onHandleSeeAll = () => {
+    alert();
+  };
   return (
     <GameDayWrapper>
-      <Row flexDirection="column" gap={5}>
-        <Col item={24}>
-          <Text fColor="white" fSize={22} fWeight={700}>
-            {"Game Day - Live & Upcoming"}
-          </Text>
-        </Col>
+      <Row alignItems="center" justifyContent="space-between">
+        <Text fColor="white" fSize={22} fWeight={700} mode="p">
+          {"Game Day - Live & Upcoming"}
+        </Text>
+        <SeeAll
+          handleClick={onHandleSeeAll}
+          title="See all"
+          icon={<IoArrowRedoOutline />}
+          iconDirection="row-reverse"
+          alignVertical="center"
+        />
+      </Row>
+      <Row padding="10px 0 0 0">
         <Col item={24}>
           <Slider {...settings}>
             {data.map((item: GameCardProps, index: number) => {

@@ -4,10 +4,12 @@ import { Col, Row } from "components/Layout";
 import { ClipCard } from "components/Card";
 import { Text } from "components/Text";
 import Slider from "react-slick";
+import { useLinkItem } from "components/hoc";
+import { IoArrowRedoOutline } from "react-icons/io5";
 //  import types
 import { ClipProps } from "types/components/ClipCard";
 //  import styled component
-import { PlayerWrapper } from "./Player.style";
+import { PlayerWrapper, LinkWrapper } from "./Player.style";
 
 //  define the example data
 import PlayerImage from "assets/images/home/player.png";
@@ -105,15 +107,27 @@ const settings = {
   prevArrow: <BeforeArrow />,
 };
 
+const SeeAll = useLinkItem(LinkWrapper);
+
 const PlayerView: React.FC = () => {
+  const onHandleSeeAll = () => {
+    alert();
+  };
   return (
     <PlayerWrapper>
-      <Row flexDirection="column" gap={5}>
-        <Col item={24}>
-          <Text fColor="white" fSize={22} fWeight={700}>
-            {"Our Teams"}
-          </Text>
-        </Col>
+      <Row alignItems="center" justifyContent="space-between">
+        <Text fColor="white" fSize={22} fWeight={700}>
+          {"Our Teams"}
+        </Text>
+        <SeeAll
+          handleClick={onHandleSeeAll}
+          title="See all"
+          icon={<IoArrowRedoOutline />}
+          iconDirection="row-reverse"
+          alignVertical="center"
+        />
+      </Row>
+      <Row padding="10px 0 0 0">
         <Col item={24}>
           <Slider {...settings}>
             {data.map((item: ClipProps, index: number) => {

@@ -12,7 +12,7 @@ export const Content = styled.div`
   top: 0;
   position: absolute;
   z-index: 2;
-  background: linear-gradient(0deg, #141414, #18131358);
+  background: linear-gradient(0deg, #141414, #191d227e);
 `;
 
 export const VSWrapper = styled.div`
