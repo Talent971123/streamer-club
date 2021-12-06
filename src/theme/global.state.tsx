@@ -25,7 +25,7 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
       margin: "0 auto",
       transition: get(theme, "transition.normal"),
       fontFamily: '"Roboto" ,sans-serif !important',
-      fontWeight: "500",
+      fontWeight: "400",
       fontSize: "12px",
       lineHeight: "1.5",
       backgroundColor: get(theme, "colors.black.100"),

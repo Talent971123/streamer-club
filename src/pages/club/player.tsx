@@ -7,12 +7,12 @@ import {
   GamesSection,
   ClipSection,
   ClubSection,
-  ProfileSection,
+  IntroSection,
 } from "views/Club/Player";
 const PlayerPage: React.FC = () => {
   return (
     <>
-      <WithContainer mode="container" SectionView={ProfileSection} />
+      <WithContainer mode="container" SectionView={IntroSection} />
       <WithContainer mode="container" SectionView={ClubSection} />
       <WithContainer mode="container" SectionView={ClipSection} />
       <WithContainer mode="container" SectionView={GamesSection} />

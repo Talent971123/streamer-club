@@ -28,9 +28,7 @@ const HeadView: React.FC = () => {
         </Col>
         <Col item={12}>
           <Row flexDirection="row-reverse" padding="0 20px 0 0">
-            <Button bColor="primary" bSize="small" icon={<FiShare2 />}>
-              Share
-            </Button>
+            <Button icon={<FiShare2 />}>{"Share"}</Button>
           </Row>
         </Col>
       </Row>
