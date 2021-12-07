@@ -18,6 +18,7 @@ import marker from "assets/images/home/mark.png";
 
 const data: GameCardProps[] = [
   {
+    id: 1,
     backgroundImage,
     clubImage1,
     clubImage2,
@@ -28,6 +29,7 @@ const data: GameCardProps[] = [
     mode: "Reply",
   },
   {
+    id: 1,
     backgroundImage,
     clubImage1,
     clubImage2,
@@ -38,6 +40,7 @@ const data: GameCardProps[] = [
     mode: "Reply",
   },
   {
+    id: 1,
     backgroundImage,
     clubImage1,
     clubImage2,
@@ -48,6 +51,7 @@ const data: GameCardProps[] = [
     mode: "Reply",
   },
   {
+    id: 1,
     backgroundImage,
     clubImage1,
     clubImage2,
@@ -58,6 +62,7 @@ const data: GameCardProps[] = [
     mode: "Reply",
   },
   {
+    id: 1,
     backgroundImage,
     clubImage1,
     clubImage2,

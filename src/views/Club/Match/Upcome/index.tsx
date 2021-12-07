@@ -18,6 +18,7 @@ import marker from "assets/images/home/mark.png";
 
 const data: GameCardProps[] = [
   {
+    id: 1,
     backgroundImage,
     clubImage1,
     clubImage2,
@@ -29,6 +30,7 @@ const data: GameCardProps[] = [
     users: 36,
   },
   {
+    id: 1,
     backgroundImage,
     clubImage1,
     clubImage2,
@@ -40,6 +42,7 @@ const data: GameCardProps[] = [
     users: 12,
   },
   {
+    id: 1,
     backgroundImage,
     clubImage1,
     clubImage2,
@@ -50,6 +53,7 @@ const data: GameCardProps[] = [
     progress: "IN PROGRESS",
   },
   {
+    id: 1,
     backgroundImage,
     clubImage1,
     clubImage2,
@@ -60,6 +64,7 @@ const data: GameCardProps[] = [
     progress: "20 NOV 21 10:30AM",
   },
   {
+    id: 1,
     backgroundImage,
     clubImage1,
     clubImage2,
