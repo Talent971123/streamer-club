@@ -8,7 +8,7 @@ import {
   ClipSection,
   ClubSection,
   IntroSection,
-} from "views/club/player";
+} from "views/Club/player";
 const PlayerPage: React.FC = () => {
   return (
     <>

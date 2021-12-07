@@ -12,7 +12,7 @@ import {
   BannerView,
   NewsView,
   SupportView,
-} from "views/club/home";
+} from "views/Club/home";
 const HomePage: React.FC = () => {
   return (
     <>
