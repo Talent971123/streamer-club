@@ -7,7 +7,7 @@ import { Avatar } from "components/Avatar";
 //  import react icons
 import { BsPlus } from "react-icons/bs";
 //  styled component
-import { DisplayWrapper } from "./Display.style";
+import { DisplayWrapper } from "./display.style";
 // asset
 import logo from "assets/images/home/player.png";
 import { Text } from "components/Text";

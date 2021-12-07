@@ -5,7 +5,7 @@ import { Row } from "components/Layout";
 import { ClipCard } from "components/Card";
 import { Text } from "components/Text";
 // styled
-import { PlayerAllWrapper, Item } from "./All.style";
+import { PlayerAllWrapper, Item } from "./all.style";
 // types
 import { ClipProps } from "types/components/ClipCard";
 //  define the example data

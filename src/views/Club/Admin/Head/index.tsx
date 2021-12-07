@@ -4,7 +4,7 @@ import { Row, Col } from "components/Layout";
 import { Text } from "components/Text";
 
 // import styled component
-import { HeadWrapper } from "./Head.style";
+import { HeadWrapper } from "./head.style";
 // import assets
 
 const HeadView: React.FC = () => {

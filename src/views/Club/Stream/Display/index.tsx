@@ -2,7 +2,7 @@ import React from "react";
 //  import component
 import { Col, Row } from "components/Layout";
 // import styled
-import { DisplayWrpper } from "./Display.stlye";
+import { DisplayWrpper } from "./display.stlye";
 // import assets
 import bgImg from "assets/images/stream/banne.png";
 import { Image } from "components/Image";

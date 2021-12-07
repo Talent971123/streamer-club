@@ -1,6 +1,6 @@
 import React from "react";
 // styled component
-import { CopyRightSectionWrapper } from "./CopyRightSection.style";
+import { CopyRightSectionWrapper } from "./copyrightsection.style";
 // Component
 import { Row, Col } from "components/Layout";
 // HOC

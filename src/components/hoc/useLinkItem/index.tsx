@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, { ComponentType } from "react";
 // component
-import { Row, Col } from "components/Layout";
+import { Row } from "components/Layout";
 // hook
 import { useRouter } from "hooks";
 // type

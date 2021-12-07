@@ -10,7 +10,7 @@ import { IoArrowRedoOutline } from "react-icons/io5";
 //  import types
 import { ClipProps } from "types/components/ClipCard";
 //  import styled component
-import { TeamWrapper, LinkWrapper } from "./Teams.style";
+import { TeamWrapper, LinkWrapper } from "./teams.style";
 
 //  define the example data
 import TeamsImage from "assets/images/home/team.png";

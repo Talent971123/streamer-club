@@ -6,7 +6,7 @@ import {
   ImageContent,
   BlackBorder,
   LiveWrapper,
-} from "./ToolBar.style";
+} from "./toolbar.style";
 import { Button } from "components/Button";
 import { Text } from "components/Text";
 import { Image } from "components/Image";

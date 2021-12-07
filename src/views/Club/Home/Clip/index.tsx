@@ -9,7 +9,7 @@ import { IoArrowRedoOutline } from "react-icons/io5";
 //  import types
 import { ClipProps } from "types/components/ClipCard";
 //  import styled component
-import { ClipWrapper, LinkWrapper } from "./Clip.style";
+import { ClipWrapper, LinkWrapper } from "./clip.style";
 
 //  define the example data
 import backImage from "assets/images/home/gameday.png";

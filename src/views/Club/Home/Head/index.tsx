@@ -6,7 +6,7 @@ import { Text } from "components/Text";
 import { Button } from "components/Button";
 import { FiShare2 } from "react-icons/fi";
 // import styled component
-import { HeadWrapper } from "./Head.style";
+import { HeadWrapper } from "./head.style";
 // import assets
 import Mark from "assets/images/home/team2.png";
 

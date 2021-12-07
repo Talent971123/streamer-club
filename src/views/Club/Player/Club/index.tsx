@@ -2,7 +2,7 @@ import React from "react";
 //  component
 import { Row, Col } from "components/Layout";
 //  styled
-import { ClubWrapper, BottomBorder } from "./Club.style";
+import { ClubWrapper, BottomBorder } from "./club.style";
 import { Text } from "components/Text";
 import { Button } from "components/Button";
 

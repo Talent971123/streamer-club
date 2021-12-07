@@ -4,7 +4,7 @@ import { Row, Col } from "components/Layout";
 import { Text } from "components/Text";
 import Slider from "react-slick";
 //  styled
-import { GalleryWrapper, GalleryContent } from "./Gallery.style";
+import { GalleryWrapper, GalleryContent } from "./gallery.style";
 //  type
 import { ClipProps } from "types/components/ClipCard";
 // assets

@@ -10,7 +10,7 @@ import { IoArrowRedoOutline } from "react-icons/io5";
 //  import types
 import { ClipProps } from "types/components/ClipCard";
 //  import styled component
-import { PlayerWrapper, LinkWrapper } from "./Player.style";
+import { PlayerWrapper, LinkWrapper } from "./player.style";
 
 //  define the example data
 import PlayerImage from "assets/images/home/player.png";

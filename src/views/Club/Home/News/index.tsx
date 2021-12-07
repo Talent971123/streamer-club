@@ -6,7 +6,7 @@ import { Text } from "components/Text";
 import { useLinkItem } from "components/hoc";
 import { IoArrowRedoOutline } from "react-icons/io5";
 //  import styled
-import { NewsWrapper, LinkWrapper } from "./News.style";
+import { NewsWrapper, LinkWrapper } from "./news.style";
 //  import types
 import { NewsProps } from "types/components/NewsProps";
 //  define the example data

@@ -7,7 +7,7 @@ import Slider from "react-slick";
 import { useLinkItem } from "components/hoc";
 import { IoArrowRedoOutline } from "react-icons/io5";
 // import styled component
-import { ReplyWrapper, LinkWrapper } from "./Reply.style";
+import { ReplyWrapper, LinkWrapper } from "./reply.style";
 // import types
 import { GameCardProps } from "types/components/GameCard";
 

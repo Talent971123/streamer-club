@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Col, Row } from "components/Layout";
 
-import { AsideWrapper, MenuItem } from "./Aside.style";
+import { AsideWrapper, MenuItem } from "./aside.style";
 import { Text } from "components/Text";
 import { commonItem } from "types/common/common";
 

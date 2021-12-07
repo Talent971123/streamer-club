@@ -1,7 +1,7 @@
 import { Col, Row } from "components/Layout";
 import React from "react";
 
-import { SupportWrapper, ContentWrapper } from "./Support.style";
+import { SupportWrapper, ContentWrapper } from "./support.style";
 
 // assets
 import provider1 from "assets/images/home/provider1.png";

@@ -10,9 +10,10 @@ import AppLayout from "layouts/app-layout";
 import Loading from "components/Loading";
 // import context providers
 import { ThemeProvider } from "styled-components";
-
+import { ApolloProvider } from "@apollo/react-hooks";
+// apollo setting
+import { useApollo } from "api/apollo";
 // import CSS
-
 import { defaultTheme } from "theme";
 import "react-multi-carousel/lib/styles.css";
 import "react-toggle/style.css";
@@ -22,6 +23,8 @@ import { GlobalStyle } from "theme/global.state";
 NProgress.configure({ showSpinner: false });
 
 function Streamer({ Component, pageProps }: AppProps) {
+  const apolloClient = useApollo(pageProps.initialApolloState);
+
   const [loading, setLoading] = useState(false);
   Router.events.on("routeChangeStart", () => {
     setLoading(true);
@@ -42,12 +45,14 @@ function Streamer({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <AppLayout>
-        {!loading ? <Component {...pageProps} /> : <Loading />}
-      </AppLayout>
-      <GlobalStyle />
-    </ThemeProvider>
+    <ApolloProvider client={apolloClient}>
+      <ThemeProvider theme={defaultTheme}>
+        <AppLayout>
+          {!loading ? <Component {...pageProps} /> : <Loading />}
+        </AppLayout>
+        <GlobalStyle />
+      </ThemeProvider>
+    </ApolloProvider>
   );
 }
 

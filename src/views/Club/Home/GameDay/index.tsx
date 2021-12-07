@@ -8,7 +8,7 @@ import Slider from "react-slick";
 import { useLinkItem } from "components/hoc";
 import { IoArrowRedoOutline } from "react-icons/io5";
 // import styled component
-import { GameDayWrapper, LinkWrapper } from "./Gameday.style";
+import { GameDayWrapper, LinkWrapper } from "./gameday.style";
 // import types
 import { GameCardProps } from "types/components/GameCard";
 // define example data
