@@ -20,6 +20,7 @@ import { UserIcon } from "assets/icon";
 import Play from "assets/images/home/play.png";
 
 const GameCard: React.FC<GameCardProps> = ({
+  id,
   backgroundImage,
   clubImage1,
   clubImage2,
@@ -30,9 +31,13 @@ const GameCard: React.FC<GameCardProps> = ({
   progress,
   users = 0,
   mode = "Day",
+  handleClick,
 }) => {
+  const onHandleClick = (id: number) => {
+    handleClick && handleClick(id);
+  };
   return (
-    <GameCardWrapper>
+    <GameCardWrapper onClick={() => onHandleClick(id)}>
       <CardContent>
         <Image
           src={backgroundImage}
@@ -82,7 +87,7 @@ const GameCard: React.FC<GameCardProps> = ({
                   <Image src={clubImage1} width={89} height={90} />
                 </Col>
                 {mode === "Reply" ? (
-                  <Col>
+                  <Col className="playwrapper">
                     <Image src={Play} width={69} height={69} />
                   </Col>
                 ) : null}

@@ -16,30 +16,35 @@ import backImage from "assets/images/home/gameday.png";
 
 const data: ClipProps[] = [
   {
+    id: 1,
     backgroundImage: backImage,
     title: "Elimination Finals - Colts Highlights",
     content:
       "Colts came out on top against Peel Thunder in last week’s Elimination Finals.",
   },
   {
+    id: 2,
     backgroundImage: backImage,
     title: "Elimination Finals - Colts Highlights",
     content:
       "Colts came out on top against Peel Thunder in last week’s Elimination Finals.",
   },
   {
+    id: 3,
     backgroundImage: backImage,
     title: "Elimination Finals - Colts Highlights",
     content:
       "Colts came out on top against Peel Thunder in last week’s Elimination Finals.",
   },
   {
+    id: 4,
     backgroundImage: backImage,
     title: "Elimination Finals - Colts Highlights",
     content:
       "Colts came out on top against Peel Thunder in last week’s Elimination Finals.",
   },
   {
+    id: 5,
     backgroundImage: backImage,
     title: "Elimination Finals - Colts Highlights",
     content:

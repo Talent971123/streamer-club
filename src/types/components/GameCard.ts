@@ -1,4 +1,5 @@
 export interface GameCardProps {
+  id: number;
   backgroundImage: StaticImageData;
   clubImage1: StaticImageData;
   clubName1: string;
@@ -9,4 +10,5 @@ export interface GameCardProps {
   progress?: string;
   users?: number;
   mode?: "Day" | "Reply";
+  handleClick?: any;
 }

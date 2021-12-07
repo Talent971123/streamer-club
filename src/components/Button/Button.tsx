@@ -21,7 +21,6 @@ const StyledButton = styled.button(
       px: "20px",
       py: "20px",
       fontSize: "regular",
-      fontWeight: "semiBold",
       cursor: props.disabled ? "not-allowed" : "pointer",
       transition:
         "all 0.3s ease, color 300ms ease-in-out, background-color 300ms ease-in-out",
@@ -37,7 +36,6 @@ const StyledButton = styled.button(
     height: "38px",
     textDecoration: "none",
     borderRadius: "5px",
-
     "&:focus": {
       outline: "none",
     },
@@ -50,13 +48,7 @@ const StyledButton = styled.button(
       primary: {
         color: "white",
         bg: "transparent",
-        border: `0.5px solid ${themeGet("black.100")}`,
-      },
-      success: {
-        color: "white",
-        bg: "green.regular",
-        border: "none",
-        "&:active": { bg: "green.dark" },
+        border: '0.5px solid "gray.300"',
       },
       outlined: {
         color: "white",

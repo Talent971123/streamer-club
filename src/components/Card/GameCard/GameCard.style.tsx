@@ -20,6 +20,11 @@ export const Content = styled.div`
   z-index: 3;
   width: 100%;
   position: absolute;
+  .playwrapper {
+    :hover {
+      cursor: pointer;
+    }
+  }
 `;
 
 export const CardContent = styled.div`

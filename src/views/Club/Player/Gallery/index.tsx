@@ -12,81 +12,27 @@ import photo from "assets/images/player/photo.jpg";
 import { ClipCard } from "components/Card";
 
 const photos: ClipProps[] = [
-  {
-    backgroundImage: photo,
-    mode: "photos",
-  },
-  {
-    backgroundImage: photo,
-    mode: "photos",
-  },
-  {
-    backgroundImage: photo,
-    mode: "photos",
-  },
-  {
-    backgroundImage: photo,
-    mode: "photos",
-  },
-  {
-    backgroundImage: photo,
-    mode: "photos",
-  },
-  {
-    backgroundImage: photo,
-    mode: "photos",
-  },
-  {
-    backgroundImage: photo,
-    mode: "photos",
-  },
-  {
-    backgroundImage: photo,
-    mode: "photos",
-  },
-  {
-    backgroundImage: photo,
-    mode: "photos",
-  },
+  { id: 1, backgroundImage: photo, mode: "photos" },
+  { id: 2, backgroundImage: photo, mode: "photos" },
+  { id: 3, backgroundImage: photo, mode: "photos" },
+  { id: 4, backgroundImage: photo, mode: "photos" },
+  { id: 5, backgroundImage: photo, mode: "photos" },
+  { id: 6, backgroundImage: photo, mode: "photos" },
+  { id: 7, backgroundImage: photo, mode: "photos" },
+  { id: 8, backgroundImage: photo, mode: "photos" },
+  { id: 9, backgroundImage: photo, mode: "photos" },
 ];
 
 const videos: ClipProps[] = [
-  {
-    backgroundImage: photo,
-    mode: "videos",
-  },
-  {
-    backgroundImage: photo,
-    mode: "videos",
-  },
-  {
-    backgroundImage: photo,
-    mode: "videos",
-  },
-  {
-    backgroundImage: photo,
-    mode: "videos",
-  },
-  {
-    backgroundImage: photo,
-    mode: "videos",
-  },
-  {
-    backgroundImage: photo,
-    mode: "videos",
-  },
-  {
-    backgroundImage: photo,
-    mode: "videos",
-  },
-  {
-    backgroundImage: photo,
-    mode: "videos",
-  },
-  {
-    backgroundImage: photo,
-    mode: "videos",
-  },
+  { id: 1, backgroundImage: photo, mode: "videos" },
+  { id: 2, backgroundImage: photo, mode: "videos" },
+  { id: 3, backgroundImage: photo, mode: "videos" },
+  { id: 4, backgroundImage: photo, mode: "videos" },
+  { id: 5, backgroundImage: photo, mode: "videos" },
+  { id: 6, backgroundImage: photo, mode: "videos" },
+  { id: 7, backgroundImage: photo, mode: "videos" },
+  { id: 8, backgroundImage: photo, mode: "videos" },
+  { id: 9, backgroundImage: photo, mode: "videos" },
 ];
 
 const settings = {

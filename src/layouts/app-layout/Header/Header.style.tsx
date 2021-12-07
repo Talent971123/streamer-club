@@ -7,7 +7,14 @@ import { themeGet } from "@styled-system/theme-get";
 export const HeaderWrapper = styled.div`
   height: 62px;
   width: 100%;
+  max-width: 1440px;
   border-bottom: 1px solid ${themeGet("colors.gray.300")};
+  .ImageWrapper {
+    contain: content;
+    img {
+      border-radius: 50%;
+    }
+  }
 `;
 
 export const RedMarker = styled.div`

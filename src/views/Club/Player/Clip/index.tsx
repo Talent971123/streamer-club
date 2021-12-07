@@ -16,26 +16,31 @@ import backImage from "assets/images/player/clip.png";
 
 const data: ClipProps[] = [
   {
+    id: 1,
     backgroundImage: backImage,
     title: "Fraser McInnes - Top 5 Marks of 2021",
     content: "272 Views   108 Likes   3 days ago",
   },
   {
+    id: 2,
     backgroundImage: backImage,
     title: "Fraser McInnes - Top 5 Marks of 2021",
     content: "272 Views   108 Likes   3 days ago",
   },
   {
+    id: 3,
     backgroundImage: backImage,
     title: "Fraser McInnes - Top 5 Marks of 2021",
     content: "272 Views   108 Likes   3 days ago",
   },
   {
+    id: 4,
     backgroundImage: backImage,
     title: "Fraser McInnes - Top 5 Marks of 2021",
     content: "272 Views   108 Likes   3 days ago",
   },
   {
+    id: 5,
     backgroundImage: backImage,
     title: "Fraser McInnes - Top 5 Marks of 2021",
     content: "272 Views   108 Likes   3 days ago",

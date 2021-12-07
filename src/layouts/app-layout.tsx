@@ -25,7 +25,7 @@ const Layout = ({ children }) => {
 
   return (
     <AppLayoutWrapper>
-      <Header />
+      <WithContainer SectionView={Header} mode="wrapper" />
       {mode === "team" ? (
         <WithContainer SectionView={TeamHeader} mode="wrapper" />
       ) : null}

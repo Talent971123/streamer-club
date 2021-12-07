@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "hooks";
 // import component
 import { Col, Row } from "components/Layout";
 import { GameCard } from "components/Card";
@@ -18,6 +19,7 @@ import marker from "assets/images/home/mark.png";
 
 const data: GameCardProps[] = [
   {
+    id: 1,
     backgroundImage,
     clubImage1,
     clubImage2,
@@ -29,6 +31,7 @@ const data: GameCardProps[] = [
     users: 36,
   },
   {
+    id: 2,
     backgroundImage,
     clubImage1,
     clubImage2,
@@ -40,6 +43,7 @@ const data: GameCardProps[] = [
     users: 12,
   },
   {
+    id: 3,
     backgroundImage,
     clubImage1,
     clubImage2,
@@ -50,6 +54,7 @@ const data: GameCardProps[] = [
     progress: "IN PROGRESS",
   },
   {
+    id: 4,
     backgroundImage,
     clubImage1,
     clubImage2,
@@ -60,6 +65,7 @@ const data: GameCardProps[] = [
     progress: "20 NOV 21 10:30AM",
   },
   {
+    id: 5,
     backgroundImage,
     clubImage1,
     clubImage2,
@@ -115,9 +121,19 @@ const settings = {
 const SeeAll = useLinkItem(LinkWrapper);
 
 const GameDayView: React.FC = () => {
+  const { move } = useRouter();
   const onHandleSeeAll = () => {
     alert();
   };
+
+  const onHandleClick = (id: number) => {
+    const route = {
+      path: `/club/stream`,
+      param: { id },
+    };
+    move(route.path, route.param);
+  };
+
   return (
     <GameDayWrapper>
       <Row alignItems="center" justifyContent="space-between">
@@ -136,7 +152,9 @@ const GameDayView: React.FC = () => {
         <Col item={24}>
           <Slider {...settings}>
             {data.map((item: GameCardProps, index: number) => {
-              return <GameCard {...item} key={index} />;
+              return (
+                <GameCard {...item} key={index} handleClick={onHandleClick} />
+              );
             })}
           </Slider>
         </Col>

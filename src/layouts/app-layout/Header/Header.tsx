@@ -88,11 +88,12 @@ const Header = () => {
               <Col>
                 <DownIcon />
               </Col>
-              <Col>
+              <Col className="ImageWrapper">
                 <Image
                   src={ProfileImage}
-                  height={35}
-                  width={35}
+                  height={40}
+                  width={40}
+                  oFit="cover"
                   mode="intrinsic"
                 />
               </Col>
