@@ -62,7 +62,7 @@ const Header = () => {
               {MenuItems.map((item: any, index: number) => {
                 return (
                   <MenuItem
-                    mode={flag === item.path ? true : false}
+                    mode={flag === item.path ? "true" : "false"}
                     key={index}
                     onClick={() => handleMenuClick(item.path)}
                   >

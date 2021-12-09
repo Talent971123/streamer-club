@@ -29,7 +29,7 @@ export const RedMarker = styled.div`
   }
 `;
 
-export const MenuItem = styled.div<{ mode: boolean }>`
+export const MenuItem = styled.div<{ mode: String }>`
   display: inline-block;
   position: relative;
   cursor: pointer;
@@ -52,7 +52,7 @@ export const MenuItem = styled.div<{ mode: boolean }>`
     }
   }
   ${({ mode }) => {
-    if (mode) {
+    if (mode === "true") {
       return css`
         p {
           color: ${themeGet("colors.red.100")};
