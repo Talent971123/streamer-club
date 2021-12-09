@@ -123,7 +123,7 @@ const SeeAll = useLinkItem(LinkWrapper);
 const GameDayView: React.FC = () => {
   const { move } = useRouter();
   const onHandleSeeAll = () => {
-    alert();
+    move("/club/match");
   };
 
   const onHandleClick = (id: number) => {

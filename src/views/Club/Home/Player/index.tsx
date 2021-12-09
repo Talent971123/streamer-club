@@ -122,7 +122,7 @@ const PlayerView: React.FC = () => {
   const { move } = useRouter();
 
   const onHandleSeeAll = () => {
-    alert();
+    move("/club/player/all");
   };
 
   const onHandleClick = (id: number) => {

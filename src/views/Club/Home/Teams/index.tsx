@@ -122,7 +122,7 @@ const TeamView: React.FC = () => {
   const { move } = useRouter();
 
   const onHandleSeeAll = () => {
-    alert();
+    move("/club/team/all");
   };
 
   const onHandleClick = (id: number) => {

@@ -13,6 +13,7 @@ import { ClipWrapper, LinkWrapper } from "./clip.style";
 
 //  define the example data
 import backImage from "assets/images/player/clip.png";
+import { useRouter } from "hooks";
 
 const data: ClipProps[] = [
   {
@@ -93,8 +94,9 @@ const settings = {
 const SeeAll = useLinkItem(LinkWrapper);
 
 const ClipView: React.FC = () => {
+  const { move } = useRouter();
   const onHandleSeeAll = () => {
-    alert();
+    move("/club/match");
   };
 
   return (

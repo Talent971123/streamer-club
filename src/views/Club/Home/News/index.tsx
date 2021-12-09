@@ -14,6 +14,7 @@ import news1 from "assets/images/home/news1.png";
 import news2 from "assets/images/home/news2.png";
 import news3 from "assets/images/home/news3.png";
 import news4 from "assets/images/home/news4.png";
+import { useRouter } from "hooks";
 
 const data: NewsProps[] = [
   {
@@ -49,8 +50,9 @@ const data: NewsProps[] = [
 const SeeAll = useLinkItem(LinkWrapper);
 
 const NewsSection: React.FC = () => {
+  const { move } = useRouter();
   const onHandleSeeAll = () => {
-    alert();
+    move("/club/News");
   };
   return (
     <NewsWrapper>

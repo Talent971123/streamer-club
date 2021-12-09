@@ -4,10 +4,8 @@ import { Col, Row } from "components/Layout";
 import { GameCard } from "components/Card";
 import { Text } from "components/Text";
 import Slider from "react-slick";
-import { useLinkItem } from "components/hoc";
-import { IoArrowRedoOutline } from "react-icons/io5";
 // import styled component
-import { ReplyWrapper, LinkWrapper } from "./reply.style";
+import { ReplyWrapper } from "./reply.style";
 // import types
 import { GameCardProps } from "types/components/GameCard";
 
@@ -122,25 +120,13 @@ const settings = {
   prevArrow: <BeforeArrow />,
 };
 
-const SeeAll = useLinkItem(LinkWrapper);
-
 const ReplyView: React.FC = () => {
-  const onHandleSeeAll = () => {
-    alert();
-  };
   return (
     <ReplyWrapper>
       <Row alignItems="center" justifyContent="space-between">
         <Text fColor="white" fSize={22} fWeight={700}>
           {"Replays"}
         </Text>
-        <SeeAll
-          handleClick={onHandleSeeAll}
-          title="See all"
-          icon={<IoArrowRedoOutline />}
-          iconDirection="row-reverse"
-          alignVertical="center"
-        />
       </Row>
       <Row padding="10px 0 0 0">
         <Col item={24}>

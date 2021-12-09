@@ -12,6 +12,7 @@ import backgroundImage from "assets/images/team/sport-1.jpg";
 import { Col, Row } from "components/Layout";
 import Slider from "react-slick";
 import { Text } from "components/Text";
+import { useRouter } from "hooks";
 // example data
 const data: TeamCardProps[] = [
   {
@@ -50,8 +51,9 @@ const settings = {
 const SeeAll = useLinkItem(LinkWrapper);
 
 const JuniorSection: React.FC = () => {
+  const { move } = useRouter();
   const onHandleSeeAll = () => {
-    alert();
+    move("/club/match");
   };
   return (
     <TrendWrapper>

@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "hooks";
 // import component
 import { Col, Row } from "components/Layout";
 import { ClipCard } from "components/Card";
@@ -98,8 +99,9 @@ const settings = {
 const SeeAll = useLinkItem(LinkWrapper);
 
 const ClipView: React.FC = () => {
+  const { move } = useRouter();
   const onHandleSeeAll = () => {
-    alert();
+    move("/club/match");
   };
 
   return (

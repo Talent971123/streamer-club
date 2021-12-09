@@ -15,6 +15,7 @@ import clubImage1 from "assets/images/home/team2.png";
 import clubImage2 from "assets/images/home/team1.png";
 import backgroundImage from "assets/images/home/background.jpg";
 import marker from "assets/images/home/mark.png";
+import { useRouter } from "hooks";
 
 const data: GameCardProps[] = [
   {
@@ -118,8 +119,9 @@ const settings = {
 const SeeAll = useLinkItem(LinkWrapper);
 
 const GameDayView: React.FC = () => {
+  const { move } = useRouter();
   const onHandleSeeAll = () => {
-    alert();
+    move("/club/match");
   };
   return (
     <GamesWrapper>
