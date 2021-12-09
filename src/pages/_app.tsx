@@ -13,18 +13,18 @@ import { ThemeProvider } from "styled-components";
 import { ApolloProvider } from "@apollo/react-hooks";
 // apollo setting
 import { useApollo } from "api/apollo";
+// Redux
+import { wrapper } from "redux/store";
 // import CSS
 import { defaultTheme } from "theme";
 import "react-multi-carousel/lib/styles.css";
 import "react-toggle/style.css";
-
 import { GlobalStyle } from "theme/global.state";
 
 NProgress.configure({ showSpinner: false });
 
 function Streamer({ Component, pageProps }: AppProps) {
   const apolloClient = useApollo(pageProps.initialApolloState);
-
   const [loading, setLoading] = useState(false);
   Router.events.on("routeChangeStart", () => {
     setLoading(true);
@@ -37,7 +37,6 @@ function Streamer({ Component, pageProps }: AppProps) {
   Router.events.on("routeChangeError", () => NProgress.done());
 
   useEffect(() => {
-    // Remove the server-side injected CSS.
     const jssStyles = document.querySelector("#jss-server-side");
     if (jssStyles?.parentElement) {
       jssStyles.parentElement.removeChild(jssStyles);
@@ -56,4 +55,4 @@ function Streamer({ Component, pageProps }: AppProps) {
   );
 }
 
-export default Streamer;
+export default wrapper.withRedux(Streamer);
