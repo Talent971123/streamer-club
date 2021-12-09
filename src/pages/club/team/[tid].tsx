@@ -7,7 +7,7 @@ import {
   TrendSection,
   FollowSection,
   JuniorSection,
-} from "views/Club/team";
+} from "views/club/team";
 const TeamPage: React.FC = () => {
   return (
     <>

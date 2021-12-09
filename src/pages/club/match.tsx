@@ -2,7 +2,7 @@
 import React from "react";
 import { WithContainer } from "components/Container";
 // import views
-import { UpcomeSection, ReplySection } from "views/Club/match";
+import { UpcomeSection, ReplySection } from "views/club/match";
 const HomePage: React.FC = () => {
   return (
     <>

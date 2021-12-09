@@ -1,7 +1,7 @@
 import React from "react";
 import { WithContainer } from "components/Container";
 
-import { AllSection } from "views/Club/team";
+import { AllSection } from "views/club/team";
 const TeamAllPage: React.FC = () => {
   return (
     <>
