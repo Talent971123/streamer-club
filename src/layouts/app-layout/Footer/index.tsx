@@ -4,7 +4,7 @@ import { WithContainer } from "components/Container";
 // styled component
 import { FooterWrapper } from "./Footer.style";
 // views
-import { CopyRightView } from "views/Layout/Footer";
+import { CopyRightView } from "views/layout/footer";
 // -----------------------------------------------------
 
 const Footer = () => {

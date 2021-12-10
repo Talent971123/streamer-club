@@ -10,7 +10,7 @@ import AppLayout from "layouts/app-layout";
 import Loading from "components/Loading";
 // import context providers
 import { ThemeProvider } from "styled-components";
-import { ApolloProvider } from "@apollo/react-hooks";
+import { ApolloProvider } from "@apollo/client";
 // apollo setting
 import { useApollo } from "api/apollo";
 // Redux

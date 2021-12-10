@@ -9,7 +9,7 @@ import {
   MenuItemWrapper,
   HeaderContent,
   BlackBorder,
-} from "./Header.style";
+} from "./header.style";
 
 // icons
 import { MarkIcon } from "assets/icon";

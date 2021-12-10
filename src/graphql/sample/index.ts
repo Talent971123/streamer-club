@@ -1,1 +1,1 @@
-export { default as SampleQuery } from "./Query";
+export { default as SampleQuery } from "./query";
