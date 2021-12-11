@@ -1,24 +1,49 @@
 import { useMemo } from "react";
-import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
+import { ApolloClient, InMemoryCache, HttpLink, split } from "@apollo/client";
+import { getMainDefinition } from "@apollo/client/utilities";
+import { WebSocketLink } from "@apollo/client/link/ws";
+
 import fetch from "isomorphic-unfetch";
 
-const SERVER = process.env.NEXT_PUBLIC_CONTENT_DELIVERY_GRAPHQL_API;
-const AccessToken = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
+const SERVER: string =
+  process.env.NEXT_PUBLIC_CONTENT_DELIVERY_GRAPHQL_API || "";
+const AccessToken: string = process.env.NEXT_PUBLIC_ACCESS_TOKEN || "";
+const SOCKET: string = process.env.NEXT_PUBLIC_CONTENT_SOCKET_API || "";
 
 const httpLink = new HttpLink({
   fetch,
-  uri: SERVER,
+  uri: SERVER, //'http://localhost:3000/graphql'
   headers: {
     "x-hasura-admin-secret": AccessToken,
   },
 });
 
+const wsLink = new WebSocketLink({
+  uri: SOCKET, // "ws://localhost:3000/subscriptions"
+  options: { reconnect: true },
+  // connectionParams: {
+  //   authToken: user.authToken,
+  // },
+});
+
 let apolloClient: any;
+
+const splitLink = split(
+  ({ query }) => {
+    const definition = getMainDefinition(query);
+    return (
+      definition.kind === "OperationDefinition" &&
+      definition.operation === "subscription"
+    );
+  },
+  wsLink,
+  httpLink
+);
 
 const createApolloClient = () => {
   return new ApolloClient({
     ssrMode: true, // set to true for SSR
-    link: httpLink,
+    link: splitLink,
     cache: new InMemoryCache(),
   });
 };
