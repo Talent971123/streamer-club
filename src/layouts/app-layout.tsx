@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { ScrollTop } from "components/Button";
 // layout
 import { Header, Footer } from "layouts/app-layout/index";
-import { TeamHeader } from "layouts/club/team";
+import { TeamHeader } from "layouts/clubv/team";
 import { WithContainer } from "components/Container";
 // styled component
 import { AppLayoutWrapper } from "./app-layout.style";

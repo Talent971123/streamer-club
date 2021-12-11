@@ -3,7 +3,7 @@ import React from "react";
 // import component
 import { WithContainer } from "components/Container";
 // import views
-import { ContentView, HeadView } from "views/club/admin";
+import { ContentView, HeadView } from "sections/club/admin";
 
 const AdminPage: React.FC = () => {
   return (
