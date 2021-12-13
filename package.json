@@ -5,7 +5,10 @@
     "dev": "next dev -p 3005",
     "build": " next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "deploy:storybook": "aws s3 sync storybook-static s3://storybook.streamer.dev"
   },
   "dependencies": {
     "@apollo/client": "^3.5.6",
@@ -37,6 +40,11 @@
     "swiper": "^7.3.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@storybook/addon-actions": "^6.4.9",
+    "@storybook/addon-essentials": "^6.4.9",
+    "@storybook/addon-links": "^6.4.9",
+    "@storybook/react": "^6.4.9",
     "@styled-system/css": "^5.1.5",
     "@styled-system/theme-get": "^5.1.2",
     "@types/node": "16.11.10",
@@ -47,9 +55,11 @@
     "@types/styled-system": "^5.1.13",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
+    "babel-loader": "^8.2.3",
     "eslint": "7",
     "eslint-config-next": "12.0.4",
     "eslint-plugin-react": "^7.27.1",
+    "eslint-plugin-storybook": "^0.5.3",
     "typescript": "4.5.2"
   }
 }
