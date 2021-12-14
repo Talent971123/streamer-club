@@ -5,9 +5,10 @@ import { useRouter } from "hooks";
 import { ContainerWrapper } from "components/Container";
 import { Row, Col } from "components/Layout";
 import { Image } from "components/Image";
-import { SearchInput } from "components/Input";
+import MarkIcon from "components/MarkIcon";
+// import { SearchInput } from "components/Input";
 // assets
-import { BellIcon, DownIcon, MarkIcon } from "assets/icon";
+import { BellIcon, DownIcon } from "assets/icon";
 import LogoImage from "assets/images/layout/logo.png";
 import ProfileImage from "assets/images/layout/profile.png";
 // HOC
@@ -18,10 +19,10 @@ import { Text } from "components/Text";
 
 const MenuItems = [
   { title: "Home", path: "/" },
-  { title: "Matches", path: "/club/match" },
+  { title: "Live & Upcoming", path: "/club/live" },
+  { title: "Replays", path: "/club/replay" },
   { title: "Teams", path: "/club/team/all" },
   { title: "Players", path: "/club/player/all" },
-  { title: "Community", path: "/club/community" },
   { title: "Admin", path: "/club/admin" },
 ];
 
@@ -41,12 +42,10 @@ const Header = () => {
     <HeaderWrapper>
       <ContainerWrapper>
         <Row alignItems="center" justifyContent="space-between">
-          <Col item={13}>
+          <Col>
             <Row alignItems="center" gap={15}>
               <Col>
-                <RedMarker>
-                  <MarkIcon />
-                </RedMarker>
+                <MarkIcon />
               </Col>
               <Col>
                 <Image
@@ -78,7 +77,7 @@ const Header = () => {
               })}
             </Row>
           </Col>
-          <Col item={11}>
+          <Col item={7}>
             <Row
               gap={18}
               alignItems="center"
@@ -108,9 +107,9 @@ const Header = () => {
               <Col>
                 <Border />
               </Col>
-              <Col>
+              {/* <Col>
                 <SearchInput />
-              </Col>
+              </Col> */}
             </Row>
           </Col>
         </Row>

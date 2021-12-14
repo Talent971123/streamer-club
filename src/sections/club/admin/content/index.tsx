@@ -14,7 +14,7 @@ import Sponsorship from "./Sponsorship";
 // types
 import { commonItem } from "types/common/common";
 // styled component
-import { ContentWrapper } from "./content.style";
+import { ContentWrapper, Content } from "./content.style";
 
 const menudata: commonItem[] = [
   {
@@ -72,11 +72,13 @@ const ContentView: React.FC = () => {
             />
           </Col>
           <Col item={18}>
-            {menudata.map((item: commonItem, index: number) => {
-              if (item.path === select) {
-                return item.component;
-              }
-            })}
+            <Content>
+              {menudata.map((item: commonItem, index: number) => {
+                if (item.path === select) {
+                  return item.component;
+                }
+              })}
+            </Content>
           </Col>
         </Row>
       </ContentWrapper>

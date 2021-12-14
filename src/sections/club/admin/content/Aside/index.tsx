@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Col, Row } from "components/Layout";
 
 import { AsideWrapper, MenuItem } from "./aside.style";

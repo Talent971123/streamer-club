@@ -2,14 +2,13 @@
 import React from "react";
 import { WithContainer } from "components/Container";
 // import views
-import { UpcomeSection, ReplySection } from "sections/club/match";
-const HomePage: React.FC = () => {
+import { UpcomeSection } from "sections/club/live";
+const LivePage: React.FC = () => {
   return (
     <>
       <WithContainer mode="container" SectionView={UpcomeSection} />
-      <WithContainer mode="container" SectionView={ReplySection} />
     </>
   );
 };
 
-export default HomePage;
+export default LivePage;
