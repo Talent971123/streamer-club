@@ -74,64 +74,23 @@ const data: GameCardProps[] = [
   },
 ];
 
-// const setting for react slick
-const NextArrow: React.FC = (props: any) => {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{
-        ...style,
-        display: "block",
-        position: "absolute",
-        top: "140px",
-      }}
-      onClick={onClick}
-    />
-  );
-};
-
-const BeforeArrow: React.FC = (props: any) => {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{
-        ...style,
-        display: "block",
-        position: "absolute",
-        top: "140px",
-      }}
-      onClick={onClick}
-    />
-  );
-};
-
-const settings = {
-  infinite: false,
-  speed: 500,
-  slidesToShow: 4,
-  slidesToScroll: 4,
-  nextArrow: <NextArrow />,
-  prevArrow: <BeforeArrow />,
-};
-
 const UpcomeSection: React.FC = () => {
   return (
     <GameDayWrapper>
       <Row alignItems="center" justifyContent="space-between">
         <Text fColor="white" fSize={22} fWeight={700} mode="p">
-          {"Game Day - Live & Upcoming"}
+          {"Round 15 - Western Australia Football League"}
         </Text>
       </Row>
-      <Row padding="10px 0 0 0">
-        <Col item={24}>
-          <Slider {...settings}>
-            {data.map((item: GameCardProps, index: number) => {
-              return <GameCard {...item} key={index} />;
-            })}
-          </Slider>
-        </Col>
+      <Row
+        padding="10px 0 0 0"
+        display="grid"
+        templateCol="repeat(4, 1fr)"
+        gap={"20px 10px"}
+      >
+        {data.map((item: GameCardProps, index: number) => {
+          return <GameCard {...item} key={index} />;
+        })}
       </Row>
     </GameDayWrapper>
   );

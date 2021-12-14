@@ -17,18 +17,6 @@ export const HeaderWrapper = styled.div`
   }
 `;
 
-export const RedMarker = styled.div`
-  width: 62px;
-  height: 62px;
-  background-color: ${themeGet("colors.red.100")};
-  position: relative;
-  svg:first-child {
-    position: absolute;
-    left: 14px;
-    top: 11px;
-  }
-`;
-
 export const MenuItem = styled.div<{ mode: String }>`
   display: inline-block;
   position: relative;

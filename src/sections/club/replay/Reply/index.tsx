@@ -125,17 +125,19 @@ const ReplyView: React.FC = () => {
     <ReplyWrapper>
       <Row alignItems="center" justifyContent="space-between">
         <Text fColor="white" fSize={22} fWeight={700}>
-          {"Replays"}
+          {"Round 16 - Western Australia Football League"}
         </Text>
       </Row>
-      <Row padding="10px 0 0 0">
-        <Col item={24}>
-          <Slider {...settings}>
-            {data.map((item: GameCardProps, index: number) => {
-              return <GameCard {...item} key={index} />;
-            })}
-          </Slider>
-        </Col>
+
+      <Row
+        padding="10px 0 0 0"
+        display="grid"
+        templateCol="repeat(4, 1fr)"
+        gap={"20px 10px"}
+      >
+        {data.map((item: GameCardProps, index: number) => {
+          return <GameCard {...item} key={index} />;
+        })}
       </Row>
     </ReplyWrapper>
   );

@@ -13,7 +13,7 @@ import LogoImage from "assets/images/layout/logo.png";
 import ProfileImage from "assets/images/layout/profile.png";
 // HOC
 // styled component
-import { HeaderWrapper, RedMarker, MenuItem, Border } from "./Header.style";
+import { HeaderWrapper, MenuItem, Border } from "./Header.style";
 import { Text } from "components/Text";
 // -------------------------------------------------------------------
 

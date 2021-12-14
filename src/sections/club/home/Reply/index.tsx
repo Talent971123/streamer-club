@@ -128,7 +128,7 @@ const SeeAll = useLinkItem(LinkWrapper);
 const ReplyView: React.FC = () => {
   const { move } = useRouter();
   const onHandleSeeAll = () => {
-    move("/club/match");
+    move("/club/replay");
   };
   return (
     <ReplyWrapper>
