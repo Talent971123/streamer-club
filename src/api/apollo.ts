@@ -31,6 +31,9 @@ const httpLink: ApolloLink = new HttpLink({
   fetch,
   credentials: "same-origin",
   uri: SERVER, //'http://localhost:3000/graphql'
+  headers: {
+    "x-hasura-admin-secret": AccessToken,
+  }
 });
 
 let splitLink = httpLink;
@@ -38,7 +41,14 @@ let splitLink = httpLink;
 if (!ssrMode) {
   const wsLink: WebSocketLink = new WebSocketLink({
     uri: SOCKET, // "ws://localhost:3000/subscriptions"
-    options: { reconnect: true },
+    options: {
+      reconnect: true,
+      connectionParams: {
+        headers: {
+          'x-hasura-admin-secret': AccessToken
+        }
+      }
+    },
   });
 
   splitLink = split(

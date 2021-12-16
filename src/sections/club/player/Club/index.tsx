@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 //  component
 import { Row, Col } from "components/Layout";
 //  styled
@@ -6,7 +6,11 @@ import { ClubWrapper, BottomBorder } from "./club.style";
 import { Text } from "components/Text";
 import { Button } from "components/Button";
 
+import { PlayerContext } from "pages/club/[club_slug]/player/[player_slug]";
+import moment from "moment";
+
 const ClubSection: React.FC = () => {
+  const { player }: any = useContext(PlayerContext)
   return (
     <ClubWrapper>
       <Row gap={50} alignItems="flex-start" justifyContent="center">
@@ -16,7 +20,7 @@ const ClubSection: React.FC = () => {
               <Text fColor="white" fSize={16} mode="span" padding="0 20px 0 0 ">
                 {"Current Club: "}
               </Text>
-              {"Perth Football Club"}
+              {player.club.name}
             </Text>
             <BottomBorder />
             <Row alignItems="center" gap={5}>
@@ -24,8 +28,7 @@ const ClubSection: React.FC = () => {
                 {"Teams:"}
               </Text>
               <Row flexWrap="wrap" gap={10}>
-                <Button bColor="warning">{"Senior Mens 1"}</Button>
-                <Button bColor="warning">{"Senior Mens 2"}</Button>
+                {player.teams.map((team: { name: string }, idx: number) => (<Button key={`player-team-${idx}`} bColor="warning">{team.name}</Button>))}
               </Row>
             </Row>
           </Row>
@@ -36,14 +39,14 @@ const ClubSection: React.FC = () => {
               <Text fColor="white" fSize={16} mode="span" padding="0 20px 0 0 ">
                 {"Debut Date: "}
               </Text>
-              {"01 September, 2011"}
+              {moment(player.debut_date).format('LL')}
             </Text>
             <BottomBorder />
             <Text fColor="white" fSize={15}>
               <Text fColor="white" fSize={16} mode="span" padding="0 20px 0 0 ">
                 {"Positions: "}
               </Text>
-              {"Right Forward; Right Winger"}
+              {player.positions.join(", ")}
             </Text>
           </Row>
         </Col>
@@ -53,7 +56,7 @@ const ClubSection: React.FC = () => {
               <Text fColor="white" fSize={16} mode="span" padding="0 20px 0 0 ">
                 {"Previous Clubs: "}
               </Text>
-              {"Trinity Grammar"}
+              {player.prev_club}
             </Text>
             <BottomBorder />
           </Row>

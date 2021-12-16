@@ -6,10 +6,11 @@ import type { NextPage } from "next";
 import { initializeApollo } from "api/apollo";
 
 // import page
-import HomePage from "pages/club/home";
+// import HomePage from "pages/club/home";
 
 const Home: NextPage = () => {
-  return <HomePage />;
+  // return <HomePage />;
+  return <></>
 };
 
 export async function getServerSideProps() {

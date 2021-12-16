@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 //  component
 import { Row, Col } from "components/Layout";
 import { Table } from "components/Table";
@@ -11,10 +11,13 @@ import { DisplayWrapper } from "./display.style";
 // asset
 import logo from "assets/images/home/team2.png";
 import { Text } from "components/Text";
+import { ClubAdminContext } from "pages/club/[club_slug]/admin";
 
-const Action: React.FC<{ count: number }> = ({ count }) => {
+import _ from 'lodash'
+
+const Action: React.FC<{ count: number, tid: number }> = ({ tid, count }) => {
   const onHandleEdit = (e: any) => {
-    console.log(1);
+    console.log(`Edit team with id ${tid}`);
   };
   return (
     <>
@@ -43,30 +46,23 @@ const Action: React.FC<{ count: number }> = ({ count }) => {
   );
 };
 
-const data = [
-  {
-    "Team Photo": <Avatar src={logo} Radius="circle" mode="small" />,
-    "Team Name": "Mens Division 1",
-    "# of Players": <Action count={18} />,
-  },
-  {
-    "Team Photo": <Avatar src={logo} Radius="circle" mode="small" />,
-    "Team Name": "Mens Division 2",
-    "# of Players": <Action count={17} />,
-  },
-  {
-    "Team Photo": <Avatar src={logo} Radius="circle" mode="small" />,
-    "Team Name": "Women's Division 1",
-    "# of Players": <Action count={17} />,
-  },
-  {
-    "Team Photo": <Avatar src={logo} Radius="circle" mode="small" />,
-    "Team Name": "Women's Division 2",
-    "# of Players": <Action count={17} />,
-  },
-];
 
 const DisplaySection: React.FC = () => {
+
+  const club = useContext(ClubAdminContext)
+
+  const datasource = () => {
+
+    if (_.isUndefined(club.teams)) { return [] }
+
+    return club.teams.map(team => ({
+      "Team Photo": <Avatar src={team.image} Radius="circle" mode="small" />,
+      "Team Name": team.division,
+      "# of Players": <Action tid={team.id} count={team.players.length} />
+    }))
+
+  }
+
   return (
     <DisplayWrapper>
       <Row flexDirection="column" gap={20}>
@@ -78,7 +74,7 @@ const DisplaySection: React.FC = () => {
           </Row>
         </Col>
         <Col item={24}>
-          <Table data={data} />
+          <Table data={datasource()} />
         </Col>
       </Row>
     </DisplayWrapper>

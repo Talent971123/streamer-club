@@ -17,18 +17,24 @@ import { HeaderWrapper, MenuItem, Border } from "./Header.style";
 import { Text } from "components/Text";
 // -------------------------------------------------------------------
 
-const MenuItems = [
-  { title: "Home", path: "/" },
-  { title: "Live & Upcoming", path: "/club/live" },
-  { title: "Replays", path: "/club/replay" },
-  { title: "Teams", path: "/club/team/all" },
-  { title: "Players", path: "/club/player/all" },
-  { title: "Admin", path: "/club/admin" },
-];
+
+const MenuItems = (club_slug: string) => {
+  return [
+    { title: "Home", path: `/club/${club_slug}` },
+    { title: "Live & Upcoming", path: `/club/${club_slug}/live` },
+    { title: "Replays", path: `/club/${club_slug}/replay` },
+    { title: "Teams", path: `/club/${club_slug}/teams` },
+    { title: "Players", path: `/club/${club_slug}/players` },
+    { title: "Admin", path: `/club/${club_slug}/admin` },
+  ];
+}
+
 
 const Header = () => {
-  const { move, path } = useRouter();
+  const { move, path, param }: any = useRouter();
   const [flag, setFlag] = useState<string>("/");
+
+  const menu = MenuItems(param.club_slug)
 
   useEffect(() => {
     setFlag(path);
@@ -58,7 +64,7 @@ const Header = () => {
               <Col>
                 <Border />
               </Col>
-              {MenuItems.map((item: any, index: number) => {
+              {menu.map((item: any, index: number) => {
                 return (
                   <MenuItem
                     mode={flag === item.path ? "true" : "false"}

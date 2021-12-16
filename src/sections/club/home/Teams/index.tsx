@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useRouter } from "hooks";
 // import component
 import { Col, Row } from "components/Layout";
@@ -14,65 +14,7 @@ import { TeamWrapper, LinkWrapper } from "./teams.style";
 
 //  define the example data
 import TeamsImage from "assets/images/home/team.png";
-
-const data: ClipProps[] = [
-  {
-    id: 1,
-    backgroundImage: TeamsImage,
-    title: "Mens",
-    content: "Opens 1",
-    mode: "teams",
-  },
-  {
-    id: 2,
-    backgroundImage: TeamsImage,
-    title: "Mens",
-    content: "Opens 1",
-    mode: "teams",
-  },
-  {
-    id: 3,
-    backgroundImage: TeamsImage,
-    title: "Mens",
-    content: "Opens 1",
-    mode: "teams",
-  },
-  {
-    id: 4,
-    backgroundImage: TeamsImage,
-    title: "Mens",
-    content: "Opens 1",
-    mode: "teams",
-  },
-  {
-    id: 5,
-    backgroundImage: TeamsImage,
-    title: "Mens",
-    content: "Opens 1",
-    mode: "teams",
-  },
-  {
-    id: 6,
-    backgroundImage: TeamsImage,
-    title: "Mens",
-    content: "Opens 1",
-    mode: "teams",
-  },
-  {
-    id: 7,
-    backgroundImage: TeamsImage,
-    title: "Mens",
-    content: "Opens 1",
-    mode: "teams",
-  },
-  {
-    id: 8,
-    backgroundImage: TeamsImage,
-    title: "Mens",
-    content: "Opens 1",
-    mode: "teams",
-  },
-];
+import { ClubContext } from "pages/club/[club_slug]";
 
 // const setting for react slick
 const NextArrow: React.FC = (props: any) => {
@@ -121,16 +63,17 @@ const SeeAll = useLinkItem(LinkWrapper);
 const TeamView: React.FC = () => {
   const { move } = useRouter();
 
+  const club = useContext(ClubContext);
+
   const onHandleSeeAll = () => {
-    move("/club/team/all");
+    move(`/club/${club.slug}/teams`);
   };
 
-  const onHandleClick = (id: number) => {
+  const onHandleClick = (slug: string) => {
     const route = {
-      path: `/club/team/${id}`,
-      param: { id },
+      path: `/club/${club.slug}/team/${slug}`
     };
-    move(route.path, route.param);
+    move(route.path);
   };
 
   return (
@@ -150,9 +93,16 @@ const TeamView: React.FC = () => {
       <Row padding="10px 0 0 0">
         <Col item={24}>
           <Slider {...settings}>
-            {data.map((item: ClipProps, index: number) => {
+            {club.teams && club.teams.map((team: any, index: number) => {
+              const item: ClipProps = {
+                id: team.id,
+                backgroundImage: team.image,
+                title: team.name,
+                mode: 'teams',
+                content: team.division
+              }
               return (
-                <ClipCard {...item} key={index} handleClick={onHandleClick} />
+                <ClipCard {...item} key={index} handleClick={() => onHandleClick(team.slug)} />
               );
             })}
           </Slider>

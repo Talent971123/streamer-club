@@ -1,5 +1,5 @@
 import React from "react";
-import { useRouter } from "hooks";
+// import { useRouter } from "hooks";
 // import component
 import { Col, Row } from "components/Layout";
 import { GameCard } from "components/Card";
@@ -16,6 +16,7 @@ import clubImage1 from "assets/images/home/team2.png";
 import clubImage2 from "assets/images/home/team1.png";
 import backgroundImage from "assets/images/home/background.jpg";
 import marker from "assets/images/home/mark.png";
+import { useRouter } from "next/router";
 
 const data: GameCardProps[] = [
   {
@@ -121,17 +122,14 @@ const settings = {
 const SeeAll = useLinkItem(LinkWrapper);
 
 const GameDayView: React.FC = () => {
-  const { move } = useRouter();
+  const router = useRouter();
+  const { club_slug } = router.query
   const onHandleSeeAll = () => {
-    move("/club/live");
+    router.push(`/club/${club_slug}/live`)
   };
 
   const onHandleClick = (id: number) => {
-    const route = {
-      path: `/club/stream`,
-      param: { id },
-    };
-    move(route.path, route.param);
+    router.push(`/club/${club_slug}/stream?id=` + id)
   };
 
   return (
@@ -141,7 +139,7 @@ const GameDayView: React.FC = () => {
           {"Game Day - Live & Upcoming"}
         </Text>
         <SeeAll
-          handleClick={onHandleSeeAll}
+          handleClick={() => onHandleSeeAll}
           title="See all"
           icon={<IoArrowRedoOutline />}
           iconDirection="row-reverse"
@@ -153,7 +151,7 @@ const GameDayView: React.FC = () => {
           <Slider {...settings}>
             {data.map((item: GameCardProps, index: number) => {
               return (
-                <GameCard {...item} key={index} handleClick={onHandleClick} />
+                <GameCard {...item} key={index} handleClick={() => onHandleClick(item.id)} />
               );
             })}
           </Slider>

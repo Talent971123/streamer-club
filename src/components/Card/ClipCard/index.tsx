@@ -31,8 +31,8 @@ const ClipCard: React.FC<ClipProps> = ({
         <Image
           src={backgroundImage}
           oFit="cover"
-          width={mode == "photos" || mode == "videos" ? 142 : 0}
-          height={mode == "photos" || mode == "videos" ? 142 : 0}
+          width={["photos", "videos", "player", "teams"].includes(mode) ? 142 : 0}
+          height={["photos", "videos", "player", "teams"].includes(mode) ? 142 : 0}
         />
         {mode === "clip" || mode === "videos" ? (
           <PlayWrapper mode={mode}>
@@ -50,8 +50,8 @@ const ClipCard: React.FC<ClipProps> = ({
                   mode === "clip"
                     ? "gray.600"
                     : mode === "teams"
-                    ? "white"
-                    : "red.100"
+                      ? "white"
+                      : "red.100"
                 }
                 fSize={mode === "clip" ? 14 : mode === "teams" ? 16 : 14}
                 tAlign={mode === "clip" ? "left" : "center"}
@@ -66,8 +66,8 @@ const ClipCard: React.FC<ClipProps> = ({
                   mode === "clip"
                     ? "gray.600"
                     : mode === "teams"
-                    ? "white"
-                    : "gray.300"
+                      ? "white"
+                      : "gray.300"
                 }
                 tAlign={mode === "clip" ? "left" : "center"}
                 fSize={mode === "clip" ? 12 : mode === "teams" ? 16 : 12}

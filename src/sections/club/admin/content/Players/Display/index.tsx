@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 //  component
 import { Row, Col } from "components/Layout";
 import { Table } from "components/Table";
@@ -11,10 +11,13 @@ import { DisplayWrapper } from "./display.style";
 // asset
 import logo from "assets/images/home/player.png";
 import { Text } from "components/Text";
+import { ClubAdminContext } from "pages/club/[club_slug]/admin";
 
-const Action: React.FC<{ level: string }> = ({ level }) => {
+import _ from 'lodash'
+
+const Action: React.FC<{ level: string, pid: number }> = ({ level, pid }) => {
   const onHandleEdit = (e: any) => {
-    console.log(1);
+    console.log(`Edit player with id ${pid}`);
   };
   return (
     <>
@@ -47,46 +50,36 @@ const Action: React.FC<{ level: string }> = ({ level }) => {
   );
 };
 
-const data = [
-  {
-    "Player Photo": <Avatar src={logo} Radius="circle" mode="small" />,
-    "Player Name": "Joe Blogs",
-    Team: "Mens Division 1",
-    Status: <Action level={"Player Pro"} />,
-  },
-  {
-    "Player Photo": <Avatar src={logo} Radius="circle" mode="small" />,
-    "Player Name": "Jane Doe",
-    Team: "Women Division 1",
-    Status: <Action level={"Standard"} />,
-  },
-  {
-    "Player Photo": <Avatar src={logo} Radius="circle" mode="small" />,
-    "Player Name": "Bob Brown",
-    Team: "Mens Division 1",
-    Status: <Action level={"Standard"} />,
-  },
-  {
-    "Player Photo": <Avatar src={logo} Radius="circle" mode="small" />,
-    "Player Name": "Petter Parker",
-    Team: "Mens Division 2",
-    Status: <Action level={"Player Pro"} />,
-  },
-];
 
 const DisplaySection: React.FC = () => {
+
+  const club = useContext(ClubAdminContext)
+
+  const datasource = () => {
+
+    if (_.isUndefined(club.players)) { return [] }
+
+    return club.players.map(player => ({
+      "Player Photo": <Avatar src={player.image} Radius="circle" mode="small" />,
+      "Player Name": `${player.first_name} ${player.last_name}`,
+      Team: player.team.name,
+      Status: <Action pid={player.id} level={player.is_professional ? "Player Pro" : "Standard"} />,
+    }))
+
+  }
+
   return (
     <DisplayWrapper>
       <Row flexDirection="column" gap={20}>
         <Col item={24}>
           <Row justifyContent="flex-end">
             <Button bColor="primary" bSize="small" icon={<BsPlus />}>
-              {"Add Plyaer"}
+              {"Add Player"}
             </Button>
           </Row>
         </Col>
         <Col item={24}>
-          <Table data={data} />
+          <Table data={datasource()} />
         </Col>
       </Row>
     </DisplayWrapper>

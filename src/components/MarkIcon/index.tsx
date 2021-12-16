@@ -2,11 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import { themeGet } from "@styled-system/theme-get";
 import {
+  FootballIcon,
   //   BellIcon,
   //   DownIcon,
   //   BasketIcon,
   //   AflIcon,
-  HockeyIcon,
+  //   HockeyIcon,
   //   CriketIcon,
 } from "assets/icon";
 
@@ -19,8 +20,8 @@ export const RedMarker = styled.div`
   position: relative;
   svg:first-child {
     position: absolute;
-    left: 14px;
-    top: 11px;
+    left: 18px;
+    top: 18px;
   }
 `;
 
@@ -28,7 +29,7 @@ const MarkIcon: React.FC = () => {
   return (
     <MarkWrapper>
       <RedMarker>
-        <HockeyIcon />
+        <FootballIcon />
       </RedMarker>
     </MarkWrapper>
   );

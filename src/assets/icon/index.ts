@@ -14,3 +14,4 @@ export { default as MarkIcon } from "./mark";
 export { default as CriketIcon } from "./cricket";
 export { default as HockeyIcon } from "./hockey";
 export { default as AflIcon } from "./afl";
+export { default as FootballIcon } from "./football";

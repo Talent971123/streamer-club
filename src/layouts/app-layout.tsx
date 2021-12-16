@@ -15,7 +15,7 @@ const Layout = ({ children }) => {
   const [mode, setMode] = useState<string>("");
   useEffect(() => {
     const type = "/";
-    console.log(router.route.split(type));
+    // console.log(router.route.split(type));
     if (router.route.split(type)[3] !== "all") {
       setMode(router.route.split(type)[2]);
     } else {

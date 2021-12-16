@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { Col, Row } from "components/Layout";
 
@@ -10,21 +10,25 @@ import { FiShare2 } from "react-icons/fi";
 import { FiUserPlus } from "react-icons/fi";
 
 import player from "assets/images/player/player.png";
+import { PlayerContext } from "pages/club/[club_slug]/player/[player_slug]";
 
 const IntroSection: React.FC = () => {
+
+  const { player }: any = useContext(PlayerContext)
+
   return (
     <ProfileWrapper>
       <Row gap={20}>
         <Col item={4}>
           <ImageContent>
-            <Image src={player} oFit="cover" width={185} height={185}></Image>
+            <Image src={player.image} oFit="cover" width={185} height={185}></Image>
           </ImageContent>
         </Col>
         <Col item={20}>
           <Row alignItems="center" justifyContent="space-between">
             <Col>
               <Text fWeight={600} fSize={24}>
-                {"Fraser McInnes"}
+                {`${player.first_name} ${player.last_name}`}
               </Text>
             </Col>
             <Col>
@@ -41,9 +45,7 @@ const IntroSection: React.FC = () => {
           </Row>
           <ContentWrapper>
             <Text fSize={14}>
-              {
-                "Fraser McInnes is the captain of the Perth Demons in the Western Australia Football Leargue. McInnes joined the team in 2011, after graduating from Trinity College. Across his 136-game WAFL career, McInnes is a best and fairest winner at Perth from 2014 and 2016, and has been named to the WAFL team of the Year. 2021 was a record setting season for McInnes with over 700 marks, and 14.6 disposals averaged per game."
-              }
+              {player.bio}
             </Text>
           </ContentWrapper>
         </Col>

@@ -6,6 +6,7 @@ import { WithContainer } from "components/Container";
 import { ContentView, HeadView } from "sections/club/admin";
 
 const AdminPage: React.FC = () => {
+
   return (
     <>
       <WithContainer
@@ -21,6 +22,7 @@ const AdminPage: React.FC = () => {
       />
     </>
   );
+
 };
 
 export default AdminPage;

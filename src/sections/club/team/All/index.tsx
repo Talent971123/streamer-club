@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useRouter } from "hooks";
 // component
 import { Row } from "components/Layout";
@@ -9,76 +9,18 @@ import { PlayerAllWrapper, Item } from "./all.style";
 // types
 import { ClipProps } from "types/components/ClipCard";
 //  define the example data
-import TeamsImage from "assets/images/home/team.png";
-
-const data: ClipProps[] = [
-  {
-    id: 1,
-    backgroundImage: TeamsImage,
-    title: "Mens",
-    content: "Opens 1",
-    mode: "teams",
-  },
-  {
-    id: 2,
-    backgroundImage: TeamsImage,
-    title: "Mens",
-    content: "Opens 1",
-    mode: "teams",
-  },
-  {
-    id: 3,
-    backgroundImage: TeamsImage,
-    title: "Mens",
-    content: "Opens 1",
-    mode: "teams",
-  },
-  {
-    id: 4,
-    backgroundImage: TeamsImage,
-    title: "Mens",
-    content: "Opens 1",
-    mode: "teams",
-  },
-  {
-    id: 5,
-    backgroundImage: TeamsImage,
-    title: "Mens",
-    content: "Opens 1",
-    mode: "teams",
-  },
-  {
-    id: 6,
-    backgroundImage: TeamsImage,
-    title: "Mens",
-    content: "Opens 1",
-    mode: "teams",
-  },
-  {
-    id: 7,
-    backgroundImage: TeamsImage,
-    title: "Mens",
-    content: "Opens 1",
-    mode: "teams",
-  },
-  {
-    id: 8,
-    backgroundImage: TeamsImage,
-    title: "Mens",
-    content: "Opens 1",
-    mode: "teams",
-  },
-];
+import { TeamsContext } from "pages/club/[club_slug]/teams";
 
 const TeamAllView: React.FC = () => {
   const { move } = useRouter();
 
-  const onHandleClick = (id: number) => {
+  const { teams, club_slug }: any = useContext(TeamsContext)
+
+  const onHandleClick = (slug: string) => {
     const route = {
-      path: `/club/team/${id}`,
-      param: { id },
+      path: `/club/${club_slug}/team/${slug}`
     };
-    move(route.path, route.param);
+    move(route.path);
   };
   return (
     <PlayerAllWrapper>
@@ -91,13 +33,23 @@ const TeamAllView: React.FC = () => {
         gap={30}
         padding="30px 0 0 0"
       >
-        {data.map((item: ClipProps, index: number) => {
+        {teams.map((team: any, index: number) => {
+
+          const item: ClipProps = {
+            id: team.id,
+            backgroundImage: team.image,
+            title: team.name,
+            mode: 'teams',
+            content: team.division
+          }
+
           return (
             <Item key={index}>
-              <ClipCard {...item} handleClick={onHandleClick} />
+              <ClipCard {...item} handleClick={() => onHandleClick(team.slug)} />
             </Item>
           );
         })}
+
       </Row>
     </PlayerAllWrapper>
   );
