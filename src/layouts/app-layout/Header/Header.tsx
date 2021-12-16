@@ -17,7 +17,6 @@ import { HeaderWrapper, MenuItem, Border } from "./Header.style";
 import { Text } from "components/Text";
 // -------------------------------------------------------------------
 
-
 const MenuItems = (club_slug: string) => {
   return [
     { title: "Home", path: `/club/${club_slug}` },
@@ -27,14 +26,13 @@ const MenuItems = (club_slug: string) => {
     { title: "Players", path: `/club/${club_slug}/players` },
     { title: "Admin", path: `/club/${club_slug}/admin` },
   ];
-}
-
+};
 
 const Header = () => {
   const { move, path, param }: any = useRouter();
   const [flag, setFlag] = useState<string>("/");
 
-  const menu = MenuItems(param.club_slug)
+  const menu = MenuItems(param.club_slug);
 
   useEffect(() => {
     setFlag(path);

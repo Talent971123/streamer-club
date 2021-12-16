@@ -9,10 +9,9 @@ import { Image } from "components/Image";
 import { ClubContext } from "pages/club/[club_slug]";
 
 const Banner: React.FC = () => {
+  const { club }: any = useContext(ClubContext);
 
-  const { club }: any = useContext(ClubContext)
-
-  const banner = club ? club.banner_image : bgImg
+  const banner = club ? club.banner_image : bgImg;
 
   return (
     <BannerWrapper>

@@ -10,7 +10,7 @@ import { PlayerContext } from "pages/club/[club_slug]/player/[player_slug]";
 import moment from "moment";
 
 const ClubSection: React.FC = () => {
-  const { player }: any = useContext(PlayerContext)
+  const { player }: any = useContext(PlayerContext);
   return (
     <ClubWrapper>
       <Row gap={50} alignItems="flex-start" justifyContent="center">
@@ -28,7 +28,11 @@ const ClubSection: React.FC = () => {
                 {"Teams:"}
               </Text>
               <Row flexWrap="wrap" gap={10}>
-                {player.teams.map((team: { name: string }, idx: number) => (<Button key={`player-team-${idx}`} bColor="warning">{team.name}</Button>))}
+                {player.teams.map((team: { name: string }, idx: number) => (
+                  <Button key={`player-team-${idx}`} bColor="warning">
+                    {team.name}
+                  </Button>
+                ))}
               </Row>
             </Row>
           </Row>
@@ -39,7 +43,7 @@ const ClubSection: React.FC = () => {
               <Text fColor="white" fSize={16} mode="span" padding="0 20px 0 0 ">
                 {"Debut Date: "}
               </Text>
-              {moment(player.debut_date).format('LL')}
+              {moment(player.debut_date).format("LL")}
             </Text>
             <BottomBorder />
             <Text fColor="white" fSize={15}>

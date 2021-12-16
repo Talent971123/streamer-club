@@ -125,7 +125,7 @@ const ReplyView: React.FC = () => {
     <ReplyWrapper>
       <Row alignItems="center" justifyContent="space-between">
         <Text fColor="white" fSize={22} fWeight={700}>
-          {"Round 16 - Western Australia Football League"}
+          {"Round 14 - Western Australia Football League"}
         </Text>
       </Row>
 

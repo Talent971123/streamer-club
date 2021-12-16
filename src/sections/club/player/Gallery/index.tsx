@@ -49,7 +49,7 @@ const GallerySection: React.FC = () => {
         <Text fColor="white" fSize={22} fWeight={700}>
           {"Media Gallery"}
         </Text>
-        <Text fColor="red.100">{"WAFL - Mens Division 1: Round 16"}</Text>
+        <Text fColor="red.100">{"WAFL - Mens Division 1: Round 15"}</Text>
       </Row>
       <GalleryContent>
         <Row

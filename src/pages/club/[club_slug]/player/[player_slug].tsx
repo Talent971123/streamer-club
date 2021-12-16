@@ -9,58 +9,28 @@ import {
   ClubSection,
   IntroSection,
 } from "sections/club/player";
-import { useRouter } from 'next/router'
-import { gql, useQuery } from "@apollo/client";
+import { useRouter } from "next/router";
+import { useQuery } from "@apollo/client";
+import { PLAYERQL } from "graphql/club";
 
-/** gql 
- * TODO: transfer to common query file 
- * */
-
-const GET_PLAYERS = gql`query MyPlayerQuery($club_slug: String!, $player_slug: String!) {
-  players_details(where: {club: {slug: {_eq: $club_slug}}, slug: {_eq: $player_slug}}) {
-    active
-    bio
-    club_id
-    debut_date
-    email
-    first_name
-    id
-    image
-    is_professional
-    is_upgraded
-    last_name
-    mobile
-    prev_club
-    slug
-    positions
-    club {
-      name
-    }
-    teams {
-      name
-    }
-  }
-}`
-
-export const PlayerContext = createContext({})
+export const PlayerContext = createContext({});
 
 const PlayerPage: React.FC = (props) => {
-
   const router = useRouter();
   const { club_slug, player_slug } = router.query;
 
-  const { data, loading } = useQuery(GET_PLAYERS, {
+  const { data, loading } = useQuery(PLAYERQL.GET_PLAYER, {
     variables: {
       club_slug,
-      player_slug
-    }
-  })
+      player_slug,
+    },
+  });
 
   if (loading) {
-    return <></>
+    return <></>;
   }
 
-  console.log(data.players_details[0])
+  console.log(data.players_details[0]);
 
   return (
     <>
@@ -74,6 +44,5 @@ const PlayerPage: React.FC = (props) => {
     </>
   );
 };
-
 
 export default PlayerPage;

@@ -47,7 +47,8 @@ function Streamer({ Component, pageProps }: AppProps) {
     <ApolloProvider client={apolloClient}>
       <ThemeProvider theme={defaultTheme}>
         <AppLayout>
-          {!loading ? <Component {...pageProps} /> : <Loading />}
+          {/* {!loading ? <Component {...pageProps} /> : <Loading />} */}
+          <Component {...pageProps} />
         </AppLayout>
         <GlobalStyle />
       </ThemeProvider>

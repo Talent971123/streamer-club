@@ -9,19 +9,22 @@ import { Button } from "components/Button";
 import { FiShare2 } from "react-icons/fi";
 import { FiUserPlus } from "react-icons/fi";
 
-import player from "assets/images/player/player.png";
 import { PlayerContext } from "pages/club/[club_slug]/player/[player_slug]";
 
 const IntroSection: React.FC = () => {
-
-  const { player }: any = useContext(PlayerContext)
+  const { player }: any = useContext(PlayerContext);
 
   return (
     <ProfileWrapper>
       <Row gap={20}>
         <Col item={4}>
           <ImageContent>
-            <Image src={player.image} oFit="cover" width={185} height={185}></Image>
+            <Image
+              src={player.image}
+              oFit="cover"
+              width={185}
+              height={185}
+            ></Image>
           </ImageContent>
         </Col>
         <Col item={20}>
@@ -44,9 +47,7 @@ const IntroSection: React.FC = () => {
             </Col>
           </Row>
           <ContentWrapper>
-            <Text fSize={14}>
-              {player.bio}
-            </Text>
+            <Text fSize={14}>{player.bio}</Text>
           </ContentWrapper>
         </Col>
       </Row>
