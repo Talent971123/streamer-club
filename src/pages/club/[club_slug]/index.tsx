@@ -47,6 +47,7 @@ export const getServerSideProps = async (context: any) => {
       club_slug,
     },
   });
+  console.log(data);
 
   return {
     props: {

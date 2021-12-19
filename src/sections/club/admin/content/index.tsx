@@ -75,7 +75,7 @@ const ContentView: React.FC = () => {
             <Content>
               {menudata.map((item: commonItem, index: number) => {
                 if (item.path === select) {
-                  return item.component;
+                  return <div key={index}>{item.component}</div>;
                 }
               })}
             </Content>

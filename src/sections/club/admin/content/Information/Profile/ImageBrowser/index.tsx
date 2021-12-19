@@ -1,5 +1,4 @@
 import React, { useState, useRef } from "react";
-import { FileDrop } from "react-file-drop";
 
 import { UploadIcon } from "assets/icon";
 
@@ -34,7 +33,7 @@ export const ImageBroswer: React.FC = () => {
 
   return (
     <ContentWrapper>
-      <FileDrop onTargetClick={onTargetClick}>
+      <div onClick={onTargetClick}>
         <Row
           flexDirection="column"
           alignItems="center"
@@ -50,12 +49,12 @@ export const ImageBroswer: React.FC = () => {
             accept="image/png, image/jpeg"
           />
           <UploadIcon />
-          <Text fColor="gray.300">Upload a file or drag and drop</Text>
+          <Text fColor="gray.300">Upload a file</Text>
           <Text fColor="gray.300" fWeight={700}>
             PNG, JPG up to 10MB
           </Text>
         </Row>
-      </FileDrop>
+      </div>
     </ContentWrapper>
   );
 };

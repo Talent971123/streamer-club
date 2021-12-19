@@ -9,13 +9,12 @@ import { BsPlus } from "react-icons/bs";
 //  styled component
 import { DisplayWrapper } from "./display.style";
 // asset
-import logo from "assets/images/home/team2.png";
 import { Text } from "components/Text";
 import { ClubAdminContext } from "pages/club/[club_slug]/admin";
 
-import _ from 'lodash'
+import _ from "lodash";
 
-const Action: React.FC<{ count: number, tid: number }> = ({ tid, count }) => {
+const Action: React.FC<{ count: number; tid: number }> = ({ tid, count }) => {
   const onHandleEdit = (e: any) => {
     console.log(`Edit team with id ${tid}`);
   };
@@ -46,22 +45,26 @@ const Action: React.FC<{ count: number, tid: number }> = ({ tid, count }) => {
   );
 };
 
-
 const DisplaySection: React.FC = () => {
-
-  const club = useContext(ClubAdminContext)
+  const club = useContext(ClubAdminContext);
 
   const datasource = () => {
+    if (_.isUndefined(club.teams)) {
+      return [
+        {
+          "Team Photo": "",
+          "Team Name": "",
+          "# of Players": "",
+        },
+      ];
+    }
 
-    if (_.isUndefined(club.teams)) { return [] }
-
-    return club.teams.map(team => ({
+    return club.teams.map((team) => ({
       "Team Photo": <Avatar src={team.image} Radius="circle" mode="small" />,
       "Team Name": team.division,
-      "# of Players": <Action tid={team.id} count={team.players.length} />
-    }))
-
-  }
+      "# of Players": <Action tid={team.id} count={team.players.length} />,
+    }));
+  };
 
   return (
     <DisplayWrapper>

@@ -1,18 +1,43 @@
-import React from "react";
+import React, { useEffect } from "react";
 //  import component
 import { Col, Row } from "components/Layout";
+import videojs from "@mux/videojs-kit";
 // import styled
 import { DisplayWrpper } from "./display.stlye";
 // import assets
 import bgImg from "assets/images/stream/banne.png";
 import { Image } from "components/Image";
 
-const Banner: React.FC = () => {
+interface VideoProps {
+  playBackID?: string;
+}
+
+const Banner: React.FC<VideoProps> = ({
+  playBackID = "eTexKeHt6q89D01VEJwhGPFNgh9pjRsmb9ovotAR4A0200",
+}) => {
+  useEffect(() => {
+    const player = videojs("my-player", {
+      timelineHoverPreviews: true,
+    });
+
+    player.src({
+      src: playBackID,
+      type: "video/mux",
+    });
+  }, [playBackID]);
+
   return (
     <DisplayWrpper>
       <Row>
         <Col item={24}>
-          <Image src={bgImg} height={600} oFit="cover" />
+          <video
+            id="my-player"
+            className={"video-js vjs-16-9"}
+            controls
+            poster="https://image.mux.com/eTexKeHt6q89D01VEJwhGPFNgh9pjRsmb9ovotAR4A0200/thumbnail.png"
+            preload="auto"
+            width="100%"
+          ></video>
         </Col>
       </Row>
     </DisplayWrpper>

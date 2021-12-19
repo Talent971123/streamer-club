@@ -1,21 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 //  component
 import { Row, Col } from "components/Layout";
 import { Table } from "components/Table";
 import { Button } from "components/Button";
 import { Avatar } from "components/Avatar";
+import { CustomModal } from "components/Modal";
 //  import react icons
 import { BsPlus } from "react-icons/bs";
 //  styled component
 import { DisplayWrapper } from "./display.style";
 // asset
-import logo from "assets/images/home/player.png";
 import { Text } from "components/Text";
 import { ClubAdminContext } from "pages/club/[club_slug]/admin";
 
-import _ from 'lodash'
+import _ from "lodash";
 
-const Action: React.FC<{ level: string, pid: number }> = ({ level, pid }) => {
+const Action: React.FC<{ level: string; pid: number }> = ({ level, pid }) => {
   const onHandleEdit = (e: any) => {
     console.log(`Edit player with id ${pid}`);
   };
@@ -50,30 +50,53 @@ const Action: React.FC<{ level: string, pid: number }> = ({ level, pid }) => {
   );
 };
 
-
 const DisplaySection: React.FC = () => {
+  const club = useContext(ClubAdminContext);
+  const [show, setShow] = useState<boolean>(false);
 
-  const club = useContext(ClubAdminContext)
+  const onModal = (flag: boolean) => {
+    console.log(flag);
+    setShow(flag);
+  };
 
   const datasource = () => {
+    if (_.isUndefined(club.players)) {
+      return [
+        {
+          "Player Photo": "",
+          "Player Name": "",
+          Team: "",
+          Status: "",
+        },
+      ];
+    }
 
-    if (_.isUndefined(club.players)) { return [] }
-
-    return club.players.map(player => ({
-      "Player Photo": <Avatar src={player.image} Radius="circle" mode="small" />,
+    return club.players.map((player) => ({
+      "Player Photo": (
+        <Avatar src={player.image} Radius="circle" mode="small" />
+      ),
       "Player Name": `${player.first_name} ${player.last_name}`,
       Team: player.team.name,
-      Status: <Action pid={player.id} level={player.is_professional ? "Player Pro" : "Standard"} />,
-    }))
-
-  }
+      Status: (
+        <Action
+          pid={player.id}
+          level={player.is_professional ? "Player Pro" : "Standard"}
+        />
+      ),
+    }));
+  };
 
   return (
     <DisplayWrapper>
       <Row flexDirection="column" gap={20}>
         <Col item={24}>
           <Row justifyContent="flex-end">
-            <Button bColor="primary" bSize="small" icon={<BsPlus />}>
+            <Button
+              bColor="primary"
+              bSize="small"
+              icon={<BsPlus />}
+              onClick={() => onModal(true)}
+            >
               {"Add Player"}
             </Button>
           </Row>
@@ -82,6 +105,9 @@ const DisplaySection: React.FC = () => {
           <Table data={datasource()} />
         </Col>
       </Row>
+      {/* <CustomModal show={show} handleClose={() => onModal(false)}>
+        <p>Modal</p>
+      </CustomModal> */}
     </DisplayWrapper>
   );
 };

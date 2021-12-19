@@ -19,6 +19,7 @@ import { wrapper } from "redux/store";
 import { defaultTheme } from "theme";
 import "react-multi-carousel/lib/styles.css";
 import "react-toggle/style.css";
+import "@mux/videojs-kit/dist/index.css";
 import { GlobalStyle } from "theme/global.state";
 
 NProgress.configure({ showSpinner: false });

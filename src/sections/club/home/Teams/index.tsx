@@ -71,7 +71,7 @@ const TeamView: React.FC = () => {
 
   const onHandleClick = (slug: string) => {
     const route = {
-      path: `/club/${club.slug}/team/${slug}`
+      path: `/club/${club.slug}/team/${slug}`,
     };
     move(route.path);
   };
@@ -93,18 +93,23 @@ const TeamView: React.FC = () => {
       <Row padding="10px 0 0 0">
         <Col item={24}>
           <Slider {...settings}>
-            {club.teams && club.teams.map((team: any, index: number) => {
-              const item: ClipProps = {
-                id: team.id,
-                backgroundImage: team.image,
-                title: team.name,
-                mode: 'teams',
-                content: team.division
-              }
-              return (
-                <ClipCard {...item} key={index} handleClick={() => onHandleClick(team.slug)} />
-              );
-            })}
+            {club.teams &&
+              club.teams.map((team: any, index: number) => {
+                const item: ClipProps = {
+                  id: team.id,
+                  backgroundImage: team.image,
+                  title: team.name,
+                  mode: "teams",
+                  content: team.division,
+                };
+                return (
+                  <ClipCard
+                    {...item}
+                    key={index}
+                    handleClick={() => onHandleClick(team.slug)}
+                  />
+                );
+              })}
           </Slider>
         </Col>
       </Row>

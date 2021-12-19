@@ -31,9 +31,14 @@ export const ClipContent = styled.div<{ mode: string }>`
       `;
     }
   }}
-  border-radius: ${({ mode }) => (mode === "player" ? "50%" : "")};
   width: 100%;
+  display: flex;
+  flex: 1;
+  justify-content: center;
   position: relative;
+  img {
+    border-radius: ${({ mode }) => (mode === "player" ? "50%" : "7px")};
+  }
 `;
 
 export const ClipFooter = styled.div`

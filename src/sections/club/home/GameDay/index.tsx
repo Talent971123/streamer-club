@@ -123,13 +123,13 @@ const SeeAll = useLinkItem(LinkWrapper);
 
 const GameDayView: React.FC = () => {
   const router = useRouter();
-  const { club_slug } = router.query
+  const { club_slug } = router.query;
   const onHandleSeeAll = () => {
-    router.push(`/club/${club_slug}/live`)
+    router.push(`/club/${club_slug}/live`);
   };
 
   const onHandleClick = (id: number) => {
-    router.push(`/club/${club_slug}/stream?id=` + id)
+    router.push(`/club/${club_slug}/stream?id=` + id);
   };
 
   return (
@@ -151,7 +151,11 @@ const GameDayView: React.FC = () => {
           <Slider {...settings}>
             {data.map((item: GameCardProps, index: number) => {
               return (
-                <GameCard {...item} key={index} handleClick={() => onHandleClick(item.id)} />
+                <GameCard
+                  {...item}
+                  key={index}
+                  handleClick={() => onHandleClick(item.id)}
+                />
               );
             })}
           </Slider>

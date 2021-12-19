@@ -13,7 +13,6 @@ import { ClipProps } from "types/components/ClipCard";
 import { PlayerWrapper, LinkWrapper } from "./player.style";
 
 //  define the example data
-import PlayerImage from "assets/images/home/player.png";
 import { ClubContext } from "pages/club/[club_slug]";
 
 // const setting for react slick
@@ -71,7 +70,7 @@ const PlayerView: React.FC = () => {
 
   const onHandleClick = (slug: string) => {
     const route = {
-      path: `/club/${club.slug}/player/${slug}`
+      path: `/club/${club.slug}/player/${slug}`,
     };
     move(route.path);
   };
@@ -93,20 +92,24 @@ const PlayerView: React.FC = () => {
       <Row padding="10px 0 0 0">
         <Col item={24}>
           <Slider {...settings}>
-            {club.players && club.players.map((player: any, index: number) => {
+            {club.players &&
+              club.players.map((player: any, index: number) => {
+                const item: ClipProps = {
+                  id: player.id,
+                  backgroundImage: player.image,
+                  title: `${player.first_name} ${player.last_name}`,
+                  mode: "player",
+                  content: player.team.name,
+                };
 
-              const item: ClipProps = {
-                id: player.id,
-                backgroundImage: player.image,
-                title: `${player.first_name} ${player.last_name}`,
-                mode: 'player',
-                content: player.team.name
-              }
-
-              return (
-                <ClipCard {...item} key={index} handleClick={() => onHandleClick(player.slug)} />
-              );
-            })}
+                return (
+                  <ClipCard
+                    {...item}
+                    key={index}
+                    handleClick={() => onHandleClick(player.slug)}
+                  />
+                );
+              })}
           </Slider>
         </Col>
       </Row>
