@@ -1,5 +1,4 @@
 import React from "react";
-// import { useRouter } from "hooks";
 // import component
 import { Col, Row } from "components/Layout";
 import { GameCard } from "components/Card";
@@ -139,7 +138,7 @@ const GameDayView: React.FC = () => {
           {"Game Day - Live & Upcoming"}
         </Text>
         <SeeAll
-          handleClick={() => onHandleSeeAll}
+          handleClick={onHandleSeeAll}
           title="See all"
           icon={<IoArrowRedoOutline />}
           iconDirection="row-reverse"

@@ -53,7 +53,7 @@ const SeeAll = useLinkItem(LinkWrapper);
 const JuniorSection: React.FC = () => {
   const { move } = useRouter();
   const onHandleSeeAll = () => {
-    move("club/match");
+    // move("club/match");
   };
   return (
     <FollowWrapper>

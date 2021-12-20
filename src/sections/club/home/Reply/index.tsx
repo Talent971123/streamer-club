@@ -16,7 +16,7 @@ import clubImage1 from "assets/images/home/team2.png";
 import clubImage2 from "assets/images/home/team1.png";
 import backgroundImage from "assets/images/home/background.jpg";
 import marker from "assets/images/home/mark.png";
-import { useRouter } from "hooks";
+import { useRouter } from "next/router";
 
 const data: GameCardProps[] = [
   {
@@ -126,10 +126,17 @@ const settings = {
 const SeeAll = useLinkItem(LinkWrapper);
 
 const ReplyView: React.FC = () => {
-  const { move } = useRouter();
+  const router = useRouter();
+  const { club_slug } = router.query;
+
   const onHandleSeeAll = () => {
-    move("/club/replay");
+    router.push(`/club/${club_slug}/replay`);
   };
+
+  const onHandleClick = (id: number) => {
+    router.push(`/club/${club_slug}/stream?id=` + id);
+  };
+
   return (
     <ReplyWrapper>
       <Row alignItems="center" justifyContent="space-between">
@@ -148,7 +155,13 @@ const ReplyView: React.FC = () => {
         <Col item={24}>
           <Slider {...settings}>
             {data.map((item: GameCardProps, index: number) => {
-              return <GameCard {...item} key={index} />;
+              return (
+                <GameCard
+                  {...item}
+                  key={index}
+                  handleClick={() => onHandleClick(item.id)}
+                />
+              );
             })}
           </Slider>
         </Col>

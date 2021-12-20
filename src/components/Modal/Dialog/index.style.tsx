@@ -18,14 +18,17 @@ export const ModalWrapper = styled.div<{ show: boolean }>`
 `;
 
 export const ModalContent = styled.div`
+  border-radius: 7px;
   position: fixed;
   background: white;
-  width: 80%;
+  width: 70%;
   height: auto;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 `;
+
+export const ModalBody = styled.div``;
 
 export const ModalHeader = styled.div``;
 

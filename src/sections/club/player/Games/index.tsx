@@ -121,7 +121,7 @@ const SeeAll = useLinkItem(LinkWrapper);
 const GameDayView: React.FC = () => {
   const { move } = useRouter();
   const onHandleSeeAll = () => {
-    move("/club/match");
+    // move("/club/match");
   };
   return (
     <GamesWrapper>

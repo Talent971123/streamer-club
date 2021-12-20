@@ -38,18 +38,18 @@ const ToolBarView: React.FC = () => {
           </Row>
         </Col>
         <Col>
-          <Row>
+          <Row gap={10}>
             <Row justifyContent="center" alignItems="center" gap={10}>
               <HandIcon />
               <Text fSize={16} fWeight={600}>
-                {"Brisbane Heat"}
+                {"Suns"}
               </Text>
-              <ImageContent>
+              {/* <ImageContent>
                 <Image src={team1} width={60} height={60} />
-              </ImageContent>
+              </ImageContent> */}
             </Row>
             <Row justifyContent="center" alignItems="center" gap={10}>
-              <Row
+              {/* <Row
                 flexDirection="column"
                 justifyContent="center"
                 alignItems="center"
@@ -60,7 +60,7 @@ const ToolBarView: React.FC = () => {
                 <Text fColor="gray.300" fSize={14} fWeight={600}>
                   {"19.1"}
                 </Text>
-              </Row>
+              </Row> */}
               <BlackBorder />
               <Row
                 flexDirection="column"
@@ -73,15 +73,15 @@ const ToolBarView: React.FC = () => {
                     {"Live"}
                   </Text>
                 </LiveWrapper>
-                <Text fColor="white" fSize={20} fWeight={600} tAlign="center">
+                {/* <Text fColor="white" fSize={20} fWeight={600} tAlign="center">
                   {"2nd Lnnings"}
                 </Text>
                 <Text fColor="gray.300" fSize={13} fWeight={600}>
                   {"35.5 overs"}
-                </Text>
+                </Text> */}
               </Row>
               <BlackBorder />
-              <Row
+              {/* <Row
                 flexDirection="column"
                 justifyContent="center"
                 alignItems="center"
@@ -92,14 +92,14 @@ const ToolBarView: React.FC = () => {
                 <Text fColor="gray.300" fSize={14} fWeight={600}>
                   {"49.1"}
                 </Text>
-              </Row>
+              </Row> */}
             </Row>
             <Row justifyContent="center" alignItems="center" gap={10}>
-              <ImageContent>
+              {/* <ImageContent>
                 <Image src={team2} width={60} height={60} />
-              </ImageContent>
+              </ImageContent> */}
               <Text fSize={16} fWeight={600}>
-                {"Brisbane Heat"}
+                {"Highlanders"}
               </Text>
               <HandIcon />
             </Row>

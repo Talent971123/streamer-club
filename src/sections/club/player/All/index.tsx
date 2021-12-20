@@ -14,7 +14,7 @@ import { PlayersContext } from "pages/club/[club_slug]/players";
 const PlayerAllView: React.FC = () => {
   const { move } = useRouter();
 
-  const { players, club_slug }: any = useContext(PlayersContext)
+  const { players, club_slug }: any = useContext(PlayersContext);
 
   const onHandleClick = (slug: string) => {
     const route = {
@@ -25,7 +25,7 @@ const PlayerAllView: React.FC = () => {
   return (
     <PlayerAllWrapper>
       <Text fColor="white" fSize={22} fWeight={700}>
-        {"All Memebers"}
+        {"All Players"}
       </Text>
       <Row
         display="grid"
@@ -34,16 +34,21 @@ const PlayerAllView: React.FC = () => {
         padding="30px 0 0 0"
       >
         {players.map((player: any, index: number) => {
-
           const item: ClipProps = {
             id: player.id,
             backgroundImage: player.image,
             title: `${player.first_name} ${player.last_name}`,
-            mode: 'player',
-            content: player.team.name
-          }
+            mode: "player",
+            content: player.team.name,
+          };
 
-          return <ClipCard {...item} key={index} handleClick={() => onHandleClick(player.slug)} />;
+          return (
+            <ClipCard
+              {...item}
+              key={index}
+              handleClick={() => onHandleClick(player.slug)}
+            />
+          );
         })}
       </Row>
     </PlayerAllWrapper>

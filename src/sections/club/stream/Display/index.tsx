@@ -4,9 +4,6 @@ import { Col, Row } from "components/Layout";
 import videojs from "@mux/videojs-kit";
 // import styled
 import { DisplayWrpper } from "./display.stlye";
-// import assets
-import bgImg from "assets/images/stream/banne.png";
-import { Image } from "components/Image";
 
 interface VideoProps {
   playBackID?: string;
@@ -18,6 +15,15 @@ const Banner: React.FC<VideoProps> = ({
   useEffect(() => {
     const player = videojs("my-player", {
       timelineHoverPreviews: true,
+      plugins: {
+        mux: {
+          debug: false,
+          data: {
+            env_key: process.env.NEXT_PUBLIC_MUX_ENV,
+            video_title: "Example Title",
+          },
+        },
+      },
     });
 
     player.src({

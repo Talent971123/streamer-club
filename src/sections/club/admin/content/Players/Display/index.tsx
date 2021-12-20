@@ -1,10 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 //  component
 import { Row, Col } from "components/Layout";
 import { Table } from "components/Table";
 import { Button } from "components/Button";
 import { Avatar } from "components/Avatar";
-import { CustomModal } from "components/Modal";
 //  import react icons
 import { BsPlus } from "react-icons/bs";
 //  styled component
@@ -52,12 +51,6 @@ const Action: React.FC<{ level: string; pid: number }> = ({ level, pid }) => {
 
 const DisplaySection: React.FC = () => {
   const club = useContext(ClubAdminContext);
-  const [show, setShow] = useState<boolean>(false);
-
-  const onModal = (flag: boolean) => {
-    console.log(flag);
-    setShow(flag);
-  };
 
   const datasource = () => {
     if (_.isUndefined(club.players)) {
@@ -95,7 +88,7 @@ const DisplaySection: React.FC = () => {
               bColor="primary"
               bSize="small"
               icon={<BsPlus />}
-              onClick={() => onModal(true)}
+              onClick={() => console.log(`object`)}
             >
               {"Add Player"}
             </Button>
@@ -105,9 +98,6 @@ const DisplaySection: React.FC = () => {
           <Table data={datasource()} />
         </Col>
       </Row>
-      {/* <CustomModal show={show} handleClose={() => onModal(false)}>
-        <p>Modal</p>
-      </CustomModal> */}
     </DisplayWrapper>
   );
 };

@@ -96,7 +96,7 @@ const SeeAll = useLinkItem(LinkWrapper);
 const ClipView: React.FC = () => {
   const { move } = useRouter();
   const onHandleSeeAll = () => {
-    move("/club/match");
+    // move("/club/match");
   };
 
   return (
