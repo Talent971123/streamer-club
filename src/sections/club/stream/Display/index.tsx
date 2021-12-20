@@ -12,25 +12,25 @@ interface VideoProps {
 const Banner: React.FC<VideoProps> = ({
   playBackID = "eTexKeHt6q89D01VEJwhGPFNgh9pjRsmb9ovotAR4A0200",
 }) => {
-  useEffect(() => {
-    const player = videojs("my-player", {
-      timelineHoverPreviews: true,
-      plugins: {
-        mux: {
-          debug: false,
-          data: {
-            env_key: process.env.NEXT_PUBLIC_MUX_ENV,
-            video_title: "Example Title",
-          },
-        },
-      },
-    });
+//   useEffect(() => {
+//     const player = videojs("my-player", {
+//       timelineHoverPreviews: true,
+//       plugins: {
+//         mux: {
+//           debug: false,
+//           data: {
+//             env_key: process.env.NEXT_PUBLIC_MUX_ENV,
+//             video_title: "Example Title",
+//           },
+//         },
+//       },
+//     });
 
-    player.src({
-      src: playBackID,
-      type: "video/mux",
-    });
-  }, [playBackID]);
+//     player.src({
+//       src: playBackID,
+//       type: "video/mux",
+//     });
+//   }, [playBackID]);
 
   return (
     <DisplayWrpper>
