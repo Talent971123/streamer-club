@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3005",
-    "build": "next build",
+    "build": "CI= next build",
     "start": "next start",
     "lint": "next lint",
     "storybook": "start-storybook -p 6006",
