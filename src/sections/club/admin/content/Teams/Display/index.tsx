@@ -4,7 +4,7 @@ import { Row, Col } from "components/Layout";
 import { Table } from "components/Table";
 import { Button } from "components/Button";
 import { Avatar } from "components/Avatar";
-import { CustomModal } from "components/Modal";
+import { TeamModal } from "components/Modal";
 
 //  import react icons
 import { BsPlus } from "react-icons/bs";
@@ -52,8 +52,7 @@ const DisplaySection: React.FC = () => {
   const [show, setShow] = useState<boolean>(false);
 
   const onModal = (flag: boolean) => {
-    console.log(flag);
-    // setShow(flag);
+    setShow(flag);
   };
 
   const datasource = () => {
@@ -68,7 +67,7 @@ const DisplaySection: React.FC = () => {
     }
 
     return club.teams.map((team) => ({
-      "Team Photo": <Avatar src={team.image} Radius="circle" mode="small" />,
+      "Team Photo": <Avatar src={team.image} radius="circle" mode="small" />,
       "Team Name": team.division,
       "# of Players": <Action tid={team.id} count={team.players.length} />,
     }));
@@ -93,9 +92,7 @@ const DisplaySection: React.FC = () => {
           <Table data={datasource()} />
         </Col>
       </Row>
-      {/* <CustomModal show={show} handleClose={() => onModal(false)}>
-        <p>Modal</p>
-      </CustomModal> */}
+      <TeamModal show={show} handleClose={() => onModal(false)} />
     </DisplayWrapper>
   );
 };

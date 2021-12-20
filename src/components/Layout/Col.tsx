@@ -12,9 +12,6 @@ const ColWrapper = styled.div<ResponsivedLayoutColProps>`
   max-width: ${({ mWidth }) => (mWidth ? `${mWidth}px` : "none")};
   min-width: ${({ minWidth }) => (minWidth ? `${minWidth}px` : "0px")};
   ${({ responsive }) => responsive && getResponsive(responsive)}
-  :first-child {
-    height: 100% !important;
-  }
 `;
 
 // func item width

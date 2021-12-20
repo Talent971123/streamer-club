@@ -84,7 +84,7 @@ const Profile: React.FC = () => {
               <Col item={6} />
               <Col item={6}>
                 <Row gap={30} alignItems="center">
-                  <Avatar src={logo} Radius="circle" mode="small" />
+                  <Avatar src={logo} radius="circle" mode="small" />
                   <CommonBrowser />
                 </Row>
               </Col>

@@ -96,8 +96,8 @@ const StyledInput = styled.input(
         py: 21,
       },
       medium: { height: "44px", px: 16, py: 10 },
-      small: { height: "38px", px: 16, py: 10 },
-      auto: { height: "100%", px: 16 },
+      small: { height: "38px", px: 15 },
+      auto: { height: "100%", px: 14 },
     },
   }),
   variant({
@@ -112,7 +112,7 @@ const StyledInput = styled.input(
     prop: "ifont",
     variants: {
       medium: { fontSize: 15, fontWeight: 900 },
-      normal: { fontSize: 16, fontWeight: 400 },
+      normal: { fontSize: 14, fontWeight: 400 },
       smbold: { fontSize: 12, fontWeight: 900 },
       sm: { fontSize: 12, fontWeight: 400 },
     },

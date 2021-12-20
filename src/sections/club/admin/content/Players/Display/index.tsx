@@ -1,9 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 //  component
 import { Row, Col } from "components/Layout";
 import { Table } from "components/Table";
 import { Button } from "components/Button";
 import { Avatar } from "components/Avatar";
+import { PlayerModal } from "components/Modal";
+
 //  import react icons
 import { BsPlus } from "react-icons/bs";
 //  styled component
@@ -51,6 +53,11 @@ const Action: React.FC<{ level: string; pid: number }> = ({ level, pid }) => {
 
 const DisplaySection: React.FC = () => {
   const club = useContext(ClubAdminContext);
+  const [show, setShow] = useState<boolean>(false);
+
+  const onModal = (flag: boolean) => {
+    setShow(flag);
+  };
 
   const datasource = () => {
     if (_.isUndefined(club.players)) {
@@ -66,7 +73,7 @@ const DisplaySection: React.FC = () => {
 
     return club.players.map((player) => ({
       "Player Photo": (
-        <Avatar src={player.image} Radius="circle" mode="small" />
+        <Avatar src={player.image} radius="circle" mode="small" />
       ),
       "Player Name": `${player.first_name} ${player.last_name}`,
       Team: player.team.name,
@@ -88,7 +95,7 @@ const DisplaySection: React.FC = () => {
               bColor="primary"
               bSize="small"
               icon={<BsPlus />}
-              onClick={() => console.log(`object`)}
+              onClick={() => onModal(true)}
             >
               {"Add Player"}
             </Button>
@@ -98,6 +105,7 @@ const DisplaySection: React.FC = () => {
           <Table data={datasource()} />
         </Col>
       </Row>
+      <PlayerModal show={show} handleClose={() => onModal(false)} />
     </DisplayWrapper>
   );
 };

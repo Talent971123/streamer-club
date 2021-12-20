@@ -5,7 +5,7 @@ import { compose, variant, border, space, layout } from "styled-system";
 import css from "@styled-system/css";
 
 interface StyledProps {
-  Radius?: "circle" | "small";
+  radius?: "circle" | "small";
   mode?: "small" | "medium" | "big";
 }
 
@@ -21,9 +21,10 @@ const AvatarWrapper = styled.div(
     }),
   {
     position: "relative",
+    contain: "content",
   },
   variant({
-    prop: "Radius",
+    prop: "radius",
     variants: {
       circle: {
         borderRadius: "50%",
@@ -41,8 +42,8 @@ const AvatarWrapper = styled.div(
         height: "65px",
       },
       medium: {
-        width: "120px",
-        height: "120px",
+        width: "150px",
+        height: "150px",
       },
       big: {
         width: "200px",
@@ -55,11 +56,11 @@ const AvatarWrapper = styled.div(
 
 const Avatar: React.FC<AvatarProps> = ({
   src,
-  Radius = "circle",
+  radius = "circle",
   mode = "small",
 }) => {
   const dataProps = {
-    Radius,
+    radius,
     mode,
   };
   return (

@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3005",
-    "build": "CI= next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "storybook": "start-storybook -p 6006",
@@ -16,7 +16,9 @@
   "dependencies": {
     "@apollo/client": "^3.5.6",
     "@mux/videojs-kit": "^0.7.0",
+    "@types/styled-system__theme-get": "^5.0.2",
     "babel-plugin-styled-components": "^2.0.2",
+    "get-orientation": "^1.1.2",
     "graphql": "^16.0.1",
     "isomorphic-unfetch": "^3.1.0",
     "lodash": "^4.17.21",
@@ -27,6 +29,7 @@
     "react": "17.0.2",
     "react-collapsible": "^2.8.4",
     "react-dom": "17.0.2",
+    "react-easy-crop": "^4.0.1",
     "react-file-drop": "^3.1.2",
     "react-icons": "^4.3.1",
     "react-multi-carousel": "^2.6.5",

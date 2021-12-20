@@ -8,7 +8,7 @@ const StreamPage: React.FC = () => {
   return (
     <>
       <WithContainer mode="wrapper" SectionView={DisplayView} />
-      <WithContainer mode="wrapper" SectionView={ToolbarView} />
+      <WithContainer mode="wrapper" SectionView={ToolbarView} />``
     </>
   );
 };

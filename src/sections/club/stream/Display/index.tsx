@@ -25,12 +25,11 @@ const Banner: React.FC<VideoProps> = ({
         },
       },
     });
-
     player.src({
       src: playBackID,
       type: "video/mux",
     });
-  }, [playBackID]);
+  }, []);
 
   return (
     <DisplayWrpper>
