@@ -30,7 +30,7 @@ const ssrMode = !process.browser;
 const httpLink: ApolloLink = new HttpLink({
   fetch,
   credentials: "same-origin",
-  uri: SERVER, //'http://localhost:3000/graphql'
+  uri: SERVER,
   headers: {
     "x-hasura-admin-secret": AccessToken,
   },
@@ -40,7 +40,7 @@ let splitLink = httpLink;
 
 if (!ssrMode) {
   const wsLink: WebSocketLink = new WebSocketLink({
-    uri: SOCKET, // "ws://localhost:3000/subscription"
+    uri: SOCKET,
     options: {
       reconnect: true,
       connectionParams: {

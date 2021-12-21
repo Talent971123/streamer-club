@@ -49,6 +49,7 @@ const Banner: React.FC<VideoProps> = ({
             id="my-player"
             className={"video-js vjs-16-9 vjs-big-play-centered"}
             controls
+            poster="https://image.mux.com/3EFvrxYvrPuGAOz2Y9EO3S6nzv9FU02WYHQT402uJPW01s/thumbnail.png"
             preload="auto"
             width="100%"
             data-setup="{}"

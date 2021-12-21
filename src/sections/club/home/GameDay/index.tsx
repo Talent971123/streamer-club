@@ -128,7 +128,7 @@ const GameDayView: React.FC = () => {
   };
 
   const onHandleClick = (id: number) => {
-    router.push(`/club/${club_slug}/stream?id=` + id);
+    router.push(`/club/${club_slug}/stream_temp?id=` + id);
   };
 
   return (

@@ -8,10 +8,10 @@ import { StreamPageCtx } from "types/common/club";
 export const StreamPageContext = createContext<Partial<StreamPageCtx>>({});
 
 const StreamPage: React.FC = ({ streamInfo }: any) => {
+  const [stream, setStream] = useState<Partial<StreamPageCtx>>(streamInfo);
 
-  const [stream, setStream] = useState<Partial<StreamPageCtx>>(streamInfo)
   return (
-    <StreamPageContext.Provider value={stream} >
+    <StreamPageContext.Provider value={stream}>
       <WithContainer mode="wrapper" SectionView={DisplayView} />
       <WithContainer mode="wrapper" SectionView={ToolbarView} />
     </StreamPageContext.Provider>
@@ -31,10 +31,9 @@ export const getServerSideProps = async (context: any) => {
 
   return {
     props: {
-      streamInfo: {}
-    }
-  }
-
-}
+      streamInfo: {},
+    },
+  };
+};
 
 export default StreamPage;

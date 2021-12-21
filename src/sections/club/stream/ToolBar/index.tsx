@@ -8,19 +8,13 @@ import { Text } from "components/Text";
 import {
   AiFillFlag,
   AiOutlineDollarCircle,
-  AiOutlineSave
+  AiOutlineSave,
 } from "react-icons/ai";
 import { BiCopy } from "react-icons/bi";
 import { FiShare2 } from "react-icons/fi";
-import {
-  BlackBorder,
-  LiveWrapper, ToobarWrapper
-} from "./toolbar.style";
-
-
+import { BlackBorder, LiveWrapper, ToobarWrapper } from "./toolbar.style";
 
 const ToolBarView: React.FC = () => {
-
   return (
     <ToobarWrapper>
       <Row justifyContent="space-between" alignItems="center">
@@ -37,11 +31,10 @@ const ToolBarView: React.FC = () => {
             <Row justifyContent="center" alignItems="center" gap={10}>
               <HandIcon />
               <Text fSize={16} fWeight={600}>
-                {"Suns"}
+                {"PerthFC"}
               </Text>
             </Row>
             <Row justifyContent="center" alignItems="center" gap={10}>
-
               <BlackBorder />
               <Row
                 flexDirection="column"
@@ -54,15 +47,12 @@ const ToolBarView: React.FC = () => {
                     {"Live"}
                   </Text>
                 </LiveWrapper>
-
               </Row>
               <BlackBorder />
-
             </Row>
             <Row justifyContent="center" alignItems="center" gap={10}>
-
               <Text fSize={16} fWeight={600}>
-                {"Highlanders"}
+                {"EPFC"}
               </Text>
               <HandIcon />
             </Row>
