@@ -27,7 +27,7 @@ const data: GameCardProps[] = [
     clubName2: "Claremont FC",
     divisionImage: marker,
     divisionName: "Mens Division 1: Round 15",
-    mode: "Reply",
+    mode: "Replay",
   },
   {
     id: 1,
@@ -38,7 +38,7 @@ const data: GameCardProps[] = [
     clubName2: "Claremont FC",
     divisionImage: marker,
     divisionName: "Mens Division 1: Round 15",
-    mode: "Reply",
+    mode: "Replay",
   },
   {
     id: 1,
@@ -49,7 +49,7 @@ const data: GameCardProps[] = [
     clubName2: "Claremont FC",
     divisionImage: marker,
     divisionName: "Mens Division 1: Round 15",
-    mode: "Reply",
+    mode: "Replay",
   },
   {
     id: 1,
@@ -60,7 +60,7 @@ const data: GameCardProps[] = [
     clubName2: "Claremont FC",
     divisionImage: marker,
     divisionName: "Mens Division 1: Round 15",
-    mode: "Reply",
+    mode: "Replay",
   },
   {
     id: 1,
@@ -71,7 +71,7 @@ const data: GameCardProps[] = [
     clubName2: "Claremont FC",
     divisionImage: marker,
     divisionName: "Mens Division 1: Round 15",
-    mode: "Reply",
+    mode: "Replay",
   },
 ];
 

@@ -1,0 +1,1 @@
+export const thumbNailLink = (id: string, width: number = 300): string => `https://image.mux.com/${id}/thumbnail.png?width=${width}`;

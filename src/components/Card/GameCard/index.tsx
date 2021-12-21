@@ -76,17 +76,17 @@ const GameCard: React.FC<GameCardProps> = ({
                 alignItems="center"
                 justifyContent="space-between"
                 padding={
-                  mode == "Reply"
+                  mode == "Replay"
                     ? "50px 20px"
                     : users !== 0
-                    ? "24px 40px"
-                    : "50px 40px"
+                      ? "24px 40px"
+                      : "50px 40px"
                 }
               >
                 <Col>
                   <Image src={clubImage1} width={89} height={90} />
                 </Col>
-                {mode === "Reply" ? (
+                {mode === "Replay" ? (
                   <Col className="playwrapper">
                     <Image src={Play} width={69} height={69} />
                   </Col>

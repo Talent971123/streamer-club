@@ -8,10 +8,7 @@
     "lint": "next lint",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "deploy:storybook": "aws s3 sync storybook-static s3://storybook.streamer.dev",
-    "sync:dev": "aws s3 sync build s3://streamer.dev",
-    "invalidate:dev": "aws cloudfront create-invalidation --distribution-id E14XC06SGILAW1 --paths \"/*\" --no-cli-pager",
-    "deploy:dev": "npm run build && npm run sync:dev && npm run invalidate:dev"
+    "deploy:storybook": "aws s3 sync storybook-static s3://storybook.streamer.dev"
   },
   "dependencies": {
     "@apollo/client": "^3.5.6",

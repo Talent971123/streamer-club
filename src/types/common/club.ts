@@ -10,3 +10,7 @@ export interface ClubCtx {
   teams: Array<Teams>;
   players: Array<Players>;
 }
+
+export interface StreamPageCtx {
+
+}

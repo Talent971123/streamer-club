@@ -30,8 +30,6 @@ const PlayerPage: React.FC = (props) => {
     return <></>;
   }
 
-  console.log(data.players_details[0]);
-
   return (
     <>
       <PlayerContext.Provider value={{ player: data.players_details[0] }}>

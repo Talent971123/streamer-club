@@ -1,31 +1,26 @@
 import React from "react";
-
-import { Row, Col } from "components/Layout";
-import {
-  ToobarWrapper,
-  ImageContent,
-  BlackBorder,
-  LiveWrapper,
-} from "./toolbar.style";
+import { HandIcon } from "assets/icon";
 import { Button } from "components/Button";
+import { Col, Row } from "components/Layout";
 import { Text } from "components/Text";
-import { Image } from "components/Image";
+
 // icon
 import {
   AiFillFlag,
   AiOutlineDollarCircle,
-  AiOutlineSave,
+  AiOutlineSave
 } from "react-icons/ai";
 import { BiCopy } from "react-icons/bi";
 import { FiShare2 } from "react-icons/fi";
-import { HandIcon } from "assets/icon";
-import { MdOutlineArrowForwardIos } from "react-icons/md";
+import {
+  BlackBorder,
+  LiveWrapper, ToobarWrapper
+} from "./toolbar.style";
 
-// assets
-import team1 from "assets/images/stream/team1.png";
-import team2 from "assets/images/stream/team2.png";
+
 
 const ToolBarView: React.FC = () => {
+
   return (
     <ToobarWrapper>
       <Row justifyContent="space-between" alignItems="center">
@@ -44,23 +39,9 @@ const ToolBarView: React.FC = () => {
               <Text fSize={16} fWeight={600}>
                 {"Suns"}
               </Text>
-              {/* <ImageContent>
-                <Image src={team1} width={60} height={60} />
-              </ImageContent> */}
             </Row>
             <Row justifyContent="center" alignItems="center" gap={10}>
-              {/* <Row
-                flexDirection="column"
-                justifyContent="center"
-                alignItems="center"
-              >
-                <Text fColor="gray.300" fSize={25} fWeight={700}>
-                  {"82"}
-                </Text>
-                <Text fColor="gray.300" fSize={14} fWeight={600}>
-                  {"19.1"}
-                </Text>
-              </Row> */}
+
               <BlackBorder />
               <Row
                 flexDirection="column"
@@ -73,31 +54,13 @@ const ToolBarView: React.FC = () => {
                     {"Live"}
                   </Text>
                 </LiveWrapper>
-                {/* <Text fColor="white" fSize={20} fWeight={600} tAlign="center">
-                  {"2nd Lnnings"}
-                </Text>
-                <Text fColor="gray.300" fSize={13} fWeight={600}>
-                  {"35.5 overs"}
-                </Text> */}
+
               </Row>
               <BlackBorder />
-              {/* <Row
-                flexDirection="column"
-                justifyContent="center"
-                alignItems="center"
-              >
-                <Text fColor="white" fSize={25} fWeight={700}>
-                  {"233"}
-                </Text>
-                <Text fColor="gray.300" fSize={14} fWeight={600}>
-                  {"49.1"}
-                </Text>
-              </Row> */}
+
             </Row>
             <Row justifyContent="center" alignItems="center" gap={10}>
-              {/* <ImageContent>
-                <Image src={team2} width={60} height={60} />
-              </ImageContent> */}
+
               <Text fSize={16} fWeight={600}>
                 {"Highlanders"}
               </Text>

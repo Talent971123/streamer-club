@@ -96,7 +96,7 @@ const PlayerModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
             </Text>
           </ModalHeader>
           <ModalBody>
-            <Row flexDirection="row" padding="15px 0 0 0" gap={30}>
+            <Row flexDirection="row" gap={30}>
               <Col item={12}>
                 <Row flexDirection="column" justifyContent="center" gap={10}>
                   <Col>

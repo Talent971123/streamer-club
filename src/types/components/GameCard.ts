@@ -1,6 +1,6 @@
 export interface GameCardProps {
   id: number;
-  backgroundImage: StaticImageData;
+  backgroundImage: StaticImageData | string;
   clubImage1: StaticImageData;
   clubName1: string;
   clubImage2: StaticImageData;
@@ -9,6 +9,6 @@ export interface GameCardProps {
   divisionName: string;
   progress?: string;
   users?: number;
-  mode?: "Day" | "Reply";
+  mode?: "Day" | "Replay";
   handleClick?: any;
 }

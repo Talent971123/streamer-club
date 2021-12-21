@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // import component
 import { Col, Row } from "components/Layout";
 import { GameCard } from "components/Card";
@@ -12,74 +12,12 @@ import { ReplyWrapper, LinkWrapper } from "./reply.style";
 import { GameCardProps } from "types/components/GameCard";
 
 // define example data
-import clubImage1 from "assets/images/home/team2.png";
-import clubImage2 from "assets/images/home/team1.png";
-import backgroundImage from "assets/images/home/background.jpg";
 import marker from "assets/images/home/mark.png";
 import { useRouter } from "next/router";
 
-const data: GameCardProps[] = [
-  {
-    id: 1,
-    backgroundImage,
-    clubImage1,
-    clubImage2,
-    clubName1: "Perth FC",
-    clubName2: "Claremont FC",
-    divisionImage: marker,
-    divisionName: "Mens Division 1",
-    progress: "20 NOV 21 10:30AM",
-    mode: "Reply",
-  },
-  {
-    id: 1,
-    backgroundImage,
-    clubImage1,
-    clubImage2,
-    clubName1: "Perth FC",
-    clubName2: "Claremont FC",
-    divisionImage: marker,
-    divisionName: "Mens Division 1",
-    progress: "20 NOV 21 10:30AM",
-    mode: "Reply",
-  },
-  {
-    id: 1,
-    backgroundImage,
-    clubImage1,
-    clubImage2,
-    clubName1: "Perth FC",
-    clubName2: "Claremont FC",
-    divisionImage: marker,
-    divisionName: "Mens Division 1",
-    progress: "20 NOV 21 10:30AM",
-    mode: "Reply",
-  },
-  {
-    id: 1,
-    backgroundImage,
-    clubImage1,
-    clubImage2,
-    clubName1: "Perth FC",
-    clubName2: "Claremont FC",
-    divisionImage: marker,
-    divisionName: "Mens Division 1",
-    progress: "20 NOV 21 10:30AM",
-    mode: "Reply",
-  },
-  {
-    id: 1,
-    backgroundImage,
-    clubImage1,
-    clubImage2,
-    clubName1: "Perth FC",
-    clubName2: "Claremont FC",
-    divisionImage: marker,
-    divisionName: "Mens Division 1",
-    progress: "20 NOV 21 10:30AM",
-    mode: "Reply",
-  },
-];
+import { HomeQL } from "graphql/club";
+import { useSubscription } from "@apollo/client";
+import { thumbNailLink } from "utils/common-helper";
 
 // const setting for react slick
 const NextArrow: React.FC = (props: any) => {
@@ -125,16 +63,28 @@ const settings = {
 
 const SeeAll = useLinkItem(LinkWrapper);
 
+/** TODO: Fix Typo Reply to Replay */
 const ReplyView: React.FC = () => {
   const router = useRouter();
   const { club_slug } = router.query;
 
+  const [matches, setMatches] = useState([]);
+
+  useSubscription(HomeQL.SUB_CLUB_REPLAYS, {
+    variables: {
+      club_slug,
+    },
+    onSubscriptionData({ subscriptionData: { data } }) {
+      data && setMatches(data.matches);
+    },
+  });
+
   const onHandleSeeAll = () => {
-    router.push(`/club/${club_slug}/replay`);
+    router.push(`/club/${club_slug}/replays`);
   };
 
   const onHandleClick = (id: number) => {
-    router.push(`/club/${club_slug}/stream?id=` + id);
+    router.push(`/club/${club_slug}/replay/` + id);
   };
 
   return (
@@ -154,15 +104,28 @@ const ReplyView: React.FC = () => {
       <Row padding="10px 0 0 0">
         <Col item={24}>
           <Slider {...settings}>
-            {data.map((item: GameCardProps, index: number) => {
-              return (
-                <GameCard
-                  {...item}
-                  key={index}
-                  handleClick={() => onHandleClick(item.id)}
-                />
-              );
-            })}
+            {matches &&
+              matches.map((match: any, index: number) => {
+                const item: GameCardProps = {
+                  id: match.id,
+                  backgroundImage: thumbNailLink(match.video_asset_id, 200),
+                  clubImage1: match.home_team.club.logo,
+                  clubName1: match.home_team.club.name,
+                  clubImage2: match.away_team.club.logo,
+                  clubName2: match.away_team.club.name,
+                  divisionImage: marker,
+                  divisionName: match.home_team.division,
+                  mode: "Replay",
+                };
+
+                return (
+                  <GameCard
+                    {...item}
+                    key={index}
+                    handleClick={() => onHandleClick(match.video_asset_id)}
+                  />
+                );
+              })}
           </Slider>
         </Col>
       </Row>

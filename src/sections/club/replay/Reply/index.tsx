@@ -26,7 +26,7 @@ const data: GameCardProps[] = [
     divisionImage: marker,
     divisionName: "Mens Division 1",
     progress: "20 NOV 21 10:30AM",
-    mode: "Reply",
+    mode: "Replay",
   },
   {
     id: 1,
@@ -38,7 +38,7 @@ const data: GameCardProps[] = [
     divisionImage: marker,
     divisionName: "Mens Division 1",
     progress: "20 NOV 21 10:30AM",
-    mode: "Reply",
+    mode: "Replay",
   },
   {
     id: 1,
@@ -50,7 +50,7 @@ const data: GameCardProps[] = [
     divisionImage: marker,
     divisionName: "Mens Division 1",
     progress: "20 NOV 21 10:30AM",
-    mode: "Reply",
+    mode: "Replay",
   },
   {
     id: 1,
@@ -62,7 +62,7 @@ const data: GameCardProps[] = [
     divisionImage: marker,
     divisionName: "Mens Division 1",
     progress: "20 NOV 21 10:30AM",
-    mode: "Reply",
+    mode: "Replay",
   },
   {
     id: 1,
@@ -74,7 +74,7 @@ const data: GameCardProps[] = [
     divisionImage: marker,
     divisionName: "Mens Division 1",
     progress: "20 NOV 21 10:30AM",
-    mode: "Reply",
+    mode: "Replay",
   },
 ];
 
