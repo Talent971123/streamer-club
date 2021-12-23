@@ -1,8 +1,6 @@
 import { gql } from "@apollo/client";
 
-const UPDATE_SAMP = gql``;
+// const UPDATE_SAMP = gql``;
 
-// ---------
-export default {
-  UPDATE_SAMP
-};
+// // ---------
+export default {}

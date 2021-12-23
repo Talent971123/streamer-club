@@ -38,10 +38,9 @@ const VideoPlayer: React.FC<videoProps> = ({ src, poster }) => {
   }, [src, videoRef]);
   return (
     <>
-      <video ref={videoRef} poster={poster} />
+      <video ref={videoRef} poster={poster} preload="auto" width="100%" />
       <style jsx>{`
         video {
-          width: 100%;
           cursor: pointer;
         }
       `}</style>

@@ -21,7 +21,7 @@ const MenuItems = (club_slug: string) => {
   return [
     { title: "Home", path: `/club/${club_slug}` },
     { title: "Live & Upcoming", path: `/club/${club_slug}/live` },
-    { title: "Replays", path: `/club/${club_slug}/replay` },
+    { title: "Replays", path: `/club/${club_slug}/replays` },
     { title: "Teams", path: `/club/${club_slug}/teams` },
     { title: "Players", path: `/club/${club_slug}/players` },
     { title: "Admin", path: `/club/${club_slug}/admin` },

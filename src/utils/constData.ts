@@ -77,3 +77,11 @@ export const footerLinkData = {
     { title: "Body Science", url: "#" },
   ],
 };
+
+export const s3Config = {
+  dirName: 'Club', /** Default please override */
+  bucketName: process.env.NEXT_PUBLIC_S3_BUCKET_NAME,
+  region: process.env.NEXT_PUBLIC_S3_REGION,
+  accessKeyId: process.env.NEXT_PUBLIC_S3_ACCESS_ID,
+  secretAccessKey: process.env.NEXT_PUBLIC_S3_SECRET_KEY
+}

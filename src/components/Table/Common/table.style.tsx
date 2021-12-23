@@ -7,13 +7,12 @@ export const StyledTable = styled.table`
     padding: 7px 0;
   }
   tbody tr {
+    text-align: center;
     cursor: pointer;
     font-size: 14px;
     :hover {
       background-color: ${themeGet("colors.gray.300")};
     }
-  }
-  th {
   }
   thead > tr {
     font-size: 17px;

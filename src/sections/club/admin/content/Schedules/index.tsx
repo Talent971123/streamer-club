@@ -2,9 +2,14 @@ import React from "react";
 
 import { WithContainer } from "components/Container";
 //  import sections
+import DisplaySection from "./Display";
 
 const SchedulesView: React.FC = () => {
-  return <>Here is Billing Section</>;
+  return (
+    <>
+      <WithContainer SectionView={DisplaySection}></WithContainer>
+    </>
+  );
 };
 
 export default SchedulesView;

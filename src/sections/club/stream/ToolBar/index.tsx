@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { HandIcon } from "assets/icon";
 import { Button } from "components/Button";
 import { Col, Row } from "components/Layout";
 import { Text } from "components/Text";
+import { Image } from "components/Image";
 
 // icon
 import {
@@ -13,8 +14,12 @@ import {
 import { BiCopy } from "react-icons/bi";
 import { FiShare2 } from "react-icons/fi";
 import { BlackBorder, LiveWrapper, ToobarWrapper } from "./toolbar.style";
+import { StreamPageContext } from "pages/club/[club_slug]/replay/[asset_id]";
 
 const ToolBarView: React.FC = () => {
+
+  const { home_name, away_name, away_logo, home_logo } = useContext(StreamPageContext)
+
   return (
     <ToobarWrapper>
       <Row justifyContent="space-between" alignItems="center">
@@ -28,12 +33,15 @@ const ToolBarView: React.FC = () => {
         </Col>
         <Col>
           <Row gap={10}>
+
             <Row justifyContent="center" alignItems="center" gap={10}>
               <HandIcon />
-              <Text fSize={16} fWeight={600}>
-                {"PerthFC"}
+              <Image src={home_logo} width={50} height={50} />
+              <Text tAlign={'center'} fSize={16} fWeight={600}>
+                {home_name}
               </Text>
             </Row>
+
             <Row justifyContent="center" alignItems="center" gap={10}>
               <BlackBorder />
               <Row
@@ -50,10 +58,12 @@ const ToolBarView: React.FC = () => {
               </Row>
               <BlackBorder />
             </Row>
+
             <Row justifyContent="center" alignItems="center" gap={10}>
-              <Text fSize={16} fWeight={600}>
-                {"EPFC"}
+              <Text tAlign={'center'} fSize={16} fWeight={600}>
+                {away_name}
               </Text>
+              <Image src={away_logo} width={50} height={50} />
               <HandIcon />
             </Row>
           </Row>

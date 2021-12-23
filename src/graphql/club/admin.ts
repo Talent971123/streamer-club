@@ -39,7 +39,22 @@ const SUB_CLUB = gql`
   }
 `;
 
+
+const ADD_TEAM = gql`mutation AddTeams($objects: [teams_insert_input!]!) {
+  insert_teams(objects: $objects) {
+    affected_rows
+  }
+}`
+
+const ADD_PLAYER = gql`mutation AddPlayers($objects: [players_details_insert_input!]!) {
+  insert_players_details(objects: $objects) {
+    affected_rows
+  }
+}`
+
 // ---------
 export default {
   SUB_CLUB: SUB_CLUB,
+  ADD_TEAM: ADD_TEAM,
+  ADD_PLAYER: ADD_PLAYER
 };
