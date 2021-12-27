@@ -26,8 +26,11 @@ const GameCard: React.FC<GameCardProps> = ({
   clubImage2,
   clubName1,
   clubName2,
-  divisionImage,
-  divisionName,
+  leagueImage,
+  leagueDivisionName,
+  leagueName,
+  match_round = 1,
+  date,
   progress,
   users = 0,
   mode = "Day",
@@ -105,16 +108,18 @@ const GameCard: React.FC<GameCardProps> = ({
           <Col item={24}>
             <Row alignItems="center" gap={5}>
               <Col>
-                <Image src={divisionImage} width={27} height={27} />
+                <Image src={leagueImage} width={27} height={27} />
               </Col>
               <Col>
                 <Row>
                   <Text fColor="red.100" fSize={15} fWeight={800}>
-                    {"WAFL - "} &nbsp;
+                    {leagueName ? `${leagueName} - ` : ''} &nbsp;
                   </Text>
                   <Text fColor="red.100" fSize={15} fWeight={500}>
-                    {divisionName}
+                    {leagueDivisionName + ' '}
+                    {match_round ? `(Round ${match_round})` : ''}
                   </Text>
+
                 </Row>
               </Col>
             </Row>
@@ -138,6 +143,13 @@ const GameCard: React.FC<GameCardProps> = ({
               </Col>
             </Row>
           </Col>
+          {mode === "Replay" && <Col item={24}>
+            <Row alignItems="center" justifyContent="space-between">
+              <Col item={23}>
+                <Text fColor="gray.100" fSize={14} tAlign="center"> {date} </Text>
+              </Col>
+            </Row>
+          </Col>}
           <Col item={24}>
             <Text fColor="gray.100" fSize={14} tAlign="center" fWeight={500}>
               {progress}

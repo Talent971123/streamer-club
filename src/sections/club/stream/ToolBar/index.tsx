@@ -17,8 +17,8 @@ import { BlackBorder, LiveWrapper, ToobarWrapper } from "./toolbar.style";
 import { StreamPageContext } from "pages/club/[club_slug]/replay/[asset_id]";
 
 const ToolBarView: React.FC = () => {
-
-  const { home_name, away_name, away_logo, home_logo } = useContext(StreamPageContext)
+  const { home_name, away_name, away_logo, home_logo } =
+    useContext(StreamPageContext);
 
   return (
     <ToobarWrapper>
@@ -33,11 +33,10 @@ const ToolBarView: React.FC = () => {
         </Col>
         <Col>
           <Row gap={10}>
-
             <Row justifyContent="center" alignItems="center" gap={10}>
-              <HandIcon />
+              {/* <HandIcon /> */}
               <Image src={home_logo} width={50} height={50} />
-              <Text tAlign={'center'} fSize={16} fWeight={600}>
+              <Text tAlign={"center"} fSize={16} fWeight={600}>
                 {home_name}
               </Text>
             </Row>
@@ -60,11 +59,11 @@ const ToolBarView: React.FC = () => {
             </Row>
 
             <Row justifyContent="center" alignItems="center" gap={10}>
-              <Text tAlign={'center'} fSize={16} fWeight={600}>
+              <Text tAlign={"center"} fSize={16} fWeight={600}>
                 {away_name}
               </Text>
               <Image src={away_logo} width={50} height={50} />
-              <HandIcon />
+              {/* <HandIcon /> */}
             </Row>
           </Row>
         </Col>

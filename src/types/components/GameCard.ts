@@ -5,8 +5,11 @@ export interface GameCardProps {
   clubName1: string;
   clubImage2: StaticImageData;
   clubName2: string;
-  divisionImage: StaticImageData;
-  divisionName: string;
+  leagueImage: StaticImageData; /** TODO: replace division to league */
+  leagueDivisionName: string;
+  leagueName?: string;
+  match_round?: number;
+  date?: string;
   progress?: string;
   users?: number;
   mode?: "Day" | "Replay";

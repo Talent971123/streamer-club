@@ -48,8 +48,8 @@ const ReplyView: React.FC = () => {
             clubName1: match.home_team.club.name,
             clubImage2: match.away_team.club.logo,
             clubName2: match.away_team.club.name,
-            divisionImage: marker,
-            divisionName: match.home_team.division,
+            leagueImage: marker,
+            leagueDivisionName: match.home_team.division,
             mode: "Replay",
           };
 

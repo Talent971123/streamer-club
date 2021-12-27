@@ -33,44 +33,42 @@ const GET_CLUB = gql`
   }
 `;
 
-const SUB_CLUB_REPLAYS = gql`
-  subscription MyReplaySub($club_slug: String!) {
-    matches(
-      where: {
-        _or: [
-          { away_team: { club: { slug: { _eq: $club_slug } } } }
-          { home_team: { club: { slug: { _eq: $club_slug } } } }
-        ]
-      }
-    ) {
+const SUB_CLUB_REPLAYS = gql`subscription MyReplaySub($club_slug: String!) {
+  matches(where: {_or: [{away_team: {club: {slug: {_eq: $club_slug}}}}, {home_team: {club: {slug: {_eq: $club_slug}}}}]}) {
+    id
+    is_historic
+    name
+    start_datetime
+    status
+    video_asset_id
+    round
+    start_datetime
+    away_team {
       id
-      is_historic
+      image
       name
-      start_datetime
-      status
-      video_asset_id
-      away_team {
-        id
-        image
+      division
+      club {
+        logo
         name
-        division
-        club {
-          logo
-          name
-        }
-      }
-      home_team {
-        id
-        image
-        name
-        division
-        club {
-          logo
-          name
-        }
       }
     }
+    home_team {
+      id
+      image
+      name
+      division
+      club {
+        logo
+        name
+      }
+    }
+    league {
+      logo
+      name
+    }
   }
+}
 `;
 
 // ---------

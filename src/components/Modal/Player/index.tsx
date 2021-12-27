@@ -114,8 +114,19 @@ const PlayerModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
         croppedAreaPixels,
         rotation
       );
-      console.log("donee", { croppedImage });
+
       setCroppedImage(croppedImage);
+
+      /* convert blob to File */
+      await fetch(croppedImage)
+        .then((res) => res.blob())
+        .then(async (myBlob) => {
+          const myFile = new File([myBlob], file.name, {
+            type: file.type,
+          });
+          setFile(myFile)
+        });
+
       setLoad(false);
     } catch (e) {
       console.error(e);

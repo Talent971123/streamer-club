@@ -14,18 +14,27 @@ import { ClubAdminContext } from "pages/club/[club_slug]/admin";
 import { Text } from "components/Text";
 
 const data = [
-  {
-    Date: "Date",
-    Time: "Time",
-    League: "League",
-    "Round Name": "Round Name",
-    Team: "Team",
-    "Opposition Club": "Opposition Club",
-    "Opposition Team": "Opposition Team",
-    "Stream Link": "Stream Link",
-  },
+  // {
+  //   Date: "Date",
+  //   Time: "Time",
+  //   League: "League",
+  //   "Round Name": "Round Name",
+  //   Team: "Team",
+  //   "Opposition Club": "Opposition Club",
+  //   "Opposition Team": "Opposition Team",
+  //   "Stream Link": "Stream Link",
+  // },
+  // {
+  //   Date: "Date",
+  //   Time: "Time",
+  //   League: "League",
+  //   "Round Name": "Round Name",
+  //   Team: "Team",
+  //   "Opposition Club": "Opposition Club",
+  //   "Opposition Team": "Opposition Team",
+  //   "Stream Link": "Stream Link",
+  // },
 ];
-
 const PreviousSection: React.FC = () => {
   const club = useContext(ClubAdminContext);
   const [show, setShow] = useState<boolean>(false);

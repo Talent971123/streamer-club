@@ -22,13 +22,13 @@ const Action: React.FC<{ count: number; tid: number }> = ({ tid, count }) => {
   };
   return (
     <>
-      <Row justifyContent="flex-start" alignItems="center" gap={5}>
-        <Col item={7}>
+      <Row justifyContent="center" alignItems="center" gap={20}>
+        <Col>
           <Text mode="p" fSize={16}>
             {count}
           </Text>
         </Col>
-        <Col item={1}>
+        <Col>
           <div onClick={(e: any) => onHandleEdit(e)}>
             <Text
               fSize={16}

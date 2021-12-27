@@ -78,6 +78,8 @@ export const footerLinkData = {
   ],
 };
 
+export const dateDisplayFormat = "DD MMMM YYYY"
+
 export const s3Config = {
   dirName: 'Club', /** Default please override */
   bucketName: process.env.NEXT_PUBLIC_S3_BUCKET_NAME,

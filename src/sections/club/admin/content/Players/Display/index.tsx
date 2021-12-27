@@ -22,8 +22,8 @@ const Action: React.FC<{ level: string; pid: number }> = ({ level, pid }) => {
   };
   return (
     <>
-      <Row justifyContent="flex-start" alignItems="center" gap={5}>
-        <Col item={15}>
+      <Row justifyContent="center" alignItems="center" gap={20}>
+        <Col>
           <Text
             mode="p"
             fSize={16}
@@ -32,7 +32,7 @@ const Action: React.FC<{ level: string; pid: number }> = ({ level, pid }) => {
             {level}
           </Text>
         </Col>
-        <Col item={1}>
+        <Col>
           <div onClick={(e: any) => onHandleEdit(e)}>
             <Text
               fSize={16}

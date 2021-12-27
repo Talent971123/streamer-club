@@ -18,6 +18,10 @@ import { useRouter } from "next/router";
 import { HomeQL } from "graphql/club";
 import { useSubscription } from "@apollo/client";
 import { thumbNailLink } from "utils/common-helper";
+import moment from 'moment';
+
+import { dateDisplayFormat } from 'utils/constData'
+
 
 // const setting for react slick
 const NextArrow: React.FC = (props: any) => {
@@ -113,8 +117,11 @@ const ReplyView: React.FC = () => {
                   clubName1: match.home_team.club.name,
                   clubImage2: match.away_team.club.logo,
                   clubName2: match.away_team.club.name,
-                  divisionImage: marker,
-                  divisionName: match.home_team.division,
+                  leagueImage: match.league.logo,
+                  leagueDivisionName: match.home_team.division,
+                  leagueName: match.league.name,
+                  match_round: match.round,
+                  date: match.start_datetime ? moment(match.start_datetime).format(dateDisplayFormat) : moment().format(dateDisplayFormat),
                   mode: "Replay",
                 };
 
