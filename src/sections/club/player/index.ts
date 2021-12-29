@@ -1,6 +1,7 @@
-export { default as GallerySection } from "./Gallery";
-export { default as GamesSection } from "./Games";
-export { default as ClipSection } from "./Clip";
-export { default as ClubSection } from "./Club";
-export { default as IntroSection } from "./Intro";
-export { default as AllSection } from "./All";
+import dynamic from "next/dynamic";
+export const GallerySection = dynamic(() => import("./Gallery"));
+export const GamesSection = dynamic(() => import("./Games"));
+export const ClipSection = dynamic(() => import("./Clip"));
+export const ClubSection = dynamic(() => import("./Club"));
+export const IntroSection = dynamic(() => import("./Intro"));
+export const AllSection = dynamic(() => import("./All"));

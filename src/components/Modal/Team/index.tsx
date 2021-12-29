@@ -75,14 +75,13 @@ const TeamModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
       let image: string | null = null;
 
       if (!_.isNull(imageSrc)) {
-        const s3res: any = await s3UploadFile('Teams', slug, file)
-        image = s3res.location
+        const s3res: any = await s3UploadFile("Teams", slug, file);
+        image = s3res.location;
       }
 
-      saveObject({ ...values, club_id: club.id, division: slug, slug, image })
-
-    }
-  })
+      saveObject({ ...values, club_id: club.id, division: slug, slug, image });
+    },
+  });
 
   const saveObject = (objects: any) => {
     /** TODO: Edit */
@@ -112,7 +111,7 @@ const TeamModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
           const myFile = new File([myBlob], file.name, {
             type: file.type,
           });
-          setFile(myFile)
+          setFile(myFile);
         });
 
       setLoad(false);

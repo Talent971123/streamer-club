@@ -40,6 +40,7 @@ export const ModalContent = styled.div<{ show: boolean }>`
 `;
 
 export const ModalBody = styled.div`
+  padding: 10px 20px;
   max-height: 450px;
   overflow: auto;
   padding: 0 5px 30px 5px;

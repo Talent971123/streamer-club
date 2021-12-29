@@ -40,6 +40,7 @@ export const ModalContent = styled.div<{ show: boolean }>`
 `;
 
 export const ModalBody = styled.div`
+  padding: 10px 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;

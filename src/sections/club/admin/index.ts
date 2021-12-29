@@ -1,2 +1,4 @@
-export { default as HeadView } from "./head";
-export { default as ContentView } from "./content";
+import dynamic from "next/dynamic";
+
+export const HeadView = dynamic(() => import("./head"));
+export const ContentView = dynamic(() => import("./content"));

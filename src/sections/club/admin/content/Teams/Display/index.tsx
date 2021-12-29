@@ -4,7 +4,7 @@ import { Row, Col } from "components/Layout";
 import { Table } from "components/Table";
 import { Button } from "components/Button";
 import { Avatar } from "components/Avatar";
-import { TeamModal } from "components/Modal";
+import { UpdateTeamModal } from "components/Modal";
 
 //  import react icons
 import { BsPlus } from "react-icons/bs";
@@ -92,7 +92,7 @@ const DisplaySection: React.FC = () => {
           <Table data={datasource()} />
         </Col>
       </Row>
-      <TeamModal show={show} handleClose={() => onModal(false)} />
+      <UpdateTeamModal show={show} handleClose={() => onModal(false)} />
     </DisplayWrapper>
   );
 };

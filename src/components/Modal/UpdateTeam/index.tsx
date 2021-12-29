@@ -1,29 +1,12 @@
-import { useMutation } from "@apollo/client";
+import React, { useState, useRef, useCallback } from "react";
 // assets
 import photo from "assets/images/layout/group.png";
+import { Text } from "components/Text";
+import { Col, Row } from "components/Layout";
+import { Input } from "components/Input";
 import { Avatar } from "components/Avatar";
 import { Button } from "components/Button";
-import { Dropdown } from "components/Dropdown";
-import { Input } from "components/Input";
-import { Col, Row } from "components/Layout";
-import { Text } from "components/Text";
-import { useFormik } from "formik";
-import { getOrientation } from "get-orientation/browser";
-import { ADMINQL } from "graphql/club";
-import _ from "lodash";
-import { ClubAdminContext } from "pages/club/[club_slug]/admin";
-import React, { useCallback, useContext, useRef, useState } from "react";
-import Cropper from "react-easy-crop";
-//
-import { BsSave } from "react-icons/bs";
-import { ImCancelCircle } from "react-icons/im";
-import slugify from "slugify";
-import { PlayerFormValues } from "types/common/player";
-// types
-import { ModalProps } from "types/components/Modal";
-// utils
-import { getCroppedImg, getRotatedImage } from "utils/canvasUtils";
-import { s3UploadFile } from "utils/s3-helper";
+//  styled components
 import {
   ImageContent,
   ModalBody,
@@ -32,7 +15,18 @@ import {
   ModalHeader,
   ModalWrapper,
   NumberRange,
+  StyledSelect,
 } from "./index.style";
+//  type
+import { ModalProps } from "types/components/Modal";
+//  utils
+import { getCroppedImg, getRotatedImage } from "utils/canvasUtils";
+import { getOrientation } from "get-orientation/browser";
+import { BsSave } from "react-icons/bs";
+import { ImCancelCircle } from "react-icons/im";
+import Cropper from "react-easy-crop";
+
+const { Option } = StyledSelect;
 
 const ORIENTATION_TO_ANGLE = {
   "3": 180,
@@ -40,66 +34,21 @@ const ORIENTATION_TO_ANGLE = {
   "8": -90,
 };
 
-const formInitialValues: Partial<PlayerFormValues> = {};
-
-const PlayerModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
-  const club = useContext(ClubAdminContext);
-  const teamsData = club.teams
-    ? club.teams.map((team) => ({ title: team.name, value: team.id }))
-    : [];
-
-  const [imageSrc, setImageSrc] = useState<any>(photo);
+const UpdatedTeamModal: React.FC<ModalProps> = ({
+  show = false,
+  handleClose,
+}) => {
+  const [imageSrc, setImageSrc] = useState<any>(null);
+  const [file, setFile] = useState<any>(null);
   const [load, setLoad] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
-  const [rotation, setRotation] = useState(0);
-  const [zoom, setZoom] = useState(1);
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const [rotation, setRotation] = useState<number>(0);
+  const [zoom, setZoom] = useState<number>(1);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<any>(null);
   const [croppedImage, setCroppedImage] = useState<any>(photo);
-  const [file, setFile] = useState<any>(null);
 
-  const [teamId, setTeamId] = useState<number>(teamsData[0].value);
-
-  // mutations
-  const [add] = useMutation(ADMINQL.ADD_PLAYER, {
-    onCompleted() {
-      /** TODO: add notifications */
-      handleClose && handleClose();
-    },
-    onError(e) {
-      console.log("erre", e);
-    },
-  });
-
-  const formik = useFormik({
-    initialValues: formInitialValues,
-    onSubmit: async (values) => {
-      const slug = values.first_name
-        ? slugify(values.first_name + values.last_name)
-        : "";
-      let image: string | null = null;
-
-      if (!_.isNull(imageSrc)) {
-        const s3res: any = await s3UploadFile("Players", slug, file);
-        image = s3res.location;
-      }
-
-      saveObject({
-        ...values,
-        club_id: club.id,
-        team_id: teamId,
-        positions: [values.positions],
-        slug,
-        image,
-        prev_club: "",
-      });
-    },
-  });
-
-  const saveObject = (objects: any) => {
-    /** TODO: Edit */
-    add({ variables: { objects } });
-  };
+  //    define methods
 
   // functions
 
@@ -114,7 +63,6 @@ const PlayerModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
         croppedAreaPixels,
         rotation
       );
-
       setCroppedImage(croppedImage);
 
       /* convert blob to File */
@@ -137,11 +85,12 @@ const PlayerModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
       let imageDataUrl = await readFile(file);
+
+      setFile(file);
+
       // apply rotation if needed
       const orientation = await getOrientation(file);
       const rotation = ORIENTATION_TO_ANGLE[orientation];
-
-      setFile(file);
 
       if (rotation) {
         imageDataUrl = await getRotatedImage(imageDataUrl, rotation);
@@ -157,102 +106,73 @@ const PlayerModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
     }
   };
 
+  //    Select Options
+  const children = [];
+  for (let i = 10; i < 36; i++) {
+    // children.push(<Option key={i}>{toString("Player") + i}</Option>);
+  }
+
   return (
     <ModalWrapper show={show}>
       {!load ? (
         <ModalContent show={show}>
-          <form onSubmit={formik.handleSubmit}>
-            <ModalHeader>
-              <Text fSize={22} fWeight={600}>
-                {"Add Player"}
-              </Text>
-            </ModalHeader>
-            <ModalBody>
+          <ModalHeader>
+            <Text fSize={22} fWeight={600}>
+              {"Add Team"}
+            </Text>
+          </ModalHeader>
+          <ModalBody>
+            <Row flexDirection="column" gap={30}>
               <Row flexDirection="row" gap={30}>
                 <Col item={12}>
                   <Row flexDirection="column" justifyContent="center" gap={10}>
                     <Col>
                       <Text fSize={14} padding="0 0 7px 0">
-                        {"Player First Name"}
+                        {"Team Name"}
                       </Text>
                       <Input
                         iColor="primary"
                         iSize="small"
                         iFont="normal"
                         iRadius="small"
-                        placeholder="First Name"
-                        name="first_name"
-                        onChange={formik.handleChange}
-                        value={formik.values.first_name}
+                        placeholder="Team Name"
+                        name="name"
                       />
                     </Col>
                     <Col>
                       <Text fSize={14} padding="0 0 7px 0">
-                        {"Player Last Name"}
+                        {"League"}
                       </Text>
                       <Input
                         iColor="primary"
                         iSize="small"
                         iFont="normal"
                         iRadius="small"
-                        placeholder="Last Name"
-                        name="last_name"
-                        onChange={formik.handleChange}
-                        value={formik.values.last_name}
+                        placeholder="League"
                       />
                     </Col>
                     <Col>
                       <Text fSize={14} padding="0 0 7px 0">
-                        {"Mobile Number"}
+                        {"Add Players"}
+                      </Text>
+                      <StyledSelect
+                        mode="tags"
+                        placeholder="Add Players"
+                        onChange={() => console.log("log")}
+                      >
+                        {children}
+                      </StyledSelect>
+                    </Col>
+                    <Col>
+                      <Text fSize={14} padding="0 0 7px 0">
+                        {"Team Admin(s)"}
                       </Text>
                       <Input
                         iColor="primary"
                         iSize="small"
                         iFont="normal"
                         iRadius="small"
-                        placeholder="Mobile Number"
-                        name="mobile"
-                        onChange={formik.handleChange}
-                        value={formik.values.mobile}
-                      />
-                    </Col>
-                    <Col>
-                      <Text fSize={14} padding="0 0 7px 0">
-                        {"Email Address"}
-                      </Text>
-                      <Input
-                        iColor="primary"
-                        iSize="small"
-                        iFont="normal"
-                        iRadius="small"
-                        placeholder="Email Address"
-                        name="email"
-                        onChange={formik.handleChange}
-                        value={formik.values.email}
-                      />
-                    </Col>
-                    <Col>
-                      <Text fSize={14} padding="0 0 7px 0">
-                        {"Primary Team"}
-                      </Text>
-                      <Dropdown
-                        data={teamsData}
-                        onChange={(e) => setTeamId(e.target.value)}
-                      />
-                    </Col>
-                    <Col>
-                      <Text fSize={14} padding="0 0 7px 0">
-                        {"Position"}
-                      </Text>
-                      <Input
-                        iColor="primary"
-                        iSize="small"
-                        iFont="normal"
-                        iRadius="small"
-                        placeholder="Position"
-                        name="positions"
-                        onChange={formik.handleChange}
-                        value={formik.values.positions}
+                        placeholder="Team Admin(s)"
                       />
                     </Col>
                   </Row>
@@ -260,7 +180,7 @@ const PlayerModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
                 <Col item={12}>
                   <Row flexDirection="column" gap={30}>
                     <Text fSize={15} mode="p">
-                      {"Player Photo"}
+                      {"Team Photo"}
                     </Text>
                     <Row flexDirection="column" alignItems="center" gap={15}>
                       <Avatar src={croppedImage} mode="medium" />
@@ -281,6 +201,9 @@ const PlayerModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
                       />
                     </Row>
                     <Row flexDirection="column" gap={10}>
+                      <Text fSize={15} fWeight={700} mode="p">
+                        {"Photo Guidelines:"}
+                      </Text>
                       <ul>
                         <li>
                           <Text fSize={14}>
@@ -300,27 +223,50 @@ const PlayerModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
                   </Row>
                 </Col>
               </Row>
-            </ModalBody>
-            <ModalFooter>
-              <Button
-                bColor="primary"
-                bSize="small"
-                icon={<ImCancelCircle />}
-                onClick={handleClose}
-                type="button"
-              >
-                {"Cancel"}
-              </Button>
-              <Button
-                bColor="primary"
-                bSize="small"
-                type="submit"
-                icon={<BsSave />}
-              >
-                {"Save"}
-              </Button>
-            </ModalFooter>
-          </form>
+              <Row>
+                <ul>
+                  <li>
+                    <Text fSize={14}>
+                      {"Team Admin will be notified by email."}
+                    </Text>
+                  </li>
+                  <li>
+                    <Text fSize={14}>
+                      {
+                        "If no Streamer account exists for this email, an invite to Sign Up will be sent to this email."
+                      }
+                    </Text>
+                  </li>
+                  <li>
+                    <Text fSize={14}>
+                      {
+                        "Team Admin will be able to add / modify / remove Players, Matches, Results and Team Details for this team. Club Admin is administrator for this team by default."
+                      }
+                    </Text>
+                  </li>
+                </ul>
+              </Row>
+            </Row>
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              bColor="primary"
+              bSize="small"
+              icon={<ImCancelCircle />}
+              onClick={handleClose}
+              type="button"
+            >
+              {"Cancel"}
+            </Button>
+            <Button
+              bColor="primary"
+              bSize="small"
+              type="submit"
+              icon={<BsSave />}
+            >
+              {"Save"}
+            </Button>
+          </ModalFooter>
         </ModalContent>
       ) : (
         <ModalContent show={true}>
@@ -406,7 +352,6 @@ const PlayerModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
     </ModalWrapper>
   );
 };
-
 const readFile = (file: any) => {
   return new Promise((resolve) => {
     const reader = new FileReader();
@@ -415,4 +360,4 @@ const readFile = (file: any) => {
   });
 };
 
-export default PlayerModal;
+export default UpdatedTeamModal;

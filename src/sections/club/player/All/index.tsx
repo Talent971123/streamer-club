@@ -25,7 +25,7 @@ const PlayerAllView: React.FC = () => {
   return (
     <PlayerAllWrapper>
       <Text fColor="white" fSize={22} fWeight={700}>
-        {"All Players"}
+        {"All Members"}
       </Text>
       <Row
         display="grid"

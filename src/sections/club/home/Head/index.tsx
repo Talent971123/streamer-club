@@ -1,19 +1,27 @@
-// import assets
-import Mark from "assets/images/home/team2.png";
-import { Button } from "components/Button";
+import React, { useContext, useState, useEffect } from "react";
 // component
+import { Button } from "components/Button";
 import { Image } from "components/Image";
 import { Col, Row } from "components/Layout";
 import { Text } from "components/Text";
 import { ClubContext } from "pages/club/[club_slug]";
-import React, { useContext } from "react";
 import { FiShare2 } from "react-icons/fi";
 // import styled component
 import { HeadWrapper } from "./head.style";
+// import assets
+import Mark from "assets/images/home/team2.png";
+
+import _ from "lodash";
 
 const HeadView: React.FC = () => {
-  const club = useContext(ClubContext)
-  const logo = club ? club.logo : Mark
+  const club = useContext(ClubContext);
+  const [logo, setLogo] = useState<any>(Mark);
+  const [title, setTitle] = useState<any>("TEAM TITLE");
+  useEffect(() => {
+    setLogo(_.isEmpty(club) ? Mark : club.logo);
+    setTitle(_.isEmpty(club) ? "TEAM TITLE" : club.name);
+  });
+
   return (
     <HeadWrapper>
       <Row alignItems="center">
@@ -24,7 +32,7 @@ const HeadView: React.FC = () => {
             </Col>
             <Col>
               <Text fColor="red.100" fSize={38} fWeight={800}>
-                {club.name}
+                {title}
               </Text>
             </Col>
           </Row>

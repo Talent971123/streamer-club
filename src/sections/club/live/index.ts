@@ -1,1 +1,2 @@
-export { default as UpcomeSection } from "./Upcome";
+import dynamic from "next/dynamic";
+export const UpcomeSection = dynamic(() => import("./Upcome"));

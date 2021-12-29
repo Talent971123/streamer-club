@@ -17,10 +17,11 @@ import { useApollo } from "api/apollo";
 import { wrapper } from "redux/store";
 // import CSS
 import { defaultTheme } from "theme";
+import { GlobalStyle } from "theme/global.state";
 import "react-multi-carousel/lib/styles.css";
 import "react-toggle/style.css";
 import "@mux/videojs-kit/dist/index.css";
-import { GlobalStyle } from "theme/global.state";
+import "antd/dist/antd.css";
 
 NProgress.configure({ showSpinner: false });
 
