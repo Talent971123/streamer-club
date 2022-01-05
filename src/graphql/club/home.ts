@@ -27,6 +27,7 @@ const GET_CLUB = gql`
         slug
         team {
           name
+          slug
         }
       }
     }
@@ -68,11 +69,48 @@ const SUB_CLUB_REPLAYS = gql`subscription MyReplaySub($club_slug: String!) {
       name
     }
   }
-}
-`;
+}`;
+
+const SUB_TEAM_REPLAYS = gql`subscription MyReplaysSub($team_slug: String!) {
+  matches(where: {_or: [{away_team: {slug:{_eq: $team_slug}}}, {home_team: {slug:{_eq: $team_slug}}}]}) {
+    id
+    is_historic
+    name
+    start_datetime
+    status
+    video_asset_id
+    round
+    start_datetime
+    away_team {
+      id
+      image
+      name
+      division
+      club {
+        logo
+        name
+      }
+    }
+    home_team {
+      id
+      image
+      name
+      division
+      club {
+        logo
+        name
+      }
+    }
+    league {
+      logo
+      name
+    }
+  }
+}`;
 
 // ---------
 export default {
   GET_CLUB,
   SUB_CLUB_REPLAYS,
+  SUB_TEAM_REPLAYS
 };

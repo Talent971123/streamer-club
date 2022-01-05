@@ -16,13 +16,14 @@ const WithContainer = ({
   mWidth,
   mode = "colorContainer",
   className = "",
+  sectionProps,
   ...props
 }: WithContainerProps) => {
   if (mode === "colorContainer") {
     return (
       <ColorContainer cColor={cColor} className={className}>
         <Container>
-          <SectionView {...props} />
+          <SectionView {...sectionProps} />
         </Container>
       </ColorContainer>
     );
@@ -30,7 +31,7 @@ const WithContainer = ({
   if (mode === "container") {
     return (
       <Container>
-        <SectionView {...props} />
+        <SectionView {...sectionProps} />
       </Container>
     );
   }
@@ -38,13 +39,13 @@ const WithContainer = ({
     return (
       <ColorContainer cColor={cColor} className={className}>
         <ContainerWrapper mWidth={mWidth}>
-          <SectionView {...props} />
+          <SectionView {...sectionProps} />
         </ContainerWrapper>
       </ColorContainer>
     );
   }
   if (mode === "none") {
-    return <SectionView {...props} />;
+    return <SectionView {...sectionProps} />;
   }
   return <></>;
 };

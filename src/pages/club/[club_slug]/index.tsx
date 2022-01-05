@@ -1,32 +1,34 @@
 // import react
-import React, { createContext } from "react";
+import { initializeApollo } from "api/apollo";
 import { WithContainer } from "components/Container";
+import { HomeQL } from "graphql/club";
+import React, { createContext, useEffect } from "react";
+import { connect } from 'react-redux';
+import { setClubInfo } from "redux/actions/club";
 // import views
 import {
-  HeadView,
-  GameDayView,
-  ReplyView /** TODO: Correct typo Reply to Replay */,
-  ClipView,
-  TeamsView,
-  PlayerView,
-  BannerView,
-  NewsView,
-  SupportView,
+  BannerView, ClipView, GameDayView, HeadView, NewsView, PlayerView, SupportView, TeamsView
 } from "sections/club/home";
-import { initializeApollo } from "api/apollo";
+import ReplayView from "sections/common/Replay";
 import { ClubCtx } from "types/common/club";
-import { HomeQL } from "graphql/club";
 
 export const ClubContext = createContext<Partial<ClubCtx>>({});
 
-const HomePage: React.FC = ({ club }: any) => {
+const HomePage: React.FC = (props: any) => {
+
+  const { club, setClubInfo, clubInfo } = props
+
+  useEffect(() => {
+    setClubInfo(club)
+  }, [club])
+
   return (
     <>
       <ClubContext.Provider value={club}>
         <WithContainer mode="wrapper" SectionView={BannerView} />
         <WithContainer mode="wrapper" SectionView={HeadView} />
         <WithContainer mode="container" SectionView={GameDayView} />
-        <WithContainer mode="container" SectionView={ReplyView} />
+        <WithContainer mode="container" SectionView={ReplayView} />
         <WithContainer mode="container" SectionView={ClipView} />
         <WithContainer mode="container" SectionView={TeamsView} />
         <WithContainer mode="container" SectionView={PlayerView} />
@@ -47,7 +49,6 @@ export const getServerSideProps = async (context: any) => {
       club_slug,
     },
   });
-  // console.log(data);
 
   return {
     props: {
@@ -56,4 +57,13 @@ export const getServerSideProps = async (context: any) => {
   };
 };
 
-export default HomePage;
+
+const mapStateToProps = state => ({
+  clubInfo: state.club.info
+})
+
+const mapDispatchToProps = {
+  setClubInfo: setClubInfo
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

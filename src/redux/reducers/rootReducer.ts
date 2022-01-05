@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
-import * as R from "./parts";
+import * as R from "./index";
 
 const rootReducer = combineReducers({
-  sample: R.Sample,
+  club: R.Club,
+  players: R.Players,
+  teams: R.Teams
 });
 
 export default rootReducer;

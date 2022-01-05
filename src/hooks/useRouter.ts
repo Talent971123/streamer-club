@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 // helper
 import { isEmpty } from "utils/helper-validation";
+import { ParamTypes } from "types/common/common";
 // -----------------------------------------------------------------
 
 const Rounter = () => {
   const router = useRouter();
   const [path, setPath] = useState("");
-  const [param, setParam] = useState({});
+  const [param, setParam] = useState<Partial<ParamTypes>>({});
 
   useEffect(() => {
     let isMounted = true;

@@ -15,6 +15,8 @@ import { ApolloProvider } from "@apollo/client";
 import { useApollo } from "api/apollo";
 // Redux
 import { wrapper } from "redux/store";
+//auth0
+import { UserProvider } from '@auth0/nextjs-auth0';
 // import CSS
 import { defaultTheme } from "theme";
 import { GlobalStyle } from "theme/global.state";
@@ -48,10 +50,12 @@ function Streamer({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={apolloClient}>
       <ThemeProvider theme={defaultTheme}>
-        <AppLayout>
-          {/* {!loading ? <Component {...pageProps} /> : <Loading />} */}
-          <Component {...pageProps} />
-        </AppLayout>
+        <UserProvider>
+          <AppLayout>
+            {/* {!loading ? <Component {...pageProps} /> : <Loading />} */}
+            <Component {...pageProps} />
+          </AppLayout>
+        </UserProvider>
         <GlobalStyle />
       </ThemeProvider>
     </ApolloProvider>

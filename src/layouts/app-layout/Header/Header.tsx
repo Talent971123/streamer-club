@@ -16,23 +16,30 @@ import ProfileImage from "assets/images/layout/profile.png";
 import { HeaderWrapper, MenuItem, Border } from "./Header.style";
 import { Text } from "components/Text";
 // -------------------------------------------------------------------
+import { UserProfile, useUser } from "@auth0/nextjs-auth0";
 
-const MenuItems = (club_slug: string) => {
-  return [
-    { title: "Home", path: `/club/${club_slug}` },
-    { title: "Live & Upcoming", path: `/club/${club_slug}/live` },
-    { title: "Replays", path: `/club/${club_slug}/replays` },
-    { title: "Teams", path: `/club/${club_slug}/teams` },
-    { title: "Players", path: `/club/${club_slug}/players` },
-    { title: "Admin", path: `/club/${club_slug}/admin` },
+import _ from "lodash";
+
+/** Refactor later */
+const MenuItems = (club_slug: string, user: any) => {
+  const menus = [
+    { title: "Home", path: `/club/${club_slug}`, public: true },
+    { title: "Live & Upcoming", path: `/club/${club_slug}/live`, public: true },
+    { title: "Replays", path: `/club/${club_slug}/replays`, public: true },
+    { title: "Teams", path: `/club/${club_slug}/teams`, public: true },
+    { title: "Players", path: `/club/${club_slug}/players`, public: true },
+    { title: "Admin", path: `/club/${club_slug}/admin`, public: false },
   ];
+
+  return user ? menus : _.filter(menus, ["public", true]);
 };
 
 const Header = () => {
   const { move, path, param }: any = useRouter();
   const [flag, setFlag] = useState<string>("/");
+  const { user } = useUser();
 
-  const menu = MenuItems(param.club_slug);
+  const menu = MenuItems(param.club_slug, user);
 
   useEffect(() => {
     setFlag(path);
@@ -62,6 +69,7 @@ const Header = () => {
               <Col>
                 <Border />
               </Col>
+
               {menu.map((item: any, index: number) => {
                 return (
                   <MenuItem
@@ -88,26 +96,40 @@ const Header = () => {
               flexDirection="row-reverse"
               padding="0 20px"
             >
-              <Col>
-                <DownIcon />
-              </Col>
-              <Col className="ImageWrapper">
-                <Image
-                  src={ProfileImage}
-                  height={40}
-                  width={40}
-                  oFit="cover"
-                  mode="intrinsic"
-                />
-              </Col>
-              <Col>
-                <BellIcon />
-              </Col>
-              <Col>
-                <Text fColor="white" fSize={14}>
-                  Perth FC Admin
-                </Text>
-              </Col>
+              {user && (
+                <>
+                  <Col>
+                    <a href="/api/auth/logout">Log out</a>
+                  </Col>
+                  {/* <Col>
+                    <DownIcon />
+                  </Col> */}
+                  <Col className="ImageWrapper">
+                    <Image
+                      src={user?.picture || ProfileImage}
+                      height={40}
+                      width={40}
+                      oFit="cover"
+                      mode="intrinsic"
+                    />
+                  </Col>
+                  <Col>
+                    <BellIcon />
+                  </Col>
+                  <Col>
+                    <Text fColor="white" fSize={14}>
+                      {user?.name}
+                    </Text>
+                  </Col>
+                </>
+              )}
+
+              {!user && (
+                <Col>
+                  <a href="/api/auth/login">Log in</a>
+                </Col>
+              )}
+
               <Col>
                 <Border />
               </Col>

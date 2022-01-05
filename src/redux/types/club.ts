@@ -1,0 +1,1 @@
+export const SET_CLUB_INFO = "SET_CLUB_INFO";

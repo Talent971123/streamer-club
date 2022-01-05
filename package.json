@@ -15,6 +15,7 @@
     "@mux/videojs-kit": "^0.7.0",
     "@types/styled-system__theme-get": "^5.0.2",
     "antd": "^4.18.0",
+    "@auth0/nextjs-auth0": "^1.6.1",
     "babel-plugin-styled-components": "^2.0.2",
     "formik": "^2.2.9",
     "get-orientation": "^1.1.2",

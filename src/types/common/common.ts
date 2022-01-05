@@ -5,3 +5,9 @@ export interface commonItem {
   path: string;
   component?: ReactNode;
 }
+
+export interface ParamTypes {
+  club_slug?: string
+  team_slug?: string
+  id?: string | number
+}

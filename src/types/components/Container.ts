@@ -8,6 +8,7 @@ export interface WithContainerProps extends ColorContainerProps {
   mode?: "colorContainer" | "container" | "wrapper" | "none";
   mWidth?: number;
   className?: string;
+  sectionProps?: any
 }
 
 export interface ColorContainerProps {
