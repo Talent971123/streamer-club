@@ -26,7 +26,7 @@ export interface InputContainerProps extends InputProps {
     | "outlinedGray";
   iSize?: "big" | "small" | "medium";
   iFont?: "sm" | "bold" | "normal" | "medium" | "smbold";
-  iRadius?: "circle" | "small" | "none";
+  iRadius?: "circle" | "small" | "none" | "right" | "left";
 }
 export interface InputHocProps extends InputContainerProps {
   inputIcon?: ReactNode;

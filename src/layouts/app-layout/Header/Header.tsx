@@ -6,7 +6,7 @@ import { ContainerWrapper } from "components/Container";
 import { Row, Col } from "components/Layout";
 import { Image } from "components/Image";
 import MarkIcon from "components/MarkIcon";
-// import { SearchInput } from "components/Input";
+import { SearchInput } from "components/Input";
 // assets
 import { BellIcon, DownIcon } from "assets/icon";
 import LogoImage from "assets/images/layout/logo.png";
@@ -38,6 +38,8 @@ const Header = () => {
   const { move, path, param }: any = useRouter();
   const [flag, setFlag] = useState<string>("/");
   const { user } = useUser();
+
+  console.log("Hi User", user);
 
   const menu = MenuItems(param.club_slug, user);
 
@@ -99,7 +101,7 @@ const Header = () => {
               {user && (
                 <>
                   <Col>
-                    <a href="/api/auth/logout">Log out</a>
+                    <a href="/api/auth/logout">Logout</a>
                   </Col>
                   {/* <Col>
                     <DownIcon />
@@ -126,16 +128,16 @@ const Header = () => {
 
               {!user && (
                 <Col>
-                  <a href="/api/auth/login">Log in</a>
+                  <a href="/api/auth/login">Login</a>
                 </Col>
               )}
 
               <Col>
                 <Border />
               </Col>
-              {/* <Col>
+              <Col>
                 <SearchInput />
-              </Col> */}
+              </Col>
             </Row>
           </Col>
         </Row>

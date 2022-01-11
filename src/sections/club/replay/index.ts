@@ -1,2 +1,1 @@
-import dynamic from "next/dynamic";
-export const ReplySection = dynamic(() => import("./Reply"));
+export { default as ReplySection } from "./Reply";

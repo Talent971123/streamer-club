@@ -18,7 +18,6 @@ const StyledInput = styled.input(
   (props: StyledProps) =>
     css({
       px: "20px",
-      py: "20px",
       fontWeight: "regular",
       width: "100%",
       cursor: props.disabled ? "not-allowed" : "pointer",
@@ -72,11 +71,10 @@ const StyledInput = styled.input(
         "::placeholder": { color: "black.400" },
       },
       outlinedGray: {
-        color: "black.400",
-        bg: "white",
-        border: "1px solid",
-        borderColor: "gray.600",
-        "::placeholder": { color: "black.400" },
+        color: "gray.150",
+        bg: "gray.300",
+        border: "none",
+        "::placeholder": { color: "gray.150" },
       },
       outlinedRed: {
         color: "black.400",
@@ -105,6 +103,8 @@ const StyledInput = styled.input(
     variants: {
       circle: { borderRadius: "50%" },
       small: { borderRadius: "7px" },
+      right: { borderRadius: "7px 0 0 7px" },
+      left: { borderRadius: "0 7px 0 7px" },
       none: { borderRadius: "0px" },
     },
   }),

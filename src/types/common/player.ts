@@ -11,13 +11,13 @@ export interface Players {
 }
 
 export interface PlayerFormValues {
-  image?: string | null
-  first_name: string,
-  last_name: string,
-  mobile: string
-  email: string
-  positions: string
-  slug?: string | null
-  club_id: number
-  team_id: number
+  image?: string | null;
+  first_name: string;
+  last_name: string;
+  mobile: string;
+  email: string;
+  positions: string;
+  slug?: string | null;
+  club_id: number;
+  team_id: number;
 }

@@ -1,2 +1,1 @@
-import dynamic from "next/dynamic";
-export const CopyRightView = dynamic(() => import("./CopyRightSection"));
+export { default as CopyRightView } from "./CopyRightSection";

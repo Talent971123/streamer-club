@@ -1,4 +1,6 @@
+import React, { useCallback, useContext, useRef, useState } from "react";
 import { useMutation } from "@apollo/client";
+import { ADMINQL } from "graphql/club";
 // assets
 import photo from "assets/images/layout/group.png";
 import { Avatar } from "components/Avatar";
@@ -7,23 +9,23 @@ import { Dropdown } from "components/Dropdown";
 import { Input } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { Text } from "components/Text";
-import { useFormik } from "formik";
-import { getOrientation } from "get-orientation/browser";
-import { ADMINQL } from "graphql/club";
-import _ from "lodash";
 import { ClubAdminContext } from "pages/club/[club_slug]/admin";
-import React, { useCallback, useContext, useRef, useState } from "react";
-import Cropper from "react-easy-crop";
-//
-import { BsSave } from "react-icons/bs";
-import { ImCancelCircle } from "react-icons/im";
-import slugify from "slugify";
-import { PlayerFormValues } from "types/common/player";
 // types
+import { PlayerFormValues } from "types/common/player";
 import { ModalProps } from "types/components/Modal";
 // utils
 import { getCroppedImg, getRotatedImage } from "utils/canvasUtils";
+import { PlayerSchema } from "utils/validation-schema";
 import { s3UploadFile } from "utils/s3-helper";
+// common
+import { useFormik, Form, FormikProvider } from "formik";
+import { getOrientation } from "get-orientation/browser";
+import { BsSave } from "react-icons/bs";
+import { ImCancelCircle } from "react-icons/im";
+import Cropper from "react-easy-crop";
+import slugify from "slugify";
+import _ from "lodash";
+
 import {
   ImageContent,
   ModalBody,
@@ -67,13 +69,15 @@ const PlayerModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
       handleClose && handleClose();
     },
     onError(e) {
-      console.log("erre", e);
+      console.log("error", e);
     },
   });
 
-  const formik = useFormik({
+  const formik = useFormik<Partial<PlayerFormValues>>({
     initialValues: formInitialValues,
-    onSubmit: async (values) => {
+    // validationSchema: PlayerSchema,
+    onSubmit: async (values, { resetForm }) => {
+      console.log(12312);
       const slug = values.first_name
         ? slugify(values.first_name + values.last_name)
         : "";
@@ -84,15 +88,16 @@ const PlayerModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
         image = s3res.location;
       }
 
-      saveObject({
-        ...values,
-        club_id: club.id,
-        team_id: teamId,
-        positions: [values.positions],
-        slug,
-        image,
-        prev_club: "",
-      });
+      // saveObject({
+      //   ...values,
+      //   club_id: club.id,
+      //   team_id: teamId,
+      //   positions: [values.positions],
+      //   slug,
+      //   image,
+      //   prev_club: "",
+      // });
+      resetForm();
     },
   });
 
@@ -157,170 +162,181 @@ const PlayerModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
     }
   };
 
+  const { values, errors, touched, handleSubmit, handleChange } = formik;
+
   return (
     <ModalWrapper show={show}>
       {!load ? (
         <ModalContent show={show}>
-          <form onSubmit={formik.handleSubmit}>
-            <ModalHeader>
-              <Text fSize={22} fWeight={600}>
-                {"Add Player"}
-              </Text>
-            </ModalHeader>
-            <ModalBody>
-              <Row flexDirection="row" gap={30}>
-                <Col item={12}>
-                  <Row flexDirection="column" justifyContent="center" gap={10}>
-                    <Col>
-                      <Text fSize={14} padding="0 0 7px 0">
-                        {"Player First Name"}
-                      </Text>
-                      <Input
-                        iColor="primary"
-                        iSize="small"
-                        iFont="normal"
-                        iRadius="small"
-                        placeholder="First Name"
-                        name="first_name"
-                        onChange={formik.handleChange}
-                        value={formik.values.first_name}
-                      />
-                    </Col>
-                    <Col>
-                      <Text fSize={14} padding="0 0 7px 0">
-                        {"Player Last Name"}
-                      </Text>
-                      <Input
-                        iColor="primary"
-                        iSize="small"
-                        iFont="normal"
-                        iRadius="small"
-                        placeholder="Last Name"
-                        name="last_name"
-                        onChange={formik.handleChange}
-                        value={formik.values.last_name}
-                      />
-                    </Col>
-                    <Col>
-                      <Text fSize={14} padding="0 0 7px 0">
-                        {"Mobile Number"}
-                      </Text>
-                      <Input
-                        iColor="primary"
-                        iSize="small"
-                        iFont="normal"
-                        iRadius="small"
-                        placeholder="Mobile Number"
-                        name="mobile"
-                        onChange={formik.handleChange}
-                        value={formik.values.mobile}
-                      />
-                    </Col>
-                    <Col>
-                      <Text fSize={14} padding="0 0 7px 0">
-                        {"Email Address"}
-                      </Text>
-                      <Input
-                        iColor="primary"
-                        iSize="small"
-                        iFont="normal"
-                        iRadius="small"
-                        placeholder="Email Address"
-                        name="email"
-                        onChange={formik.handleChange}
-                        value={formik.values.email}
-                      />
-                    </Col>
-                    <Col>
-                      <Text fSize={14} padding="0 0 7px 0">
-                        {"Primary Team"}
-                      </Text>
-                      <Dropdown
-                        data={teamsData}
-                        onChange={(e) => setTeamId(e.target.value)}
-                      />
-                    </Col>
-                    <Col>
-                      <Text fSize={14} padding="0 0 7px 0">
-                        {"Position"}
-                      </Text>
-                      <Input
-                        iColor="primary"
-                        iSize="small"
-                        iFont="normal"
-                        iRadius="small"
-                        placeholder="Position"
-                        name="positions"
-                        onChange={formik.handleChange}
-                        value={formik.values.positions}
-                      />
-                    </Col>
-                  </Row>
-                </Col>
-                <Col item={12}>
-                  <Row flexDirection="column" gap={30}>
-                    <Text fSize={15} mode="p">
-                      {"Player Photo"}
-                    </Text>
-                    <Row flexDirection="column" alignItems="center" gap={15}>
-                      <Avatar src={croppedImage} mode="medium" />
-                      <Button
-                        bColor="primary"
-                        bSize="small"
-                        onClick={onTargetClick}
-                        type="button"
-                      >
-                        {"Upload Photo"}
-                      </Button>
-                      <input
-                        onChange={onFileInputChange}
-                        ref={fileInputRef}
-                        type="file"
-                        style={{ display: "none" }}
-                        accept="image/png, image/jpeg"
-                      />
+          <FormikProvider value={formik}>
+            <Form onSubmit={handleSubmit}>
+              <ModalHeader>
+                <Text fSize={22} fWeight={600}>
+                  {"Add Player"}
+                </Text>
+              </ModalHeader>
+              <ModalBody>
+                <Row flexDirection="row" gap={30}>
+                  <Col item={12}>
+                    <Row
+                      flexDirection="column"
+                      justifyContent="center"
+                      gap={10}
+                    >
+                      <Col>
+                        <Text fSize={14} padding="0 0 7px 0">
+                          {"Player First Name *"}
+                        </Text>
+                        {errors.email && touched.email && (
+                          <Text fColor="red.200">{errors.email}</Text>
+                        )}
+                        <Input
+                          iColor="primary"
+                          iSize="small"
+                          iFont="normal"
+                          iRadius="small"
+                          placeholder="First Name"
+                          name="first_name"
+                          onChange={handleChange}
+                          value={values.first_name}
+                        />
+                      </Col>
+                      <Col>
+                        <Text fSize={14} padding="0 0 7px 0">
+                          {"Player Last Name *"}
+                        </Text>
+                        <Input
+                          iColor="primary"
+                          iSize="small"
+                          iFont="normal"
+                          iRadius="small"
+                          placeholder="Last Name"
+                          name="last_name"
+                          onChange={handleChange}
+                          value={values.last_name}
+                        />
+                      </Col>
+                      <Col>
+                        <Text fSize={14} padding="0 0 7px 0">
+                          {"Mobile Number *"}
+                        </Text>
+                        <Input
+                          iColor="primary"
+                          iSize="small"
+                          iFont="normal"
+                          iRadius="small"
+                          placeholder="Mobile Number"
+                          name="mobile"
+                          onChange={handleChange}
+                          value={values.mobile}
+                        />
+                      </Col>
+                      <Col>
+                        <Text fSize={14} padding="0 0 7px 0">
+                          {"Email Address *"}
+                        </Text>
+                        <Input
+                          iColor="primary"
+                          iSize="small"
+                          iFont="normal"
+                          iRadius="small"
+                          placeholder="Email Address"
+                          name="email"
+                          onChange={handleChange}
+                          value={values.email}
+                        />
+                      </Col>
+                      <Col>
+                        <Text fSize={14} padding="0 0 7px 0">
+                          {"Primary Team"}
+                        </Text>
+                        <Dropdown
+                          data={teamsData}
+                          onChange={(e) => setTeamId(e.target.value)}
+                        />
+                      </Col>
+                      <Col>
+                        <Text fSize={14} padding="0 0 7px 0">
+                          {"Position"}
+                        </Text>
+                        <Input
+                          iColor="primary"
+                          iSize="small"
+                          iFont="normal"
+                          iRadius="small"
+                          placeholder="Position"
+                          name="positions"
+                          onChange={handleChange}
+                          value={values.positions}
+                        />
+                      </Col>
                     </Row>
-                    <Row flexDirection="column" gap={10}>
-                      <ul>
-                        <li>
-                          <Text fSize={14}>
-                            {"Accepted file formats:JPG, PNG, SVG"}
-                          </Text>
-                        </li>
-                        <li>
-                          <Text fSize={14}>{"Maximum file size: 25MB"}</Text>
-                        </li>
-                        <li>
-                          <Text fSize={14}>
-                            {"Minimum dimensions: 300 x 300px"}
-                          </Text>
-                        </li>
-                      </ul>
+                  </Col>
+                  <Col item={12}>
+                    <Row flexDirection="column" gap={30}>
+                      <Text fSize={15} mode="p">
+                        {"Player Photo"}
+                      </Text>
+                      <Row flexDirection="column" alignItems="center" gap={15}>
+                        <Avatar src={croppedImage} mode="medium" />
+                        <Button
+                          bColor="primary"
+                          bSize="small"
+                          onClick={onTargetClick}
+                          type="button"
+                        >
+                          {"Upload Photo"}
+                        </Button>
+                        <input
+                          onChange={onFileInputChange}
+                          ref={fileInputRef}
+                          type="file"
+                          style={{ display: "none" }}
+                          accept="image/png, image/jpeg"
+                        />
+                      </Row>
+                      <Row flexDirection="column" gap={10}>
+                        <ul>
+                          <li>
+                            <Text fSize={14}>
+                              {"Accepted file formats:JPG, PNG, SVG"}
+                            </Text>
+                          </li>
+                          <li>
+                            <Text fSize={14}>{"Maximum file size: 25MB"}</Text>
+                          </li>
+                          <li>
+                            <Text fSize={14}>
+                              {"Minimum dimensions: 300 x 300px"}
+                            </Text>
+                          </li>
+                        </ul>
+                      </Row>
                     </Row>
-                  </Row>
-                </Col>
-              </Row>
-            </ModalBody>
-            <ModalFooter>
-              <Button
-                bColor="primary"
-                bSize="small"
-                icon={<ImCancelCircle />}
-                onClick={handleClose}
-                type="button"
-              >
-                {"Cancel"}
-              </Button>
-              <Button
-                bColor="primary"
-                bSize="small"
-                type="submit"
-                icon={<BsSave />}
-              >
-                {"Save"}
-              </Button>
-            </ModalFooter>
-          </form>
+                  </Col>
+                </Row>
+              </ModalBody>
+              <ModalFooter>
+                <Button
+                  bColor="primary"
+                  bSize="small"
+                  icon={<ImCancelCircle />}
+                  onClick={handleClose}
+                  type="button"
+                >
+                  {"Cancel"}
+                </Button>
+                <Button
+                  bColor="primary"
+                  bSize="small"
+                  type="submit"
+                  icon={<BsSave />}
+                >
+                  {"Save"}
+                </Button>
+              </ModalFooter>
+            </Form>
+          </FormikProvider>
         </ModalContent>
       ) : (
         <ModalContent show={true}>

@@ -8,10 +8,11 @@ import { ClubCtx } from "types/common/club";
 import { useSubscription } from "@apollo/client";
 import { useRouter } from "next/router";
 import { ADMINQL } from "graphql/club";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 
 export const ClubAdminContext = createContext<Partial<ClubCtx>>({});
 
-const AdminPage: React.FC = () => {
+const AdminPage: React.FC<{ user: any }> = withPageAuthRequired(({ user }) => {
   const {
     query: { club_slug },
   } = useRouter();
@@ -41,6 +42,6 @@ const AdminPage: React.FC = () => {
       />
     </ClubAdminContext.Provider>
   );
-};
+});
 
 export default AdminPage;

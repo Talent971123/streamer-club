@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useRouter } from "hooks";
 // component
-import { Row, Col } from "components/Layout";
+import { Row } from "components/Layout";
 import { ClipCard } from "components/Card";
 import { Text } from "components/Text";
 // styled
@@ -10,7 +10,6 @@ import { PlayerAllWrapper } from "./all.style";
 import { ClipProps } from "types/components/ClipCard";
 // define the data
 import { PlayersContext } from "pages/club/[club_slug]/players";
-import { Input } from "components/Input";
 
 const PlayerAllView: React.FC = () => {
   const { move } = useRouter();
@@ -25,22 +24,9 @@ const PlayerAllView: React.FC = () => {
   };
   return (
     <PlayerAllWrapper>
-      <Row justifyContent="space-between" alignItems="center">
-        <Col>
-          <Text fColor="white" fSize={22} fWeight={700}>
-            {"All Members"}
-          </Text>
-        </Col>
-        <Col>
-          <Input
-            iColor="primary"
-            iSize="small"
-            iFont="normal"
-            iRadius="small"
-            placeholder="Search Player"
-          />
-        </Col>
-      </Row>
+      <Text fColor="white" fSize={22} fWeight={700}>
+        {"All Members"}
+      </Text>
       <Row
         display="grid"
         templateCol="repeat(6, 1fr)"

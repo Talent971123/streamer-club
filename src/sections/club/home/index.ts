@@ -1,11 +1,9 @@
-import dynamic from "next/dynamic";
-
-export const HeadView = dynamic(() => import("./Head"));
-export const GameDayView = dynamic(() => import("./GameDay"));
-export const ReplyView = dynamic(() => import("./Reply"));
-export const ClipView = dynamic(() => import("./Clip"));
-export const TeamsView = dynamic(() => import("./Teams"));
-export const PlayerView = dynamic(() => import("./Player"));
-export const BannerView = dynamic(() => import("./Banner"));
-export const NewsView = dynamic(() => import("./News"));
-export const SupportView = dynamic(() => import("./Support"));
+export { default as HeadView } from "./Head";
+export { default as GameDayView } from "./GameDay";
+export { default as ReplyView } from "./Reply";
+export { default as ClipView } from "./Clip";
+export { default as TeamsView } from "./Teams";
+export { default as PlayerView } from "./Player";
+export { default as BannerView } from "./Banner";
+export { default as NewsView } from "./News";
+export { default as SupportView } from "./Support";

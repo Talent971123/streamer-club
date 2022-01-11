@@ -1,6 +1,5 @@
-import dynamic from "next/dynamic";
-export const BannerSection = dynamic(() => import("./Banner"));
-export const TrendSection = dynamic(() => import("./Trend"));
-export const FollowSection = dynamic(() => import("./Follow"));
-export const JuniorSection = dynamic(() => import("./Juniors"));
-export const AllSection = dynamic(() => import("./All"));
+export { default as BannerSection } from "./Banner";
+export { default as TrendSection } from "./Trend";
+export { default as FollowSection } from "./Follow";
+export { default as JuniorSection } from "./Juniors";
+export { default as AllSection } from "./All";
