@@ -8,17 +8,8 @@ import { ContentView, HeadView } from "sections/club/admin";
 const AdminPage: React.FC = () => {
   return (
     <>
-      <WithContainer
-        mode="wrapper"
-        mWidth={1440}
-        SectionView={HeadView}
-        cColor="black.200"
-      />
-      <WithContainer
-        mWidth={1440}
-        cColor="black.200"
-        SectionView={ContentView}
-      />
+      <WithContainer mode="wrapper" SectionView={HeadView} cColor="black.200" />
+      <WithContainer cColor="black.200" SectionView={ContentView} />
     </>
   );
 };

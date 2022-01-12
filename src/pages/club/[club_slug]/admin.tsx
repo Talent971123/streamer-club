@@ -29,17 +29,8 @@ const AdminPage: React.FC<{ user: any }> = withPageAuthRequired(({ user }) => {
 
   return (
     <ClubAdminContext.Provider value={club}>
-      <WithContainer
-        mode="wrapper"
-        mWidth={1440}
-        SectionView={HeadView}
-        cColor="black.200"
-      />
-      <WithContainer
-        mWidth={1440}
-        cColor="black.200"
-        SectionView={ContentView}
-      />
+      <WithContainer mode="wrapper" SectionView={HeadView} cColor="black.200" />
+      <WithContainer cColor="black.200" SectionView={ContentView} />
     </ClubAdminContext.Provider>
   );
 });

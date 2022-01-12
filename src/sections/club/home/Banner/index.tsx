@@ -1,6 +1,4 @@
 import React, { useContext } from "react";
-//  import component
-import { Col, Row } from "components/Layout";
 // import styled
 import { BannerWrapper } from "./banner.style";
 // import assets
@@ -15,11 +13,7 @@ const Banner: React.FC = () => {
 
   return (
     <BannerWrapper>
-      <Row>
-        <Col item={24}>
-          <Image src={banner} width={1800} height={600} oFit="cover" />
-        </Col>
-      </Row>
+      <Image src={banner} oFit="fill" mode="fill" />
     </BannerWrapper>
   );
 };

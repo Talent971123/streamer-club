@@ -44,7 +44,7 @@ const Header = () => {
   const menu = MenuItems(param.club_slug, user);
 
   useEffect(() => {
-    setFlag(path);
+    setFlag(path.split("/")[3]);
   }, [path]);
 
   const handleMenuClick = (to: any) => {
@@ -75,7 +75,7 @@ const Header = () => {
               {menu.map((item: any, index: number) => {
                 return (
                   <MenuItem
-                    mode={flag === item.path ? "true" : "false"}
+                    mode={flag === item.path.split("/")[3] ? "true" : "false"}
                     key={index}
                     onClick={() => handleMenuClick(item.path)}
                   >
@@ -91,7 +91,7 @@ const Header = () => {
               })}
             </Row>
           </Col>
-          <Col item={7}>
+          <Col item={9.5}>
             <Row
               gap={18}
               alignItems="center"
@@ -103,9 +103,6 @@ const Header = () => {
                   <Col>
                     <a href="/api/auth/logout">Logout</a>
                   </Col>
-                  {/* <Col>
-                    <DownIcon />
-                  </Col> */}
                   <Col className="ImageWrapper">
                     <Image
                       src={user?.picture || ProfileImage}
