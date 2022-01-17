@@ -45,13 +45,7 @@ const GameCard: React.FC<GameCardProps> = ({
   return (
     <GameCardWrapper onClick={() => onHandleClick(id)}>
       <CardContent>
-        <Image
-          src={backgroundImage}
-          mode="fill"
-          oFit="cover"
-          width={314}
-          height={181}
-        />
+        <Image src={backgroundImage} mode="fill" oFit="fill" />
         <Content>
           <Row flexDirection="column" alignItems="center">
             {mode == "Day" && isLive && (

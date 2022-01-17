@@ -14,14 +14,11 @@ import {
 import { BiCopy } from "react-icons/bi";
 import { FiShare2 } from "react-icons/fi";
 import { BlackBorder, LiveWrapper, ToobarWrapper } from "./toolbar.style";
-import { StreamPageContext } from 'hooks/context/StreamPageContext'
-
+import { StreamPageContext } from "hooks/context/StreamPageContext";
 
 const ToolBarView: React.FC = () => {
   const { home_name, away_name, away_logo, home_logo } =
     useContext(StreamPageContext);
-
-  console.log(home_name, away_name, away_logo, home_logo)
 
   return (
     <ToobarWrapper>

@@ -14,7 +14,7 @@ export const LayerWrapper = styled.div`
   height: 100%;
   position: absolute;
   top: 0px;
-  background-color: ${themeGet("colors.blue.100")};
+  background-color: ${themeGet("colors.blue.100")}60;
 `;
 
 export const Content = styled.div`

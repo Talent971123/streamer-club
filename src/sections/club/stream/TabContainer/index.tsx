@@ -41,31 +41,44 @@ const menudata: commonItem[] = [
 ];
 const TabContainerView: React.FC = () => {
   const [select, setSelect] = useState<string>(menudata[0].path);
-  console.log("working");
   const onHandleSelect = (item: string) => {
     setSelect(item);
   };
-  
+
   return (
     <ContainerWrapper>
       <ContentWrapper>
-        <Row css={`border-bottom: 1px solid ${themeGet("colors.gray.300")}; border-radius: 5px;`}>
+        <Row
+          css={`
+            border-bottom: 1px solid ${themeGet("colors.gray.300")};
+            border-radius: 5px;
+          `}
+        >
           <Col item={48}>
-            <TabsView 
+            <TabsView
               menudata={menudata}
               select={select}
               onHandleSelect={onHandleSelect}
             />
           </Col>
           <Row alignItems="flex-end" justifyContent="flex-end">
-            <Button bColor="primary" css={{padding: 18, marginBottom: 16, marginRight: 16}}>{"Add Event"}</Button>
+            <Button
+              bColor="primary"
+              css={{ padding: 18, marginBottom: 16, marginRight: 16 }}
+            >
+              {"Add Event"}
+            </Button>
           </Row>
         </Row>
         <Row alignItems="center" justifyContent="center" display="flex">
           <Content>
-            {menudata.map((item:commonItem, index: number) => {
-              if(item.path === select) {
-                return <div key={index} css={{width: "100%"}}>{item.component}</div>
+            {menudata.map((item: commonItem, index: number) => {
+              if (item.path === select) {
+                return (
+                  <div key={index} css={{ width: "100%" }}>
+                    {item.component}
+                  </div>
+                );
               }
             })}
           </Content>

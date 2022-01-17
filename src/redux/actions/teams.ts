@@ -1,6 +1,7 @@
-import * as t from "redux/types/club";
+import { GET_TEAMS_INFO } from "./../types/teams";
+import * as t from "redux/types/teams";
 
-export const setClubInfo = (club: any) => ({
-    type: t.SET_CLUB_INFO,
-    payload: club,
-})
+export const getTeamsInfo = (teams: any) => ({
+  type: t.GET_TEAMS_INFO,
+  payload: teams,
+});

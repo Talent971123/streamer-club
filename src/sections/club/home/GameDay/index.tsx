@@ -16,7 +16,6 @@ import { useRouter } from "next/router";
 import { connect } from "react-redux";
 import { useSubscription } from "@apollo/client";
 import { subscribe } from "graphql/match/index";
-import { setLiveMatches } from "redux/actions/match";
 import { progressText, thumbNailLink } from "utils/common-helper";
 
 // const setting for react slick

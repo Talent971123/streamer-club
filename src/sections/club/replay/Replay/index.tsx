@@ -39,7 +39,6 @@ const ReplyView: React.FC = () => {
         gap={"20px 10px"}
       >
         {data.map((match: any, index: number) => {
-          console.log(thumbNailLink(match.video_asset_id, 200));
           const item: GameCardProps = {
             id: match.id,
             backgroundImage: thumbNailLink(match.video_asset_id, 200),

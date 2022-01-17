@@ -19,7 +19,7 @@ import { LinkWrapper, ReplayWrapper } from "./replay.style";
 
 import { getDates } from "utils/helper-date";
 
-import _ from 'lodash'
+import _ from "lodash";
 
 // const setting for react slick
 const NextArrow: React.FC = (props: any) => {
@@ -67,20 +67,20 @@ const SeeAll = useLinkItem(LinkWrapper);
 
 /** TODO: Fix Typo Reply to Replay */
 const ReplayView: React.FC = () => {
-
-  const { move, param: { club_slug, team_slug } } = useRouter();
+  const {
+    move,
+    param: { club_slug, team_slug },
+  } = useRouter();
   const [matches, setMatches] = useState([]);
 
-  let variables: { club_slug?: string, team_slug?: string } = { club_slug }
-  let gql = HomeQL.SUB_CLUB_REPLAYS
+  let variables: { club_slug?: string; team_slug?: string } = { club_slug };
+  let gql = HomeQL.SUB_CLUB_REPLAYS;
 
   /** Teams page */
   if (!_.isUndefined(team_slug)) {
-    variables = { team_slug }
-    gql = HomeQL.SUB_TEAM_REPLAYS
+    variables = { team_slug };
+    gql = HomeQL.SUB_TEAM_REPLAYS;
   }
-
-  console.log(variables)
 
   useSubscription(gql, {
     variables,

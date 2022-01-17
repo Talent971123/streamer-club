@@ -3,7 +3,11 @@ import { Button } from "components/Button";
 import DateTimeInput from "components/DateTimeInput";
 import { TeamsDropdown } from "components/Dropdown";
 import { Input } from "components/Input";
-import { ClubFuzzySearch, TeamFuzzySearch, LeaugeFuzzySearch } from "components/Dropdown/FuzzySearch";
+import {
+  ClubFuzzySearch,
+  TeamFuzzySearch,
+  LeaugeFuzzySearch,
+} from "components/Dropdown/FuzzySearch";
 import { Col, Row } from "components/Layout";
 import { Text } from "components/Text";
 import { useMutation } from "@apollo/client";
@@ -15,32 +19,38 @@ import { ImCancelCircle } from "react-icons/im";
 
 import { ModalProps } from "types/components/Modal";
 import {
-  ModalBody, ModalContent, ModalFooter, ModalHeader, ModalWrapper
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalWrapper,
 } from "./index.style";
 import axios from "axios";
 import { apiBaseUrl, baseUrl } from "utils/constData";
 import { mutate } from "graphql/match";
 
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
 const defaultFieldsValues = {
   is_historic: false,
-  status: 'created'
-}
+  status: "created",
+};
 
 const defaultMuxData = {
-  playback_url: '',
-  stream_url: '',
-  stream_key: ''
-}
+  playback_url: "",
+  stream_url: "",
+  stream_key: "",
+};
 
 const formInitialValues: Partial<any> = {}; /** TODO: add types */
 
-const UpcomingModal: React.FC<ModalProps> = ({ show = false, handleClose, clubInfo }) => {
-
-  const [awayClubId, setAwayClubId] = useState(0)
-  const [muxData, setMuxData] = useState(defaultMuxData)
-
+const UpcomingModal: React.FC<ModalProps> = ({
+  show = false,
+  handleClose,
+  clubInfo,
+}) => {
+  const [awayClubId, setAwayClubId] = useState(0);
+  const [muxData, setMuxData] = useState(defaultMuxData);
 
   const [addMatch] = useMutation(mutate.INSERT_MATCH, {
     onCompleted() {
@@ -55,46 +65,45 @@ const UpcomingModal: React.FC<ModalProps> = ({ show = false, handleClose, clubIn
   const formik = useFormik<Partial<any>>({
     initialValues: formInitialValues,
     onSubmit: async (values, { resetForm }) => {
-
       /** request mux data */
-      axios.post(apiBaseUrl + '/mux/live-stream', {
-        "playback_policy": "Public",
-        "reconnect_window": 300,
-        "new_asset_settings": {
-          "playback_policy": ["public"]
-        }
-      }).then(res => {
-
-        const { id: stream_id, stream_key, playback_ids } = res.data
-        const video_asset_id = playback_ids[0].id
-        const url = `${baseUrl}/club/${clubInfo.slug}/live/${video_asset_id}`
-
-        setMuxData({
-          stream_key,
-          playback_url: url,
-          stream_url: `rtmps://global-live.mux.com:5222/app/${stream_key}`
+      axios
+        .post(apiBaseUrl + "/mux/live-stream", {
+          playback_policy: "Public",
+          reconnect_window: 300,
+          new_asset_settings: {
+            playback_policy: ["public"],
+          },
         })
+        .then((res) => {
+          const { id: stream_id, stream_key, playback_ids } = res.data;
+          const video_asset_id = playback_ids[0].id;
+          const url = `${baseUrl}/club/${clubInfo.slug}/live/${video_asset_id}`;
 
-        const objects = {
-          ...defaultFieldsValues,
-          ...values,
-          club_id: clubInfo.id,
-          stream_id,
-          stream_key,
-          video_asset_id,
-          url
-        }
+          setMuxData({
+            stream_key,
+            playback_url: url,
+            stream_url: `rtmps://global-live.mux.com:5222/app/${stream_key}`,
+          });
 
-        addMatch({ variables: { objects } })
-        console.log(objects)
+          const objects = {
+            ...defaultFieldsValues,
+            ...values,
+            club_id: clubInfo.id,
+            stream_id,
+            stream_key,
+            video_asset_id,
+            url,
+          };
 
-      }).catch(err => {
-        console.error("MUX request error:", err)
-      })
+          addMatch({ variables: { objects } });
+        })
+        .catch((err) => {
+          console.error("MUX request error:", err);
+        });
 
       // resetForm();
-    }
-  })
+    },
+  });
 
   const { values, errors, touched, handleSubmit, handleChange } = formik;
 
@@ -118,15 +127,20 @@ const UpcomingModal: React.FC<ModalProps> = ({ show = false, handleClose, clubIn
                     <Text fSize={14} padding="0 0 7px 0">
                       {"Date & Time"}
                     </Text>
-                    <DateTimeInput name="start_datetime" onChange={handleChange} />
+                    <DateTimeInput
+                      name="start_datetime"
+                      onChange={handleChange}
+                    />
                   </Col>
                   <Col></Col>
                   <Col>
                     <Text fSize={14} padding="0 0 7px 0">
                       {"League Name"}
                     </Text>
-                    <LeaugeFuzzySearch name="league_id" onChange={handleChange} />
-
+                    <LeaugeFuzzySearch
+                      name="league_id"
+                      onChange={handleChange}
+                    />
                   </Col>
                   <Col>
                     <Text fSize={14} padding="0 0 7px 0">
@@ -146,7 +160,10 @@ const UpcomingModal: React.FC<ModalProps> = ({ show = false, handleClose, clubIn
                     <Text fSize={14} padding="0 0 7px 0">
                       {"Select Team"}
                     </Text>
-                    <TeamsDropdown name="home_team_id" onChange={handleChange} />
+                    <TeamsDropdown
+                      name="home_team_id"
+                      onChange={handleChange}
+                    />
                   </Col>
                   <Col>
                     <Text fSize={14} padding="0 0 7px 0">
@@ -166,7 +183,10 @@ const UpcomingModal: React.FC<ModalProps> = ({ show = false, handleClose, clubIn
                     <Text fSize={14} padding="0 0 7px 0">
                       {"Opposition Club"}
                     </Text>
-                    <ClubFuzzySearch onChange={v => setAwayClubId(v)} name="away_club_id" />
+                    <ClubFuzzySearch
+                      onChange={(v) => setAwayClubId(v)}
+                      name="away_club_id"
+                    />
                   </Col>
                   <Col>
                     <Text fSize={14} padding="0 0 7px 0">
@@ -234,7 +254,12 @@ const UpcomingModal: React.FC<ModalProps> = ({ show = false, handleClose, clubIn
               >
                 {"Cancel"}
               </Button>
-              <Button type="submit" bColor="primary" bSize="small" icon={<BsSave />}>
+              <Button
+                type="submit"
+                bColor="primary"
+                bSize="small"
+                icon={<BsSave />}
+              >
                 {"Save"}
               </Button>
             </ModalFooter>
@@ -245,9 +270,8 @@ const UpcomingModal: React.FC<ModalProps> = ({ show = false, handleClose, clubIn
   );
 };
 
-const mapStateToProps = state => ({
-  clubInfo: state.club.info
-})
+const mapStateToProps = (state) => ({
+  clubInfo: state.club.info,
+});
 
 export default connect(mapStateToProps)(UpcomingModal);
-

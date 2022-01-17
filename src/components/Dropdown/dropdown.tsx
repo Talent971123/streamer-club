@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { themeGet } from "@styled-system/theme-get";
-import { Field } from "formik";
 import { Select } from "antd";
 // import type
 
@@ -92,6 +91,7 @@ const Dropdown: React.FC<dropdownProps> = ({ data, onChange }) => {
   const onHandleChange = (e: any) => {
     onChange && onChange(e);
   };
+
   return (
     <CommonSelect onChange={(e: any) => onHandleChange(e)}>
       {data.map((item: any, index: number) => {

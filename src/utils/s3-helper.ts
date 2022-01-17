@@ -19,7 +19,6 @@ export const s3UploadFile = (
       const res = await s3.uploadFile(file, filename);
       resolve(res);
     } catch (exception) {
-      console.log(exception);
       reject(null);
     }
   });

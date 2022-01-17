@@ -5,7 +5,7 @@ const rootReducer = combineReducers({
   club: R.Club,
   players: R.Players,
   teams: R.Teams,
-  match: R.Match
+  match: R.Match,
 });
 
 export default rootReducer;

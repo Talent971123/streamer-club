@@ -1,28 +1,12 @@
-import { useMutation } from "@apollo/client";
+import React, { useState, useRef, useCallback } from "react";
 // assets
 import photo from "assets/images/layout/group.png";
+import { Text } from "components/Text";
+import { Col, Row } from "components/Layout";
+import { Input } from "components/Input";
 import { Avatar } from "components/Avatar";
 import { Button } from "components/Button";
-import { Input } from "components/Input";
-import { Col, Row } from "components/Layout";
-import { Text } from "components/Text";
-import { useFormik } from "formik";
-import { getOrientation } from "get-orientation/browser";
-import { ADMINQL } from "graphql/club";
-import _ from "lodash";
-import { ClubAdminContext } from "pages/club/[club_slug]/admin";
-import React, { useCallback, useContext, useRef, useState } from "react";
-import Cropper from "react-easy-crop";
-//
-import { BsSave } from "react-icons/bs";
-import { ImCancelCircle } from "react-icons/im";
-import slugify from "slugify";
-import { TeamFormValues } from "types/common/team";
-// types
-import { ModalProps } from "types/components/Modal";
-// utils
-import { getCroppedImg, getRotatedImage } from "utils/canvasUtils";
-import { s3UploadFile } from "utils/s3-helper";
+//  styled components
 import {
   ImageContent,
   ModalBody,
@@ -31,16 +15,23 @@ import {
   ModalHeader,
   ModalWrapper,
   NumberRange,
+  StyledSelect,
 } from "./index.style";
+//  type
+import { ModalProps } from "types/components/Modal";
+//  utils
+import { getCroppedImg, getRotatedImage } from "utils/canvasUtils";
+import { getOrientation } from "get-orientation/browser";
+import { BsSave } from "react-icons/bs";
+import { ImCancelCircle } from "react-icons/im";
+import Cropper from "react-easy-crop";
+
+const { Option } = StyledSelect;
 
 const ORIENTATION_TO_ANGLE = {
   "3": 180,
   "6": 90,
   "8": -90,
-};
-
-const formInitialValues: TeamFormValues = {
-  name: "",
 };
 
 const TeamModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
@@ -54,40 +45,7 @@ const TeamModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<any>(null);
   const [croppedImage, setCroppedImage] = useState<any>(photo);
 
-  const club = useContext(ClubAdminContext);
-
-  // mutations
-  const [add] = useMutation(ADMINQL.ADD_TEAM, {
-    onCompleted() {
-      /** TODO: add notifications */
-      handleClose && handleClose();
-    },
-    onError(e) {
-      console.log("erre", e);
-    },
-  });
-
-  // form
-  const formik = useFormik({
-    initialValues: formInitialValues,
-    onSubmit: async (values) => {
-      const slug = slugify(values.name);
-      let image: string | null = null;
-
-      if (!_.isNull(imageSrc)) {
-        const s3res: any = await s3UploadFile("Teams", slug, file);
-        image = s3res.location;
-      }
-
-      saveObject({ ...values, club_id: club.id, division: slug, slug, image });
-    },
-  });
-
-  const saveObject = (objects: any) => {
-    /** TODO: Edit */
-    // _.isNull(editId) ? add({ variables: { object } }) : update({ variables: { id: editId, object } })
-    add({ variables: { objects } });
-  };
+  //    define methods
 
   // functions
 
@@ -145,174 +103,167 @@ const TeamModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
     }
   };
 
+  //    Select Options
+  const children = [];
+  for (let i = 10; i < 36; i++) {
+    // children.push(<Option key={i}>{toString("Player") + i}</Option>);
+  }
+
   return (
     <ModalWrapper show={show}>
       {!load ? (
         <ModalContent show={show}>
-          <form onSubmit={formik.handleSubmit}>
-            <ModalHeader>
-              <Text fSize={22} fWeight={600}>
-                {"Add Team"}
-              </Text>
-            </ModalHeader>
-            <ModalBody>
-              <Row flexDirection="column" gap={30}>
-                <Row flexDirection="row" gap={30}>
-                  <Col item={12}>
-                    <Row
-                      flexDirection="column"
-                      justifyContent="center"
-                      gap={10}
-                    >
-                      <Col>
-                        <Text fSize={14} padding="0 0 7px 0">
-                          {"Team Name"}
-                        </Text>
-                        <Input
-                          iColor="primary"
-                          iSize="small"
-                          iFont="normal"
-                          iRadius="small"
-                          placeholder="Team Name"
-                          name="name"
-                          onChange={formik.handleChange}
-                          value={formik.values.name}
-                        />
-                      </Col>
-                      <Col>
-                        <Text fSize={14} padding="0 0 7px 0">
-                          {"Team Admin First Name"}
-                        </Text>
-                        <Input
-                          iColor="primary"
-                          iSize="small"
-                          iFont="normal"
-                          iRadius="small"
-                          placeholder="First Name"
-                        />
-                      </Col>
-                      <Col>
-                        <Text fSize={14} padding="0 0 7px 0">
-                          {"Team Admin Last Name"}
-                        </Text>
-                        <Input
-                          iColor="primary"
-                          iSize="small"
-                          iFont="normal"
-                          iRadius="small"
-                          placeholder="Last Name"
-                        />
-                      </Col>
-                      <Col>
-                        <Text fSize={14} padding="0 0 7px 0">
-                          {"Team Admin Mobile Number"}
-                        </Text>
-                        <Input
-                          iColor="primary"
-                          iSize="small"
-                          iFont="normal"
-                          iRadius="small"
-                          placeholder="Mobile Number"
-                        />
-                      </Col>
-                      <Col>
-                        <Text fSize={14} padding="0 0 7px 0">
-                          {"Team Admin Email"}
-                        </Text>
-                        <Input
-                          iColor="primary"
-                          iSize="small"
-                          iFont="normal"
-                          iRadius="small"
-                          placeholder="Email"
-                        />
-                      </Col>
+          <ModalHeader>
+            <Text fSize={22} fWeight={600}>
+              {"Add Team"}
+            </Text>
+          </ModalHeader>
+          <ModalBody>
+            <Row flexDirection="column" gap={30}>
+              <Row flexDirection="row" gap={30}>
+                <Col item={12}>
+                  <Row flexDirection="column" justifyContent="center" gap={10}>
+                    <Col>
+                      <Text fSize={14} padding="0 0 7px 0">
+                        {"Team Name"}
+                      </Text>
+                      <Input
+                        iColor="primary"
+                        iSize="small"
+                        iFont="normal"
+                        iRadius="small"
+                        placeholder="Team Name"
+                        name="name"
+                      />
+                    </Col>
+                    <Col>
+                      <Text fSize={14} padding="0 0 7px 0">
+                        {"League"}
+                      </Text>
+                      <Input
+                        iColor="primary"
+                        iSize="small"
+                        iFont="normal"
+                        iRadius="small"
+                        placeholder="League"
+                      />
+                    </Col>
+                    <Col>
+                      <Text fSize={14} padding="0 0 7px 0">
+                        {"Add Players"}
+                      </Text>
+                      <StyledSelect
+                        mode="tags"
+                        placeholder="Add Players"
+                        onChange={() => console.log("log")}
+                      >
+                        {children}
+                      </StyledSelect>
+                    </Col>
+                    <Col>
+                      <Text fSize={14} padding="0 0 7px 0">
+                        {"Team Admin(s)"}
+                      </Text>
+                      <Input
+                        iColor="primary"
+                        iSize="small"
+                        iFont="normal"
+                        iRadius="small"
+                        placeholder="Team Admin(s)"
+                      />
+                    </Col>
+                  </Row>
+                </Col>
+                <Col item={12}>
+                  <Row flexDirection="column" gap={30}>
+                    <Text fSize={15} mode="p">
+                      {"Team Photo"}
+                    </Text>
+                    <Row flexDirection="column" alignItems="center" gap={15}>
+                      <Avatar src={croppedImage} mode="medium" />
+                      <Button
+                        bColor="primary"
+                        bSize="small"
+                        onClick={onTargetClick}
+                        type="button"
+                      >
+                        {"Upload Photo"}
+                      </Button>
+                      <input
+                        onChange={onFileInputChange}
+                        ref={fileInputRef}
+                        type="file"
+                        style={{ display: "none" }}
+                        accept="image/png, image/jpeg"
+                      />
                     </Row>
-                  </Col>
-                  <Col item={12}>
-                    <Row flexDirection="column" gap={30}>
-                      <Text fSize={15} mode="p">
-                        {"Team Photo"}
+                    <Row flexDirection="column" gap={10}>
+                      <Text fSize={15} fWeight={700} mode="p">
+                        {"Photo Guidelines:"}
                       </Text>
-                      <Row flexDirection="column" alignItems="center" gap={15}>
-                        <Avatar src={croppedImage} mode="medium" />
-                        <Button
-                          bColor="primary"
-                          bSize="small"
-                          onClick={onTargetClick}
-                          type="button"
-                        >
-                          {"Upload Photo"}
-                        </Button>
-                        <input
-                          onChange={onFileInputChange}
-                          ref={fileInputRef}
-                          type="file"
-                          style={{ display: "none" }}
-                          accept="image/png, image/jpeg"
-                        />
-                      </Row>
-                      <Row flexDirection="column" gap={10}>
-                        <Text fSize={15} fWeight={700} mode="p">
-                          {"Photo Guidelines:"}
-                        </Text>
-                        <ul>
-                          <li>
-                            <Text fSize={14}>
-                              {"Accepted file formats:JPG, PNG, SVG"}
-                            </Text>
-                          </li>
-                          <li>
-                            <Text fSize={14}>{"Maximum file size: 25MB"}</Text>
-                          </li>
-                          <li>
-                            <Text fSize={14}>
-                              {"Minimum dimensions: 300 x 300px"}
-                            </Text>
-                          </li>
-                        </ul>
-                      </Row>
+                      <ul>
+                        <li>
+                          <Text fSize={14}>
+                            {"Accepted file formats:JPG, PNG, SVG"}
+                          </Text>
+                        </li>
+                        <li>
+                          <Text fSize={14}>{"Maximum file size: 25MB"}</Text>
+                        </li>
+                        <li>
+                          <Text fSize={14}>
+                            {"Minimum dimensions: 300 x 300px"}
+                          </Text>
+                        </li>
+                      </ul>
                     </Row>
-                  </Col>
-                </Row>
-                <Row>
-                  <ul>
-                    <li>
-                      <Text fSize={14}>
-                        {
-                          "Team Admin will be able to add / modify / remove Players, Matches, Results and Team Details for this team. Club Admin is administrator for this team by default."
-                        }
-                      </Text>
-                    </li>
-                    <li>
-                      <Text fSize={14}>
-                        {"Team Admin will be notified by email."}
-                      </Text>
-                    </li>
-                  </ul>
-                </Row>
+                  </Row>
+                </Col>
               </Row>
-            </ModalBody>
-            <ModalFooter>
-              <Button
-                bColor="primary"
-                bSize="small"
-                icon={<ImCancelCircle />}
-                onClick={handleClose}
-                type="button"
-              >
-                {"Cancel"}
-              </Button>
-              <Button
-                bColor="primary"
-                type="submit"
-                bSize="small"
-                icon={<BsSave />}
-              >
-                {"Save"}
-              </Button>
-            </ModalFooter>
-          </form>
+              <Row>
+                <ul>
+                  <li>
+                    <Text fSize={14}>
+                      {"Team Admin will be notified by email."}
+                    </Text>
+                  </li>
+                  <li>
+                    <Text fSize={14}>
+                      {
+                        "If no Streamer account exists for this email, an invite to Sign Up will be sent to this email."
+                      }
+                    </Text>
+                  </li>
+                  <li>
+                    <Text fSize={14}>
+                      {
+                        "Team Admin will be able to add / modify / remove Players, Matches, Results and Team Details for this team. Club Admin is administrator for this team by default."
+                      }
+                    </Text>
+                  </li>
+                </ul>
+              </Row>
+            </Row>
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              bColor="primary"
+              bSize="small"
+              icon={<ImCancelCircle />}
+              onClick={handleClose}
+              type="button"
+            >
+              {"Cancel"}
+            </Button>
+            <Button
+              bColor="primary"
+              bSize="small"
+              type="submit"
+              icon={<BsSave />}
+            >
+              {"Save"}
+            </Button>
+          </ModalFooter>
         </ModalContent>
       ) : (
         <ModalContent show={true}>
@@ -398,7 +349,6 @@ const TeamModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
     </ModalWrapper>
   );
 };
-
 const readFile = (file: any) => {
   return new Promise((resolve) => {
     const reader = new FileReader();

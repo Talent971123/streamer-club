@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 import { themeGet } from "@styled-system/theme-get";
-import Select from "react-select";
-
+import Select from "antd/lib/select";
 export const phone_inputStyle = {
   width: "100%",
   height: "38px",
@@ -13,10 +12,19 @@ export const phone_inputStyle = {
 export const phone_dropstyle = {
   color: "black",
 };
-
 export const CustomSelect = styled(Select)`
   color: black !important;
   font-size: 14px;
+  width: 100%;
+  border-radius: 4px;
+  height: 38px;
+  color: black;
+  background: #e5e5e5;
+  & div {
+    height: 100% !important;
+    display: flex;
+    align-items: center;
+  }
 `;
 
 export const ModalWrapper = styled.div<{ show: boolean }>`

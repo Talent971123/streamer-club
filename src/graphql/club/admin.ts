@@ -94,6 +94,14 @@ const SUB_ALL_LEAGUES = gql`
   }
 `;
 
+const UPDATE_PLAER_BY_ID = gql`
+  mutation EditPlayer($id: Int!, $object: players_details_set_input = {}) {
+    update_players_details_by_pk(pk_columns: { id: $id }, _set: $object) {
+      updated_at
+    }
+  }
+`;
+
 // ---------
 export default {
   SUB_CLUB,
@@ -102,4 +110,5 @@ export default {
   SUB_ALL_CLUBS,
   SUB_ALL_TEAMS,
   SUB_ALL_LEAGUES,
+  UPDATE_PLAER_BY_ID,
 };

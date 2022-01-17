@@ -78,7 +78,13 @@ const Player_A_Modal: React.FC<ModalProps> = ({
 
   const _handleClose = () => {
     reset();
+    setFile(null);
     handleClose && handleClose();
+  };
+
+  const cancelCroppedImage = () => {
+    setFile(null);
+    setLoad(false);
   };
   // mutations
   const [add] = useMutation(ADMINQL.ADD_PLAYER, {
@@ -95,6 +101,7 @@ const Player_A_Modal: React.FC<ModalProps> = ({
   const saveObject = async (objects: any) => {
     /** TODO: Edit */
     await add({ variables: { objects } });
+    setFile(null);
   };
 
   // functions
@@ -156,6 +163,7 @@ const Player_A_Modal: React.FC<ModalProps> = ({
   const onSubmit = handleSubmit(async (data: any) => {
     const slug = uuidv4();
     let image: string | null = null;
+
     if (!_.isNull(file)) {
       const s3res: any = await s3UploadFile("Players", slug, file);
       image = s3res.location;
@@ -164,7 +172,7 @@ const Player_A_Modal: React.FC<ModalProps> = ({
       ...data,
       image,
       club_id: club.id,
-      team_id: data.team_id === undefined ? null : data.team_id.value,
+      team_id: _.isUndefined(data.team_id) ? null : data.team_id,
       positions: [data.positions],
       slug,
       prev_club: "",
@@ -413,7 +421,7 @@ const Player_A_Modal: React.FC<ModalProps> = ({
               bColor="primary"
               bSize="small"
               icon={<ImCancelCircle />}
-              onClick={() => setLoad(false)}
+              onClick={cancelCroppedImage}
             >
               {"Cancel"}
             </Button>

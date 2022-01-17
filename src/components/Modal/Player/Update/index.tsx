@@ -1,7 +1,13 @@
-import React, { useCallback, useContext, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useRef,
+  useState,
+  useEffect,
+} from "react";
 
-import { useMutation, useQuery } from "@apollo/client";
-import { ADMINQL, PLAYERQL } from "graphql/club";
+import { useMutation } from "@apollo/client";
+import { ADMINQL } from "graphql/club";
 // assets
 import photo from "assets/images/layout/group.png";
 import { Avatar } from "components/Avatar";
@@ -53,18 +59,49 @@ const Player_U_Modal: React.FC<EditProps> = ({
   pid,
   handleClose,
 }) => {
-  // const { data, loading } = useQuery(PLAYERQL.GET_PLAYER_BY_ID, {
-  //   variables: {
-  //     id: pid,
-  //   },
-  // });
   const club = useContext(ClubAdminContext);
-  const teamsData: any = club.teams
-    ? club.teams.map((team) => ({ label: team.name, value: team.id }))
-    : [];
-  const formData: any = club.players
-    ? club.players.find((player) => pid === player.id)
-    : [];
+  const [formData, setformData] = useState<any>(
+    club.players ? club.players.find((player) => pid === player.id) : []
+  );
+
+  const [teamsData, setteamsData] = useState<any>(
+    club.teams
+      ? club.teams.map((team) => ({ label: team.name, value: team.id }))
+      : []
+  );
+
+  const [imageSrc, setImageSrc] = useState<any>(
+    _.isNull(formData.image) ? photo : formData.image
+  );
+  const [flag, setFlag] = useState(_.isNull(formData.image) ? false : true);
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [load, setLoad] = useState<boolean>(false);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [rotation, setRotation] = useState(0);
+  const [zoom, setZoom] = useState(1);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const [croppedImage, setCroppedImage] = useState<any>(
+    _.isNull(formData.image) ? photo : formData.image
+  );
+  const [file, setFile] = useState<any>(null);
+
+  useEffect(() => {
+    setformData(
+      club.players ? club.players.find((player) => pid === player.id) : []
+    );
+    setteamsData(
+      club.teams
+        ? club.teams.map((team) => ({ label: team.name, value: team.id }))
+        : []
+    );
+    setFlag(_.isNull(formData.image) ? false : true);
+  }, [club, pid]);
+
+  useEffect(() => {
+    setImageSrc(_.isNull(formData.image) ? photo : formData.image);
+    setCroppedImage(_.isNull(formData.image) ? photo : formData.image);
+  }, [formData]);
 
   const {
     register,
@@ -74,39 +111,21 @@ const Player_U_Modal: React.FC<EditProps> = ({
     formState: { errors, isSubmitting },
   } = useForm<PlayerFormValues>({
     resolver: yupResolver(PlayerSchema),
-    defaultValues: {
-      first_name: formData.first_name,
-      last_name: formData.last_name,
-      mobile: formData.mobile,
-      email: formData.email,
-      team_id: teamsData.find((team) => team.value === formData.team_id),
-      club_id: formData.club_id,
-      positions: formData.positions,
-    },
   });
-
-  const [imageSrc, setImageSrc] = useState<any>(
-    _.isEmpty(formData) ? photo : formData.image
-  );
-  const [load, setLoad] = useState<boolean>(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [crop, setCrop] = useState({ x: 0, y: 0 });
-  const [rotation, setRotation] = useState(0);
-  const [zoom, setZoom] = useState(1);
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
-  const [croppedImage, setCroppedImage] = useState<any>(
-    _.isEmpty(formData) ? photo : formData.image
-  );
-  const [file, setFile] = useState<any>(null);
 
   const _handleClose = () => {
     reset();
+    setFile(null);
     handleClose && handleClose();
   };
+
+  const cancelCroppedImage = () => {
+    setFile(null);
+    setLoad(false);
+  };
   // mutations
-  const [add] = useMutation(ADMINQL.ADD_PLAYER, {
+  const [update] = useMutation(ADMINQL.UPDATE_PLAER_BY_ID, {
     onCompleted() {
-      /** TODO: add notifications */
       handleClose && handleClose();
       reset();
     },
@@ -115,13 +134,13 @@ const Player_U_Modal: React.FC<EditProps> = ({
     },
   });
 
-  const saveObject = async (objects: any) => {
+  const saveObject = async (id: number, object: any) => {
     /** TODO: Edit */
-    await add({ variables: { objects } });
+    await update({ variables: { id, object } });
+    setFile(null);
   };
 
   // functions
-
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
@@ -177,22 +196,26 @@ const Player_U_Modal: React.FC<EditProps> = ({
   };
 
   const onSubmit = handleSubmit(async (data: any) => {
-    console.log(data);
-    // const slug = uuidv4();
-    // let image: string | null = null;
-    // if (!_.isNull(file)) {
-    //   const s3res: any = await s3UploadFile("Players", slug, file);
-    //   image = s3res.location;
-    // }
-    // await saveObject({
-    //   ...data,
-    //   image,
-    //   club_id: club.id,
-    //   team_id: data.team_id === undefined ? null : data.team_id.value,
-    //   positions: [data.positions],
-    //   slug,
-    //   prev_club: "",
-    // });
+    let image: string | null = null;
+    const slug: string = formData.slug;
+
+    if (flag) {
+      image = formData.image;
+    } else {
+      if (!_.isNull(file)) {
+        const s3res: any = await s3UploadFile("Players", slug, file);
+        image = s3res.location;
+      } else {
+        image = null;
+      }
+    }
+    await saveObject(pid, {
+      ...data,
+      image,
+      slug,
+      team_id: _.isUndefined(data.team_id) ? null : data.team_id,
+      positions: [data.positions],
+    });
   });
 
   return (
@@ -220,6 +243,7 @@ const Player_U_Modal: React.FC<EditProps> = ({
                         iFont="normal"
                         iRadius="small"
                         placeholder="First Name"
+                        defaultValue={formData.first_name}
                         {...register("first_name")}
                       />
                     </Col>
@@ -235,6 +259,7 @@ const Player_U_Modal: React.FC<EditProps> = ({
                         iSize="small"
                         iFont="normal"
                         iRadius="small"
+                        defaultValue={formData.last_name}
                         placeholder="Last Name"
                         {...register("last_name")}
                       />
@@ -249,6 +274,7 @@ const Player_U_Modal: React.FC<EditProps> = ({
                       <Controller
                         control={control}
                         name="mobile"
+                        defaultValue={formData.mobile}
                         rules={{ required: true }}
                         render={({ field: { ...field } }) => (
                           <PhoneInput
@@ -274,6 +300,7 @@ const Player_U_Modal: React.FC<EditProps> = ({
                         iFont="normal"
                         iRadius="small"
                         placeholder="Email Address"
+                        defaultValue={formData.email}
                         {...register("email")}
                       />
                     </Col>
@@ -284,9 +311,15 @@ const Player_U_Modal: React.FC<EditProps> = ({
 
                       <Controller
                         name="team_id"
-                        render={({ field }) => (
-                          <CustomSelect {...field} options={teamsData} />
-                        )}
+                        render={({ field }) => {
+                          return (
+                            <CustomSelect
+                              {...field}
+                              defaultValue={formData.team_id}
+                              options={teamsData}
+                            />
+                          );
+                        }}
                         control={control}
                       />
                     </Col>
@@ -295,6 +328,7 @@ const Player_U_Modal: React.FC<EditProps> = ({
                         {"Position"}
                       </Text>
                       <Input
+                        defaultValue={formData.positions}
                         iColor="primary"
                         iSize="small"
                         iFont="normal"
@@ -437,7 +471,7 @@ const Player_U_Modal: React.FC<EditProps> = ({
               bColor="primary"
               bSize="small"
               icon={<ImCancelCircle />}
-              onClick={() => setLoad(false)}
+              onClick={cancelCroppedImage}
             >
               {"Cancel"}
             </Button>

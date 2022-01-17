@@ -4,7 +4,7 @@ import { Row, Col } from "components/Layout";
 import { Table } from "components/Table";
 import { Button } from "components/Button";
 import { Avatar } from "components/Avatar";
-import { UpdateTeamModal } from "components/Modal";
+import { TeamModal } from "components/Modal";
 
 //  import react icons
 import { BsPlus } from "react-icons/bs";
@@ -17,9 +17,7 @@ import { ClubAdminContext } from "pages/club/[club_slug]/admin";
 import _ from "lodash";
 
 const Action: React.FC<{ count: number; tid: number }> = ({ tid, count }) => {
-  const onHandleEdit = (e: any) => {
-    console.log(`Edit team with id ${tid}`);
-  };
+  const onHandleEdit = (e: any) => {};
   return (
     <>
       <Row justifyContent="center" alignItems="center" gap={20}>
@@ -92,7 +90,7 @@ const DisplaySection: React.FC = () => {
           <Table data={datasource()} />
         </Col>
       </Row>
-      <UpdateTeamModal show={show} handleClose={() => onModal(false)} />
+      <TeamModal show={show} handleClose={() => onModal(false)} />
     </DisplayWrapper>
   );
 };
