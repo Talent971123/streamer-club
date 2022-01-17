@@ -14,11 +14,14 @@ import {
 import { BiCopy } from "react-icons/bi";
 import { FiShare2 } from "react-icons/fi";
 import { BlackBorder, LiveWrapper, ToobarWrapper } from "./toolbar.style";
-import { StreamPageContext } from "pages/club/[club_slug]/replay/[asset_id]";
+import { StreamPageContext } from 'hooks/context/StreamPageContext'
+
 
 const ToolBarView: React.FC = () => {
   const { home_name, away_name, away_logo, home_logo } =
     useContext(StreamPageContext);
+
+  console.log(home_name, away_name, away_logo, home_logo)
 
   return (
     <ToobarWrapper>
@@ -35,7 +38,7 @@ const ToolBarView: React.FC = () => {
           <Row gap={10}>
             <Row justifyContent="center" alignItems="center" gap={10}>
               {/* <HandIcon /> */}
-              <Image src={home_logo} width={50} height={50} />
+              {/* <Image src={home_logo} width={50} height={50} /> */}
               <Text tAlign={"center"} fSize={16} fWeight={600}>
                 {home_name}
               </Text>
@@ -62,7 +65,7 @@ const ToolBarView: React.FC = () => {
               <Text tAlign={"center"} fSize={16} fWeight={600}>
                 {away_name}
               </Text>
-              <Image src={away_logo} width={50} height={50} />
+              {/* <Image src={away_logo} width={50} height={50} /> */}
               {/* <HandIcon /> */}
             </Row>
           </Row>

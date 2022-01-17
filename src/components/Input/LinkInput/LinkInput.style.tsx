@@ -10,7 +10,7 @@ export const LinkContent = styled.div`
   border: 1px solid ${themeGet("colors.gray.300")};
   width: 100%;
   height: 38px;
-  border-radius: 7px;
+  border-radius: 4px;
   background: ${themeGet("colors.gray.600")};
   display: flex;
   align-items: center;

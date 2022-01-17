@@ -39,7 +39,7 @@ const PlayerAllView: React.FC = () => {
             backgroundImage: player.image,
             title: `${player.first_name} ${player.last_name}`,
             mode: "player",
-            content: player.team.name,
+            content: player.team?.name,
           };
 
           return (

@@ -13,7 +13,6 @@ import { SectionViewProps } from "types/components/Section";
 //  import styled component
 import { LinkWrapper, PlayerWrapper } from "./player.style";
 
-
 // const setting for react slick
 const NextArrow: React.FC = (props: any) => {
   const { className, style, onClick } = props;
@@ -59,8 +58,11 @@ const settings = {
 const SeeAll = useLinkItem(LinkWrapper);
 
 const PlayerView: React.FC<SectionViewProps> = (props) => {
-  const { move, param: { club_slug } } = useRouter();
-  const { data } = props
+  const {
+    move,
+    param: { club_slug },
+  } = useRouter();
+  const { data } = props;
 
   const onHandleSeeAll = () => {
     move(`/club/${club_slug}/players`);
@@ -97,7 +99,7 @@ const PlayerView: React.FC<SectionViewProps> = (props) => {
                   backgroundImage: player.image,
                   title: `${player.first_name} ${player.last_name}`,
                   mode: "player",
-                  content: player.team.name,
+                  content: player.team?.name,
                 };
 
                 return (

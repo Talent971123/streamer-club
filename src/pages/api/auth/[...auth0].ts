@@ -1,4 +1,4 @@
-import { handleAuth, handleCallback } from '@auth0/nextjs-auth0';
+import { handleAuth, handleCallback, handleLogin } from '@auth0/nextjs-auth0';
 import { initializeApollo } from 'api/apollo';
 import { query } from "graphql/user";
 
@@ -25,6 +25,14 @@ const afterCallback = async (req, res, session, state) => {
     return session;
 };
 
+
+const getLoginState = (req, loginOptions) => {
+    return {
+        returnTo: req.headers.referer,
+    }
+}
+
+
 export default handleAuth({
     async callback(req, res) {
         try {
@@ -34,5 +42,8 @@ export default handleAuth({
             console.log(error)
             // res.status(error.status || 500).end(error.message);
         }
-    }
+    },
+    async login(req, res) {
+        await handleLogin(req, res, { getLoginState });
+    },
 });

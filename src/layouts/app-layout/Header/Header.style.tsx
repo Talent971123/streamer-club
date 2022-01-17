@@ -27,7 +27,7 @@ export const MenuItem = styled.div<{ mode: String }>`
     position: absolute;
     content: "";
     height: 2px;
-    background-color: ${themeGet("colors.red.100")};
+    background-color: ${themeGet("colors", "white")};
     width: 100%;
     left: 0;
     bottom: -5px;
@@ -42,7 +42,7 @@ export const MenuItem = styled.div<{ mode: String }>`
     if (mode === "true") {
       return css`
         p {
-          color: ${themeGet("colors.red.100")};
+          color: ${themeGet("colors.white.100")};
         }
         ::after {
           transform: scaleX(1);

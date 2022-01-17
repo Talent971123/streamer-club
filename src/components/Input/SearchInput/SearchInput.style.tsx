@@ -18,6 +18,6 @@ export const SeachButtonContainer = styled.div`
   justify-content: center;
   align-items: center;
   background: ${themeGet("colors.gray.300")};
-  border-radius: 0 7px 7px 0;
+  border-radius: 0 4px 4px 0;
   cursor: pointer;
 `;

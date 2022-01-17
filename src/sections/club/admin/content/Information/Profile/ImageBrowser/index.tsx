@@ -11,7 +11,7 @@ import { themeGet } from "@styled-system/theme-get";
 
 const ContentWrapper = styled.div`
   border: 1px solid ${themeGet("colors.gray.300")};
-  border-radius: 7px;
+  border-radius: 4px;
   cursor: pointer;
 `;
 

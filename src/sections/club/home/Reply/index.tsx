@@ -7,7 +7,7 @@ import Slider from "react-slick";
 import { useLinkItem } from "components/hoc";
 import { IoArrowRedoOutline } from "react-icons/io5";
 // import styled component
-import { ReplyWrapper, LinkWrapper } from "./reply.style";
+import { ReplayWrapper, LinkWrapper } from "./replay.style";
 // import types
 import { GameCardProps } from "types/components/GameCard";
 
@@ -91,7 +91,7 @@ const ReplyView: React.FC = () => {
   };
 
   return (
-    <ReplyWrapper>
+    <ReplayWrapper>
       <Row alignItems="center" justifyContent="space-between">
         <Text fColor="white" fSize={22} fWeight={700}>
           {"Replays"}
@@ -137,7 +137,7 @@ const ReplyView: React.FC = () => {
           </Slider>
         </Col>
       </Row>
-    </ReplyWrapper>
+    </ReplayWrapper>
   );
 };
 

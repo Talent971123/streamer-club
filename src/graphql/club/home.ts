@@ -35,7 +35,7 @@ const GET_CLUB = gql`
 `;
 
 const SUB_CLUB_REPLAYS = gql`subscription MyReplaySub($club_slug: String!) {
-  matches(where: {_or: [{away_team: {club: {slug: {_eq: $club_slug}}}}, {home_team: {club: {slug: {_eq: $club_slug}}}}]}) {
+  matches(where: {_or: [{away_team: {club: {slug: {_eq: $club_slug}}}}, {home_team: {club: {slug: {_eq: $club_slug}}}}], status: {_eq: "completed"}}) {
     id
     is_historic
     name
@@ -108,9 +108,23 @@ const SUB_TEAM_REPLAYS = gql`subscription MyReplaysSub($team_slug: String!) {
   }
 }`;
 
+
+const SUB_CLUB_TEAMS = gql`subscription ClubTeamsSubscription($club_slug: String!) {
+  clubs(where: {slug: {_eq: $club_slug}}) {
+    teams {
+      division
+      id
+      image
+      league_id
+      name
+    }
+  }
+}`
+
 // ---------
 export default {
   GET_CLUB,
   SUB_CLUB_REPLAYS,
-  SUB_TEAM_REPLAYS
+  SUB_TEAM_REPLAYS,
+  SUB_CLUB_TEAMS
 };

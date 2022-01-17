@@ -14,67 +14,19 @@ import clubImage2 from "assets/images/home/team1.png";
 import backgroundImage from "assets/images/home/background.jpg";
 import marker from "assets/images/home/mark.png";
 
-const data: GameCardProps[] = [
-  {
-    id: 1,
-    backgroundImage,
-    clubImage1,
-    clubImage2,
-    clubName1: "Perth FC",
-    clubName2: "Claremont FC",
-    leagueImage: marker,
-    leagueDivisionName: "Mens Division 1",
-    progress: "IN PROGRESS",
-    users: 36,
-  },
-  {
-    id: 1,
-    backgroundImage,
-    clubImage1,
-    clubImage2,
-    clubName1: "Perth FC",
-    clubName2: "Claremont FC",
-    leagueImage: marker,
-    leagueDivisionName: "Mens Division 1",
-    progress: "IN PROGRESS",
-    users: 12,
-  },
-  {
-    id: 1,
-    backgroundImage,
-    clubImage1,
-    clubImage2,
-    clubName1: "Perth FC",
-    clubName2: "Claremont FC",
-    leagueImage: marker,
-    leagueDivisionName: "Mens Division 1",
-    progress: "IN PROGRESS",
-  },
-  {
-    id: 1,
-    backgroundImage,
-    clubImage1,
-    clubImage2,
-    clubName1: "Perth FC",
-    clubName2: "Claremont FC",
-    leagueImage: marker,
-    leagueDivisionName: "Mens Division 1",
-    progress: "20 NOV 21 10:30AM",
-  },
-  {
-    id: 1,
-    backgroundImage,
-    clubImage1,
-    clubImage2,
-    clubName1: "Perth FC",
-    clubName2: "Claremont FC",
-    leagueImage: marker,
-    leagueDivisionName: "Mens Division 1",
-    progress: "20 NOV 21 10:30AM",
-  },
-];
+import { connect } from 'react-redux';
+import { progressText, thumbNailLink } from "utils/common-helper";
 
-const UpcomeSection: React.FC = () => {
+import { useRouter } from "next/router";
+
+const UpcomeSection = (props) => {
+  const router = useRouter();
+  const { liveList, clubInfo } = props
+
+  const onClick = (id: number) => {
+    router.push(`/club/${clubInfo.slug}/match/` + id);
+  };
+
   return (
     <GameDayWrapper>
       <Row alignItems="center" justifyContent="space-between">
@@ -88,12 +40,36 @@ const UpcomeSection: React.FC = () => {
         templateCol="repeat(4, 1fr)"
         gap={"20px 10px"}
       >
-        {data.map((item: GameCardProps, index: number) => {
-          return <GameCard {...item} key={index} />;
+        {liveList.map((match: any, index: number) => {
+
+          const item: GameCardProps = {
+            id: match.id,
+            backgroundImage: thumbNailLink(match.video_asset_id, 200),
+            clubImage1: match.home_team.club.logo,
+            clubName1: match.home_team.club.name,
+            clubImage2: match.away_team.club.logo,
+            clubName2: match.away_team.club.name,
+            leagueImage: match.league.logo ? match.league.logo : marker,
+            leagueDivisionName: match.home_team.division,
+            roundName: match.round_name,
+            matchName: match.name,
+            mode: "Day",
+            progress: progressText(match.start_datetime, match.status),
+            isLive: progressText(match.start_datetime, match.status) === "In Progress",
+            users: 0 /** TODO: get the number of users watching */
+          };
+
+          return <GameCard {...item} key={index} handleClick={() => onClick(match.video_asset_id)} />;
+
         })}
       </Row>
     </GameDayWrapper>
   );
 };
 
-export default UpcomeSection;
+const mapStateToProps = state => ({
+  liveList: state.match.live_list,
+  clubInfo: state.club.info
+})
+
+export default connect(mapStateToProps)(UpcomeSection);

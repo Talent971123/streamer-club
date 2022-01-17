@@ -9,6 +9,7 @@ const Rounter = () => {
   const router = useRouter();
   const [path, setPath] = useState("");
   const [param, setParam] = useState<Partial<ParamTypes>>({});
+  const { asPath } = router
 
   useEffect(() => {
     let isMounted = true;
@@ -32,6 +33,6 @@ const Rounter = () => {
     router.push(`${path}${paramString}`, undefined, { ...mode });
   };
 
-  return { path, param, move };
+  return { path, param, move, asPath };
 };
 export default Rounter;

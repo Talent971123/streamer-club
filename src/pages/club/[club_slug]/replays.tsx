@@ -1,17 +1,16 @@
 // import react
-import React, { useState, useContext, createContext } from "react";
-import { WithContainer } from "components/Container";
-// import views
-import { ReplySection } from "sections/club/replay";
-import { useRouter } from "next/router";
 import { useSubscription } from "@apollo/client";
+import { WithContainer } from "components/Container";
 import { HomeQL } from "graphql/club";
-import { thumbNailLink } from "utils/common-helper";
+import { useRouter } from "next/router";
+import React, { createContext, useState } from "react";
+// import views
+import { ReplaySection } from "sections/club/replay";
 
 export const ReplayPageContext = createContext<Partial<Array<any>>>([]);
 
 const ReplayPage: React.FC = () => {
-
+  // TODO: use redux implementaion see: live
   const router = useRouter();
   const { club_slug } = router.query;
   const [matches, setMatches] = useState([]);
@@ -27,7 +26,7 @@ const ReplayPage: React.FC = () => {
 
   return (
     <ReplayPageContext.Provider value={matches}>
-      <WithContainer mode="container" SectionView={ReplySection} />
+      <WithContainer mode="container" SectionView={ReplaySection} />
     </ReplayPageContext.Provider>
   );
 };

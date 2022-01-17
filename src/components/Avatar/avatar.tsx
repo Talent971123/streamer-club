@@ -30,7 +30,7 @@ const AvatarWrapper = styled.div(
         borderRadius: "50%",
       },
       small: {
-        borderRadius: "7px",
+        borderRadius: "4px",
       },
     },
   }),

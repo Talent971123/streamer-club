@@ -11,7 +11,10 @@ export interface GameCardProps {
   match_round?: number;
   date?: string;
   progress?: string;
-  users?: number;
-  mode?: "Day" | "Replay";
+  users?: number; /** remove */
+  mode?: "Day" | "Replay" | "Live";
+  roundName?: string
+  matchName?: string
   handleClick?: any;
+  isLive?: boolean
 }

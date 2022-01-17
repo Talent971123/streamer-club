@@ -2,19 +2,20 @@
 import React, { createContext, useEffect, useState } from "react";
 import { WithContainer } from "components/Container";
 // import views
-import { DisplayView, ToolbarView } from "sections/club/stream";
+import { DisplayView, ToolbarView, TabContainerView } from "sections/club/stream";
 import { StreamPageCtx } from "types/common/club";
 import { initializeApollo } from "api/apollo";
 import { query } from "graphql/stream";
-
-export const StreamPageContext = createContext<Partial<StreamPageCtx>>({});
+import { StreamPageContext } from 'hooks/context/StreamPageContext'
 
 const StreamPage: React.FC<{ streamInfo: StreamPageCtx }> = ({ streamInfo }) => {
 
+  // TODO: use redux instead of context api
   return (
     <StreamPageContext.Provider value={streamInfo}>
       <WithContainer mode="wrapper" SectionView={DisplayView} />
       <WithContainer mode="wrapper" SectionView={ToolbarView} />
+      <WithContainer mode="wrapper" SectionView={TabContainerView} />
     </StreamPageContext.Provider>
   );
 

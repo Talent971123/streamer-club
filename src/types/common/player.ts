@@ -18,6 +18,6 @@ export interface PlayerFormValues {
   email: string;
   positions: string;
   slug?: string | null;
-  club_id: number;
-  team_id: number;
+  club_id: number | null;
+  team_id: number | null;
 }

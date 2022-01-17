@@ -25,6 +25,7 @@ import { ImCancelCircle } from "react-icons/im";
 import Cropper from "react-easy-crop";
 import slugify from "slugify";
 import _ from "lodash";
+import PhoneInput from "react-phone-input-2";
 
 import {
   ImageContent,
@@ -34,6 +35,8 @@ import {
   ModalHeader,
   ModalWrapper,
   NumberRange,
+  phone_inputStyle,
+  phone_dropstyle,
 } from "./index.style";
 
 const ORIENTATION_TO_ANGLE = {
@@ -77,7 +80,6 @@ const PlayerModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
     initialValues: formInitialValues,
     // validationSchema: PlayerSchema,
     onSubmit: async (values, { resetForm }) => {
-      console.log(12312);
       const slug = values.first_name
         ? slugify(values.first_name + values.last_name)
         : "";
@@ -88,6 +90,7 @@ const PlayerModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
         image = s3res.location;
       }
 
+
       // saveObject({
       //   ...values,
       //   club_id: club.id,
@@ -97,6 +100,7 @@ const PlayerModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
       //   image,
       //   prev_club: "",
       // });
+
       resetForm();
     },
   });
@@ -220,15 +224,17 @@ const PlayerModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
                         <Text fSize={14} padding="0 0 7px 0">
                           {"Mobile Number *"}
                         </Text>
-                        <Input
-                          iColor="primary"
-                          iSize="small"
-                          iFont="normal"
-                          iRadius="small"
-                          placeholder="Mobile Number"
-                          name="mobile"
-                          onChange={handleChange}
-                          value={values.mobile}
+                        <PhoneInput
+                          inputProps={{
+                            name: "mobile",
+                            required: true,
+                            autoFocus: true,
+                          }}
+                          country={"us"}
+                          inputStyle={phone_inputStyle}
+                          dropdownStyle={phone_dropstyle}
+                        // onChange={handleChange}
+                        // value={values.mobile}
                         />
                       </Col>
                       <Col>

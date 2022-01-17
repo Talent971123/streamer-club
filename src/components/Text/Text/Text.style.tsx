@@ -22,6 +22,7 @@ export const TextWrapper = styled.p<ResponsivedTextProps>`
   ${({ responsive }) => responsive && getResponsive(responsive)}
   &:hover {
     color: ${({ hoverStyle }) => themeGet(`colors.${hoverStyle?.fColor}`)};
+    font-weight: ${({ hoverStyle }) => themeGet('font-weight',  `${hoverStyle?.hfWeight}`)};
   }
 `;
 
@@ -42,6 +43,7 @@ export const TextSpanWrapper = styled.span<ResponsivedTextProps>`
   ${({ responsive }) => responsive && getResponsive(responsive)}
   &:hover {
     color: ${({ hoverStyle }) => themeGet(`colors.${hoverStyle?.fColor}`)};
+    font-weight: ${({ hoverStyle }) => themeGet('font-weight',  `${hoverStyle?.hfWeight}`)};
   }
 `;
 

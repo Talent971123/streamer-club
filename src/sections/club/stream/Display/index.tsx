@@ -4,7 +4,7 @@ import { Col, Row } from "components/Layout";
 import { VideoPlayer } from "components/Video";
 // import styled
 import { DisplayWrpper } from "./display.style";
-import { StreamPageContext } from "pages/club/[club_slug]/replay/[asset_id]";
+import { StreamPageContext } from 'hooks/context/StreamPageContext'
 
 interface VideoProps {
   playBackID?: string;

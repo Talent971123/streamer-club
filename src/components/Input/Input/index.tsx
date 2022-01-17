@@ -102,9 +102,9 @@ const StyledInput = styled.input(
     prop: "iRadius",
     variants: {
       circle: { borderRadius: "50%" },
-      small: { borderRadius: "7px" },
-      right: { borderRadius: "7px 0 0 7px" },
-      left: { borderRadius: "0 7px 0 7px" },
+      small: { borderRadius: "4px" },
+      right: { borderRadius: "4px 0 0 4px" },
+      left: { borderRadius: "0 4px 0 4px" },
       none: { borderRadius: "0px" },
     },
   }),

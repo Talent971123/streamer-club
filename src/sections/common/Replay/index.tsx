@@ -15,7 +15,9 @@ import { GameCardProps } from "types/components/GameCard";
 import { thumbNailLink } from "utils/common-helper";
 import { dateDisplayFormat } from "utils/constData";
 // import styled component
-import { LinkWrapper, ReplyWrapper } from "./replay.style";
+import { LinkWrapper, ReplayWrapper } from "./replay.style";
+
+import { getDates } from "utils/helper-date";
 
 import _ from 'lodash'
 
@@ -96,7 +98,7 @@ const ReplayView: React.FC = () => {
   };
 
   return (
-    <ReplyWrapper>
+    <ReplayWrapper>
       <Row alignItems="center" justifyContent="space-between">
         <Text fColor="white" fSize={22} fWeight={700}>
           {"Replays"}
@@ -125,9 +127,9 @@ const ReplayView: React.FC = () => {
                   leagueDivisionName: match.home_team.division,
                   leagueName: match.league.name,
                   match_round: match.round,
-                  date: match.start_datetime
-                    ? moment(match.start_datetime).format(dateDisplayFormat)
-                    : moment().format(dateDisplayFormat),
+                  roundName: match.round_name,
+                  matchName: match.name,
+                  date: getDates(match.start_datetime).datefull,
                   mode: "Replay",
                 };
 
@@ -142,7 +144,7 @@ const ReplayView: React.FC = () => {
           </Slider>
         </Col>
       </Row>
-    </ReplyWrapper>
+    </ReplayWrapper>
   );
 };
 

@@ -34,7 +34,10 @@ const GameCard: React.FC<GameCardProps> = ({
   progress,
   users = 0,
   mode = "Day",
+  roundName,
+  matchName,
   handleClick,
+  isLive,
 }) => {
   const onHandleClick = (id: number) => {
     handleClick && handleClick(id);
@@ -51,7 +54,7 @@ const GameCard: React.FC<GameCardProps> = ({
         />
         <Content>
           <Row flexDirection="column" alignItems="center">
-            {users != 0 && mode == "Day" ? (
+            {mode == "Day" && isLive && (
               <Col item={24}>
                 <Row alignItems="center" gap={10} padding="7px 0 0 10px">
                   <Col>
@@ -61,6 +64,7 @@ const GameCard: React.FC<GameCardProps> = ({
                       </Text>
                     </LiveWrapper>
                   </Col>
+
                   <Col>
                     <UserWrapper>
                       <Row alignItems="center" justifyContent="center" gap={5}>
@@ -73,7 +77,8 @@ const GameCard: React.FC<GameCardProps> = ({
                   </Col>
                 </Row>
               </Col>
-            ) : null}
+            )}
+
             <Col item={24}>
               <Row
                 alignItems="center"
@@ -82,8 +87,8 @@ const GameCard: React.FC<GameCardProps> = ({
                   mode == "Replay"
                     ? "50px 20px"
                     : users !== 0
-                      ? "24px 40px"
-                      : "50px 40px"
+                    ? "24px 40px"
+                    : "50px 40px"
                 }
               >
                 <Col>
@@ -107,19 +112,18 @@ const GameCard: React.FC<GameCardProps> = ({
         <Row flexDirection="column" gap={5}>
           <Col item={24}>
             <Row alignItems="center" gap={5}>
-              <Col>
+              <Col className="markwrapper">
                 <Image src={leagueImage} width={27} height={27} />
               </Col>
               <Col>
                 <Row>
                   <Text fColor="red.100" fSize={15} fWeight={800}>
-                    {leagueName ? `${leagueName} - ` : ''} &nbsp;
+                    {leagueName ? `${leagueName} - ` : ""} &nbsp;
                   </Text>
                   <Text fColor="red.100" fSize={15} fWeight={500}>
-                    {leagueDivisionName + ' '}
-                    {match_round ? `(Round ${match_round})` : ''}
+                    {matchName + " "}
+                    {roundName ? `(${roundName})` : ""}
                   </Text>
-
                 </Row>
               </Col>
             </Row>
@@ -143,13 +147,18 @@ const GameCard: React.FC<GameCardProps> = ({
               </Col>
             </Row>
           </Col>
-          {mode === "Replay" && <Col item={24}>
-            <Row alignItems="center" justifyContent="space-between">
-              <Col item={23}>
-                <Text fColor="gray.100" fSize={14} tAlign="center"> {date} </Text>
-              </Col>
-            </Row>
-          </Col>}
+          {mode === "Replay" && (
+            <Col item={24}>
+              <Row alignItems="center" justifyContent="space-between">
+                <Col item={23}>
+                  <Text fColor="gray.100" fSize={14} tAlign="center">
+                    {" "}
+                    {date}{" "}
+                  </Text>
+                </Col>
+              </Row>
+            </Col>
+          )}
           <Col item={24}>
             <Text fColor="gray.100" fSize={14} tAlign="center" fWeight={500}>
               {progress}

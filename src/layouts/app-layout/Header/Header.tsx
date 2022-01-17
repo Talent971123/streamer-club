@@ -7,16 +7,23 @@ import { Row, Col } from "components/Layout";
 import { Image } from "components/Image";
 import MarkIcon from "components/MarkIcon";
 import { SearchInput } from "components/Input";
+import { Button } from "components/Button";
 // assets
 import { BellIcon, DownIcon } from "assets/icon";
 import LogoImage from "assets/images/layout/logo.png";
 import ProfileImage from "assets/images/layout/profile.png";
 // HOC
+import { connect } from 'react-redux';
+import { setClubInfo } from "redux/actions/club";
 // styled component
 import { HeaderWrapper, MenuItem, Border } from "./Header.style";
 import { Text } from "components/Text";
 // -------------------------------------------------------------------
 import { UserProfile, useUser } from "@auth0/nextjs-auth0";
+import { initializeApollo } from "api/apollo";
+import { HomeQL } from "graphql/club";
+
+import { useQuery } from "@apollo/client";
 
 import _ from "lodash";
 
@@ -34,14 +41,24 @@ const MenuItems = (club_slug: string, user: any) => {
   return user ? menus : _.filter(menus, ["public", true]);
 };
 
-const Header = () => {
-  const { move, path, param }: any = useRouter();
+const Header = (props: any) => {
+  const { club, setClubInfo, clubInfo } = props
+  const { move, path, param, asPath }: any = useRouter();
   const [flag, setFlag] = useState<string>("/");
   const { user } = useUser();
 
-  console.log("Hi User", user);
+  console.log("Hi User", user, asPath);
 
   const menu = MenuItems(param.club_slug, user);
+
+  /** TODO: move this logic to middlewars */
+  const { refetch } = useQuery(HomeQL.GET_CLUB, {
+    variables: {
+      club_slug: param.club_slug,
+    }, onCompleted(data) {
+      data && setClubInfo(data.clubs[0])
+    }
+  });
 
   useEffect(() => {
     setFlag(path.split("/")[3]);
@@ -82,7 +99,7 @@ const Header = () => {
                     <Text
                       fColor="white"
                       fSize={17}
-                      hoverStyle={{ fColor: "red.200" }}
+                      hoverStyle={{ fColor: "white.200", hfWeight: "700" }}
                     >
                       {item.title}
                     </Text>
@@ -123,11 +140,33 @@ const Header = () => {
                 </>
               )}
 
-              {!user && (
-                <Col>
-                  <a href="/api/auth/login">Login</a>
-                </Col>
-              )}
+              {!user &&
+                <>
+                  <Col>
+                    <Button
+                      bColor="warning"
+                      bSize="big"
+                      css={{ width: "110px", height: "20px", fontSize: 14 }}
+                      onClick={() => handleMenuClick("/api/auth/signup")}
+                    >
+                      {"Sign up"}
+                    </Button>
+                  </Col>
+                  <Col>
+                    <Button
+                      bColor="primary"
+                      bSize="big"
+                      css={{ width: "50px", height: "20px", fontSize: 14, border: 'none' }}
+                      onClick={() => handleMenuClick("/api/auth/login")}
+                    >
+                      {"Login"}
+                    </Button>
+                  </Col>
+                </>
+                // <Col>
+                //   <a href="/api/auth/login">Login</a>
+                // </Col>
+              }
 
               <Col>
                 <Border />
@@ -142,4 +181,13 @@ const Header = () => {
     </HeaderWrapper>
   );
 };
-export default Header;
+
+const mapStateToProps = state => ({
+  clubInfo: state.club.info
+})
+
+const mapDispatchToProps = {
+  setClubInfo: setClubInfo
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

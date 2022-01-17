@@ -1,5 +1,23 @@
 import styled, { css } from "styled-components";
 import { themeGet } from "@styled-system/theme-get";
+import Select from "react-select";
+
+export const phone_inputStyle = {
+  width: "100%",
+  height: "38px",
+  borderRadius: "4px",
+  color: "black",
+  background: "#E5E5E5",
+};
+
+export const phone_dropstyle = {
+  color: "black",
+};
+
+export const CustomSelect = styled(Select)`
+  color: black !important;
+  font-size: 14px;
+`;
 
 export const ModalWrapper = styled.div<{ show: boolean }>`
   position: fixed;
@@ -17,10 +35,11 @@ export const ModalWrapper = styled.div<{ show: boolean }>`
       : css`
           visibility: hidden;
         `};
+  text-align: left;
 `;
 
 export const ModalContent = styled.div<{ show: boolean }>`
-  border-radius: 7px;
+  border-radius: 4px;
   transition: all ease 0.5s;
   ${({ show }) =>
     show
@@ -66,7 +85,7 @@ export const ModalFooter = styled.div`
 
 export const ImageContent = styled.div`
   border: 2px solid gray;
-  border-radius: 7px;
+  border-radius: 4px;
   contain: content;
   position: relative;
   width: 300px;

@@ -6,9 +6,7 @@ export const EmptyWrapper = styled.div`
 `;
 
 export const StyledTable = styled.div`
-  max-width: 1000px;
   overflow: auto;
-
   ::-webkit-scrollbar {
     height: 7px;
   }

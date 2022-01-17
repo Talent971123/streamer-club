@@ -16,9 +16,9 @@ const SearchInput = () => {
         inputIcon={<SearchIcon />}
         iColor="outlinedGray"
         iSize="small"
-        iFont="smbold"
+        iFont="normal"
         iRadius="right"
-        placeholder="Search Item... "
+        placeholder="Search"
       />
     </InputWrapper>
   );

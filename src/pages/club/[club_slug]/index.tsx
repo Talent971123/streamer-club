@@ -24,7 +24,7 @@ const HomePage: React.FC = (props: any) => {
 
   return (
     <>
-      <ClubContext.Provider value={club}>
+      <ClubContext.Provider value={club}> { /* TODO: user redux instead of context } */}
         <WithContainer mode="wrapper" SectionView={BannerView} />
         <WithContainer mode="wrapper" SectionView={HeadView} />
         <WithContainer mode="container" SectionView={GameDayView} />

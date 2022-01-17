@@ -1,1 +1,1 @@
-export { default as ReplySection } from "./Reply";
+export { default as ReplaySection } from "./Replay";

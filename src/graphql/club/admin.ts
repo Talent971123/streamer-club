@@ -29,6 +29,11 @@ const SUB_CLUB = gql`
         first_name
         last_name
         image
+        mobile
+        email
+        positions
+        team_id
+        club_id
         slug
         is_professional
         team {
@@ -39,22 +44,62 @@ const SUB_CLUB = gql`
   }
 `;
 
-
-const ADD_TEAM = gql`mutation AddTeams($objects: [teams_insert_input!]!) {
-  insert_teams(objects: $objects) {
-    affected_rows
+const ADD_TEAM = gql`
+  mutation AddTeams($objects: [teams_insert_input!]!) {
+    insert_teams(objects: $objects) {
+      affected_rows
+    }
   }
-}`
+`;
 
-const ADD_PLAYER = gql`mutation AddPlayers($objects: [players_details_insert_input!]!) {
-  insert_players_details(objects: $objects) {
-    affected_rows
+const ADD_PLAYER = gql`
+  mutation AddPlayers($objects: [players_details_insert_input!]!) {
+    insert_players_details(objects: $objects) {
+      affected_rows
+    }
   }
-}`
+`;
+
+const SUB_ALL_CLUBS = gql`
+  subscription SubAllClubs {
+    clubs {
+      name
+      banner_image
+      logo
+      id
+      slug
+    }
+  }
+`;
+
+const SUB_ALL_TEAMS = gql`
+  subscription SubAllTeams($where: teams_bool_exp = {}) {
+    teams(where: $where) {
+      id
+      image
+      name
+      slug
+      division
+    }
+  }
+`;
+
+const SUB_ALL_LEAGUES = gql`
+  subscription SubAllLeagues {
+    leagues {
+      id
+      logo
+      name
+    }
+  }
+`;
 
 // ---------
 export default {
-  SUB_CLUB: SUB_CLUB,
-  ADD_TEAM: ADD_TEAM,
-  ADD_PLAYER: ADD_PLAYER
+  SUB_CLUB,
+  ADD_TEAM,
+  ADD_PLAYER,
+  SUB_ALL_CLUBS,
+  SUB_ALL_TEAMS,
+  SUB_ALL_LEAGUES,
 };

@@ -20,7 +20,7 @@ export const ModalWrapper = styled.div<{ show: boolean }>`
 `;
 
 export const ModalContent = styled.div<{ show: boolean }>`
-  border-radius: 7px;
+  border-radius: 4px;
   transition: all ease 0.5s;
   ${({ show }) =>
     show
@@ -54,7 +54,7 @@ export const ModalFooter = styled.div`
 
 export const ImageContent = styled.div`
   border: 2px solid gray;
-  border-radius: 7px;
+  border-radius: 4px;
   contain: content;
   position: relative;
   width: 300px;
@@ -67,6 +67,6 @@ export const NumberRange = styled.input`
 
 export const UploadWrapper = styled.div`
   border: 1px solid ${themeGet("colors.gray.300")};
-  border-radius: 7px;
+  border-radius: 4px;
   cursor: pointer;
 `;

@@ -5,6 +5,7 @@ export const GameCardWrapper = styled.div`
   border-radius: 10px;
   width: 98%;
   contain: content;
+  cursor: pointer;
 `;
 
 export const LayerWrapper = styled.div`
@@ -13,7 +14,7 @@ export const LayerWrapper = styled.div`
   height: 100%;
   position: absolute;
   top: 0px;
-  background-color: ${themeGet("colors.blue.100")}90;
+  background-color: ${themeGet("colors.blue.100")};
 `;
 
 export const Content = styled.div`
@@ -36,6 +37,11 @@ export const CardContent = styled.div`
 export const CardFooter = styled.div`
   padding: 10px 12px;
   background-color: ${themeGet("colors.black.300")};
+  .markwrapper {
+    img {
+      border-radius: 50%;
+    }
+  }
 `;
 
 export const LiveWrapper = styled.div`

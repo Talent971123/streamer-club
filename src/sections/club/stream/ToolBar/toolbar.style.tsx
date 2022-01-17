@@ -25,5 +25,5 @@ export const LiveWrapper = styled.div`
   width: 50px;
   height: 28px;
   text-align: center;
-  border-radius: 7px;
+  border-radius: 4px;
 `;
