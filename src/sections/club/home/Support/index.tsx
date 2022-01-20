@@ -29,7 +29,7 @@ const Parnters = [{ image: provider8 }, { image: provider7 }];
 const SupportSection: React.FC = () => {
   return (
     <SupportWrapper>
-      <Text fColor="white" fSize={22} fWeight={700}>
+      <Text fColor="white" fSize={20} fWeight={700}>
         {"Proudly Supported By"}
       </Text>
       <Row>

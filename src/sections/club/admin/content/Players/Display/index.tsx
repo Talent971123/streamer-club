@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
+import { useRouter } from "hooks";
 //  component
 import { Row, Col } from "components/Layout";
 import { Table } from "components/Table";
 import { Button } from "components/Button";
 import { Avatar } from "components/Avatar";
 import { Player_A_Modal, Player_U_Modal } from "components/Modal";
-
 //  import react icons
 import { BsPlus } from "react-icons/bs";
 //  styled component
@@ -15,7 +15,6 @@ import _ from "lodash";
 import { Text } from "components/Text";
 import DefaultSrc from "assets/images/layout/group.png";
 import { ClubAdminContext } from "pages/club/[club_slug]/admin";
-
 const Action: React.FC<{ level: string; pid: number; onHandleEdit: any }> = ({
   level,
   pid,
@@ -53,6 +52,7 @@ const Action: React.FC<{ level: string; pid: number; onHandleEdit: any }> = ({
 };
 
 const DisplaySection: React.FC = () => {
+  const { move } = useRouter();
   const club = useContext(ClubAdminContext);
   const [a_show, setAShow] = useState<boolean>(false);
   const [u_show, setUShow] = useState<boolean>(false);
@@ -67,10 +67,17 @@ const DisplaySection: React.FC = () => {
     setUShow(true);
   };
 
+  const onHandleClick = (item: number) => {
+    const player_slug: any = club?.players;
+    const path = `/club/${club?.slug}/player/${player_slug[item]?.slug}`;
+    move(path);
+  };
+
   const datasource = () => {
     if (_.isUndefined(club?.players)) {
       return [
         {
+          No: "",
           "Player Photo": "",
           "Player Name": "",
           Team: "",
@@ -78,7 +85,8 @@ const DisplaySection: React.FC = () => {
         },
       ];
     }
-    return club.players.map((player) => ({
+    return club.players.map((player: any, index: number) => ({
+      No: index + 1,
       "Player Photo": (
         <Avatar
           src={_.isNull(player.image) ? DefaultSrc : player.image}
@@ -114,7 +122,7 @@ const DisplaySection: React.FC = () => {
           </Row>
         </Col>
         <Col item={24}>
-          <Table data={datasource()} />
+          <Table data={datasource()} onHandleClick={onHandleClick} />
         </Col>
       </Row>
       <Player_A_Modal show={a_show} handleClose={() => setAShow(false)} />

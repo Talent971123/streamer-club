@@ -57,7 +57,7 @@ const NewsSection: React.FC = () => {
   return (
     <NewsWrapper>
       <Row alignItems="center" justifyContent="space-between">
-        <Text fColor="white" fSize={22} fWeight={700} mode="p">
+        <Text fColor="white" fSize={20} fWeight={700} mode="p">
           {"Club News"}
         </Text>
         <SeeAll

@@ -1,23 +1,26 @@
 import { s3Config } from "./constData";
-import videoBg from "assets/images/home/default-bg.png";
+import defaultImg from "assets/images/home/default-bg.png";
 import { getDates } from "utils/helper-date";
 import moment from "moment";
+import imageExists from 'image-exists';
+
+/**
+ * 
+ * @param src : image url ;
+ * @param fallbackImg: fallback image 
+ * @returns string | StaticImageData
+ */
+export const remoteImageSrc = (
+  src: string | StaticImageData = defaultImg,
+  fallbackImg: string | StaticImageData = defaultImg
+): string | StaticImageData => (imageExists(src, e => e) ? src : fallbackImg)
 
 export const thumbNailLink = (
   id: string,
-  width: number = 300
+  width: number = 300,
 ): string | StaticImageData => {
-  const image_url = `https://image.mux.com/${id}/thumbnail.png?width=${width}`;
-
-  // try {
-  //     const http = new XMLHttpRequest();
-  //     http.open('HEAD', image_url, false);
-  //     http.send();
-  // } catch (error) {
-  //     return videoBg
-  // }
-
-  return image_url;
+  let image_url = `https://image.mux.com/${id}/thumbnail.png?width=${width}`;
+  return imageExists(image_url, e => e) ? image_url : defaultImg
 };
 
 export const getS3Config = (dirName: string = "Club") => ({

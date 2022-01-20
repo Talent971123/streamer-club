@@ -48,6 +48,7 @@ const SUB_PLAYER = gql`
         name
       }
       teams {
+        id
         name
       }
       updated_at
@@ -73,6 +74,7 @@ const GET_PLAYER_BY_ID = gql`
       prev_club
       slug
       positions
+      debut_date
       club {
         name
       }
@@ -86,7 +88,7 @@ const GET_PLAYER_BY_ID = gql`
 const UPDATE_PLAER_BY_ID = gql`
   mutation EditPlayer($id: Int!, $object: players_details_set_input = {}) {
     update_players_details_by_pk(pk_columns: { id: $id }, _set: $object) {
-      image
+      updated_at
     }
   }
 `;

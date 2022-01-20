@@ -68,6 +68,7 @@ const DisplaySection: React.FC = () => {
     if (_.isUndefined(club?.teams)) {
       return [
         {
+          No: "",
           "Team Photo": "",
           "Team Name": "",
           "# of Players": "",
@@ -75,7 +76,8 @@ const DisplaySection: React.FC = () => {
       ];
     }
 
-    return club.teams.map((team) => ({
+    return club.teams.map((team: any, index: number) => ({
+      No: index + 1,
       "Team Photo": (
         <Avatar
           src={_.isNull(team.image) ? DefaultSrc : team.image}

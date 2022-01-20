@@ -31,7 +31,7 @@ import {
   phone_dropstyle,
   CustomSelect,
   CustomeInput,
-  CustomeText,
+  CustomText,
 } from "../index.style";
 
 import { Form } from "antd";
@@ -122,9 +122,9 @@ const Player_A_Modal: React.FC<ModalProps> = ({
       >
         <ModalContent show={show}>
           <ModalHeader>
-            <CustomeText strong css={{ fontSize: "22px" }}>
+            <CustomText strong css={{ fontSize: "22px" }}>
               {"Add Player"}
-            </CustomeText>
+            </CustomText>
           </ModalHeader>
           <ModalBody>
             <Row flexDirection="row" gap={30}>
@@ -217,7 +217,7 @@ const Player_A_Modal: React.FC<ModalProps> = ({
               </Col>
               <Col item={12}>
                 <Row flexDirection="column" gap={30}>
-                  <CustomeText>{"Player Photo"}</CustomeText>
+                  <CustomText>{"Player Photo"}</CustomText>
                   <Row flexDirection="column" alignItems="center" gap={15}>
                     <Avatar src={croppedImage} mode="medium" />
                     <Button
@@ -243,17 +243,17 @@ const Player_A_Modal: React.FC<ModalProps> = ({
                   <Row flexDirection="column" gap={10}>
                     <ul>
                       <li>
-                        <CustomeText>
+                        <CustomText>
                           {"Accepted file formats:JPG, PNG, SVG"}
-                        </CustomeText>
+                        </CustomText>
                       </li>
                       <li>
-                        <CustomeText>{"Maximum file size: 25MB"} </CustomeText>
+                        <CustomText>{"Maximum file size: 25MB"} </CustomText>
                       </li>
                       <li>
-                        <CustomeText>
+                        <CustomText>
                           {"Minimum dimensions: 300 x 300px"}
-                        </CustomeText>
+                        </CustomText>
                       </li>
                     </ul>
                   </Row>

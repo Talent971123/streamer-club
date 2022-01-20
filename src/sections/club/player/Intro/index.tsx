@@ -3,7 +3,6 @@ import React, { useContext, useState, useRef } from "react";
 import { useMutation } from "@apollo/client";
 import { PLAYERQL } from "graphql/club";
 
-import { Text } from "components/Text";
 import { Button } from "components/Button";
 import { Avatar } from "components/Avatar";
 import { Col, Row } from "components/Layout";
@@ -16,10 +15,12 @@ import {
   BottomBorder,
   CustomTextArea,
   CustomInput,
+  CustomSelect,
   CustomDatePicker,
+  CustomText,
+  CustomForm,
 } from "./Intro.style";
 
-import { Form } from "antd";
 import moment from "moment";
 import { ImCancelCircle } from "react-icons/im";
 import { FiSave, FiShare2, FiUserPlus } from "react-icons/fi";
@@ -30,18 +31,17 @@ import d_photo from "assets/images/player/default-player-image.png";
 import { PlayerContext } from "pages/club/[club_slug]/player/[player_slug]";
 
 const IntroSection: React.FC = () => {
-  const player = useContext<any>(PlayerContext);
-
-  const [debut, setDebut] = useState<string>(
-    new Intl.DateTimeFormat("en-US").format(Date.now())
-  );
+  const { player, teams } = useContext<any>(PlayerContext);
+  const tlist = teams
+    ? teams.map((item: any) => ({ label: item.name, value: item.id }))
+    : [];
   const [meta, setMeta] = useState<any>(null);
   const [flag, setFlag] = useState<boolean>(false);
   const [show, setShow] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isSubmit, setisSubmit] = useState<boolean>(false);
   const [imageSrc, setiimageSrc] = useState<any>(
-    player.image ? player.image : d_photo
+    player?.image ? player.image : d_photo
   );
   const [store, setStore] = useState<any>(null);
 
@@ -55,29 +55,35 @@ const IntroSection: React.FC = () => {
     },
   });
 
-  const onFinish = async (values: any) => {
-    setisSubmit(true);
-    await update({
-      variables: {
-        id: player.id,
-        object: {
-          ...values,
-          debut_date: debut,
-          positions: [values.positions],
-        },
-      },
-    });
-  };
-
   const [update] = useMutation(PLAYERQL.UPDATE_PLAER_BY_ID, {
     onCompleted() {
       setisSubmit(false);
       setFlag(false);
     },
     onError(e) {
+      console.log("PLAYERQL.UPDATE_PLAER_BY_ID", e);
       setisSubmit(false);
     },
   });
+
+  const onFinish = async (values: any) => {
+    setisSubmit(true);
+
+    await update({
+      variables: {
+        id: player.id,
+        object: {
+          debut_date: values.debut._i,
+          positions: [values.positions],
+          first_name: values.first_name,
+          last_name: values.last_name,
+          bio: values.bio,
+          team_id: values.team_id,
+          prev_club: values.prev_club,
+        },
+      },
+    });
+  };
 
   const saveImage = async (file: File, imageSrc: any) => {
     setStore(imageSrc);
@@ -105,14 +111,19 @@ const IntroSection: React.FC = () => {
 
   return (
     <>
-      <Form
+      <CustomForm
         name="basic"
         onFinish={onFinish}
-        onFinishFailed={(e: any) => console.log(e)}
         initialValues={{
           first_name: player.first_name,
           last_name: player.last_name,
           bio: player.bio,
+          team_id: player.teams[0].id,
+          debut: moment(
+            player.debut_date
+              ? player.debut_date
+              : new Intl.DateTimeFormat("en-US").format(Date.now())
+          ),
           positions: player.positions.join(", "),
           prev_club: player.prev_club,
         }}
@@ -144,18 +155,17 @@ const IntroSection: React.FC = () => {
             <Col item={20}>
               <Row alignItems="center" justifyContent="space-between">
                 <Col>
-                  <Row alignItems="flex-start" gap={2}>
+                  <Row gap={2}>
                     {!flag ? (
                       <>
-                        <Text fWeight={600} fSize={24} fColor="white">
+                        <CustomText strong css={{ fontSize: "24px" }}>
                           {`${player.first_name} ${player.last_name}`}
-                        </Text>
+                        </CustomText>
                       </>
                     ) : (
                       <>
-                        <Form.Item
+                        <CustomForm.Item
                           name="first_name"
-                          style={{ width: "100%" }}
                           rules={[
                             {
                               required: true,
@@ -167,10 +177,9 @@ const IntroSection: React.FC = () => {
                             placeholder="first name"
                             disabled={isSubmit}
                           />
-                        </Form.Item>
-                        <Form.Item
+                        </CustomForm.Item>
+                        <CustomForm.Item
                           name="last_name"
-                          style={{ width: "100%" }}
                           rules={[
                             {
                               required: true,
@@ -182,17 +191,17 @@ const IntroSection: React.FC = () => {
                             placeholder="last name"
                             disabled={isSubmit}
                           />
-                        </Form.Item>
+                        </CustomForm.Item>
                       </>
                     )}
                   </Row>
                 </Col>
                 <Col>
                   <Row alignItems="center" gap={10}>
-                    <Text fSize={14}>{"121 Followers"}</Text>
+                    <CustomText>{"121 Followers"}</CustomText>
                     {!flag ? (
                       <>
-                        <Form.Item>
+                        <CustomForm.Item>
                           <Button
                             bColor="warning"
                             icon={<EditIcon />}
@@ -200,7 +209,7 @@ const IntroSection: React.FC = () => {
                           >
                             {"Edit"}
                           </Button>
-                        </Form.Item>
+                        </CustomForm.Item>
                         <Button bColor="warning" icon={<FiUserPlus />}>
                           {"Follow Player"}
                         </Button>
@@ -238,17 +247,15 @@ const IntroSection: React.FC = () => {
               <ContentWrapper>
                 <Row alignItems="center" justifyContent="space-between">
                   {!flag ? (
-                    <Text fSize={14} fColor="white">
-                      {player.bio}
-                    </Text>
+                    <CustomText>{player.bio}</CustomText>
                   ) : (
-                    <Form.Item name="bio" style={{ width: "100%" }}>
+                    <CustomForm.Item name="bio" style={{ width: "100%" }}>
                       <CustomTextArea
                         placeholder="Bio"
                         rows={5}
                         disabled={isSubmit}
                       />
-                    </Form.Item>
+                    </CustomForm.Item>
                   )}
                 </Row>
               </ContentWrapper>
@@ -259,26 +266,19 @@ const IntroSection: React.FC = () => {
           <Row gap={50} alignItems="flex-start" justifyContent="center">
             <Col item={8}>
               <Row flexDirection="column">
-                <Row alignItems="flex-start" justifyContent="space-between">
-                  <Text fColor="white" fSize={15} mode="p">
-                    <Text
-                      fColor="white"
-                      fSize={16}
-                      mode="span"
-                      padding="0 20px 0 0 "
-                    >
-                      {"Current Club: "}
-                    </Text>
-                    {player.club.name}
-                  </Text>
+                <Row alignItems="center" justifyContent="space-between">
+                  <CustomText strong css={{ fontSize: "16px" }}>
+                    {"Current Club: "}
+                  </CustomText>
+                  <CustomText>{player.club.name}</CustomText>
                 </Row>
                 {!flag ? <BottomBorder /> : <br />}
-                <Row alignItems="center" gap={5}>
-                  <Text fSize={16} padding="0 20px 0 0" fColor="white">
+                <Row alignItems="center" justifyContent="space-between">
+                  <CustomText strong css={{ fontSize: "16px" }}>
                     {"Teams:"}
-                  </Text>
-                  <Row flexWrap="wrap" gap={10} justifyContent="space-between">
-                    {player.teams.map((team: { name: string }, idx: number) => (
+                  </CustomText>
+                  {!flag ? (
+                    player.teams.map((team: { name: string }, idx: number) => (
                       <Button
                         key={`player-team-${idx}`}
                         bColor="warning"
@@ -286,88 +286,78 @@ const IntroSection: React.FC = () => {
                       >
                         {team.name}
                       </Button>
-                    ))}
-                  </Row>
+                    ))
+                  ) : (
+                    <CustomForm.Item name="team_id" style={{ width: "70%" }}>
+                      <CustomSelect placeholder="teams" options={tlist} />
+                    </CustomForm.Item>
+                  )}
                 </Row>
               </Row>
             </Col>
             <Col item={8}>
               <Row flexDirection="column">
-                <Row alignItems="flex-start">
-                  <Text
-                    fColor="white"
-                    fSize={16}
-                    mode="span"
-                    wSpace
-                    padding="0 20px 0 0"
+                <Row alignItems="center" justifyContent="space-between">
+                  <CustomText
+                    strong
+                    css={{ fontSize: "16px", whiteSpace: "nowrap" }}
                   >
                     {"Debut Date: "}
-                  </Text>
+                  </CustomText>
                   {!flag ? (
-                    <Text fColor="white" fSize={15}>
+                    <CustomText>
                       {moment(player.debut_date).format("LL")}
-                    </Text>
+                    </CustomText>
                   ) : (
-                    <CustomDatePicker
-                      format={"YYYY/MM/DD"}
-                      placeholder="Debut Date"
-                      defaultValue={moment(player.debut_date)}
-                      disabled={isSubmit}
-                      onChange={(e, date) => {
-                        setDebut(date);
-                      }}
-                    />
+                    <CustomForm.Item name="debut">
+                      <CustomDatePicker
+                        format={"YYYY/MM/DD"}
+                        placeholder="Debut Date"
+                        // defaultValue={moment(player.debut_date)}
+                        disabled={isSubmit}
+                        // onChange={(e, date) => {
+                        //   setDebut(date);
+                        // }}
+                      />
+                    </CustomForm.Item>
                   )}
                 </Row>
-                {!flag ? <BottomBorder /> : null}
-
-                <Row alignItems="flex-start">
-                  <Text
-                    fColor="white"
-                    fSize={16}
-                    mode="span"
-                    padding="0 20px 0 0 "
-                  >
+                {!flag ? <BottomBorder /> : <br />}
+                <Row alignItems="center" justifyContent="space-between">
+                  <CustomText strong css={{ fontSize: "16px" }}>
                     {"Positions: "}
-                  </Text>
+                  </CustomText>
                   {!flag ? (
-                    <Text fColor="white" fSize={15}>
-                      {player.positions.join(", ")}
-                    </Text>
+                    <CustomText>{player.positions.join(", ")}</CustomText>
                   ) : (
-                    <Form.Item name="positions" style={{ width: "100%" }}>
+                    <CustomForm.Item name="positions">
                       <CustomInput
                         placeholder="positions"
                         disabled={isSubmit}
                       />
-                    </Form.Item>
+                    </CustomForm.Item>
                   )}
                 </Row>
               </Row>
             </Col>
             <Col item={8}>
               <Row flexDirection="column">
-                <Row alignItems="flex-start" justifyContent="space-between">
-                  <Text
-                    fColor="white"
-                    fSize={16}
-                    mode="span"
-                    wSpace
-                    padding="0 20px 0 0 "
+                <Row alignItems="center" justifyContent="space-between">
+                  <CustomText
+                    strong
+                    css={{ fontSize: "16px", whiteSpace: "nowrap" }}
                   >
                     {"Previous Clubs: "}
-                  </Text>
+                  </CustomText>
                   {!flag ? (
-                    <Text fColor="white" fSize={15}>
-                      {player.prev_club}
-                    </Text>
+                    <CustomText>{player.prev_club}</CustomText>
                   ) : (
-                    <Form.Item name="prev_club" style={{ width: "100%" }}>
+                    <CustomForm.Item name="prev_club">
                       <CustomInput
                         placeholder="Previous Club"
                         disabled={isSubmit}
                       />
-                    </Form.Item>
+                    </CustomForm.Item>
                   )}
                 </Row>
                 {!flag ? <BottomBorder /> : null}
@@ -375,7 +365,7 @@ const IntroSection: React.FC = () => {
             </Col>
           </Row>
         </ClubWrapper>
-      </Form>
+      </CustomForm>
       <ImageCrop_Modal
         show={show}
         meta={meta}

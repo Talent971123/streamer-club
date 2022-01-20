@@ -1,5 +1,5 @@
-import type { NextFetchEvent, NextRequest } from 'next/server'
+import type { NextFetchEvent, NextRequest } from "next/server";
 
 export function middleware(req: NextRequest, ev: NextFetchEvent) {
-    // middleware logic here
+  // middleware logic here
 }

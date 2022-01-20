@@ -3,7 +3,7 @@ import { AntSelect } from './dropdown'
 import { useSubscription } from "@apollo/client";
 import { useRouter } from "next/router";
 import { HomeQL } from 'graphql/club';
-import { Field } from "formik";
+import { Field } from "formik"; //TODO: Refactor please use antd form
 import slugify from 'slugify';
 
 const { Option } = AntSelect;

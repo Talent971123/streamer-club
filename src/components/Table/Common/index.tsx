@@ -7,7 +7,11 @@ import { Row } from "components/Layout";
 import _ from "lodash";
 import { Text } from "components/Text";
 
-const Table = ({ data }) => {
+const Table: React.FC<any> = ({ data, onHandleClick }) => {
+  const _onHandleChange = (e: any) => {
+    onHandleClick && onHandleClick(e);
+  };
+
   if (_.isEmpty(data)) {
     return (
       <EmptyWrapper>
@@ -18,9 +22,15 @@ const Table = ({ data }) => {
       </EmptyWrapper>
     );
   }
-  return <TableMarkup titles={Object.keys(data[0])} data={data} />;
+  return (
+    <TableMarkup
+      titles={Object.keys(data[0])}
+      data={data}
+      _onClick={_onHandleChange}
+    />
+  );
 };
-const TableMarkup = ({ titles, data }) => (
+const TableMarkup = ({ titles, data, _onClick }) => (
   <StyledTable>
     <table>
       <thead>
@@ -32,7 +42,7 @@ const TableMarkup = ({ titles, data }) => (
       </thead>
       <tbody>
         {data.map((item: any, index: number) => (
-          <tr key={index}>
+          <tr key={index} onClick={() => _onClick(index)}>
             {titles.map((title: string, index: number) => (
               <td key={index}>{item[title]}</td>
             ))}

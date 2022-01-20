@@ -79,7 +79,7 @@ const TeamView: React.FC = () => {
   return (
     <TeamWrapper>
       <Row flexDirection="column" gap={5}>
-        <Text fColor="white" fSize={22} fWeight={700}>
+        <Text fColor="white" fSize={20} fWeight={700}>
           {"Our Teams"}
         </Text>
         <SeeAll

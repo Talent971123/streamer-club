@@ -8,17 +8,14 @@ import {
   ClipSection,
   IntroSection,
 } from "sections/club/player";
-import { useRouter } from "next/router";
 import { useSubscription } from "@apollo/client";
-import { PLAYERQL } from "graphql/club";
+import { PLAYERQL, TEAMQL } from "graphql/club";
+import { initializeApollo } from "api/apollo";
 import _ from "lodash";
 
 export const PlayerContext = createContext<any>(null);
 
-const PlayerPage: React.FC = (props) => {
-  const router = useRouter();
-  const { club_slug, player_slug } = router.query;
-
+const PlayerPage: React.FC = ({ club_slug, player_slug, teams }: any) => {
   const [player, setPlayer] = useState<any>(null);
 
   useSubscription(PLAYERQL.SUB_PLAYER, {
@@ -37,7 +34,7 @@ const PlayerPage: React.FC = (props) => {
 
   return (
     <>
-      <PlayerContext.Provider value={player}>
+      <PlayerContext.Provider value={{ player, teams }}>
         <WithContainer mode="container" SectionView={IntroSection} />
         <WithContainer mode="container" SectionView={ClipSection} />
         <WithContainer mode="container" SectionView={GamesSection} />
@@ -45,6 +42,26 @@ const PlayerPage: React.FC = (props) => {
       </PlayerContext.Provider>
     </>
   );
+};
+
+export const getServerSideProps = async (context) => {
+  const apolloClient = initializeApollo();
+  const { club_slug, player_slug } = context.query;
+
+  const { data } = await apolloClient.query({
+    query: TEAMQL.GET_TEAMS,
+    variables: {
+      club_slug,
+    },
+  });
+
+  return {
+    props: {
+      teams: data.teams,
+      club_slug,
+      player_slug,
+    },
+  };
 };
 
 export default PlayerPage;

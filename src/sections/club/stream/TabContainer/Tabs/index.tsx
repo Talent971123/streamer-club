@@ -22,7 +22,7 @@ const TabsView: React.FC<{
                 <Text
                   fColor={select !== item.path ? "gray.300" : "white"}
                   fWeight={600}
-                  fSize={20}
+                  fSize={12}
                   padding="8px 0"
                   hoverStyle={
                     select !== item.path ? { fColor: "gray.200" } : {}

@@ -92,7 +92,7 @@ const GameDayView: React.FC = (props: any) => {
   return (
     <GameDayWrapper>
       <Row alignItems="center" justifyContent="space-between">
-        <Text fColor="white" fSize={22} fWeight={700} mode="p">
+        <Text fColor="white" fSize={20} fWeight={700} mode="p">
           {"Game Day - Live & Upcoming"}
         </Text>
         <SeeAll

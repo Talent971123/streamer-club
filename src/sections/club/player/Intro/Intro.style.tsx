@@ -1,7 +1,23 @@
 import styled from "styled-components";
 import { themeGet } from "@styled-system/theme-get";
-import { Input, DatePicker, Typography } from "antd";
+import { Input, DatePicker, Typography, Select, Form } from "antd";
 const { TextArea } = Input;
+const { Text } = Typography;
+
+export const CustomForm = styled(Form)`
+  .ant-form-item {
+    margin-bottom: 0 !important;
+  }
+`;
+
+export const CustomSelect = styled(Select)`
+  width: 100%;
+  border-radius: 4px;
+`;
+
+export const CustomText = styled(Text)`
+  color: white;
+`;
 
 export const CustomDatePicker = styled(DatePicker)`
   width: 100%;

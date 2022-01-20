@@ -40,10 +40,10 @@ export const ModalContent = styled.div<{ show: boolean }>`
   ${({ show }) =>
     show
       ? css`
-          opacity: 1;
+          display: block;
         `
       : css`
-          opacity: 0;
+          display: none;
         `};
   padding: 20px;
   position: fixed;
@@ -136,6 +136,6 @@ export const CustomeInput = styled(Input)`
   border-radius: 4px;
 `;
 
-export const CustomeText = styled(Text)`
+export const CustomText = styled(Text)`
   color: white;
 `;

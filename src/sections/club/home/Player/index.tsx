@@ -78,7 +78,7 @@ const PlayerView: React.FC = () => {
   return (
     <PlayerWrapper>
       <Row alignItems="center" justifyContent="space-between">
-        <Text fColor="white" fSize={22} fWeight={700}>
+        <Text fColor="white" fSize={20} fWeight={700}>
           {"Our Players"}
         </Text>
         <SeeAll

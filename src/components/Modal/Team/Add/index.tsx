@@ -15,7 +15,7 @@ import {
   ModalWrapper,
   CustomSelect,
   CustomeInput,
-  CustomeText,
+  CustomText,
 } from "../index.style";
 //  type
 import { ImageCrop_Modal } from "components/Modal";
@@ -35,7 +35,6 @@ import { Form } from "antd";
 import { v4 as uuidv4 } from "uuid";
 import { s3UploadFile } from "utils/s3-helper";
 import photo from "assets/images/player/default-player-image.png";
-import { AnyIfEmpty } from "react-redux";
 
 const { Option } = CustomSelect;
 
@@ -137,9 +136,9 @@ const Team_A_Modal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
       >
         <ModalContent show={show}>
           <ModalHeader>
-            <CustomeText strong css={{ fontSize: "22px" }}>
+            <CustomText strong css={{ fontSize: "22px" }}>
               {"Add Team"}
-            </CustomeText>
+            </CustomText>
           </ModalHeader>
           <ModalBody>
             <Row flexDirection="column" gap={30}>
@@ -222,7 +221,7 @@ const Team_A_Modal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
                 </Col>
                 <Col item={12}>
                   <Row flexDirection="column" gap={30}>
-                    <CustomeText>{"Team Photo"}</CustomeText>
+                    <CustomText>{"Team Photo"}</CustomText>
                     <Row flexDirection="column" alignItems="center" gap={15}>
                       <Avatar src={croppedImage} mode="medium" />
                       <Button
@@ -247,22 +246,22 @@ const Team_A_Modal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
                     </Row>
                     <Row flexDirection="column" gap={10}>
                       <Text fSize={16} fWeight={700} mode="p"></Text>
-                      <CustomeText css={{ fontSize: "15px", fontWeight: 700 }}>
+                      <CustomText css={{ fontSize: "15px", fontWeight: 700 }}>
                         {"Photo Guidelines:"}
-                      </CustomeText>
+                      </CustomText>
                       <ul>
                         <li>
-                          <CustomeText>
+                          <CustomText>
                             {"Accepted file formats:JPG, PNG, SVG"}
-                          </CustomeText>
+                          </CustomText>
                         </li>
                         <li>
-                          <CustomeText>{"Maximum file size: 25MB"}</CustomeText>
+                          <CustomText>{"Maximum file size: 25MB"}</CustomText>
                         </li>
                         <li>
-                          <CustomeText>
+                          <CustomText>
                             {"Minimum dimensions: 300 x 300px"}
-                          </CustomeText>
+                          </CustomText>
                         </li>
                       </ul>
                     </Row>
@@ -272,23 +271,23 @@ const Team_A_Modal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
               <Row>
                 <ul>
                   <li>
-                    <CustomeText>
+                    <CustomText>
                       {"Team Admin will be notified by email."}
-                    </CustomeText>
+                    </CustomText>
                   </li>
                   <li>
-                    <CustomeText>
+                    <CustomText>
                       {
                         "If no Streamer account exists for this email, an invite to Sign Up will be sent to this email."
                       }
-                    </CustomeText>
+                    </CustomText>
                   </li>
                   <li>
-                    <CustomeText>
+                    <CustomText>
                       {
                         "Team Admin will be able to add / modify / remove Players, Matches, Results and Team Details for this team. Club Admin is administrator for this team by default."
                       }
-                    </CustomeText>
+                    </CustomText>
                   </li>
                 </ul>
               </Row>

@@ -26,10 +26,10 @@ export const ModalContent = styled.div<{ show: boolean }>`
   ${({ show }) =>
     show
       ? css`
-          opacity: 1;
+          display: block;
         `
       : css`
-          opacity: 0;
+          display: none;
         `};
   padding: 20px;
   position: fixed;
