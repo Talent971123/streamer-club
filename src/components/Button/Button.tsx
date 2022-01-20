@@ -111,6 +111,7 @@ const Button = React.forwardRef<Ref, ButtonItemProps>(
     const buttonIcon = icon || Fragment;
     return (
       <StyledButton
+        type="button"
         ref={ref}
         {...props}
         disabled={disabled}

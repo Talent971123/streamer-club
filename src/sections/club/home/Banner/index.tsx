@@ -2,14 +2,18 @@ import React, { useContext } from "react";
 // import styled
 import { BannerWrapper } from "./banner.style";
 // import assets
-import bgImg from "assets/images/home/banner-bg.jpg";
+import bgImg from "assets/images/home/default-bg.png";
 import { Image } from "components/Image";
-import { ClubContext } from "pages/club/[club_slug]";
+import { connect } from "react-redux";
 
-const Banner: React.FC = () => {
-  const { club }: any = useContext(ClubContext);
+import _ from "lodash";
 
-  const banner = club ? club.banner_image : bgImg;
+const Banner = (props) => {
+  const { clubInfo } = props;
+
+  const banner = _.isUndefined(clubInfo.banner_image)
+    ? bgImg
+    : clubInfo.banner_image;
 
   return (
     <BannerWrapper>
@@ -18,4 +22,8 @@ const Banner: React.FC = () => {
   );
 };
 
-export default Banner;
+const mapStateToProps = (state) => ({
+  clubInfo: state.club.info,
+});
+
+export default connect(mapStateToProps)(Banner);

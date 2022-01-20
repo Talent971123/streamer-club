@@ -2,7 +2,7 @@ import styled from "styled-components";
 import React from "react";
 import { themeGet } from "@styled-system/theme-get";
 import { Image } from "components/Image";
-import logo from "assets/images/layout/logo.png";
+import loading from "assets/images/layout/loading.gif";
 const CustomLoadingWrapper = styled.div`
   display: flex;
   width: 100%;
@@ -17,7 +17,7 @@ const CustomLoadingWrapper = styled.div`
   flex-direction: column;
 `;
 const CustomLoadingContent = styled.div`
-  position: absolute;
+  /* position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -55,10 +55,10 @@ const CustomLoadingContent = styled.div`
         transform: rotate(360deg);
       }
     }
-  }
+  } */
 `;
 export const Label = styled.span`
-  display: block;
+  /* display: block;
   position: absolute;
   top: calc(50% - 2px);
   left: 50%;
@@ -85,14 +85,14 @@ export const Label = styled.span`
     top: -6px;
     right: -8px;
     box-shadow: 0 0 20px ${themeGet("colors.red.100")};
-  }
+  } */
 `;
 
 const Loading = () => {
   return (
     <CustomLoadingWrapper>
       <CustomLoadingContent>
-        <Image src={logo} oFit="contain" />
+        <Image src={loading} oFit="contain" />
       </CustomLoadingContent>
     </CustomLoadingWrapper>
   );

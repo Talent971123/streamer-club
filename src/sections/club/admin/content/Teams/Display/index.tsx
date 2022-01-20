@@ -4,7 +4,7 @@ import { Row, Col } from "components/Layout";
 import { Table } from "components/Table";
 import { Button } from "components/Button";
 import { Avatar } from "components/Avatar";
-import { TeamModal } from "components/Modal";
+import { Team_A_Modal, Team_U_Modal } from "components/Modal";
 
 //  import react icons
 import { BsPlus } from "react-icons/bs";
@@ -13,11 +13,15 @@ import { DisplayWrapper } from "./display.style";
 // asset
 import { Text } from "components/Text";
 import { ClubAdminContext } from "pages/club/[club_slug]/admin";
+import DefaultSrc from "assets/images/player/default-player-image.png";
 
 import _ from "lodash";
 
-const Action: React.FC<{ count: number; tid: number }> = ({ tid, count }) => {
-  const onHandleEdit = (e: any) => {};
+const Action: React.FC<{ count: number; tid: number; onHandleEdit: any }> = ({
+  tid,
+  count,
+  onHandleEdit,
+}) => {
   return (
     <>
       <Row justifyContent="center" alignItems="center" gap={20}>
@@ -27,7 +31,7 @@ const Action: React.FC<{ count: number; tid: number }> = ({ tid, count }) => {
           </Text>
         </Col>
         <Col>
-          <div onClick={(e: any) => onHandleEdit(e)}>
+          <div onClick={(e: any) => onHandleEdit(tid)}>
             <Text
               fSize={16}
               bColor="primary"
@@ -47,14 +51,21 @@ const Action: React.FC<{ count: number; tid: number }> = ({ tid, count }) => {
 
 const DisplaySection: React.FC = () => {
   const club = useContext(ClubAdminContext);
-  const [show, setShow] = useState<boolean>(false);
+  const [a_show, setAShow] = useState<boolean>(false);
+  const [u_show, setUShow] = useState<boolean>(false);
+  const [tid, setTid] = useState<any>(null);
 
-  const onModal = (flag: boolean) => {
-    setShow(flag);
+  const _handleClose = () => {
+    setUShow(false);
+    setTid(null);
+  };
+  const onHandleEdit = (pid: number) => {
+    setTid(pid);
+    setUShow(true);
   };
 
   const datasource = () => {
-    if (_.isUndefined(club.teams)) {
+    if (_.isUndefined(club?.teams)) {
       return [
         {
           "Team Photo": "",
@@ -65,9 +76,21 @@ const DisplaySection: React.FC = () => {
     }
 
     return club.teams.map((team) => ({
-      "Team Photo": <Avatar src={team.image} radius="circle" mode="small" />,
-      "Team Name": team.division,
-      "# of Players": <Action tid={team.id} count={team.players.length} />,
+      "Team Photo": (
+        <Avatar
+          src={_.isNull(team.image) ? DefaultSrc : team.image}
+          radius="circle"
+          mode="small"
+        />
+      ),
+      "Team Name": team.name,
+      "# of Players": (
+        <Action
+          tid={team.id}
+          count={team.players.length}
+          onHandleEdit={onHandleEdit}
+        />
+      ),
     }));
   };
 
@@ -80,7 +103,7 @@ const DisplaySection: React.FC = () => {
               bColor="primary"
               bSize="small"
               icon={<BsPlus />}
-              onClick={() => onModal(true)}
+              onClick={() => setAShow(true)}
             >
               {"Add Team"}
             </Button>
@@ -90,7 +113,10 @@ const DisplaySection: React.FC = () => {
           <Table data={datasource()} />
         </Col>
       </Row>
-      <TeamModal show={show} handleClose={() => onModal(false)} />
+      <Team_A_Modal show={a_show} handleClose={() => setAShow(false)} />
+      {!_.isUndefined(tid) ? (
+        <Team_U_Modal show={u_show} handleClose={_handleClose} mid={tid} />
+      ) : null}
     </DisplayWrapper>
   );
 };

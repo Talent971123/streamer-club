@@ -35,14 +35,35 @@ const videos: ClipProps[] = [
   { id: 9, backgroundImage: photo, mode: "videos" },
 ];
 
-const settings = {
-  infinite: false,
-  speed: 500,
-  slidesToShow: 8,
-  slidesToScroll: 3,
-};
-
 const GallerySection: React.FC = () => {
+  const settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 8,
+    slidesToScroll: 3,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1366,
+        settings: {
+          slidesToShow: 7,
+        },
+      },
+      {
+        breakpoint: 1156,
+        settings: {
+          slidesToShow: 5,
+        },
+      },
+      {
+        breakpoint: 860,
+        settings: {
+          slidesToShow: 4,
+        },
+      },
+    ],
+  };
   return (
     <GalleryWrapper>
       <Row alignItems="flex-end" gap={50}>

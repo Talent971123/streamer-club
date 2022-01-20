@@ -21,8 +21,8 @@ const GET_PLAYERS = gql`
 /** gql
  * TODO: transfer to common query file
  * */
-const GET_PLAYER = gql`
-  query MyPlayerQuery($club_slug: String!, $player_slug: String!) {
+const SUB_PLAYER = gql`
+  subscription MyPlayerQuery($club_slug: String!, $player_slug: String!) {
     players_details(
       where: {
         club: { slug: { _eq: $club_slug } }
@@ -50,6 +50,7 @@ const GET_PLAYER = gql`
       teams {
         name
       }
+      updated_at
     }
   }
 `;
@@ -82,9 +83,18 @@ const GET_PLAYER_BY_ID = gql`
   }
 `;
 
+const UPDATE_PLAER_BY_ID = gql`
+  mutation EditPlayer($id: Int!, $object: players_details_set_input = {}) {
+    update_players_details_by_pk(pk_columns: { id: $id }, _set: $object) {
+      image
+    }
+  }
+`;
+
 // ---------
 export default {
-  GET_PLAYERS: GET_PLAYERS,
-  GET_PLAYER_BY_ID: GET_PLAYER_BY_ID,
-  GET_PLAYER: GET_PLAYER,
+  GET_PLAYERS,
+  GET_PLAYER_BY_ID,
+  SUB_PLAYER,
+  UPDATE_PLAER_BY_ID,
 };

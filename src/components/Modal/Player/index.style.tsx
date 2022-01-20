@@ -1,6 +1,8 @@
 import styled, { css } from "styled-components";
 import { themeGet } from "@styled-system/theme-get";
-import Select from "antd/lib/select";
+import { Select, Input, Typography } from "antd";
+const { Text } = Typography;
+
 export const phone_inputStyle = {
   width: "100%",
   height: "38px",
@@ -12,20 +14,6 @@ export const phone_inputStyle = {
 export const phone_dropstyle = {
   color: "black",
 };
-export const CustomSelect = styled(Select)`
-  color: black !important;
-  font-size: 14px;
-  width: 100%;
-  border-radius: 4px;
-  height: 38px;
-  color: black;
-  background: #e5e5e5;
-  & div {
-    height: 100% !important;
-    display: flex;
-    align-items: center;
-  }
-`;
 
 export const ModalWrapper = styled.div<{ show: boolean }>`
   position: fixed;
@@ -102,4 +90,52 @@ export const ImageContent = styled.div`
 
 export const NumberRange = styled.input`
   width: 100%;
+`;
+
+export const CustomSelect = styled(Select)`
+  width: 100%;
+  min-height: 38px;
+  max-height: 140px;
+  border-radius: 4px;
+  overflow: auto;
+  contain: content;
+
+  & div {
+    height: 100% !important;
+    display: flex;
+    align-items: center;
+  }
+
+  ::-webkit-scrollbar {
+    width: 2px;
+  }
+
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px ${themeGet("colors.black.300")};
+  }
+  ::-webkit-scrollbar-thumb {
+    background: ${themeGet("colors.primary.regular")};
+    border-radius: 3px;
+  }
+
+  .ant-select-selector {
+    min-height: 38px;
+    background-color: ${themeGet("colors.gray.600")};
+
+    .ant-select-selection-overflow-item {
+      .ant-select-selection-item {
+        border-radius: 4px;
+        contain: content;
+        background-color: ${themeGet("colors.red.200")};
+      }
+    }
+  }
+`;
+export const CustomeInput = styled(Input)`
+  height: 38px;
+  border-radius: 4px;
+`;
+
+export const CustomeText = styled(Text)`
+  color: white;
 `;

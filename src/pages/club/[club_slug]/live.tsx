@@ -9,7 +9,7 @@ import { subscribe } from "graphql/match/index";
 import { connect } from "react-redux";
 
 const LivePage: React.FC = (props: any) => {
-  const { liveList, clubInfo, setLiveMatches } = props;
+  const { clubInfo, setLiveMatches } = props;
 
   useSubscription(subscribe.SUB_MATCHES, {
     variables: {

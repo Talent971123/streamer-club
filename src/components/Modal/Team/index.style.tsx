@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import { themeGet } from "@styled-system/theme-get";
-import Select from "antd/lib/select";
+import { Select, Input, Typography } from "antd";
+const { Text } = Typography;
 
 export const ModalWrapper = styled.div<{ show: boolean }>`
   position: fixed;
@@ -38,6 +39,7 @@ export const ModalContent = styled.div<{ show: boolean }>`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  max-width: 650px !important;
 `;
 
 export const ModalBody = styled.div`
@@ -78,13 +80,19 @@ export const NumberRange = styled.input`
   width: 100%;
 `;
 
-export const StyledSelect = styled(Select)`
+export const CustomSelect = styled(Select)`
   width: 100%;
   min-height: 38px;
   max-height: 140px;
   border-radius: 4px;
   overflow: auto;
   contain: content;
+
+  & div {
+    height: 100% !important;
+    display: flex;
+    align-items: center;
+  }
 
   ::-webkit-scrollbar {
     width: 2px;
@@ -101,15 +109,21 @@ export const StyledSelect = styled(Select)`
   .ant-select-selector {
     min-height: 38px;
     background-color: ${themeGet("colors.gray.600")};
-    span {
-      color: ${themeGet("colors.black.100")};
-    }
+
     .ant-select-selection-overflow-item {
       .ant-select-selection-item {
         border-radius: 4px;
         contain: content;
-        background-color: red;
+        background-color: ${themeGet("colors.red.200")};
       }
     }
   }
+`;
+export const CustomeInput = styled(Input)`
+  height: 38px;
+  border-radius: 4px;
+`;
+
+export const CustomeText = styled(Text)`
+  color: white;
 `;

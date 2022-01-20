@@ -30,13 +30,10 @@ NProgress.configure({ showSpinner: false });
 
 function Streamer({ Component, pageProps }: AppProps) {
   const apolloClient = useApollo(pageProps.initialApolloState);
-  const [loading, setLoading] = useState(false);
   Router.events.on("routeChangeStart", () => {
-    setLoading(true);
     NProgress.start();
   });
   Router.events.on("routeChangeComplete", () => {
-    setLoading(false);
     NProgress.done();
   });
   Router.events.on("routeChangeError", () => NProgress.done());

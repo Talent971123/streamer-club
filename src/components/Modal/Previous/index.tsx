@@ -151,6 +151,9 @@ const PreviousModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
               >
                 <input
                   onChange={onFileInputChange}
+                  onClick={(event: any) => {
+                    event.target.value = null;
+                  }}
                   ref={fileInputRef}
                   type="file"
                   style={{ display: "none" }}

@@ -14,14 +14,14 @@ import clubImage2 from "assets/images/home/team1.png";
 import backgroundImage from "assets/images/home/background.jpg";
 import marker from "assets/images/home/mark.png";
 
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import { progressText, thumbNailLink } from "utils/common-helper";
 
 import { useRouter } from "next/router";
 
 const UpcomeSection = (props) => {
   const router = useRouter();
-  const { liveList, clubInfo } = props
+  const { liveList, clubInfo } = props;
 
   const onClick = (id: number) => {
     router.push(`/club/${clubInfo.slug}/match/` + id);
@@ -41,7 +41,6 @@ const UpcomeSection = (props) => {
         gap={"20px 10px"}
       >
         {liveList.map((match: any, index: number) => {
-
           const item: GameCardProps = {
             id: match.id,
             backgroundImage: thumbNailLink(match.video_asset_id, 200),
@@ -55,21 +54,28 @@ const UpcomeSection = (props) => {
             matchName: match.name,
             mode: "Day",
             progress: progressText(match.start_datetime, match.status),
-            isLive: progressText(match.start_datetime, match.status) === "In Progress",
-            users: 0 /** TODO: get the number of users watching */
+            isLive:
+              progressText(match.start_datetime, match.status) ===
+              "In Progress",
+            users: 0 /** TODO: get the number of users watching */,
           };
 
-          return <GameCard {...item} key={index} handleClick={() => onClick(match.video_asset_id)} />;
-
+          return (
+            <GameCard
+              {...item}
+              key={index}
+              handleClick={() => onClick(match.video_asset_id)}
+            />
+          );
         })}
       </Row>
     </GameDayWrapper>
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   liveList: state.match.live_list,
-  clubInfo: state.club.info
-})
+  clubInfo: state.club.info,
+});
 
 export default connect(mapStateToProps)(UpcomeSection);

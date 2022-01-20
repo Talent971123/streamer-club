@@ -43,6 +43,9 @@ export const ImageBroswer: React.FC = () => {
         >
           <input
             onChange={onFileInputChange}
+            onClick={(event: any) => {
+              event.target.value = null;
+            }}
             ref={fileInputRef}
             type="file"
             style={{ display: "none" }}

@@ -16,7 +16,17 @@ const GET_TEAMS = gql`
   }
 `;
 
+const SUB_LEAGUES = gql`
+  subscription MyClubSubscription {
+    leagues {
+      id
+      logo
+      name
+    }
+  }
+`;
 // ---------
 export default {
-  GET_TEAMS: GET_TEAMS,
+  GET_TEAMS,
+  SUB_LEAGUES,
 };

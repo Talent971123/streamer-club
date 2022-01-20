@@ -1,48 +1,6 @@
 // apollo
 import { gql } from "@apollo/client";
 // ---------------------------------------------------
-/** gql
- * TODO: transfer to common query file
- * */
-const SUB_CLUB = gql`
-  subscription MyClubSubscription($club_slug: String!) {
-    clubs(where: { slug: { _eq: $club_slug } }) {
-      name
-      banner_image
-      logo
-      id
-      slug
-      teams {
-        id
-        image
-        name
-        slug
-        division
-        players {
-          id
-          last_name
-          first_name
-        }
-      }
-      players {
-        id
-        first_name
-        last_name
-        image
-        mobile
-        email
-        positions
-        team_id
-        club_id
-        slug
-        is_professional
-        team {
-          name
-        }
-      }
-    }
-  }
-`;
 
 const ADD_TEAM = gql`
   mutation AddTeams($objects: [teams_insert_input!]!) {
@@ -68,6 +26,50 @@ const SUB_ALL_CLUBS = gql`
       logo
       id
       slug
+    }
+  }
+`;
+
+/** gql
+ * TODO: transfer to common query file
+ * */
+const SUB_CLUB = gql`
+  subscription MyClubSubscription($club_slug: String!) {
+    clubs(where: { slug: { _eq: $club_slug } }) {
+      name
+      banner_image
+      logo
+      id
+      slug
+      teams {
+        id
+        image
+        name
+        slug
+        division
+        league_id
+        players {
+          id
+          last_name
+          first_name
+        }
+      }
+      players {
+        id
+        first_name
+        last_name
+        image
+        mobile
+        email
+        positions
+        team_id
+        club_id
+        slug
+        is_professional
+        team {
+          name
+        }
+      }
     }
   }
 `;
@@ -102,13 +104,23 @@ const UPDATE_PLAER_BY_ID = gql`
   }
 `;
 
+const UPDATE_TEAM_BY_ID = gql`
+  mutation UpdateTeamById($id: Int!, $_set: teams_set_input = {}) {
+    update_teams_by_pk(pk_columns: { id: $id }, _set: $_set) {
+      updated_at
+    }
+  }
+`;
 // ---------
 export default {
-  SUB_CLUB,
   ADD_TEAM,
   ADD_PLAYER,
+
+  SUB_CLUB,
   SUB_ALL_CLUBS,
   SUB_ALL_TEAMS,
   SUB_ALL_LEAGUES,
+
   UPDATE_PLAER_BY_ID,
+  UPDATE_TEAM_BY_ID,
 };

@@ -49,6 +49,10 @@ const Header = (props: any) => {
 
   const menu = MenuItems(param.club_slug, user);
 
+  useEffect(() => {
+    setFlag(path.split("/")[3]);
+  }, [path]);
+
   /** TODO: move this logic to middlewars */
   const { refetch } = useQuery(HomeQL.GET_CLUB, {
     variables: {
@@ -58,10 +62,6 @@ const Header = (props: any) => {
       data && setClubInfo(data.clubs[0]);
     },
   });
-
-  useEffect(() => {
-    setFlag(path.split("/")[3]);
-  }, [path]);
 
   const handleMenuClick = (to: any) => {
     move(to);

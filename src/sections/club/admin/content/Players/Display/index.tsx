@@ -56,15 +56,19 @@ const DisplaySection: React.FC = () => {
   const club = useContext(ClubAdminContext);
   const [a_show, setAShow] = useState<boolean>(false);
   const [u_show, setUShow] = useState<boolean>(false);
-  const [pid, setPid] = useState<number>();
+  const [pid, setPid] = useState<any>(null);
 
+  const _handleClose = () => {
+    setUShow(false);
+    setPid(null);
+  };
   const onHandleEdit = (pid: number) => {
     setPid(pid);
     setUShow(true);
   };
 
   const datasource = () => {
-    if (_.isUndefined(club.players)) {
+    if (_.isUndefined(club?.players)) {
       return [
         {
           "Player Photo": "",
@@ -115,11 +119,7 @@ const DisplaySection: React.FC = () => {
       </Row>
       <Player_A_Modal show={a_show} handleClose={() => setAShow(false)} />
       {!_.isUndefined(pid) ? (
-        <Player_U_Modal
-          show={u_show}
-          handleClose={() => setUShow(false)}
-          pid={pid}
-        />
+        <Player_U_Modal show={u_show} handleClose={_handleClose} mid={pid} />
       ) : null}
     </DisplayWrapper>
   );

@@ -5,5 +5,10 @@ export interface ModalProps {
 }
 
 export interface EditProps extends ModalProps {
-  pid: number;
+  mid: number;
+}
+
+export interface ImageCropProps extends ModalProps {
+  meta: any;
+  saveImage: any;
 }

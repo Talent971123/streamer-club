@@ -1,4 +1,3 @@
-import { GET_TEAMS_INFO } from "./../types/teams";
 import * as t from "redux/types/teams";
 
 export const getTeamsInfo = (teams: any) => ({

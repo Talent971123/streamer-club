@@ -99,7 +99,7 @@ const StyledInput = styled.input(
     },
   }),
   variant({
-    prop: "iRadius",
+    prop: "iradius",
     variants: {
       circle: { borderRadius: "50%" },
       small: { borderRadius: "4px" },
@@ -117,6 +117,7 @@ const StyledInput = styled.input(
       sm: { fontSize: 12, fontWeight: 400 },
     },
   }),
+
   compose(border, space, layout)
 );
 // eslint-disable-next-line react/display-name
@@ -153,7 +154,7 @@ const InputContainer = React.forwardRef<Ref, InputContainerProps>(
       variant={iColor}
       isize={iSize}
       ifont={iFont}
-      iRadius={iRadius}
+      iradius={iRadius}
       {...props}
     ></Input>
   )

@@ -18,3 +18,13 @@ export interface StreamPageCtx {
   away_name: string;
   away_logo: string;
 }
+
+export interface LeagueCtx {
+  id?: number;
+  name?: string;
+  logo?: string;
+}
+
+// export interface LeaguesCtx {
+//   players: Array<LeagueCtx>;
+// }
