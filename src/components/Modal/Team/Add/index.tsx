@@ -56,7 +56,9 @@ const Team_A_Modal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
 
   const [add] = useMutation(ADMINQL.ADD_TEAM, {
     onCompleted() {
+      setFile(null);
       form.resetFields();
+      setCroppedImage(photo);
       handleClose && handleClose();
     },
     onError(e) {
@@ -115,12 +117,13 @@ const Team_A_Modal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
   };
 
   const _handleClose = () => {
+    setFile(null);
     form.resetFields();
+    setCroppedImage(photo);
     handleClose && handleClose();
   };
 
   const saveImage = async (file: File, imageSrc: any) => {
-    setFlag(false);
     setFile(file);
     setCroppedImage(imageSrc);
   };
@@ -223,7 +226,7 @@ const Team_A_Modal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
                   <Row flexDirection="column" gap={30}>
                     <CustomText>{"Team Photo"}</CustomText>
                     <Row flexDirection="column" alignItems="center" gap={15}>
-                      <Avatar src={croppedImage} mode="medium" />
+                      <Avatar src={croppedImage} mode="big" radius="small" />
                       <Button
                         bColor="primary"
                         bSize="small"
@@ -319,6 +322,7 @@ const Team_A_Modal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
       <ImageCrop_Modal
         show={flag}
         meta={meta}
+        cropShape="rect"
         saveImage={saveImage}
         handleClose={() => setFlag(false)}
       />

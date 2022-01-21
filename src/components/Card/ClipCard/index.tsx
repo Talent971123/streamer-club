@@ -23,11 +23,9 @@ const ClipCard: React.FC<ClipProps> = ({
   mode = "clip",
   handleClick,
 }) => {
-
   const onHandleClick = (id: number) => {
     handleClick && handleClick(id);
   };
-
 
   return (
     <ClipCardWrapper mode={mode} onClick={() => onHandleClick(id)}>
@@ -35,53 +33,54 @@ const ClipCard: React.FC<ClipProps> = ({
         <Image
           src={backgroundImage || DefaultPlayerImage}
           oFit="cover"
-          width={
-            ["photos", "videos", "player", "teams"].includes(mode) ? 142 : 0
-          }
-          height={
-            ["photos", "videos", "player", "teams"].includes(mode) ? 142 : 0
-          }
+          mode={mode === "teams" ? "fill" : "intrinsic"}
+          width={["photos", "videos", "player"].includes(mode) ? 142 : 0}
+          height={["photos", "videos", "player"].includes(mode) ? 142 : 0}
         />
-        {(mode === "clip" || mode === "videos") && <PlayWrapper mode={mode}>
-          <Image src={Play} width={69} height={69} />
-        </PlayWrapper>}
+        {(mode === "clip" || mode === "videos") && (
+          <PlayWrapper mode={mode}>
+            <Image src={Play} width={69} height={69} />
+          </PlayWrapper>
+        )}
       </ClipContent>
 
-      {(mode !== "photos" && mode !== "videos") && <ClipFooter>
-        <Row flexDirection="column">
-          <Col item={24}>
-            <Text
-              fColor={
-                mode === "clip"
-                  ? "gray.600"
-                  : mode === "teams"
+      {mode !== "photos" && mode !== "videos" && (
+        <ClipFooter mode={mode}>
+          <Row flexDirection="column">
+            <Col item={24}>
+              <Text
+                fColor={
+                  mode === "clip"
+                    ? "gray.600"
+                    : mode === "teams"
                     ? "white"
                     : "red.100"
-              }
-              fSize={mode === "clip" ? 14 : mode === "teams" ? 16 : 14}
-              tAlign={mode === "clip" ? "left" : "center"}
-              fWeight={700}
-            >
-              {title}
-            </Text>
-          </Col>
-          <Col item={24}>
-            <Text
-              fColor={
-                mode === "clip"
-                  ? "gray.600"
-                  : mode === "teams"
+                }
+                fSize={mode === "clip" ? 14 : mode === "teams" ? 16 : 14}
+                tAlign={mode === "clip" ? "left" : "center"}
+                fWeight={700}
+              >
+                {title}
+              </Text>
+            </Col>
+            <Col item={24}>
+              <Text
+                fColor={
+                  mode === "clip"
+                    ? "gray.600"
+                    : mode === "teams"
                     ? "white"
                     : "gray.300"
-              }
-              tAlign={mode === "clip" ? "left" : "center"}
-              fSize={mode === "clip" ? 12 : mode === "teams" ? 16 : 12}
-            >
-              {content}
-            </Text>
-          </Col>
-        </Row>
-      </ClipFooter>}
+                }
+                tAlign={mode === "clip" ? "left" : "center"}
+                fSize={mode === "clip" ? 12 : mode === "teams" ? 16 : 12}
+              >
+                {content}
+              </Text>
+            </Col>
+          </Row>
+        </ClipFooter>
+      )}
     </ClipCardWrapper>
   );
 };

@@ -81,6 +81,7 @@ const Team_U_Modal: React.FC<EditProps> = ({
     onCompleted() {
       setFile(null);
       form.resetFields();
+      setCroppedImage(photo);
       handleClose && handleClose();
     },
     onError(e) {
@@ -128,13 +129,13 @@ const Team_U_Modal: React.FC<EditProps> = ({
   };
 
   const _handleClose = () => {
-    form.resetFields();
     setFile(null);
+    form.resetFields();
+    setCroppedImage(photo);
     handleClose && handleClose();
   };
 
   const saveImage = async (file: File, imageSrc: any) => {
-    setFlag(false);
     setFile(file);
     setCroppedImage(imageSrc);
   };
@@ -237,7 +238,7 @@ const Team_U_Modal: React.FC<EditProps> = ({
                   <Row flexDirection="column" gap={30}>
                     <CustomText>{"Team Photo"}</CustomText>
                     <Row flexDirection="column" alignItems="center" gap={15}>
-                      <Avatar src={croppedImage} mode="medium" />
+                      <Avatar src={croppedImage} mode="big" radius="small" />
                       <Button
                         bColor="primary"
                         bSize="small"
@@ -333,6 +334,7 @@ const Team_U_Modal: React.FC<EditProps> = ({
       <ImageCrop_Modal
         show={flag}
         meta={meta}
+        cropShape="rect"
         saveImage={saveImage}
         handleClose={() => setFlag(false)}
       />

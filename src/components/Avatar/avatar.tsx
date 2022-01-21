@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Image } from "components/Image";
 import { compose, variant, border, space, layout } from "styled-system";
 import css from "@styled-system/css";
+import themeGet from "@styled-system/theme-get";
 
 interface StyledProps {
   radius?: "circle" | "small";
@@ -11,6 +12,7 @@ interface StyledProps {
 
 interface AvatarProps extends StyledProps {
   src: any;
+  position?: string;
 }
 
 const AvatarWrapper = styled.div(
@@ -22,6 +24,7 @@ const AvatarWrapper = styled.div(
   {
     position: "relative",
     contain: "content",
+    border: "1px solid #666",
   },
   variant({
     prop: "radius",
@@ -31,6 +34,14 @@ const AvatarWrapper = styled.div(
       },
       small: {
         borderRadius: "4px",
+      },
+    },
+  }),
+  variant({
+    prop: "position",
+    variants: {
+      center: {
+        margin: "auto",
       },
     },
   }),
@@ -58,10 +69,12 @@ const Avatar: React.FC<AvatarProps> = ({
   src,
   radius = "circle",
   mode = "small",
+  position,
 }) => {
   const dataProps = {
     radius,
     mode,
+    position,
   };
   return (
     <AvatarWrapper {...dataProps}>

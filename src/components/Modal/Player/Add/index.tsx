@@ -58,7 +58,9 @@ const Player_A_Modal: React.FC<ModalProps> = ({
   // **
   const [add] = useMutation(ADMINQL.ADD_PLAYER, {
     onCompleted() {
+      setFile(null);
       form.resetFields();
+      setCroppedImage(photo);
       handleClose && handleClose();
     },
     onError(e) {
@@ -94,7 +96,6 @@ const Player_A_Modal: React.FC<ModalProps> = ({
   };
 
   const saveImage = async (file: File, imageSrc: any) => {
-    setFlag(false);
     setFile(file);
     setCroppedImage(imageSrc);
   };
@@ -103,7 +104,9 @@ const Player_A_Modal: React.FC<ModalProps> = ({
     setFlag(true);
   };
   const _handleClose = () => {
+    setFile(null);
     form.resetFields();
+    setCroppedImage(photo);
     handleClose && handleClose();
   };
   const onTargetClick = () => {

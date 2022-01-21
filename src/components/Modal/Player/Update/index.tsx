@@ -82,6 +82,7 @@ const Player_A_Modal: React.FC<EditProps> = ({
     onCompleted() {
       setFile(null);
       form.resetFields();
+      setCroppedImage(photo);
       handleClose && handleClose();
     },
     onError(e) {
@@ -121,7 +122,6 @@ const Player_A_Modal: React.FC<EditProps> = ({
   };
 
   const saveImage = async (file: File, imageSrc: any) => {
-    setFlag(false);
     setFile(file);
     setCroppedImage(imageSrc);
   };
@@ -130,7 +130,9 @@ const Player_A_Modal: React.FC<EditProps> = ({
     setFlag(true);
   };
   const _handleClose = () => {
+    setFile(null);
     form.resetFields();
+    setCroppedImage(photo);
     handleClose && handleClose();
   };
   const onTargetClick = () => {

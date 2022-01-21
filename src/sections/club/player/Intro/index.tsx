@@ -61,14 +61,12 @@ const IntroSection: React.FC = () => {
       setFlag(false);
     },
     onError(e) {
-      console.log("PLAYERQL.UPDATE_PLAER_BY_ID", e);
       setisSubmit(false);
     },
   });
 
   const onFinish = async (values: any) => {
     setisSubmit(true);
-
     await update({
       variables: {
         id: player.id,
@@ -87,7 +85,6 @@ const IntroSection: React.FC = () => {
 
   const saveImage = async (file: File, imageSrc: any) => {
     setStore(imageSrc);
-
     let image: string | null = null;
     const s3res: any = await s3UploadFile("Players", player.slug, file);
     image = s3res.location;

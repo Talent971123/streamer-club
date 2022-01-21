@@ -26,6 +26,7 @@ import {
   NumberRange,
 } from "./index.style";
 
+import _ from "lodash";
 import photo from "assets/images/layout/group.png";
 import { getOrientation } from "get-orientation/browser";
 
@@ -40,6 +41,7 @@ const ImageCrop_Modal: React.FC<ImageCropProps> = ({
   handleClose,
   meta,
   saveImage,
+  cropShape = "round",
 }) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState(0);
@@ -48,6 +50,23 @@ const ImageCrop_Modal: React.FC<ImageCropProps> = ({
   const [imageSrc, setImageSrc] = useState<any>(photo);
   const [file, setFile] = useState<any>(null);
   const [isSubmit, setisSubmit] = useState<boolean>(false);
+  const [cropImage, setCropImage] = useState<any>(null);
+  const [flag, setFlag] = useState<boolean>(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await saveImage(file, cropImage)
+        .then(() => {
+          setFile(null);
+          setFlag(false);
+          handleClose && handleClose();
+        })
+        .catch((e: any) => console.log(e));
+    };
+    if (!_.isNull(file)) {
+      fetchData();
+    }
+  }, [flag]);
 
   useEffect(() => {
     const onFilterFile = async (meta: any) => {
@@ -92,8 +111,8 @@ const ImageCrop_Modal: React.FC<ImageCropProps> = ({
           });
           setFile(myFile);
         });
-
-      await saveImage(file, croppedImage);
+      setCropImage(croppedImage);
+      setFlag(true);
     } catch (e) {
       console.error(e);
     } finally {
@@ -120,7 +139,7 @@ const ImageCrop_Modal: React.FC<ImageCropProps> = ({
               crop={crop}
               rotation={rotation}
               zoom={zoom}
-              cropShape="round"
+              cropShape={cropShape}
               aspect={1}
               onCropChange={setCrop}
               onRotationChange={setRotation}

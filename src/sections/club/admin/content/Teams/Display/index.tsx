@@ -81,7 +81,8 @@ const DisplaySection: React.FC = () => {
       "Team Photo": (
         <Avatar
           src={_.isNull(team.image) ? DefaultSrc : team.image}
-          radius="circle"
+          position="center"
+          radius="small"
           mode="small"
         />
       ),

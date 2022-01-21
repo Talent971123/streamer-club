@@ -11,4 +11,5 @@ export interface EditProps extends ModalProps {
 export interface ImageCropProps extends ModalProps {
   meta: any;
   saveImage: any;
+  cropShape?: "rect" | "round";
 }
