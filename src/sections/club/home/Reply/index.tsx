@@ -3,10 +3,11 @@ import React, { useState } from "react";
 import { Col, Row } from "components/Layout";
 import { GameCard } from "components/Card";
 import { Text } from "components/Text";
-import Slider from "react-slick";
+import {ScrollingCarousel} from '@trendyol-js/react-carousel';
 import { useLinkItem } from "components/hoc";
 import { IoArrowRedoOutline } from "react-icons/io5";
 // import styled component
+import {SlideArrow} from "components/Button/Button"
 import { ReplayWrapper, LinkWrapper } from "./replay.style";
 // import types
 import { GameCardProps } from "types/components/GameCard";
@@ -21,48 +22,6 @@ import { thumbNailLink } from "utils/common-helper";
 import moment from "moment";
 
 import { dateDisplayFormat } from "utils/constData";
-
-// const setting for react slick
-const NextArrow: React.FC = (props: any) => {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{
-        ...style,
-        display: "block",
-        position: "absolute",
-        top: "140px",
-      }}
-      onClick={onClick}
-    />
-  );
-};
-
-const BeforeArrow: React.FC = (props: any) => {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{
-        ...style,
-        display: "block",
-        position: "absolute",
-        top: "140px",
-      }}
-      onClick={onClick}
-    />
-  );
-};
-
-const settings = {
-  infinite: false,
-  speed: 500,
-  slidesToShow: 4,
-  slidesToScroll: 4,
-  nextArrow: <NextArrow />,
-  prevArrow: <BeforeArrow />,
-};
 
 const SeeAll = useLinkItem(LinkWrapper);
 
@@ -106,7 +65,10 @@ const ReplyView: React.FC = () => {
       </Row>
       <Row padding="10px 0 0 0">
         <Col item={24}>
-          <Slider {...settings}>
+          <ScrollingCarousel
+            leftIcon={<SlideArrow position='left' />}
+            rightIcon={<SlideArrow position='right' />}
+          >
             {matches &&
               matches.map((match: any, index: number) => {
                 const item: GameCardProps = {
@@ -134,7 +96,7 @@ const ReplyView: React.FC = () => {
                   />
                 );
               })}
-          </Slider>
+          </ScrollingCarousel>
         </Col>
       </Row>
     </ReplayWrapper>

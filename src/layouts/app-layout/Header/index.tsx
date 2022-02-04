@@ -8,11 +8,11 @@ import HeaderView from "./Header";
 import { HeaderWrapper } from "./Header.style";
 
 // -------------------------------------------------------------------
-const Header = () => {
+const Header = (props) => {
   return (
     <HeaderWrapper>
       <Hidden>
-        <HeaderView />
+        <HeaderView bannerFlag={props.bannerFlag}/>
       </Hidden>
     </HeaderWrapper>
   );

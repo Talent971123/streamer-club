@@ -4,12 +4,13 @@ import { useRouter } from "hooks";
 import { Col, Row } from "components/Layout";
 import { ClipCard } from "components/Card";
 import { Text } from "components/Text";
-import Slider from "react-slick";
+import {ScrollingCarousel} from '@trendyol-js/react-carousel';
 import { useLinkItem } from "components/hoc";
 import { IoArrowRedoOutline } from "react-icons/io5";
 //  import types
 import { ClipProps } from "types/components/ClipCard";
 //  import styled component
+import {SlideArrow} from "components/Button/Button"
 import { ClipWrapper, LinkWrapper } from "./clip.style";
 
 //  define the example data
@@ -53,55 +54,12 @@ const data: ClipProps[] = [
   },
 ];
 
-// const setting for react slick
-const NextArrow: React.FC = (props: any) => {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{
-        ...style,
-        display: "block",
-        position: "absolute",
-        top: "100px",
-      }}
-      onClick={onClick}
-    />
-  );
-};
-
-const BeforeArrow: React.FC = (props: any) => {
-  const { className, style, onClick } = props;
-
-  return (
-    <div
-      className={className}
-      style={{
-        ...style,
-        display: "block",
-        position: "absolute",
-        top: "100px",
-      }}
-      onClick={onClick}
-    />
-  );
-};
-
-const settings = {
-  infinite: false,
-  speed: 500,
-  slidesToShow: 4,
-  slidesToScroll: 4,
-  nextArrow: <NextArrow />,
-  prevArrow: <BeforeArrow />,
-};
-
 const SeeAll = useLinkItem(LinkWrapper);
 
 const ClipView: React.FC = () => {
   const { move } = useRouter();
   const onHandleSeeAll = () => {
-    // move("/club/match");
+    move("/club/match");
   };
 
   return (
@@ -120,11 +78,14 @@ const ClipView: React.FC = () => {
       </Row>
       <Row padding="10px 0 0 0">
         <Col item={24}>
-          <Slider {...settings}>
+          <ScrollingCarousel
+            leftIcon={<SlideArrow position='left' />}
+            rightIcon={<SlideArrow position='right' />}
+          >
             {data.map((item: ClipProps, index: number) => {
               return <ClipCard {...item} key={index} />;
             })}
-          </Slider>
+          </ScrollingCarousel>
         </Col>
       </Row>
     </ClipWrapper>

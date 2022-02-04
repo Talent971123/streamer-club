@@ -4,7 +4,8 @@ import { ContentWrapper, Content } from "./tabcontainer.style";
 import { commonItem } from "types/common/common";
 import { Col, Row } from "components/Layout";
 import TabsView from "./Tabs";
-import CommentaryView from "./Commentary";
+// import CommentaryView from "./Commentary";
+import CreateClipView from "./CreateClip";
 import TeamView from "./Team";
 import MatchStatsView from "./MatchStats";
 import MediaGalleryView from "./MediaGallery";
@@ -17,7 +18,7 @@ const menudata: commonItem[] = [
   {
     title: "Commentary",
     path: "commentary",
-    component: <CommentaryView />,
+    component: <CreateClipView />,
   },
   {
     title: "Team",
@@ -42,19 +43,26 @@ const menudata: commonItem[] = [
 ];
 const TabContainerView: React.FC = () => {
   const [select, setSelect] = useState<string>(menudata[0].path);
-  const [show, setShow] = useState<boolean>(false);
+  const [show, setEventShow] = useState<boolean>(false);
+  const [createClip, setCreateClipShow] = useState<boolean>(false);
   
   const onHandleSelect = (item: string) => {
     setSelect(item);
   };
 
+  const createClipFunc = () => {
+    setCreateClipShow(true);
+  }
+
   const addEvent = () => {
-    setShow(true);
+    setEventShow(true);
   };
 
   const values = {
     show,
-    setShow,
+    setEventShow,
+    createClip,
+    setCreateClipShow,
   };
 
   return (
@@ -75,13 +83,24 @@ const TabContainerView: React.FC = () => {
               />
             </Col>
             <Row alignItems="flex-end" justifyContent="flex-end">
-              <Button
-                bColor="primary"
-                css={{ padding: 18, marginBottom: 16, marginRight: 16, fontSize: 12 }}
-                onClick={addEvent}
-              >
-                {"Add Event"}
-              </Button>
+              <Col item={4}>
+                <Button
+                  bColor="primary"
+                  css={{ padding: 18, marginBottom: 16, marginRight: 16, fontSize: 12 }}
+                  onClick={() => createClipFunc()}
+                >
+                  {"Create Clip"}
+                </Button>
+              </Col>
+              <Col item={4}>
+                <Button
+                  bColor="primary"
+                  css={{ padding: 18, marginBottom: 16, marginRight: 16, fontSize: 12 }}
+                  onClick={addEvent}
+                >
+                  {"Add Event"}
+                </Button>
+              </Col>
             </Row>
           </Row>
           <Row alignItems="center" justifyContent="center" display="flex">

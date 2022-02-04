@@ -1,25 +1,35 @@
 import themeGet from "@styled-system/theme-get";
 import styled, { css } from "styled-components";
+import { defaultTheme } from "theme";
 
 export const ClipCardWrapper = styled.div<{ mode: string }>`
+  @media screen and (min-width: ${defaultTheme.mediaSize.md}px)  {
+    width: 20% !important;
+  }
+
+  @media screen and (min-width: ${defaultTheme.mediaSize.sm}px) and (max-width: ${defaultTheme.mediaSize.md}px) {
+    width: 33% !important;
+  }
+
+  @media screen and (max-width: ${defaultTheme.mediaSize.sm}px) {
+    width: 100% !important;
+  }
+
   ${({ mode }) => {
-    switch (mode) {
-      case "clip":
-        return css`
-          width: 98%;
-        `;
-      case "teams":
-        return css`
-          width: 97%;
-          border: 1px solid black;
-          border-radius: 7px;
-        `;
-      case "player":
-        return css`
-          width: 95%;
-        `;
-    }
+    if(mode === 'teams') 
+    return `
+      border: 1px solid black;
+      border-radius: 7px;
+    `
   }};
+
+  &:first-child {
+    margin: 0 5px 0 0 !important;
+  }
+  &:last-child {
+    margin: 0 0 0 5px !important;
+  }
+  margin: 0 5px;
   cursor: pointer;
   contain: content;
 `;

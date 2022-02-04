@@ -15,7 +15,6 @@ const PlayerAllView: React.FC = () => {
   const { move } = useRouter();
 
   const { players, club_slug }: any = useContext(PlayersContext);
-
   const onHandleClick = (slug: string) => {
     const route = {
       path: `/club/${club_slug}/player/${slug}`,
@@ -37,7 +36,7 @@ const PlayerAllView: React.FC = () => {
           const item: ClipProps = {
             id: player.id,
             backgroundImage: player.image,
-            title: `${player.first_name} ${player.last_name}`,
+            title: `${player?.user?.first_name ?? ''} ${player?.user?.last_name ?? ''}`,
             mode: "player",
             content: player.team?.name,
           };

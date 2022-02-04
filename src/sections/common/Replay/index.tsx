@@ -9,12 +9,13 @@ import moment from "moment";
 import { useRouter } from "hooks";
 import React, { useState } from "react";
 import { IoArrowRedoOutline } from "react-icons/io5";
-import Slider from "react-slick";
+import {ScrollingCarousel} from '@trendyol-js/react-carousel';
 // import types
 import { GameCardProps } from "types/components/GameCard";
 import { thumbNailLink } from "utils/common-helper";
 import { dateDisplayFormat } from "utils/constData";
 // import styled component
+import {SlideArrow} from "components/Button/Button"
 import { LinkWrapper, ReplayWrapper } from "./replay.style";
 
 import { getDates } from "utils/helper-date";
@@ -55,12 +56,35 @@ const BeforeArrow: React.FC = (props: any) => {
 };
 
 const settings = {
-  infinite: false,
   speed: 500,
+  initialSlide: 0,
   slidesToShow: 4,
-  slidesToScroll: 4,
+  slidesToScroll: 3,
   nextArrow: <NextArrow />,
   prevArrow: <BeforeArrow />,
+  responsive: [
+    {
+      breakpoint: 1290,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 3,
+      },
+    },
+    {
+      breakpoint: 1000,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 2,
+      },
+    },
+    {
+      breakpoint: 800,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+      },
+    },
+  ],
 };
 
 const SeeAll = useLinkItem(LinkWrapper);
@@ -113,7 +137,10 @@ const ReplayView: React.FC = () => {
       </Row>
       <Row padding="10px 0 0 0">
         <Col item={24}>
-          <Slider {...settings}>
+          <ScrollingCarousel
+            leftIcon={<SlideArrow position='left' />}
+            rightIcon={<SlideArrow position='right' />}
+          >
             {matches &&
               matches.map((match: any, index: number) => {
                 const item: GameCardProps = {
@@ -141,7 +168,7 @@ const ReplayView: React.FC = () => {
                   />
                 );
               })}
-          </Slider>
+          </ScrollingCarousel>
         </Col>
       </Row>
     </ReplayWrapper>

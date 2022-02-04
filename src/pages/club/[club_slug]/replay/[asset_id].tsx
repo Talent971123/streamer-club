@@ -13,7 +13,7 @@ const StreamPage: React.FC<{ streamInfo: StreamPageCtx }> = ({ streamInfo }) => 
   // TODO: use redux instead of context api
   return (
     <StreamPageContext.Provider value={streamInfo}>
-      <WithContainer mode="wrapper" SectionView={DisplayView} />
+      {/* <WithContainer mode="wrapper" SectionView={DisplayView} /> */}
       <WithContainer mode="wrapper" SectionView={ToolbarView} />
       <WithContainer mode="wrapper" SectionView={TabContainerView} />
     </StreamPageContext.Provider>

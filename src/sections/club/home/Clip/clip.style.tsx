@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { themeGet } from "@styled-system/theme-get";
 
 export const ClipWrapper = styled.div`

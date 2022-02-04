@@ -1,6 +1,10 @@
 import BaseColors from "theme/colors";
 import BaseFonts from "theme/fonts";
+import MediaSize from "./mediaSize";
 export const defaultTheme = {
+  mediaSize: {
+    ...MediaSize
+  },
   colors: {
     ...BaseColors,
     input: {

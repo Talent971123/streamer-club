@@ -3,10 +3,11 @@ import React, { useState } from "react";
 import { Col, Row } from "components/Layout";
 import { GameCard } from "components/Card";
 import { Text } from "components/Text";
-import Slider from "react-slick";
+import {ScrollingCarousel} from '@trendyol-js/react-carousel';
 import { useLinkItem } from "components/hoc";
 import { IoArrowRedoOutline } from "react-icons/io5";
 // import styled component
+import {SlideArrow} from "components/Button/Button"
 import { GameDayWrapper, LinkWrapper } from "./gameday.style";
 // import types
 import { GameCardProps } from "types/components/GameCard";
@@ -18,47 +19,6 @@ import { useSubscription } from "@apollo/client";
 import { subscribe } from "graphql/match/index";
 import { progressText, thumbNailLink } from "utils/common-helper";
 
-// const setting for react slick
-const NextArrow: React.FC = (props: any) => {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{
-        ...style,
-        display: "block",
-        position: "absolute",
-        top: "140px",
-      }}
-      onClick={onClick}
-    />
-  );
-};
-
-const BeforeArrow: React.FC = (props: any) => {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{
-        ...style,
-        display: "block",
-        position: "absolute",
-        top: "140px",
-      }}
-      onClick={onClick}
-    />
-  );
-};
-
-const settings = {
-  infinite: false,
-  speed: 500,
-  slidesToShow: 4,
-  slidesToScroll: 4,
-  nextArrow: <NextArrow />,
-  prevArrow: <BeforeArrow />,
-};
 const SeeAll = useLinkItem(LinkWrapper);
 
 const GameDayView: React.FC = (props: any) => {
@@ -88,7 +48,6 @@ const GameDayView: React.FC = (props: any) => {
   const onHandleClick = (id: number) => {
     router.push(`/club/${clubInfo.slug}/match/${id}`);
   };
-
   return (
     <GameDayWrapper>
       <Row alignItems="center" justifyContent="space-between">
@@ -105,7 +64,10 @@ const GameDayView: React.FC = (props: any) => {
       </Row>
       <Row padding="10px 0 0 0">
         <Col item={24}>
-          <Slider {...settings}>
+          <ScrollingCarousel
+            leftIcon={<SlideArrow position='left' />}
+            rightIcon={<SlideArrow position='right' />}
+          >
             {data.map((match: any, index: number) => {
               const item: GameCardProps = {
                 id: match.id,
@@ -134,7 +96,7 @@ const GameDayView: React.FC = (props: any) => {
                 />
               );
             })}
-          </Slider>
+          </ScrollingCarousel>
         </Col>
       </Row>
     </GameDayWrapper>

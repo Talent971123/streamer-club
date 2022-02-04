@@ -4,58 +4,17 @@ import { useRouter } from "hooks";
 import { Col, Row } from "components/Layout";
 import { ClipCard } from "components/Card";
 import { Text } from "components/Text";
-import Slider from "react-slick";
+import {ScrollingCarousel} from '@trendyol-js/react-carousel';
 import { useLinkItem } from "components/hoc";
 import { IoArrowRedoOutline } from "react-icons/io5";
 //  import types
 import { ClipProps } from "types/components/ClipCard";
+import {SlideArrow} from "components/Button/Button";
 //  import styled component
 import { PlayerWrapper, LinkWrapper } from "./player.style";
 
 //  define the example data
 import { ClubContext } from "pages/club/[club_slug]";
-
-// const setting for react slick
-const NextArrow: React.FC = (props: any) => {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{
-        ...style,
-        display: "block",
-        position: "absolute",
-        top: "100px",
-      }}
-      onClick={onClick}
-    />
-  );
-};
-
-const BeforeArrow: React.FC = (props: any) => {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{
-        ...style,
-        display: "block",
-        position: "absolute",
-        top: "100px",
-      }}
-      onClick={onClick}
-    />
-  );
-};
-
-const settings = {
-  infinite: false,
-  speed: 500,
-  slidesToShow: 7,
-  slidesToScroll: 7,
-  nextArrow: <NextArrow />,
-  prevArrow: <BeforeArrow />,
-};
 
 const SeeAll = useLinkItem(LinkWrapper);
 
@@ -91,26 +50,30 @@ const PlayerView: React.FC = () => {
       </Row>
       <Row padding="10px 0 0 0">
         <Col item={24}>
-          <Slider {...settings}>
             {club.players &&
-              club.players.map((player: any, index: number) => {
-                const item: ClipProps = {
-                  id: player.id,
-                  backgroundImage: player.image,
-                  title: `${player.first_name} ${player.last_name}`,
-                  mode: "player",
-                  content: player.team?.name,
-                };
+              <ScrollingCarousel
+                leftIcon={<SlideArrow position='left' />}
+                rightIcon={<SlideArrow position='right' />}
+              >
+                {club.players.map((player: any, index: number) => {
+                    const item: ClipProps = {
+                      id: player.id,
+                      backgroundImage: player.image,
+                      title: `${player?.user?.first_name ?? ''} ${player?.user?.last_name ?? ''}`,
+                      mode: "player",
+                      content: player.team?.name,
+                    };
 
-                return (
-                  <ClipCard
-                    {...item}
-                    key={index}
-                    handleClick={() => onHandleClick(player.slug)}
-                  />
-                );
-              })}
-          </Slider>
+                    return (
+                      <ClipCard
+                        {...item}
+                        key={index}
+                        handleClick={() => onHandleClick(player.slug)}
+                      />
+                    );
+                  })}
+              </ScrollingCarousel>
+            }
         </Col>
       </Row>
     </PlayerWrapper>

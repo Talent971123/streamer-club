@@ -83,36 +83,40 @@ const Team_A_Modal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
     let image: string | null = null;
 
     if (!_.isNull(file)) {
-      const s3res: any = await s3UploadFile("Teams", slug, file);
-      image = s3res.location;
+      // const s3res: any = await s3UploadFile("Teams", slug, file);
+      // image = s3res.location;
+      image = "s3res.location";
     }
 
-    // console.log({
-    //   club_id: club.id,
-    //   image,
-    //   league_id: values.league,
-    //   name: values.team_name,
-    //   slug,
-    //   division: values.team_name,
-    //   players: values.players,
-    //   admins: values.admins
-    //     ? values.admins.map((item: any) => item.split("/")[1])
-    //     : [],
-    // });
-
-    await add({
-      variables: {
-        objects: {
-          club_id: club.id,
-          image,
-          league_id: values.league,
-          name: values.team_name,
-          slug,
-          division: values.division,
-          // players: values.players,
-        },
-      },
+    console.log({
+      club_id: club.id,
+      image,
+      league_id: values.league,
+      name: values.team_name,
+      slug,
+      division: values.team_name,
+      players: values.players,
+      admins: values.admins
+        ? values.admins.map((item: any) => ({
+            id: item.split("/")[1],
+            mail: item.split("/")[0],
+          }))
+        : [],
     });
+
+    // await add({
+    //   variables: {
+    //     objects: {
+    //       club_id: club.id,
+    //       image,
+    //       league_id: values.league,
+    //       name: values.team_name,
+    //       slug,
+    //       division: values.division,
+    //       // players: values.players,
+    //     },
+    //   },
+    // });
     setSubmiting(false);
   };
 

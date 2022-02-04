@@ -4,75 +4,18 @@ import { useRouter } from "hooks";
 import { Col, Row } from "components/Layout";
 import { ClipCard } from "components/Card";
 import { Text } from "components/Text";
-import Slider from "react-slick";
+import {ScrollingCarousel} from '@trendyol-js/react-carousel';
 import { useLinkItem } from "components/hoc";
 import { IoArrowRedoOutline } from "react-icons/io5";
 //  import types
 import { ClipProps } from "types/components/ClipCard";
 //  import styled component
+import {SlideArrow} from "components/Button/Button"
 import { TeamWrapper, LinkWrapper } from "./teams.style";
 
 //  define the example data
 import TeamsImage from "assets/images/home/team.png";
 import { ClubContext } from "pages/club/[club_slug]";
-
-// const setting for react slick
-const NextArrow: React.FC = (props: any) => {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{
-        ...style,
-        display: "block",
-        position: "absolute",
-        top: "100px",
-      }}
-      onClick={onClick}
-    />
-  );
-};
-
-const BeforeArrow: React.FC = (props: any) => {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{
-        ...style,
-        display: "block",
-        position: "absolute",
-        top: "100px",
-      }}
-      onClick={onClick}
-    />
-  );
-};
-
-const settings = {
-  speed: 500,
-  initialSlide: 0,
-  slidesToShow: 6,
-  slidesToScroll: 5,
-  nextArrow: <NextArrow />,
-  prevArrow: <BeforeArrow />,
-  responsive: [
-    {
-      breakpoint: 1290,
-      settings: {
-        slidesToShow: 5,
-        slidesToScroll: 4,
-      },
-    },
-    {
-      breakpoint: 1024,
-      settings: {
-        slidesToShow: 4,
-        slidesToScroll: 3,
-      },
-    },
-  ],
-};
 
 const SeeAll = useLinkItem(LinkWrapper);
 
@@ -108,25 +51,31 @@ const TeamView: React.FC = () => {
       </Row>
       <Row padding="10px 0 0 0">
         <Col item={24}>
-          <Slider {...settings}>
             {club.teams &&
-              club.teams.map((team: any, index: number) => {
-                const item: ClipProps = {
-                  id: team.id,
-                  backgroundImage: team.image,
-                  title: team.name,
-                  mode: "teams",
-                  content: team.division,
-                };
-                return (
-                  <ClipCard
-                    {...item}
-                    key={index}
-                    handleClick={() => onHandleClick(team.slug)}
-                  />
-                );
-              })}
-          </Slider>
+              <ScrollingCarousel
+                leftIcon={<SlideArrow position='left' />}
+                rightIcon={<SlideArrow position='right' />}
+              >
+                {
+                  club.teams.map((team: any, index: number) => {
+                    const item: ClipProps = {
+                      id: team.id,
+                      backgroundImage: team.image,
+                      title: team.name,
+                      mode: "teams",
+                      content: team.division,
+                    };
+                    return (
+                      <ClipCard
+                        {...item}
+                        key={index}
+                        handleClick={() => onHandleClick(team.slug)}
+                      />
+                    );
+                  })
+                }
+              </ScrollingCarousel>
+            }
         </Col>
       </Row>
     </TeamWrapper>

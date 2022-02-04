@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 // styled component
+import { defaultTheme } from "theme";
 import styled, { keyframes } from "styled-components";
 import { themeGet } from "@styled-system/theme-get";
 import css from "@styled-system/css";
@@ -80,6 +81,21 @@ const StyledButton = styled.button(
   }),
   compose(border, space, layout)
 );
+
+export const SlideArrow = styled.div<{ position: string }>`
+  @media screen and (min-width: ${defaultTheme.mediaSize.md}) {
+  }
+  width: 30px;
+  height: 100%;
+  display: block;
+  position: absolute;
+  ${({ position }) => {
+    if(position == "right") return `right: -30px;`;
+    return `left: -30px;`;
+  }};
+  z-index: 100;
+`
+
 const rotate = keyframes`
   from {transform: rotate(0deg);}
   to {transform: rotate(360deg);}

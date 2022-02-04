@@ -79,6 +79,8 @@ const Player_A_Modal: React.FC<ModalProps> = ({
       image = s3res.location;
     }
 
+    console.log(club);
+
     await add({
       variables: {
         objects: {

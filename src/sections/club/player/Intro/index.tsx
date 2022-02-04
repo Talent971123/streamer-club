@@ -73,8 +73,8 @@ const IntroSection: React.FC = () => {
         object: {
           debut_date: values.debut._i,
           positions: [values.positions],
-          first_name: values.first_name,
-          last_name: values.last_name,
+          first_name: values?.user?.first_name,
+          last_name: values?.user?.last_name,
           bio: values.bio,
           team_id: values.team_id,
           prev_club: values.prev_club,
@@ -112,8 +112,8 @@ const IntroSection: React.FC = () => {
         name="basic"
         onFinish={onFinish}
         initialValues={{
-          first_name: player.first_name,
-          last_name: player.last_name,
+          first_name: player?.user?.first_name ?? '',
+          last_name: player?.user?.last_name ?? '',
           bio: player.bio,
           team_id: player.teams[0].id,
           debut: moment(
@@ -156,7 +156,7 @@ const IntroSection: React.FC = () => {
                     {!flag ? (
                       <>
                         <CustomText strong css={{ fontSize: "24px" }}>
-                          {`${player.first_name} ${player.last_name}`}
+                          {`${player?.user?.first_name ?? ''} ${player?.user?.last_name ?? ''}`}
                         </CustomText>
                       </>
                     ) : (

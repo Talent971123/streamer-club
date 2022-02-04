@@ -157,7 +157,7 @@ const ScoreTypes = [
 
 const CommentaryView: React.FC = () => {
   const { Option } = DropdownContainer;
-  const { show, setShow } = useContext(ScreenContext);
+  const { show, setEventShow } = useContext(ScreenContext);
   const [keymoment, showKeymoment] = useState<boolean>(false);
   const [scoring, setScoring] = useState<string>("scoring");
   const [scoreOption, setScoreOption] = useState<string>("");
@@ -184,7 +184,7 @@ const CommentaryView: React.FC = () => {
   };
 
   const closeEventButton = () => {
-    setShow(false);
+    setEventShow(false);
     setScoring("scoring");
   };
   return (

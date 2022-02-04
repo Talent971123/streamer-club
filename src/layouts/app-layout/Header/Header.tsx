@@ -16,7 +16,7 @@ import ProfileImage from "assets/images/layout/profile.png";
 import { connect } from "react-redux";
 import { setClubInfo } from "redux/actions/club";
 // styled component
-import { HeaderWrapper, MenuItem, Border } from "./Header.style";
+import { HeaderWrapper, MenuItem, Border, MenuItemBody, MenuItemBodyMobile } from "./Header.style";
 import { Text } from "components/Text";
 // -------------------------------------------------------------------
 import { UserProfile, useUser } from "@auth0/nextjs-auth0";
@@ -40,7 +40,6 @@ const MenuItems = (club_slug: string, user: any) => {
 
   return user ? menus : _.filter(menus, ["public", true]);
 };
-
 const Header = (props: any) => {
   const { club, setClubInfo, clubInfo } = props;
   const { move, path, param, asPath }: any = useRouter();
@@ -67,13 +66,16 @@ const Header = (props: any) => {
     move(to);
   };
 
+  const bannerFlag = () => {
+    props.bannerFlag()
+  }
   return (
     <HeaderWrapper>
       <ContainerWrapper>
         <Row alignItems="center" justifyContent="space-between">
           <Col>
             <Row alignItems="center" gap={15}>
-              <Col>
+              <Col onClick={bannerFlag}>
                 <MarkIcon />
               </Col>
               <Col>
@@ -107,18 +109,85 @@ const Header = (props: any) => {
               })}
             </Row>
           </Col>
-          <Col item={9.5}>
+          <Col item={11.5}>
             <Row
               gap={18}
               alignItems="center"
               flexDirection="row-reverse"
               padding="0 20px"
             >
-              {user && (
-                <>
-                  <Col>
+              <MenuItemBody >
+                {user && (
+                  <>
+                    <Col>
+                      <a href="/api/auth/logout">Logout</a>
+                    </Col>
+                    <Col className="ImageWrapper">
+                      <Image
+                        src={user?.picture || ProfileImage}
+                        height={40}
+                        width={40}
+                        oFit="cover"
+                        mode="intrinsic"
+                      />
+                    </Col>
+                    <Col>
+                      <BellIcon />
+                    </Col>
+                    <Col>
+                      <Text fColor="white" fSize={14}>
+                        {user?.name}
+                      </Text>
+                    </Col>
+                  </>
+                )}
+
+                {
+                  !user && (
+                    <Row 
+                      gap={18}
+                      alignItems="center"
+                      flexDirection="row-reverse"
+                      padding="0 20px"
+                    >
+                      <Col>
+                        <Button
+                          bColor="warning"
+                          bSize="big"
+                          css={{ width: "110px", height: "20px", fontSize: 14 }}
+                          onClick={() => handleMenuClick("/api/auth/signup")}
+                        >
+                          {"Sign up"}
+                        </Button>
+                      </Col>
+                      <Col>
+                        <Button
+                          bColor="primary"
+                          bSize="big"
+                          css={{
+                            width: "50px",
+                            height: "20px",
+                            fontSize: 14,
+                            border: "none",
+                          }}
+                          onClick={() => handleMenuClick("/api/auth/login")}
+                        >
+                          {"Login"}
+                        </Button>
+                      </Col>
+                    </Row>
+                  )
+                }
+              </MenuItemBody>
+              <MenuItemBodyMobile >
+                <Row
+                  alignItems="center"
+                  flexDirection="row-reverse"
+                  padding="0 20px"
+                >
+                  {/* <Col>
                     <a href="/api/auth/logout">Logout</a>
-                  </Col>
+                  </Col> */}
                   <Col className="ImageWrapper">
                     <Image
                       src={user?.picture || ProfileImage}
@@ -128,52 +197,16 @@ const Header = (props: any) => {
                       mode="intrinsic"
                     />
                   </Col>
-                  <Col>
+                  {/* <Col>
                     <BellIcon />
-                  </Col>
-                  <Col>
+                  </Col> */}
+                  {/* <Col>
                     <Text fColor="white" fSize={14}>
                       {user?.name}
                     </Text>
-                  </Col>
-                </>
-              )}
-
-              {
-                !user && (
-                  <>
-                    <Col>
-                      <Button
-                        bColor="warning"
-                        bSize="big"
-                        css={{ width: "110px", height: "20px", fontSize: 14 }}
-                        onClick={() => handleMenuClick("/api/auth/signup")}
-                      >
-                        {"Sign up"}
-                      </Button>
-                    </Col>
-                    <Col>
-                      <Button
-                        bColor="primary"
-                        bSize="big"
-                        css={{
-                          width: "50px",
-                          height: "20px",
-                          fontSize: 14,
-                          border: "none",
-                        }}
-                        onClick={() => handleMenuClick("/api/auth/login")}
-                      >
-                        {"Login"}
-                      </Button>
-                    </Col>
-                  </>
-                )
-                // <Col>
-                //   <a href="/api/auth/login">Login</a>
-                // </Col>
-              }
-
+                  </Col> */}
+                </Row>
+              </MenuItemBodyMobile>
               <Col>
                 <Border />
               </Col>
@@ -183,7 +216,7 @@ const Header = (props: any) => {
             </Row>
           </Col>
         </Row>
-      </ContainerWrapper>
+      </ContainerWrapper>      
     </HeaderWrapper>
   );
 };
