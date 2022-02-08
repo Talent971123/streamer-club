@@ -3,27 +3,10 @@ import { themeGet } from "@styled-system/theme-get";
 import { defaultTheme } from "theme";
 
 export const GameCardWrapper = styled.div`
-  @media screen and (min-width: ${defaultTheme.mediaSize.md}px)  {
-    width: 33% !important;
-  }
-
-  @media screen and (min-width: ${defaultTheme.mediaSize.sm}px) and (max-width: ${defaultTheme.mediaSize.md}px) {
-    width: 50% !important;
-  }
-
-  @media screen and (max-width: ${defaultTheme.mediaSize.sm}px) {
-    width: 100% !important;
-  }
-
+  width: 98%;
   border-radius: 10px;
   contain: content;
   cursor: pointer;
-  &:first-child {
-    margin: 0 5px 0 0 !important;
-  }
-  &:last-child {
-    margin: 0 0 0 5px !important;
-  }
   margin: 0 5px;
 `;
 

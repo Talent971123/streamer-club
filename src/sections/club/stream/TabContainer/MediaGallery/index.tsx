@@ -1,7 +1,7 @@
 import React from "react";
 
-const MediaGalleryView:React.FC = () => {
-  return <>Here is Media Gallery View</>
-}
+const MediaGalleryView: React.FC = () => {
+  return <></>;
+};
 
 export default MediaGalleryView;

@@ -16,7 +16,13 @@ import ProfileImage from "assets/images/layout/profile.png";
 import { connect } from "react-redux";
 import { setClubInfo } from "redux/actions/club";
 // styled component
-import { HeaderWrapper, MenuItem, Border, MenuItemBody, MenuItemBodyMobile } from "./Header.style";
+import {
+  HeaderWrapper,
+  MenuItem,
+  Border,
+  MenuItemBody,
+  MenuItemBodyMobile,
+} from "./Header.style";
 import { Text } from "components/Text";
 // -------------------------------------------------------------------
 import { UserProfile, useUser } from "@auth0/nextjs-auth0";
@@ -67,8 +73,8 @@ const Header = (props: any) => {
   };
 
   const bannerFlag = () => {
-    props.bannerFlag()
-  }
+    props.bannerFlag();
+  };
   return (
     <HeaderWrapper>
       <ContainerWrapper>
@@ -116,11 +122,11 @@ const Header = (props: any) => {
               flexDirection="row-reverse"
               padding="0 20px"
             >
-              <MenuItemBody >
+              <MenuItemBody>
                 {user && (
-                  <>
+                  <Row alignItems="center" gap={10}>
                     <Col>
-                      <a href="/api/auth/logout">Logout</a>
+                      <BellIcon />
                     </Col>
                     <Col className="ImageWrapper">
                       <Image
@@ -130,56 +136,54 @@ const Header = (props: any) => {
                         oFit="cover"
                         mode="intrinsic"
                       />
-                    </Col>
-                    <Col>
-                      <BellIcon />
-                    </Col>
+                    </Col>{" "}
                     <Col>
                       <Text fColor="white" fSize={14}>
                         {user?.name}
                       </Text>
                     </Col>
-                  </>
+                    <Col>
+                      <a href="/api/auth/logout">Logout</a>
+                    </Col>
+                  </Row>
                 )}
 
-                {
-                  !user && (
-                    <Row 
-                      gap={18}
-                      alignItems="center"
-                      flexDirection="row-reverse"
-                      padding="0 20px"
-                    >
-                      <Col>
-                        <Button
-                          bColor="warning"
-                          bSize="big"
-                          css={{ width: "110px", height: "20px", fontSize: 14 }}
-                          onClick={() => handleMenuClick("/api/auth/signup")}
-                        >
-                          {"Sign up"}
-                        </Button>
-                      </Col>
-                      <Col>
-                        <Button
-                          bColor="primary"
-                          bSize="big"
-                          css={{
-                            width: "50px",
-                            height: "20px",
-                            fontSize: 14,
-                            border: "none",
-                          }}
-                          onClick={() => handleMenuClick("/api/auth/login")}
-                        >
-                          {"Login"}
-                        </Button>
-                      </Col>
-                    </Row>
-                  )
-                }
+                {!user && (
+                  <Row
+                    gap={18}
+                    alignItems="center"
+                    flexDirection="row-reverse"
+                    padding="0 20px"
+                  >
+                    <Col>
+                      <Button
+                        bColor="warning"
+                        bSize="big"
+                        css={{ width: "110px", height: "20px", fontSize: 14 }}
+                        onClick={() => handleMenuClick("/api/auth/signup")}
+                      >
+                        {"Sign up"}
+                      </Button>
+                    </Col>
+                    <Col>
+                      <Button
+                        bColor="primary"
+                        bSize="big"
+                        css={{
+                          width: "50px",
+                          height: "20px",
+                          fontSize: 14,
+                          border: "none",
+                        }}
+                        onClick={() => handleMenuClick("/api/auth/login")}
+                      >
+                        {"Login"}
+                      </Button>
+                    </Col>
+                  </Row>
+                )}
               </MenuItemBody>
-              <MenuItemBodyMobile >
+              <MenuItemBodyMobile>
                 <Row
                   alignItems="center"
                   flexDirection="row-reverse"
@@ -216,7 +220,7 @@ const Header = (props: any) => {
             </Row>
           </Col>
         </Row>
-      </ContainerWrapper>      
+      </ContainerWrapper>
     </HeaderWrapper>
   );
 };

@@ -4,14 +4,15 @@ import { useRouter } from "hooks";
 import { Col, Row } from "components/Layout";
 import { ClipCard } from "components/Card";
 import { Text } from "components/Text";
-import {ScrollingCarousel} from '@trendyol-js/react-carousel';
+import { ScrollingCarousel } from "@trendyol-js/react-carousel";
 import { useLinkItem } from "components/hoc";
 import { IoArrowRedoOutline } from "react-icons/io5";
 //  import types
 import { ClipProps } from "types/components/ClipCard";
 //  import styled component
-import {SlideArrow} from "components/Button/Button"
+import { SlideArrow } from "components/Button/Button";
 import { TeamWrapper, LinkWrapper } from "./teams.style";
+import { CarouselBody } from "theme/global.state";
 
 //  define the example data
 import TeamsImage from "assets/images/home/team.png";
@@ -66,11 +67,13 @@ const TeamView: React.FC = () => {
                       content: team.division,
                     };
                     return (
-                      <ClipCard
-                        {...item}
-                        key={index}
-                        handleClick={() => onHandleClick(team.slug)}
-                      />
+                      <CarouselBody>
+                        <ClipCard
+                          {...item}
+                          key={index}
+                          handleClick={() => onHandleClick(team.slug)}
+                        />
+                      </CarouselBody>
                     );
                   })
                 }

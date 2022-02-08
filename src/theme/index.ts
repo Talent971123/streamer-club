@@ -3,7 +3,7 @@ import BaseFonts from "theme/fonts";
 import MediaSize from "./mediaSize";
 export const defaultTheme = {
   mediaSize: {
-    ...MediaSize
+    ...MediaSize,
   },
   colors: {
     ...BaseColors,

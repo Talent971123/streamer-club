@@ -4,13 +4,13 @@ import { useRouter } from "hooks";
 import { Col, Row } from "components/Layout";
 import { ClipCard } from "components/Card";
 import { Text } from "components/Text";
-import {ScrollingCarousel} from '@trendyol-js/react-carousel';
+import { ScrollingCarousel } from "@trendyol-js/react-carousel";
 import { useLinkItem } from "components/hoc";
 import { IoArrowRedoOutline } from "react-icons/io5";
 //  import types
 import { ClipProps } from "types/components/ClipCard";
 //  import styled component
-import {SlideArrow} from "components/Button/Button"
+import { SlideArrow } from "components/Button/Button";
 import { ClipWrapper, LinkWrapper } from "./clip.style";
 
 //  define the example data
@@ -79,8 +79,8 @@ const ClipView: React.FC = () => {
       <Row padding="10px 0 0 0">
         <Col item={24}>
           <ScrollingCarousel
-            leftIcon={<SlideArrow position='left' />}
-            rightIcon={<SlideArrow position='right' />}
+            leftIcon={<SlideArrow position="left" />}
+            rightIcon={<SlideArrow position="right" />}
           >
             {data.map((item: ClipProps, index: number) => {
               return <ClipCard {...item} key={index} />;

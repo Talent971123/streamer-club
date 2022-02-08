@@ -1,7 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const TeamView:React.FC = () => {
-  return <>Here is Team View</>
-}
+const TeamView: React.FC = () => {
+  return <></>;
+};
 
 export default TeamView;

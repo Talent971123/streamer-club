@@ -195,7 +195,7 @@ const Team_A_Modal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
                       <CustomSelect placeholder="Add Players" mode="multiple">
                         {club?.players
                           ? club.players.map((player: any) => (
-                              <Option key={player.id}>
+                              <Option key={`dropdown-${player.id}`}>
                                 {player.first_name + " " + player.last_name}
                               </Option>
                             ))

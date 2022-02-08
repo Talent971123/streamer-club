@@ -24,6 +24,7 @@ import "react-multi-carousel/lib/styles.css";
 import "react-toggle/style.css";
 import "react-phone-input-2/lib/style.css";
 import "@mux/videojs-kit/dist/index.css";
+import "bitmovin-player/bitmovinplayer-ui.css";
 import "antd/dist/antd.css";
 
 NProgress.configure({ showSpinner: false });

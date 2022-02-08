@@ -9,14 +9,15 @@ import moment from "moment";
 import { useRouter } from "hooks";
 import React, { useState } from "react";
 import { IoArrowRedoOutline } from "react-icons/io5";
-import {ScrollingCarousel} from '@trendyol-js/react-carousel';
+import { ScrollingCarousel } from "@trendyol-js/react-carousel";
 // import types
 import { GameCardProps } from "types/components/GameCard";
 import { thumbNailLink } from "utils/common-helper";
 import { dateDisplayFormat } from "utils/constData";
 // import styled component
-import {SlideArrow} from "components/Button/Button"
+import { SlideArrow } from "components/Button/Button";
 import { LinkWrapper, ReplayWrapper } from "./replay.style";
+import { GameCardBody } from "theme/global.state";
 
 import { getDates } from "utils/helper-date";
 
@@ -138,8 +139,8 @@ const ReplayView: React.FC = () => {
       <Row padding="10px 0 0 0">
         <Col item={24}>
           <ScrollingCarousel
-            leftIcon={<SlideArrow position='left' />}
-            rightIcon={<SlideArrow position='right' />}
+            leftIcon={<SlideArrow position="left" />}
+            rightIcon={<SlideArrow position="right" />}
           >
             {matches &&
               matches.map((match: any, index: number) => {
@@ -161,11 +162,13 @@ const ReplayView: React.FC = () => {
                 };
 
                 return (
-                  <GameCard
-                    {...item}
-                    key={index}
-                    handleClick={() => onHandleClick(match.video_asset_id)}
-                  />
+                  <GameCardBody>
+                    <GameCard
+                      {...item}
+                      key={index}
+                      handleClick={() => onHandleClick(match.video_asset_id)}
+                    />
+                  </GameCardBody>
                 );
               })}
           </ScrollingCarousel>

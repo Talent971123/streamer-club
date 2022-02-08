@@ -2,7 +2,11 @@
 import React from "react";
 import { WithContainer } from "components/Container";
 // import views
-import { DisplayView, ToolbarView, TabContainerView } from "sections/club/stream";
+import {
+  DisplayView,
+  ToolbarView,
+  TabContainerView,
+} from "sections/club/stream";
 
 const StreamPage: React.FC = () => {
   return (

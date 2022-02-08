@@ -1,1 +1,3 @@
-export { default as VideoPlayer } from "./Video-Player";
+// export { default as VideoPlayer } from "./Videojs";
+
+export { default as VideoPlayer } from "./Bitmovin";

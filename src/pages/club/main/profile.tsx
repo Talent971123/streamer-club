@@ -1,13 +1,15 @@
 import { WithContainer } from "components/Container";
 import React from "react";
-import { BioDetailsView } from "sections/club/profile";
-import ProfilePage from "sections/club/profile/MainPage";
+import { BioDetailsView, ProfilePage } from "sections/club/profile";
 
 const ProfileView: React.FC = () => {
   return (
     <>
       <WithContainer mode="container" SectionView={BioDetailsView} />
-      <WithContainer mode="container" SectionView={ProfilePage} />
+      {/* 
+        NOTE: @clint Please fix Image error on production build
+        <WithContainer mode="container" SectionView={ProfilePage} /> 
+      */}
     </>
   );
 };

@@ -1,6 +1,6 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle, css } from "styled-components";
 import { get } from "styled-system";
-import css from "@styled-system/css";
+import { defaultTheme } from "theme";
 
 export const GlobalStyle = createGlobalStyle(({ theme }) =>
   css({
@@ -90,7 +90,7 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
     },
     h6: {
       fontFamily: "MartelSans",
-      fontSize: "MartelSans",
+      fontSize: "ms",
       fontWeight: "medium",
       zIndex: 10,
       margin: 0,
@@ -143,6 +143,15 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
       maxWidth: "100%",
     },
 
+    ".bmpui-ui-watermark": {
+      display: "none",
+    },
+    ".bmpui-seekbar-playbackposition": {
+      backgroundColor: `${get(theme, "colors.primary.regular")} !important`,
+    },
+    ".bmpui-seekbar-playbackposition-marker": {
+      border: `.35rem solid ${get(theme, "colors.primary.regular")} !important`,
+    },
     // custom
     "#nprogress": {
       pointerEvents: "none",
@@ -176,3 +185,43 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
     ...theme.globals,
   })
 );
+
+export const CarouselBody = styled.div`
+  @media screen and (min-width: ${defaultTheme.mediaSize.lg}px) {
+    width: 15% !important;
+  }
+
+  @media screen and (min-width: ${defaultTheme.mediaSize
+      .md}px) and (max-width: ${defaultTheme.mediaSize.lg}px) {
+    width: 25% !important;
+  }
+
+  @media screen and (min-width: ${defaultTheme.mediaSize
+      .sm}px) and (max-width: ${defaultTheme.mediaSize.md}px) {
+    width: 33% !important;
+  }
+
+  @media screen and (max-width: ${defaultTheme.mediaSize.sm}px) {
+    width: 100% !important;
+  }
+`;
+
+export const GameCardBody = styled.div`
+  @media screen and (min-width: ${defaultTheme.mediaSize.lg}px) {
+    width: 20%;
+  }
+
+  @media screen and (min-width: ${defaultTheme.mediaSize
+      .md}px) and (max-width: ${defaultTheme.mediaSize.lg}px) {
+    width: 33%;
+  }
+
+  @media screen and (min-width: ${defaultTheme.mediaSize
+      .sm}px) and (max-width: ${defaultTheme.mediaSize.md}px) {
+    width: 50%;
+  }
+
+  @media screen and (max-width: ${defaultTheme.mediaSize.sm}px) {
+    width: 100%;
+  }
+`;

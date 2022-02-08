@@ -5,20 +5,20 @@ import { gql } from "@apollo/client";
  * TODO: transfer to common query file
  * */
 const GET_PLAYERS = gql`
-query PlayersQuery($club_slug: String!) {
-  players_details(where: { club: { slug: { _eq: $club_slug } } }) {
-    id
-    image
-    slug
-    team {
-      name
-    }
-    user{
-      first_name
-      last_name
+  query PlayersQuery($club_slug: String!) {
+    players_details(where: { club: { slug: { _eq: $club_slug } } }) {
+      id
+      image
+      slug
+      team {
+        name
+      }
+      user {
+        first_name
+        last_name
+      }
     }
   }
-}
 `;
 /** gql
  * TODO: transfer to common query file
@@ -35,14 +35,11 @@ const SUB_PLAYER = gql`
       bio
       club_id
       debut_date
-      email
-      first_name
       id
+
       image
       is_professional
       is_upgraded
-      last_name
-      mobile
       prev_club
       slug
       positions
@@ -54,6 +51,12 @@ const SUB_PLAYER = gql`
         name
       }
       updated_at
+      user {
+        email
+        first_name
+        last_name
+        auth_id
+      }
     }
   }
 `;
@@ -88,9 +91,30 @@ const GET_PLAYER_BY_ID = gql`
 `;
 
 const UPDATE_PLAER_BY_ID = gql`
-  mutation EditPlayer($id: Int!, $object: players_details_set_input = {}) {
-    update_players_details_by_pk(pk_columns: { id: $id }, _set: $object) {
-      updated_at
+  mutation MyMutation(
+    $id: Int!
+    $data: users_insert_input = {}
+    $debut_date: date!
+    $positions: jsonb!
+    $bio: String!
+    $team_id: Int!
+    $prev_club: String!
+  ) {
+    insert_players_details(
+      on_conflict: {
+        where: { id: { _eq: $id } }
+        constraint: players_details_pkey
+      }
+      objects: {
+        user: { data: $data, on_conflict: { constraint: users_pkey } }
+        debut_date: $debut_date
+        positions: $positions
+        bio: $bio
+        team_id: $team_id
+        prev_club: $prev_club
+      }
+    ) {
+      affected_rows
     }
   }
 `;

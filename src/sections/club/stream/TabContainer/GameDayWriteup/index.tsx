@@ -1,7 +1,7 @@
 import React from "react";
 
-const GameDayWriteupView:React.FC = () => {
-  return <>Here is Game Day Writeup view</>
-}
+const GameDayWriteupView: React.FC = () => {
+  return <></>;
+};
 
 export default GameDayWriteupView;

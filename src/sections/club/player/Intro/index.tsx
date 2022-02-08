@@ -1,4 +1,5 @@
 import React, { useContext, useState, useRef } from "react";
+import { useRouter } from "next/router";
 
 import { useMutation } from "@apollo/client";
 import { PLAYERQL } from "graphql/club";
@@ -29,9 +30,12 @@ import EditIcon from "assets/icon/edit";
 import { s3UploadFile } from "utils/s3-helper";
 import d_photo from "assets/images/player/default-player-image.png";
 import { PlayerContext } from "pages/club/[club_slug]/player/[player_slug]";
-
+import { RWebShare } from "react-web-share";
+import { baseUrl } from "utils/constData";
 const IntroSection: React.FC = () => {
   const { player, teams } = useContext<any>(PlayerContext);
+  const router = useRouter();
+
   const tlist = teams
     ? teams.map((item: any) => ({ label: item.name, value: item.id }))
     : [];
@@ -61,26 +65,30 @@ const IntroSection: React.FC = () => {
       setFlag(false);
     },
     onError(e) {
+      console.log(e);
       setisSubmit(false);
     },
   });
 
   const onFinish = async (values: any) => {
-    setisSubmit(true);
-    await update({
-      variables: {
-        id: player.id,
-        object: {
-          debut_date: values.debut._i,
-          positions: [values.positions],
-          first_name: values?.user?.first_name,
-          last_name: values?.user?.last_name,
-          bio: values.bio,
-          team_id: values.team_id,
-          prev_club: values.prev_club,
-        },
-      },
-    });
+    console.log(player);
+    // setisSubmit(true);
+    // await update({
+    //   variables: {
+    //     id: player.id,
+    //     data: {
+    //       email: player.user.email,
+    //       auth_id: player.user.auth_id,
+    //       first_name: values.first_name,
+    //       last_name: values.last_name,
+    //     },
+    //     debut_date: values.debut._i,
+    //     positions: [values.positions],
+    //     bio: values.bio,
+    //     team_id: values.team_id,
+    //     prev_club: values.prev_club,
+    //   },
+    // });
   };
 
   const saveImage = async (file: File, imageSrc: any) => {
@@ -112,8 +120,8 @@ const IntroSection: React.FC = () => {
         name="basic"
         onFinish={onFinish}
         initialValues={{
-          first_name: player?.user?.first_name ?? '',
-          last_name: player?.user?.last_name ?? '',
+          first_name: player?.user?.first_name ?? "",
+          last_name: player?.user?.last_name ?? "",
           bio: player.bio,
           team_id: player.teams[0].id,
           debut: moment(
@@ -156,7 +164,9 @@ const IntroSection: React.FC = () => {
                     {!flag ? (
                       <>
                         <CustomText strong css={{ fontSize: "24px" }}>
-                          {`${player?.user?.first_name ?? ''} ${player?.user?.last_name ?? ''}`}
+                          {`${player?.user?.first_name ?? ""} ${
+                            player?.user?.last_name ?? ""
+                          }`}
                         </CustomText>
                       </>
                     ) : (
@@ -210,13 +220,21 @@ const IntroSection: React.FC = () => {
                         <Button bColor="warning" icon={<FiUserPlus />}>
                           {"Follow Player"}
                         </Button>
-                        <Button
-                          bColor="primary"
-                          bSize="small"
-                          icon={<FiShare2 />}
+                        <RWebShare
+                          data={{
+                            text: "Share Profile",
+                            url: `${baseUrl + router.asPath}`,
+                          }}
+                          onClick={() => console.log("shared successfully!")}
                         >
-                          {"Share"}
-                        </Button>
+                          <Button
+                            bColor="primary"
+                            bSize="small"
+                            icon={<FiShare2 />}
+                          >
+                            {"Share"}
+                          </Button>
+                        </RWebShare>
                       </>
                     ) : (
                       <>

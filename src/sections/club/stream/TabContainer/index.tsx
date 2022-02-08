@@ -6,7 +6,7 @@ import { Col, Row } from "components/Layout";
 import TabsView from "./Tabs";
 // import CommentaryView from "./Commentary";
 import CreateClipView from "./CreateClip";
-import TeamView from "./Team";
+// import TeamView from "./Team";
 import MatchStatsView from "./MatchStats";
 import MediaGalleryView from "./MediaGallery";
 import GameDayWriteupView from "./GameDayWriteup";
@@ -20,11 +20,11 @@ const menudata: commonItem[] = [
     path: "commentary",
     component: <CreateClipView />,
   },
-  {
-    title: "Team",
-    path: "team",
-    component: <TeamView />,
-  },
+  // {
+  //   title: "Team",
+  //   path: "team",
+  //   component: <TeamView />,
+  // },
   {
     title: "Match Stats",
     path: "match-stats",
@@ -45,14 +45,14 @@ const TabContainerView: React.FC = () => {
   const [select, setSelect] = useState<string>(menudata[0].path);
   const [show, setEventShow] = useState<boolean>(false);
   const [createClip, setCreateClipShow] = useState<boolean>(false);
-  
+
   const onHandleSelect = (item: string) => {
     setSelect(item);
   };
 
   const createClipFunc = () => {
     setCreateClipShow(true);
-  }
+  };
 
   const addEvent = () => {
     setEventShow(true);
@@ -86,7 +86,12 @@ const TabContainerView: React.FC = () => {
               <Col item={4}>
                 <Button
                   bColor="primary"
-                  css={{ padding: 18, marginBottom: 16, marginRight: 16, fontSize: 12 }}
+                  css={{
+                    padding: 18,
+                    marginBottom: 16,
+                    marginRight: 16,
+                    fontSize: 12,
+                  }}
                   onClick={() => createClipFunc()}
                 >
                   {"Create Clip"}
@@ -95,7 +100,12 @@ const TabContainerView: React.FC = () => {
               <Col item={4}>
                 <Button
                   bColor="primary"
-                  css={{ padding: 18, marginBottom: 16, marginRight: 16, fontSize: 12 }}
+                  css={{
+                    padding: 18,
+                    marginBottom: 16,
+                    marginRight: 16,
+                    fontSize: 12,
+                  }}
                   onClick={addEvent}
                 >
                   {"Add Event"}

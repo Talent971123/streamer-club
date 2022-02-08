@@ -22,11 +22,11 @@ const menudata: commonItem[] = [
     path: "information",
     component: <Information />,
   },
-  {
-    title: "Teams",
-    path: "team",
-    component: <Teams />,
-  },
+  // {
+  //   title: "Teams",
+  //   path: "team",
+  //   component: <Teams />,
+  // },
   {
     title: "Players",
     path: "plyer",

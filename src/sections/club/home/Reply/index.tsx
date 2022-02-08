@@ -9,6 +9,7 @@ import { IoArrowRedoOutline } from "react-icons/io5";
 // import styled component
 import {SlideArrow} from "components/Button/Button"
 import { ReplayWrapper, LinkWrapper } from "./replay.style";
+import { GameCardBody } from "theme/global.state";
 // import types
 import { GameCardProps } from "types/components/GameCard";
 
@@ -89,11 +90,13 @@ const ReplyView: React.FC = () => {
                 };
 
                 return (
-                  <GameCard
-                    {...item}
-                    key={index}
-                    handleClick={() => onHandleClick(match.video_asset_id)}
-                  />
+                  <GameCardBody>
+                    <GameCard
+                      {...item}
+                      key={index}
+                      handleClick={() => onHandleClick(match.video_asset_id)}
+                    />
+                  </GameCardBody>
                 );
               })}
           </ScrollingCarousel>

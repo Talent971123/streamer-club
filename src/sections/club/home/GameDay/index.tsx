@@ -3,12 +3,13 @@ import React, { useState } from "react";
 import { Col, Row } from "components/Layout";
 import { GameCard } from "components/Card";
 import { Text } from "components/Text";
-import {ScrollingCarousel} from '@trendyol-js/react-carousel';
+import { ScrollingCarousel } from "@trendyol-js/react-carousel";
 import { useLinkItem } from "components/hoc";
 import { IoArrowRedoOutline } from "react-icons/io5";
 // import styled component
-import {SlideArrow} from "components/Button/Button"
+import { SlideArrow } from "components/Button/Button";
 import { GameDayWrapper, LinkWrapper } from "./gameday.style";
+import { GameCardBody } from "theme/global.state";
 // import types
 import { GameCardProps } from "types/components/GameCard";
 // define example data
@@ -65,8 +66,8 @@ const GameDayView: React.FC = (props: any) => {
       <Row padding="10px 0 0 0">
         <Col item={24}>
           <ScrollingCarousel
-            leftIcon={<SlideArrow position='left' />}
-            rightIcon={<SlideArrow position='right' />}
+            leftIcon={<SlideArrow position="left" />}
+            rightIcon={<SlideArrow position="right" />}
           >
             {data.map((match: any, index: number) => {
               const item: GameCardProps = {
@@ -89,11 +90,13 @@ const GameDayView: React.FC = (props: any) => {
               };
 
               return (
-                <GameCard
-                  {...item}
-                  key={index}
-                  handleClick={() => onHandleClick(match.video_asset_id)}
-                />
+                <GameCardBody>
+                  <GameCard
+                    {...item}
+                    key={index}
+                    handleClick={() => onHandleClick(match.video_asset_id)}
+                  />
+                </GameCardBody>
               );
             })}
           </ScrollingCarousel>

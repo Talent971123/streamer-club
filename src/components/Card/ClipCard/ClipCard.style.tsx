@@ -3,32 +3,14 @@ import styled, { css } from "styled-components";
 import { defaultTheme } from "theme";
 
 export const ClipCardWrapper = styled.div<{ mode: string }>`
-  @media screen and (min-width: ${defaultTheme.mediaSize.md}px)  {
-    width: 20% !important;
-  }
-
-  @media screen and (min-width: ${defaultTheme.mediaSize.sm}px) and (max-width: ${defaultTheme.mediaSize.md}px) {
-    width: 33% !important;
-  }
-
-  @media screen and (max-width: ${defaultTheme.mediaSize.sm}px) {
-    width: 100% !important;
-  }
-
   ${({ mode }) => {
-    if(mode === 'teams') 
-    return `
+    if (mode === "teams" || mode === "clip")
+      return `
       border: 1px solid black;
       border-radius: 7px;
-    `
+    `;
   }};
-
-  &:first-child {
-    margin: 0 5px 0 0 !important;
-  }
-  &:last-child {
-    margin: 0 0 0 5px !important;
-  }
+  width: 98%;
   margin: 0 5px;
   cursor: pointer;
   contain: content;
@@ -55,23 +37,24 @@ export const ClipContent = styled.div<{ mode: string }>`
       `;
     }
   }}
+  flex: 1;
   width: 100%;
   display: flex;
-  flex: 1;
   justify-content: center;
   position: relative;
 `;
 
 export const ClipFooter = styled.div<{ mode: string }>`
   padding: 10px 5px;
-  ${({ mode }) => {
+
+  /* ${({ mode }) => {
     if (mode === "teams") {
       return css`
         background-color: ${themeGet("colors.primary.regular")};
         border-radius: 0 0 4px 4px;
       `;
     }
-  }}
+  }} */
 `;
 
 export const PlayWrapper = styled.div<{ mode: string }>`

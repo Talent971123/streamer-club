@@ -8,6 +8,9 @@ import {
   ClipSection,
   IntroSection,
 } from "sections/club/player";
+import { Row } from "components/Layout";
+import { Text } from "components/Text";
+import { AiOutlineWarning } from "react-icons/ai";
 import { useSubscription } from "@apollo/client";
 import { PLAYERQL, TEAMQL } from "graphql/club";
 import { initializeApollo } from "api/apollo";
@@ -29,7 +32,19 @@ const PlayerPage: React.FC = ({ club_slug, player_slug, teams }: any) => {
   });
 
   if (!player) {
-    return <></>;
+    return (
+      <>
+        <Row
+          flexDirection="column"
+          padding="50px 0"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <AiOutlineWarning size={100} />
+          <Text fSize={17}>{"No Data"}</Text>
+        </Row>
+      </>
+    );
   }
 
   return (

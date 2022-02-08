@@ -96,7 +96,7 @@ const Dropdown: React.FC<dropdownProps> = ({ data, onChange }) => {
     <CommonSelect onChange={(e: any) => onHandleChange(e)}>
       {data.map((item: any, index: number) => {
         return (
-          <option value={item.value} key={index}>
+          <option value={item.value} key={`common-select-${index}`}>
             {item.title}
           </option>
         );
