@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "components/Button";
 import DateTimeInput from "components/DateTimeInput";
-import { TeamsDropdown } from "components/Dropdown";
+import { Dropdown, TeamsDropdown } from "components/Dropdown";
 import { Input } from "components/Input";
 import {
   ClubFuzzySearch,
@@ -34,6 +34,17 @@ import { connect } from "react-redux";
 import { Switch, Tooltip } from "antd";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { toast } from "react-toastify";
+
+import * as Yup from "yup";
+
+const validationSchema = Yup.object().shape({
+  away_club_id: Yup.number().required("Required"),
+  away_team_id: Yup.number().required("Required"),
+  home_team_id: Yup.number().required("Required"),
+  league_id: Yup.number().required("Required"),
+  round_name: Yup.string().required("Required"),
+});
+
 const defaultFieldsValues = {
   is_historic: false,
   status: "created",
@@ -45,7 +56,12 @@ const defaultMuxData = {
   stream_key: "",
 };
 
-const formInitialValues: Partial<any> = {}; /** TODO: add types */
+const formInitialValues: Partial<any> = {
+  name: "Home",
+  start_datetime: new Date(),
+  ext_managed: true,
+  ext_scoring: true,
+}; /** TODO: add types */
 
 const UpcomingModal: React.FC<ModalProps> = ({
   show = false,
@@ -66,6 +82,7 @@ const UpcomingModal: React.FC<ModalProps> = ({
 
   const formik = useFormik<Partial<any>>({
     initialValues: formInitialValues,
+    validationSchema: validationSchema,
     onSubmit: async (values, { resetForm }) => {
       /** request mux data */
       axios
@@ -127,7 +144,7 @@ const UpcomingModal: React.FC<ModalProps> = ({
                 <Row templateCol="1fr 1fr" display="grid" gap={10}>
                   <Col>
                     <Text fSize={0.875} padding="0 0 7px 0">
-                      {"Date & Time"}
+                      {"Date & Time *"}
                     </Text>
                     <DateTimeInput
                       name="start_datetime"
@@ -136,8 +153,12 @@ const UpcomingModal: React.FC<ModalProps> = ({
                   </Col>
                   <Col></Col>
                   <Col>
-                    <Text fSize={0.875} padding="0 0 7px 0">
-                      {"League Name"}
+                    <Text
+                      fSize={0.875}
+                      padding="0 0 7px 0"
+                      fColor={errors.league_id && "red.100"}
+                    >
+                      {"League Name *"}
                     </Text>
                     <LeaugeFuzzySearch
                       name="league_id"
@@ -145,8 +166,12 @@ const UpcomingModal: React.FC<ModalProps> = ({
                     />
                   </Col>
                   <Col>
-                    <Text fSize={0.875} padding="0 0 7px 0">
-                      {"Round Name"}
+                    <Text
+                      fSize={0.875}
+                      fColor={errors.round_name && "red.100"}
+                      padding="0 0 7px 0"
+                    >
+                      {"Round Name *"}
                     </Text>
                     <Input
                       iColor="primary"
@@ -159,8 +184,12 @@ const UpcomingModal: React.FC<ModalProps> = ({
                     />
                   </Col>
                   <Col>
-                    <Text fSize={0.875} padding="0 0 7px 0">
-                      {"Select Team"}
+                    <Text
+                      fSize={0.875}
+                      padding="0 0 7px 0"
+                      fColor={errors.home_team_id && "red.100"}
+                    >
+                      {"Select Team *"}
                     </Text>
                     <TeamsDropdown
                       name="home_team_id"
@@ -168,22 +197,36 @@ const UpcomingModal: React.FC<ModalProps> = ({
                     />
                   </Col>
                   <Col>
-                    <Text fSize={0.875} padding="0 0 7px 0">
-                      {"Home/Away Name"}
+                    <Text
+                      fSize={0.875}
+                      fColor={errors.name && "red.100"}
+                      padding="0 0 7px 0"
+                    >
+                      {"Home/Away Name *"}
                     </Text>
-                    <Input
-                      name="name"
-                      iColor="primary"
-                      iSize="small"
-                      iFont="normal"
-                      iRadius="small"
-                      placeholder="Home/Away"
-                      onChange={handleChange}
-                    />
+                    <Field name="name">
+                      {({
+                        form: { touched, errors, setFieldValue }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+                      }) => (
+                        <Dropdown
+                          data={[
+                            { title: "Home", value: "Home" },
+                            { title: "Away", value: "Away" },
+                          ]}
+                          onChange={(v) =>
+                            setFieldValue("name", v.target.value)
+                          }
+                        />
+                      )}
+                    </Field>
                   </Col>
                   <Col>
-                    <Text fSize={0.875} padding="0 0 7px 0">
-                      {"Opposition Club"}
+                    <Text
+                      fSize={0.875}
+                      fColor={errors.away_club_id && "red.100"}
+                      padding="0 0 7px 0"
+                    >
+                      {"Opposition Club *"}
                     </Text>
                     <ClubFuzzySearch
                       onChange={(v) => setAwayClubId(v)}
@@ -191,12 +234,20 @@ const UpcomingModal: React.FC<ModalProps> = ({
                     />
                   </Col>
                   <Col>
-                    <Text fSize={0.875} padding="0 0 7px 0">
-                      {"Opposition Team"}
+                    <Text
+                      fSize={0.875}
+                      fColor={errors.away_team_id && "red.100"}
+                      padding="0 0 7px 0"
+                    >
+                      {"Opposition Team *"}
                     </Text>
                     <TeamFuzzySearch club_id={awayClubId} name="away_team_id" />
                   </Col>
                 </Row>
+
+                <Text fSize={0.7} padding="0 0 7px 0">
+                  Fields marked with (*) are required.
+                </Text>
 
                 <Text fWeight={600} fSize={1.0625} padding="10px 0 0 0">
                   {"Stream Settings"}

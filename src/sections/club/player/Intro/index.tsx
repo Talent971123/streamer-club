@@ -235,6 +235,9 @@ const IntroSection: React.FC = (props: any) => {
                           data={{
                             text: "Share Profile",
                             url: `${baseUrl + router.asPath}`,
+                            title: `Streamer - ${
+                              player?.user?.first_name ?? ""
+                            } ${player?.user?.last_name ?? ""}`,
                           }}
                           onClick={() => toast.success("Shared successfully !")}
                         >

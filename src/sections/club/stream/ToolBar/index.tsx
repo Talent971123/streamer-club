@@ -189,6 +189,7 @@ const ToolBarView: React.FC = (props: any) => {
               data={{
                 text: "Share Profile",
                 url: `${baseUrl + router.asPath}`,
+                title: `Streamer - ${home_name} : ${away_name}`,
               }}
               onClick={() => toast.success("shared successfully !")}
             >

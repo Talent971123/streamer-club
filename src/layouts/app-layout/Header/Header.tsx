@@ -64,7 +64,7 @@ const Header = (props: any) => {
       if (data) {
         setClubInfo(data.clubs[0]);
         setPlayerList(data.clubs[0].players);
-        setPlayerList(data.clubs[0].players);
+        // setPlayerList(data.clubs[0].players);
         setTeamList(data.clubs[0].teams);
       }
     },

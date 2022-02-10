@@ -16,8 +16,8 @@ import {
   PlayerView,
   SupportView,
   TeamsView,
+  ReplyView,
 } from "sections/club/home";
-import ReplayView from "sections/common/Replay";
 import { ClubCtx } from "types/common/club";
 
 export const ClubContext = createContext<Partial<ClubCtx>>({});
@@ -36,7 +36,7 @@ const HomePage: React.FC = (props: any) => {
         <WithContainer mode="wrapper" SectionView={BannerView} />
         <WithContainer mode="wrapper" SectionView={HeadView} />
         <WithContainer mode="container" SectionView={GameDayView} />
-        <WithContainer mode="container" SectionView={ReplayView} />
+        <WithContainer mode="container" SectionView={ReplyView} />
         <WithContainer mode="container" SectionView={ClipView} />
         <WithContainer mode="container" SectionView={TeamsView} />
         <WithContainer mode="container" SectionView={PlayerView} />
@@ -65,7 +65,7 @@ export const getServerSideProps = async (context: any) => {
   };
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   clubInfo: state.club.info,
 });
 

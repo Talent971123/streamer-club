@@ -1,43 +1,46 @@
-import React, { useState } from "react";
+import { useSubscription } from "@apollo/client";
+import { useLinkItem } from "components/hoc";
 // import component
 import { Col, Row } from "components/Layout";
 import { Text } from "components/Text";
-import { ScrollingCarousel } from "@trendyol-js/react-carousel";
-import { useLinkItem } from "components/hoc";
+import { HomeQL } from "graphql/club";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
 import { IoArrowRedoOutline } from "react-icons/io5";
-// import styled component
-import { SlideArrow } from "components/Button/Button";
-import { ReplayWrapper, LinkWrapper } from "./replay.style";
-import { CardBody } from "theme/global.state";
-import ThumbCard from "components/Card/ThumbCard";
+import { ScrollingCarousel } from "@trendyol-js/react-carousel";
 // import types
 import { GameCardProps } from "types/components/GameCard";
-
-// define example data
-import marker from "assets/images/home/mark.png";
-import { useRouter } from "next/router";
-
-import { HomeQL } from "graphql/club";
-import { useSubscription } from "@apollo/client";
 import { thumbNailLink } from "utils/common-helper";
-import moment from "moment";
+// import styled component
+import { SlideArrow } from "components/Button/Button";
+import { LinkWrapper, ReplayWrapper } from "./replay.style";
+import { CardBody } from "theme/global.state";
+import ThumbCard from "components/Card/ThumbCard";
 
-import { dateDisplayFormat } from "utils/constData";
-import { number } from "yup";
+import { getDates } from "utils/helper-date";
+
+import _ from "lodash";
 
 const SeeAll = useLinkItem(LinkWrapper);
 
 /** TODO: Fix Typo Reply to Replay */
-const ReplyView: React.FC = () => {
+const ReplayView: React.FC = () => {
   const router = useRouter();
-  const { club_slug } = router.query;
+  const { club_slug, team_slug } = router.query;
 
   const [matches, setMatches] = useState([]);
 
-  useSubscription(HomeQL.SUB_CLUB_REPLAYS, {
-    variables: {
-      club_slug,
-    },
+  let variables: { club_slug?: any; team_slug?: any } = { club_slug };
+  let gql = HomeQL.SUB_CLUB_REPLAYS;
+
+  /** Teams page */
+  if (!_.isUndefined(team_slug)) {
+    variables = { team_slug };
+    gql = HomeQL.SUB_TEAM_REPLAYS;
+  }
+
+  useSubscription(gql, {
+    variables,
     onSubscriptionData({ subscriptionData: { data } }) {
       data && setMatches(data.matches);
     },
@@ -47,14 +50,19 @@ const ReplyView: React.FC = () => {
     router.push(`/club/${club_slug}/replays`);
   };
 
-  const onHandleClick = (id: number) => {
-    router.push(`/club/${club_slug}/replay/${id}`);
+  const onHandleClick = (video_asset_id: number, id: number) => {
+    router.push({
+      pathname: `/club/${club_slug}/replay/${video_asset_id}`,
+      query: {
+        assetId: id,
+      },
+    });
   };
 
   return (
     <ReplayWrapper>
       <Row alignItems="center" justifyContent="space-between">
-        <Text fColor="white" fSize={1.5} fWeight={700}>
+        <Text fColor="white" fSize={1.375} fWeight={700}>
           {"Replays"}
         </Text>
         <SeeAll
@@ -84,9 +92,9 @@ const ReplyView: React.FC = () => {
                   leagueDivisionName: match.home_team.division,
                   leagueName: match.league.name,
                   match_round: match.round,
-                  date: match.start_datetime
-                    ? moment(match.start_datetime).format(dateDisplayFormat)
-                    : moment().format(dateDisplayFormat),
+                  roundName: match.round_name,
+                  matchName: match.name,
+                  date: getDates(match.start_datetime).datefull,
                   mode: "Replay",
                 };
 
@@ -95,7 +103,9 @@ const ReplyView: React.FC = () => {
                     <ThumbCard
                       {...item}
                       key={index}
-                      handleClick={() => onHandleClick(match.video_asset_id)}
+                      handleClick={() =>
+                        onHandleClick(match.video_asset_id, match.id)
+                      }
                     />
                   </CardBody>
                 );
@@ -107,4 +117,4 @@ const ReplyView: React.FC = () => {
   );
 };
 
-export default ReplyView;
+export default ReplayView;

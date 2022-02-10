@@ -47,6 +47,7 @@ const HeadView: React.FC = () => {
               data={{
                 text: "Share Profile",
                 url: `${baseUrl + router.asPath}`,
+                title: `Streamer - ${club.name}`,
               }}
               onClick={() => toast.success("Shared successfully !")}
             >

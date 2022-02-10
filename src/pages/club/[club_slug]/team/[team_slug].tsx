@@ -3,7 +3,13 @@ import React, { createContext } from "react";
 import { WithContainer } from "components/Container";
 
 import { GameDayView, ClipView } from "sections/club/home";
-import { PlayerView, BannerView, HeadView, ReplayView } from "sections/common";
+import {
+  PlayerView,
+  BannerView,
+  HeadView,
+  ReplyView,
+} from "sections/club/home";
+
 import { initializeApollo } from "api/apollo";
 import { ClubCtx } from "types/common/club";
 import { HomeQL } from "graphql/club";
@@ -26,7 +32,7 @@ const TeamPage: React.FC = ({ club, players, team }: any) => {
           SectionView={HeadView}
         />
         <WithContainer mode="container" SectionView={GameDayView} />
-        <WithContainer mode="container" SectionView={ReplayView} />
+        <WithContainer mode="container" SectionView={ReplyView} />
         <WithContainer mode="container" SectionView={ClipView} />
         <WithContainer
           mode="container"

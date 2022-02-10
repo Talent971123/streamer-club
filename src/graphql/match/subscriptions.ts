@@ -24,6 +24,8 @@ const SUB_MATCHES = gql`subscription MySubscription($where: matches_bool_exp = {
       updated_at
       url
       video_asset_id
+      ext_managed
+      ext_scoring
       away_team {
         id
         image
@@ -54,5 +56,5 @@ const SUB_MATCHES = gql`subscription MySubscription($where: matches_bool_exp = {
 
 // // ---------
 export default {
-    SUB_MATCHES
+  SUB_MATCHES
 }
