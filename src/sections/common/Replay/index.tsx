@@ -6,7 +6,7 @@ import { Col, Row } from "components/Layout";
 import { Text } from "components/Text";
 import { HomeQL } from "graphql/club";
 import moment from "moment";
-import { useRouter } from "hooks";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { IoArrowRedoOutline } from "react-icons/io5";
 import { ScrollingCarousel } from "@trendyol-js/react-carousel";
@@ -93,13 +93,12 @@ const SeeAll = useLinkItem(LinkWrapper);
 
 /** TODO: Fix Typo Reply to Replay */
 const ReplayView: React.FC = () => {
-  const {
-    move,
-    param: { club_slug, team_slug },
-  } = useRouter();
+  const router = useRouter();
+  const { club_slug, team_slug } = router.query;
+
   const [matches, setMatches] = useState([]);
 
-  let variables: { club_slug?: string; team_slug?: string } = { club_slug };
+  let variables: { club_slug?: any; team_slug?: any } = { club_slug };
   let gql = HomeQL.SUB_CLUB_REPLAYS;
 
   /** Teams page */
@@ -116,18 +115,23 @@ const ReplayView: React.FC = () => {
   });
 
   const onHandleSeeAll = () => {
-    move(`/club/${club_slug}/replays`);
+    router.push(`/club/${club_slug}/replays`);
   };
 
-  const onHandleClick = (id: number) => {
-    move(`/club/${club_slug}/replay/` + id);
+  const onHandleClick = (video_asset_id: number, id: number) => {
+    router.push({
+      pathname: `/club/${club_slug}/replay/${video_asset_id}`,
+      query: {
+        assetId: id,
+      },
+    });
   };
 
   return (
     <ReplayWrapper>
       <Row alignItems="center" justifyContent="space-between">
         <Text fColor="white" fSize={1.375} fWeight={700}>
-          {"Replays2"}
+          {"Replays"}
         </Text>
         <SeeAll
           handleClick={onHandleSeeAll}
@@ -167,7 +171,9 @@ const ReplayView: React.FC = () => {
                     <ThumbCard
                       {...item}
                       key={index}
-                      handleClick={() => onHandleClick(match.video_asset_id)}
+                      handleClick={() =>
+                        onHandleClick(match.video_asset_id, match.id)
+                      }
                     />
                   </CardBody>
                 );

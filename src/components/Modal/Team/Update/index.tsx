@@ -34,7 +34,7 @@ import _ from "lodash";
 import { Form } from "antd";
 import { s3UploadFile } from "utils/s3-helper";
 import photo from "assets/images/player/default-player-image.png";
-
+import { toast } from "react-toastify";
 const { Option } = CustomSelect;
 
 const Team_U_Modal: React.FC<EditProps> = ({
@@ -67,8 +67,6 @@ const Team_U_Modal: React.FC<EditProps> = ({
   }, [mid]);
 
   useEffect(() => {
-    console.log(formData?.league_id);
-
     form.setFieldsValue({
       team_name: formData?.name,
       league: formData?.league_id,
@@ -85,7 +83,7 @@ const Team_U_Modal: React.FC<EditProps> = ({
       handleClose && handleClose();
     },
     onError(e) {
-      console.log("error", e);
+      toast.error("Error Happened.");
     },
   });
 

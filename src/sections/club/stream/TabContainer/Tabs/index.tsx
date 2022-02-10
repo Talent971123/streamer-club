@@ -17,7 +17,7 @@ const TabsView: React.FC<{
       <Row flexDirection="row" justifyContent="flex-start">
         {menudata.map((item: commonItem, index: number) => {
           return (
-            <Col item={32} key={index}>
+            <Col key={index}>
               <MenuItem
                 onClick={() => onHandleClick(item.path)}
                 mode={select === item.path ? "true" : "false"}
@@ -31,6 +31,12 @@ const TabsView: React.FC<{
                   hoverStyle={
                     select !== item.path ? { fColor: "gray.200" } : {}
                   }
+                  responsive={{
+                    600: {
+                      fSize: 0.656,
+                      padding: "4px 0",
+                    },
+                  }}
                 >
                   {item.title}
                 </Text>

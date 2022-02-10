@@ -175,7 +175,6 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
       height: "2px",
       width: "100%",
       position: "fixed",
-      zIndex: "9999",
       background: get(theme, "colors.primary.regular"),
       boxShadow: `0 0 2px ${get(theme, "colors.primary.regular")}`,
     },

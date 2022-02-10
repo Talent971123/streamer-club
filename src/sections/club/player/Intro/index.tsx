@@ -33,14 +33,13 @@ import { PlayerContext } from "pages/club/[club_slug]/player/[player_slug]";
 import { RWebShare } from "react-web-share";
 import { baseUrl } from "utils/constData";
 import { connect } from "react-redux";
-
+import { toast } from "react-toastify";
 import { UserProfile, useUser } from "@auth0/nextjs-auth0";
-
 
 const IntroSection: React.FC = (props: any) => {
   const { player } = useContext<any>(PlayerContext);
   const router = useRouter();
-  const { teams } = props
+  const { teams } = props;
   const { user } = useUser();
   const tlist = teams
     ? teams.map((item: any) => ({ label: item.name, value: item.id }))
@@ -55,14 +54,14 @@ const IntroSection: React.FC = (props: any) => {
   );
   const [store, setStore] = useState<any>(null);
 
-
   const [userUpdate] = useMutation(USERQL.UPDATE_USERS, {
     onCompleted() {
       setiimageSrc(store);
       setShow(false);
+      toast.success("Success.");
     },
     onError(e) {
-      console.log(e);
+      toast.error("Error Happened.");
     },
   });
 
@@ -70,16 +69,16 @@ const IntroSection: React.FC = (props: any) => {
     onCompleted() {
       setisSubmit(false);
       setFlag(false);
+      toast.success("Success.");
     },
     onError(e) {
-      console.log(e);
+      toast.error("Error Happened.");
       setisSubmit(false);
     },
   });
 
   const onFinish = async (values: any) => {
-
-    const { first_name, last_name, ...rest } = values
+    const { first_name, last_name, ...rest } = values;
 
     // setisSubmit(true);
 
@@ -89,17 +88,16 @@ const IntroSection: React.FC = (props: any) => {
         uid: player.user.id,
         po_object: {
           ...rest,
-          positions: rest.positions.split(",")
+          positions: rest.positions.split(","),
         },
         user_object: {
           first_name,
-          last_name
-        }
-      }
-    })
+          last_name,
+        },
+      },
+    });
 
-    setFlag(false)
-
+    setFlag(false);
   };
 
   const saveImage = async (file: File, imageSrc: any) => {
@@ -107,7 +105,7 @@ const IntroSection: React.FC = (props: any) => {
     let photo: string | null = null;
     const s3res: any = await s3UploadFile("Players", player.slug, file);
     photo = s3res.location;
-    setiimageSrc(`${s3res.location}?${Math.random()}`)
+    setiimageSrc(`${s3res.location}?${Math.random()}`);
     await userUpdate({ variables: { uid: player.user.id, object: { photo } } });
   };
 
@@ -157,14 +155,15 @@ const IntroSection: React.FC = (props: any) => {
                   accept="image/png, image/jpeg"
                 />
 
-                {user && <Button
-                  onClick={onTargetClick}
-                  bColor="primary"
-                  icon={<EditIcon />}
-                  disabled={isSubmit}
-                  css={{ border: "none" }}
-                />}
-
+                {user && (
+                  <Button
+                    onClick={onTargetClick}
+                    bColor="primary"
+                    icon={<EditIcon />}
+                    disabled={isSubmit}
+                    css={{ border: "none" }}
+                  />
+                )}
               </Row>
             </Col>
             <Col item={20}>
@@ -174,8 +173,9 @@ const IntroSection: React.FC = (props: any) => {
                     {!flag ? (
                       <>
                         <CustomText strong css={{ fontSize: "24px" }}>
-                          {`${player?.user?.first_name ?? ""} ${player?.user?.last_name ?? ""
-                            }`}
+                          {`${player?.user?.first_name ?? ""} ${
+                            player?.user?.last_name ?? ""
+                          }`}
                         </CustomText>
                       </>
                     ) : (
@@ -217,15 +217,17 @@ const IntroSection: React.FC = (props: any) => {
                     <CustomText>{"121 Followers"}</CustomText>
                     {!flag ? (
                       <>
-                        {user && <CustomForm.Item>
-                          <Button
-                            bColor="warning"
-                            icon={<EditIcon />}
-                            onClick={() => setFlag(true)}
-                          >
-                            {"Edit"}
-                          </Button>
-                        </CustomForm.Item>}
+                        {user && (
+                          <CustomForm.Item>
+                            <Button
+                              bColor="warning"
+                              icon={<EditIcon />}
+                              onClick={() => setFlag(true)}
+                            >
+                              {"Edit"}
+                            </Button>
+                          </CustomForm.Item>
+                        )}
                         <Button bColor="warning" icon={<FiUserPlus />}>
                           {"Follow Player"}
                         </Button>
@@ -234,7 +236,7 @@ const IntroSection: React.FC = (props: any) => {
                             text: "Share Profile",
                             url: `${baseUrl + router.asPath}`,
                           }}
-                          onClick={() => console.log("shared successfully!")}
+                          onClick={() => toast.success("Shared successfully !")}
                         >
                           <Button
                             bColor="primary"
@@ -330,7 +332,9 @@ const IntroSection: React.FC = (props: any) => {
                   </CustomText>
                   {!flag ? (
                     <CustomText>
-                      {player.debut_date ? moment(player.debut_date).format("LL") : ""}
+                      {player.debut_date
+                        ? moment(player.debut_date).format("LL")
+                        : ""}
                     </CustomText>
                   ) : (
                     <CustomForm.Item name="debut_date">
@@ -348,7 +352,7 @@ const IntroSection: React.FC = (props: any) => {
                     {"Positions: "}
                   </CustomText>
                   {!flag ? (
-                    <CustomText>{player.positions.join(', ')}</CustomText>
+                    <CustomText>{player.positions.join(", ")}</CustomText>
                   ) : (
                     <CustomForm.Item name="positions">
                       <CustomInput
@@ -397,7 +401,7 @@ const IntroSection: React.FC = (props: any) => {
 };
 
 const mapStateToProps = (state) => ({
-  teams: state.teams.list
+  teams: state.teams.list,
 });
 
 const mapDispatchToProps = {};

@@ -1,4 +1,4 @@
-import styled, {css} from "styled-components";
+import styled, { css } from "styled-components";
 //  define
 
 export const ContentWrapper = styled.div``;

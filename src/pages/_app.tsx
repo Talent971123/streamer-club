@@ -6,27 +6,28 @@ import NProgress from "nprogress";
 import React, { useEffect, useState } from "react";
 // import layout
 import AppLayout from "layouts/app-layout";
-// import component
-import Loading from "components/Loading";
 // import context providers
 import { ThemeProvider } from "styled-components";
 import { ApolloProvider } from "@apollo/client";
 // apollo setting
 import { useApollo } from "api/apollo";
-// Redux
+//  Redux
 import { wrapper } from "redux/store";
+import { ToastContainer } from "react-toastify";
 //auth0
 import { UserProvider } from "@auth0/nextjs-auth0";
-// import CSS
 import { defaultTheme } from "theme";
-import { GlobalStyle } from "theme/global.state";
-import "react-multi-carousel/lib/styles.css";
-import "react-toggle/style.css";
-import "react-phone-input-2/lib/style.css";
-import "@mux/videojs-kit/dist/index.css";
-import "bitmovin-player/bitmovinplayer-ui.css";
+// import CSS
+import "./style.css";
 import "antd/dist/antd.css";
-import './style.css';
+import "react-toggle/style.css";
+import "@mux/videojs-kit/dist/index.css";
+import "react-phone-input-2/lib/style.css";
+import "react-multi-carousel/lib/styles.css";
+import "bitmovin-player/bitmovinplayer-ui.css";
+import "react-toastify/dist/ReactToastify.css";
+import { GlobalStyle } from "theme/global.state";
+
 NProgress.configure({ showSpinner: false });
 
 function Streamer({ Component, pageProps }: AppProps) {
@@ -51,8 +52,19 @@ function Streamer({ Component, pageProps }: AppProps) {
       <ThemeProvider theme={defaultTheme}>
         <UserProvider>
           <AppLayout>
-            {/* {!loading ? <Component {...pageProps} /> : <Loading />} */}
             <Component {...pageProps} />
+            <ToastContainer
+              position="top-right"
+              autoClose={3000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              theme="dark"
+              pauseOnHover
+            />
           </AppLayout>
         </UserProvider>
         <GlobalStyle />

@@ -14,6 +14,7 @@ import Mark from "assets/images/home/team2.png";
 import { RWebShare } from "react-web-share";
 import { baseUrl } from "utils/constData";
 import _ from "lodash";
+import { toast } from "react-toastify";
 
 const HeadView: React.FC = () => {
   const club = useContext(ClubContext);
@@ -40,14 +41,14 @@ const HeadView: React.FC = () => {
             </Col>
           </Row>
         </Col>
-        <Col item={12} >
+        <Col item={12}>
           <Row flexDirection="row-reverse" padding="0 20px 0 0">
             <RWebShare
               data={{
                 text: "Share Profile",
                 url: `${baseUrl + router.asPath}`,
               }}
-              onClick={() => console.log("shared successfully!")}
+              onClick={() => toast.success("Shared successfully !")}
             >
               <Button bColor="primary" bSize="small" icon={<FiShare2 />}>
                 {"Share"}

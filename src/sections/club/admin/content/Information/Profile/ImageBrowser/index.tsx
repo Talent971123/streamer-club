@@ -22,7 +22,6 @@ export const ImageBroswer: React.FC = () => {
     const newFiles = event.target.files;
 
     setFiles(files.concat(newFiles));
-    console.log(files);
     // do something with your files...
   };
   const onTargetClick = () => {

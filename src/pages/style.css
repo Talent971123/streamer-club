@@ -1,29 +1,29 @@
 @font-face {
   font-family: "HeyWow";
-  src: url('../assets/fonts/HeyWow/HeyWow-Regular.woff') format('woff');
+  src: url("../assets/fonts/HeyWow/HeyWow-Regular.woff") format("woff");
   font-weight: 400;
 }
 
 @font-face {
   font-family: "HeyWow";
-  src: url('../assets/fonts/HeyWow/HeyWow-Bold.woff') format('woff');
+  src: url("../assets/fonts/HeyWow/HeyWow-Bold.woff") format("woff");
   font-weight: bold;
 }
 
 @font-face {
   font-family: "HeyWow";
-  src: url('../assets/fonts/HeyWow/HeyWow-Light.woff') format('woff');
+  src: url("../assets/fonts/HeyWow/HeyWow-Light.woff") format("woff");
   font-weight: lighter;
 }
 
 @font-face {
   font-family: "HeyWow";
-  src: url('../assets/fonts/HeyWow/HeyWow-Medium.woff') format('woff');
+  src: url("../assets/fonts/HeyWow/HeyWow-Medium.woff") format("woff");
   font-weight: 600;
 }
 
 @font-face {
   font-family: "HeyWow";
-  src: url('../assets/fonts/HeyWow/HeyWow-ExtraBold.woff') format('woff');
+  src: url("../assets/fonts/HeyWow/HeyWow-ExtraBold.woff") format("woff");
   font-weight: 800;
 }

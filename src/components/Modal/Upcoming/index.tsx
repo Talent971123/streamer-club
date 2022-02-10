@@ -31,11 +31,9 @@ import { mutate } from "graphql/match";
 
 import { connect } from "react-redux";
 
-import { Switch, Tooltip } from 'antd';
-import {
-  InfoCircleOutlined
-} from '@ant-design/icons';
-
+import { Switch, Tooltip } from "antd";
+import { InfoCircleOutlined } from "@ant-design/icons";
+import { toast } from "react-toastify";
 const defaultFieldsValues = {
   is_historic: false,
   status: "created",
@@ -59,18 +57,16 @@ const UpcomingModal: React.FC<ModalProps> = ({
 
   const [addMatch] = useMutation(mutate.INSERT_MATCH, {
     onCompleted() {
-      // alert('Inserted new yeah')
-      // TODO: Notifications module
+      toast.success("Inserted new yeah.");
     },
     onError(e) {
-      console.log("error", e);
+      toast.error("Error Happened.");
     },
   });
 
   const formik = useFormik<Partial<any>>({
     initialValues: formInitialValues,
     onSubmit: async (values, { resetForm }) => {
-
       /** request mux data */
       axios
         .post(apiBaseUrl + "/mux/live-stream", {
@@ -206,21 +202,24 @@ const UpcomingModal: React.FC<ModalProps> = ({
                   {"Stream Settings"}
                 </Text>
                 <Row templateCol="1fr 1fr" display="grid" gap={10}>
-
                   <Col>
                     <Text fSize={0.875} padding="0 0 7px 0">
                       {"Managed stream "}
                       <Tooltip
                         title="Turn this on if you will be using external streaming service. e.g. OBS streamlabs"
-                        color={'black'}
+                        color={"black"}
                       >
                         <InfoCircleOutlined />
                       </Tooltip>
                     </Text>
-                    <Field name="ext_managed" >
+                    <Field name="ext_managed">
                       {({
                         form: { touched, errors, setFieldValue }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
-                      }) => (<Switch onChange={e => setFieldValue('ext_managed', e)} />)}
+                      }) => (
+                        <Switch
+                          onChange={(e) => setFieldValue("ext_managed", e)}
+                        />
+                      )}
                     </Field>
                   </Col>
                   <Col>
@@ -228,20 +227,22 @@ const UpcomingModal: React.FC<ModalProps> = ({
                       {"External Scoring "}
                       <Tooltip
                         title="Tunn this on if you will be overlaying your own scoring and timekeeping via a video mixer e.g. using a service such as LIGR"
-                        color={'black'}
+                        color={"black"}
                       >
                         <InfoCircleOutlined />
                       </Tooltip>
                     </Text>
-                    <Field name="ext_scoring" >
+                    <Field name="ext_scoring">
                       {({
                         form: { touched, errors, setFieldValue }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
-                      }) => (<Switch onChange={e => setFieldValue('ext_scoring', e)} />)}
+                      }) => (
+                        <Switch
+                          onChange={(e) => setFieldValue("ext_scoring", e)}
+                        />
+                      )}
                     </Field>
                   </Col>
-
                 </Row>
-
 
                 <Text fWeight={600} fSize={1.0625} padding="10px 0 0 0">
                   {"Stream Details"}

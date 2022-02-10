@@ -34,6 +34,7 @@ import {
 } from "../index.style";
 
 import { Form } from "antd";
+import { toast } from "react-toastify";
 import ButtonLoading from "components/Loading/ButtonLoading";
 
 const Player_A_Modal: React.FC<EditProps> = ({
@@ -86,7 +87,7 @@ const Player_A_Modal: React.FC<EditProps> = ({
       handleClose && handleClose();
     },
     onError(e) {
-      console.log("error", e);
+      toast.error("Error Happened.");
     },
   });
 

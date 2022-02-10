@@ -1,5 +1,4 @@
 import React, { useCallback, useState, useEffect } from "react";
-
 // assets
 import { Text } from "components/Text";
 
@@ -7,7 +6,7 @@ import { Button } from "components/Button";
 import { Col, Row } from "components/Layout";
 // types
 import { ImageCropProps } from "types/components/Modal";
-
+import { toast } from "react-toastify";
 // common
 import Cropper from "react-easy-crop";
 import { BsSave } from "react-icons/bs";
@@ -61,7 +60,7 @@ const ImageCrop_Modal: React.FC<ImageCropProps> = ({
           setFlag(false);
           handleClose && handleClose();
         })
-        .catch((e: any) => console.log(e));
+        .catch((e: any) => toast.error("Error happened."));
     };
     if (!_.isNull(file)) {
       fetchData();
@@ -87,7 +86,7 @@ const ImageCrop_Modal: React.FC<ImageCropProps> = ({
         }
       }
     };
-    onFilterFile(meta).catch(console.error);
+    onFilterFile(meta).catch(() => toast.error("Error happened."));
   }, [meta]);
 
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
@@ -114,7 +113,7 @@ const ImageCrop_Modal: React.FC<ImageCropProps> = ({
       setCropImage(croppedImage);
       setFlag(true);
     } catch (e) {
-      console.error(e);
+      toast.error("Error Happened.");
     } finally {
       setisSubmit(false);
     }

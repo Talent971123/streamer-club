@@ -9,7 +9,7 @@ const Rounter = () => {
   const router = useRouter();
   const [path, setPath] = useState("");
   const [param, setParam] = useState<Partial<ParamTypes>>({});
-  const { asPath } = router
+  const { asPath } = router;
 
   useEffect(() => {
     let isMounted = true;

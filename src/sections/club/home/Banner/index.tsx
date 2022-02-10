@@ -1,10 +1,10 @@
-import { Image } from "components/Image";
-import _ from "lodash";
 import React from "react";
 import { connect } from "react-redux";
+import { Image } from "components/Image";
 import { remoteImageSrc } from "utils/common-helper";
 // import styled
 import { BannerWrapper } from "./banner.style";
+import _ from "lodash";
 
 const Banner = (props) => {
   const { clubInfo } = props;

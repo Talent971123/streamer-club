@@ -1,14 +1,18 @@
 import React, { useEffect, useRef } from "react";
 import { Player } from "bitmovin-player";
 import { UIFactory } from "bitmovin-player-ui";
+
+import { connect } from "react-redux";
+import { setLiveShow } from "redux/actions/watch";
+import { toast } from "react-toastify";
+
 interface videoProps {
   playback_id?: string;
-  isLive?: any;
+  setLiveShow?: any;
 }
 
-const VideoPlayer: React.FC<videoProps> = ({ playback_id }) => {
+const VideoPlayer: React.FC<videoProps> = ({ playback_id, setLiveShow }) => {
   const videoRef = useRef<any>(null);
-
   const playerConfig = {
     key: process.env.NEXT_PUBLIC_BITMOVIN_ENV || "",
     playback: {
@@ -41,10 +45,10 @@ const VideoPlayer: React.FC<videoProps> = ({ playback_id }) => {
   };
 
   const errorHandler = () => {
+    setLiveShow(false);
     if (playerSource.poster) {
       const img = document.createElement("div");
       img.className = "poster";
-      // img.src = "../../../assets/images/home/default-bg.png";
       videoRef.current.appendChild(img);
     }
   };
@@ -55,14 +59,14 @@ const VideoPlayer: React.FC<videoProps> = ({ playback_id }) => {
 
   const setupPlayer = () => {
     const player = new Player(videoRef.current, playerConfig);
-
     UIFactory.buildDefaultUI(player);
     player.load(playerSource).then(
       () => {
-        console.log("Successfully loaded source");
+        setLiveShow(true);
       },
       () => {
-        console.log("Error while loading source");
+        setLiveShow(false);
+        toast.error("Error while loading source");
       }
     );
   };
@@ -76,4 +80,11 @@ const VideoPlayer: React.FC<videoProps> = ({ playback_id }) => {
   );
 };
 
-export default VideoPlayer;
+const mapStateToProps = (state: any) => ({
+  isLive: state.watch.live,
+});
+
+const mapDispatchToProps = {
+  setLiveShow: setLiveShow,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(VideoPlayer);

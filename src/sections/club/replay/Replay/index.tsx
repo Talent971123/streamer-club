@@ -20,8 +20,13 @@ const ReplyView: React.FC = () => {
 
   const { club_slug } = router.query;
 
-  const onClick = (id: number) => {
-    router.push(`/club/${club_slug}/replay/` + id);
+  const onHandleClick = (video_asset_id: number, id: number) => {
+    router.push({
+      pathname: `/club/${club_slug}/replay/${video_asset_id}`,
+      query: {
+        assetId: id,
+      },
+    });
   };
 
   return (
@@ -58,7 +63,7 @@ const ReplyView: React.FC = () => {
             <GameCard
               {...item}
               key={index}
-              handleClick={() => onClick(match.video_asset_id)}
+              handleClick={() => onHandleClick(match.video_asset_id, match.id)}
             />
           );
         })}

@@ -4,7 +4,7 @@ import { useRouter } from "hooks";
 import { Col, Row } from "components/Layout";
 import { ClipCard } from "components/Card";
 import { Text } from "components/Text";
-import { ScrollingCarousel } from '@trendyol-js/react-carousel';
+import { ScrollingCarousel } from "@trendyol-js/react-carousel";
 import { useLinkItem } from "components/hoc";
 import { IoArrowRedoOutline } from "react-icons/io5";
 //  import types
@@ -22,7 +22,7 @@ const SeeAll = useLinkItem(LinkWrapper);
 
 const PlayerView: React.FC = (props: any) => {
   const { move } = useRouter();
-  const { club } = props
+  const { club } = props;
 
   const onHandleSeeAll = () => {
     move(`/club/${club.slug}/players`);
@@ -51,16 +51,18 @@ const PlayerView: React.FC = (props: any) => {
       </Row>
       <Row padding="10px 0 0 0">
         <Col item={24}>
-          {club.players &&
+          {club.players && (
             <ScrollingCarousel
-              leftIcon={<SlideArrow position='left' />}
-              rightIcon={<SlideArrow position='right' />}
+              leftIcon={<SlideArrow position="left" />}
+              rightIcon={<SlideArrow position="right" />}
             >
               {club.players.map((player: any, index: number) => {
                 const item: ClipProps = {
                   id: player.id,
                   backgroundImage: player?.user?.photo,
-                  title: `${player?.user?.first_name ?? ''} ${player?.user?.last_name ?? ''}`,
+                  title: `${player?.user?.first_name ?? ""} ${
+                    player?.user?.last_name ?? ""
+                  }`,
                   mode: "player",
                   content: player.team?.name,
                 };
@@ -76,7 +78,7 @@ const PlayerView: React.FC = (props: any) => {
                 );
               })}
             </ScrollingCarousel>
-          }
+          )}
         </Col>
       </Row>
     </PlayerWrapper>
@@ -84,7 +86,7 @@ const PlayerView: React.FC = (props: any) => {
 };
 
 const mapStateToProps = (state) => ({
-  club: state.club.info
+  club: state.club.info,
 });
 
 const mapDispatchToProps = {};

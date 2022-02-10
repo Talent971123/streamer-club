@@ -13,6 +13,7 @@ import { RWebShare } from "react-web-share";
 // import styled component
 import { HeadWrapper } from "./head.style";
 import { baseUrl } from "utils/constData";
+import { toast } from "react-toastify";
 
 const HeadView: React.FC<SectionViewProps> = (props) => {
   const {
@@ -30,7 +31,7 @@ const HeadView: React.FC<SectionViewProps> = (props) => {
             </Col>
             <Col>
               <Text fColor="red.100" fSize={2.375} fWeight={800}>
-                {title || 'Team'}
+                {title || "Team"}
               </Text>
             </Col>
           </Row>
@@ -42,7 +43,7 @@ const HeadView: React.FC<SectionViewProps> = (props) => {
                 text: "Share Profile",
                 url: `${baseUrl + router.asPath}`,
               }}
-              onClick={() => console.log("shared successfully!")}
+              onClick={() => toast.success("Shared successfully !")}
             >
               <Button bColor="primary" bSize="small" icon={<FiShare2 />}>
                 {"Share"}

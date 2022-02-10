@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 
 import { useMutation } from "@apollo/client";
 import { ADMINQL } from "graphql/club";
@@ -13,11 +13,8 @@ import { ModalProps } from "types/components/Modal";
 import { s3UploadFile } from "utils/s3-helper";
 // common
 import _ from "lodash";
-import { v4 as uuidv4 } from "uuid";
 import { BsSave } from "react-icons/bs";
-import PhoneInput from "react-phone-input-2";
 import { ImCancelCircle } from "react-icons/im";
-
 import photo from "assets/images/layout/group.png";
 
 import {
@@ -26,8 +23,6 @@ import {
   ModalFooter,
   ModalHeader,
   ModalWrapper,
-  phone_inputStyle,
-  phone_dropstyle,
   CustomSelect,
   CustomeInput,
   CustomText,
@@ -37,6 +32,7 @@ import { Form } from "antd";
 import ButtonLoading from "components/Loading/ButtonLoading";
 import { useSelector, RootStateOrAny } from "react-redux";
 import { slugifyString } from "utils/common-helper";
+import { toast } from "react-toastify";
 
 const Player_A_Modal: React.FC<ModalProps> = ({
   show = false,
@@ -44,7 +40,10 @@ const Player_A_Modal: React.FC<ModalProps> = ({
 }) => {
   const [form] = Form.useForm();
   const { teams, club } = useSelector((state: RootStateOrAny) => state);
-  const teamsData = teams.list.map((team) => ({ label: team.name, value: team.id }))
+  const teamsData = teams.list.map((team) => ({
+    label: team.name,
+    value: team.id,
+  }));
 
   // useState
   const [meta, setMeta] = useState<any>(null);
@@ -63,13 +62,13 @@ const Player_A_Modal: React.FC<ModalProps> = ({
       handleClose && handleClose();
     },
     onError(e) {
-      console.log("error", e);
+      toast.error("Error Happened.");
     },
   });
 
   const onFinish = async (values: any) => {
     setSubmiting(true);
-    const { team_id, positions, email, first_name, last_name } = values
+    const { team_id, positions, email, first_name, last_name } = values;
     const slug = slugifyString(`${first_name} ${last_name}`);
     let image: string | null = null;
 
@@ -94,15 +93,14 @@ const Player_A_Modal: React.FC<ModalProps> = ({
               email,
               first_name,
               last_name,
-              photo: image
-            }
-          }
-        }
-      }
-    })
+              photo: image,
+            },
+          },
+        },
+      },
+    });
 
     setSubmiting(false);
-
   };
 
   const saveImage = async (file: File, imageSrc: any) => {
@@ -309,4 +307,4 @@ const Player_A_Modal: React.FC<ModalProps> = ({
   );
 };
 
-export default Player_A_Modal
+export default Player_A_Modal;

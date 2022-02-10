@@ -1,15 +1,15 @@
 // import react
 import React from "react";
-import { WithContainer } from "components/Container";
 // import views
 import {
   DisplayView,
   ToolbarView,
   TabContainerView,
 } from "sections/club/stream";
-import { StreamPageCtx } from "types/common/club";
-import { initializeApollo } from "api/apollo";
 import { query } from "graphql/stream";
+import { initializeApollo } from "api/apollo";
+import { StreamPageCtx } from "types/common/club";
+import { WithContainer } from "components/Container";
 import { StreamPageContext } from "hooks/context/StreamPageContext";
 
 const StreamPage: React.FC<{ streamInfo: StreamPageCtx }> = ({

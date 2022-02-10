@@ -1,9 +1,9 @@
+import React, { createContext } from "react";
+import { connect } from "react-redux";
 // import react
 import { initializeApollo } from "api/apollo";
 import { WithContainer } from "components/Container";
 import { HomeQL } from "graphql/club";
-import React, { createContext, useEffect } from "react";
-import { connect } from "react-redux";
 import { setClubInfo } from "redux/actions/club";
 import { setPlayerList } from "redux/actions/players";
 // import views
@@ -71,7 +71,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   setClubInfo: setClubInfo,
-  setPlayerList: setPlayerList
+  setPlayerList: setPlayerList,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

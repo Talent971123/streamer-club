@@ -33,7 +33,7 @@ import {
 import _ from "lodash";
 import { Form } from "antd";
 import { v4 as uuidv4 } from "uuid";
-import { s3UploadFile } from "utils/s3-helper";
+import { toast } from "react-toastify";
 import photo from "assets/images/player/default-player-image.png";
 
 const { Option } = CustomSelect;
@@ -62,7 +62,7 @@ const Team_A_Modal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
       handleClose && handleClose();
     },
     onError(e) {
-      console.log("error", e);
+      toast.error("Error Happened.");
     },
   });
 
@@ -87,22 +87,6 @@ const Team_A_Modal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
       // image = s3res.location;
       image = "s3res.location";
     }
-
-    console.log({
-      club_id: club.id,
-      image,
-      league_id: values.league,
-      name: values.team_name,
-      slug,
-      division: values.team_name,
-      players: values.players,
-      admins: values.admins
-        ? values.admins.map((item: any) => ({
-            id: item.split("/")[1],
-            mail: item.split("/")[0],
-          }))
-        : [],
-    });
 
     // await add({
     //   variables: {

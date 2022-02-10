@@ -6,6 +6,7 @@ const rootReducer = combineReducers({
   players: R.Players,
   teams: R.Teams,
   match: R.Match,
+  watch: R.Watch,
 });
 
 export default rootReducer;

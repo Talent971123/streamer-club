@@ -74,8 +74,13 @@ const TabContainerView: React.FC = () => {
               border-bottom: 1px solid ${themeGet("colors.gray.300")};
               border-radius: 5px;
             `}
+            responsive={{
+              900: {
+                flexDirection: "column",
+              },
+            }}
           >
-            <Col item={48}>
+            <Col item={24}>
               <TabsView
                 menudata={menudata}
                 select={select}
@@ -83,28 +88,30 @@ const TabContainerView: React.FC = () => {
               />
             </Col>
             <Row alignItems="flex-end" justifyContent="flex-end">
-              <Col item={4}>
+              <Col>
                 <Button
                   bColor="primary"
                   css={{
-                    padding: 18,
+                    padding: 10,
                     marginBottom: 16,
                     marginRight: 16,
                     fontSize: 12,
+                    whiteSpace: "nowrap",
                   }}
                   onClick={() => createClipFunc()}
                 >
                   {"Create Clip"}
                 </Button>
               </Col>
-              <Col item={4}>
+              <Col>
                 <Button
                   bColor="primary"
                   css={{
-                    padding: 18,
+                    padding: 10,
                     marginBottom: 16,
                     marginRight: 16,
                     fontSize: 12,
+                    whiteSpace: "nowrap",
                   }}
                   onClick={addEvent}
                 >

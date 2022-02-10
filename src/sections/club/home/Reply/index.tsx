@@ -48,19 +48,14 @@ const ReplyView: React.FC = () => {
   };
 
   const onHandleClick = (id: number) => {
-    router.push({
-      pathname: `/club/${club_slug}/replay/${id}`,
-      query: {
-        assetId: 1,
-      },
-    });
+    router.push(`/club/${club_slug}/replay/${id}`);
   };
 
   return (
     <ReplayWrapper>
       <Row alignItems="center" justifyContent="space-between">
         <Text fColor="white" fSize={1.5} fWeight={700}>
-          {"Replays1"}
+          {"Replays"}
         </Text>
         <SeeAll
           handleClick={onHandleSeeAll}
