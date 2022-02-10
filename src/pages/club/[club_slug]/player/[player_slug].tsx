@@ -18,7 +18,7 @@ import _ from "lodash";
 
 export const PlayerContext = createContext<any>(null);
 
-const PlayerPage: React.FC = ({ club_slug, player_slug, teams }: any) => {
+const PlayerPage: React.FC = ({ club_slug, player_slug }: any) => {
   const [player, setPlayer] = useState<any>(null);
 
   useSubscription(PLAYERQL.SUB_PLAYER, {
@@ -49,7 +49,7 @@ const PlayerPage: React.FC = ({ club_slug, player_slug, teams }: any) => {
 
   return (
     <>
-      <PlayerContext.Provider value={{ player, teams }}>
+      <PlayerContext.Provider value={{ player }}>
         <WithContainer mode="container" SectionView={IntroSection} />
         <WithContainer mode="container" SectionView={ClipSection} />
         <WithContainer mode="container" SectionView={GamesSection} />
@@ -63,16 +63,8 @@ export const getServerSideProps = async (context) => {
   const apolloClient = initializeApollo();
   const { club_slug, player_slug } = context.query;
 
-  const { data } = await apolloClient.query({
-    query: TEAMQL.GET_TEAMS,
-    variables: {
-      club_slug,
-    },
-  });
-
   return {
     props: {
-      teams: data.teams,
       club_slug,
       player_slug,
     },

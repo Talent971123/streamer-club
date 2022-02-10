@@ -254,10 +254,10 @@ const CommentaryView: React.FC = () => {
                               `}
                               onClick={() => console.log(item.title)}
                             >
-                              <Text fSize={20} fWeight={700}>
+                              <Text fSize={1.25} fWeight={700}>
                                 {item.type}
                               </Text>
-                              <Text fSize={12}>{item.title}</Text>
+                              <Text fSize={0.75}>{item.title}</Text>
                             </Button>
                           </Col>
                         );
@@ -288,7 +288,7 @@ const CommentaryView: React.FC = () => {
                                   `}
                                   onClick={() => handleScore(item.value)}
                                 >
-                                  <Text fSize={16}>{item.type}</Text>
+                                  <Text fSize={1}>{item.type}</Text>
                                 </Button>
                               </Col>
                             );
@@ -420,7 +420,7 @@ const CommentaryView: React.FC = () => {
                     <Row alignItems="center" justifyContent="center">
                       <Text
                         fColor="white"
-                        fSize={16}
+                        fSize={1}
                         fWeight={700}
                         css={{ paddingBottom: 24 }}
                       >
@@ -430,22 +430,22 @@ const CommentaryView: React.FC = () => {
                   </Col>
                   <Col item={24}>
                     <Row>
-                      <Text fColor="white" fSize={12} fWeight={700}>
+                      <Text fColor="white" fSize={0.75} fWeight={700}>
                         {item.title}
                       </Text>
                     </Row>
                     <Row>
-                      <Text fColor="white" fSize={16} fWeight={700}>
+                      <Text fColor="white" fSize={1} fWeight={700}>
                         {item.name}&nbsp;
                       </Text>
-                      <Text fColor="white" fSize={16} fWeight={200}>
+                      <Text fColor="white" fSize={1} fWeight={200}>
                         {item.statement}
                       </Text>
                     </Row>
                     <Row>
                       <Text
                         fColor="red.100"
-                        fSize={12}
+                        fSize={0.75}
                         fWeight={200}
                         css={{ paddingTop: 24 }}
                       >

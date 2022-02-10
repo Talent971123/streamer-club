@@ -42,18 +42,18 @@ const PreviousModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
     <ModalWrapper show={show}>
       <ModalContent show={show}>
         <ModalHeader>
-          <Text fSize={22} fWeight={600}>
+          <Text fSize={1.375} fWeight={600}>
             {"Add Previous Match"}
           </Text>
         </ModalHeader>
         <ModalBody>
           <Row flexDirection="column" gap={5}>
-            <Text fWeight={600} fSize={17}>
+            <Text fWeight={600} fSize={1.0625}>
               {"Match Details"}
             </Text>
             <Row templateCol="1fr 1fr" display="grid" gap={10}>
               <Col>
-                <Text fSize={14} padding="0 0 7px 0">
+                <Text fSize={0.875} padding="0 0 7px 0">
                   {"Date & Time"}
                 </Text>
                 <Input
@@ -66,7 +66,7 @@ const PreviousModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
               </Col>
               <Col></Col>
               <Col>
-                <Text fSize={14} padding="0 0 7px 0">
+                <Text fSize={0.875} padding="0 0 7px 0">
                   {"League Name"}
                 </Text>
                 <Input
@@ -78,7 +78,7 @@ const PreviousModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
                 />
               </Col>
               <Col>
-                <Text fSize={14} padding="0 0 7px 0">
+                <Text fSize={0.875} padding="0 0 7px 0">
                   {"Round Name"}
                 </Text>
                 <Input
@@ -90,7 +90,7 @@ const PreviousModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
                 />
               </Col>
               <Col>
-                <Text fSize={14} padding="0 0 7px 0">
+                <Text fSize={0.875} padding="0 0 7px 0">
                   {"Select Team"}
                 </Text>
                 <Input
@@ -102,7 +102,7 @@ const PreviousModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
                 />
               </Col>
               <Col>
-                <Text fSize={14} padding="0 0 7px 0">
+                <Text fSize={0.875} padding="0 0 7px 0">
                   {"Home/Away Name"}
                 </Text>
                 <Input
@@ -114,7 +114,7 @@ const PreviousModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
                 />
               </Col>
               <Col>
-                <Text fSize={14} padding="0 0 7px 0">
+                <Text fSize={0.875} padding="0 0 7px 0">
                   {"Opposition Club"}
                 </Text>
                 <Input
@@ -126,7 +126,7 @@ const PreviousModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
                 />
               </Col>
               <Col>
-                <Text fSize={14} padding="0 0 7px 0">
+                <Text fSize={0.875} padding="0 0 7px 0">
                   {"Opposition Team"}
                 </Text>
                 <Input
@@ -138,7 +138,7 @@ const PreviousModal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
                 />
               </Col>
             </Row>
-            <Text fWeight={600} fSize={17} padding="10px 0 0 0">
+            <Text fWeight={600} fSize={1.0625} padding="10px 0 0 0">
               {"Upload Reply"}
             </Text>
             <UploadWrapper onClick={onTargetClick}>

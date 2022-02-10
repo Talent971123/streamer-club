@@ -56,7 +56,7 @@ const BioDetailsView: React.FC = () => {
             />
           </Col>
           <Col>
-            <Text padding="0 0 0 30px" fSize={22} fWeight={700}>
+            <Text padding="0 0 0 30px" fSize={1.375} fWeight={700}>
               {"My Profile"}
             </Text>
             <EditButton onClick={() => showDetails(true)}>

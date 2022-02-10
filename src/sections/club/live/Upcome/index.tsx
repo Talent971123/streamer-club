@@ -30,7 +30,7 @@ const UpcomeSection = (props) => {
   return (
     <GameDayWrapper>
       <Row alignItems="center" justifyContent="space-between">
-        <Text fColor="white" fSize={22} fWeight={700} mode="p">
+        <Text fColor="white" fSize={1.375} fWeight={700} mode="p">
           {"Round 15 - Western Australia Football League"}
         </Text>
       </Row>

@@ -6,7 +6,6 @@ import { ADMINQL } from "graphql/club";
 import { Avatar } from "components/Avatar";
 import { Button } from "components/Button";
 import { Col, Row } from "components/Layout";
-import { ClubAdminContext } from "pages/club/[club_slug]/admin";
 import { ImageCrop_Modal } from "components/Modal";
 // types
 import { ModalProps } from "types/components/Modal";
@@ -36,16 +35,16 @@ import {
 
 import { Form } from "antd";
 import ButtonLoading from "components/Loading/ButtonLoading";
+import { useSelector, RootStateOrAny } from "react-redux";
+import { slugifyString } from "utils/common-helper";
 
 const Player_A_Modal: React.FC<ModalProps> = ({
   show = false,
   handleClose,
 }) => {
   const [form] = Form.useForm();
-  const club = useContext(ClubAdminContext);
-  const teamsData = club?.teams
-    ? club.teams.map((team) => ({ label: team.name, value: team.id }))
-    : [];
+  const { teams, club } = useSelector((state: RootStateOrAny) => state);
+  const teamsData = teams.list.map((team) => ({ label: team.name, value: team.id }))
 
   // useState
   const [meta, setMeta] = useState<any>(null);
@@ -56,7 +55,7 @@ const Player_A_Modal: React.FC<ModalProps> = ({
   // useRef
   const fileInputRef = useRef<HTMLInputElement>(null);
   // **
-  const [add] = useMutation(ADMINQL.ADD_PLAYER, {
+  const [add] = useMutation(ADMINQL.ADD_USER_PLAYER, {
     onCompleted() {
       setFile(null);
       form.resetFields();
@@ -70,8 +69,8 @@ const Player_A_Modal: React.FC<ModalProps> = ({
 
   const onFinish = async (values: any) => {
     setSubmiting(true);
-    console.log(values);
-    const slug = uuidv4();
+    const { team_id, positions, email, first_name, last_name } = values
+    const slug = slugifyString(`${first_name} ${last_name}`);
     let image: string | null = null;
 
     if (!_.isNull(file)) {
@@ -79,22 +78,31 @@ const Player_A_Modal: React.FC<ModalProps> = ({
       image = s3res.location;
     }
 
-    console.log(club);
+    /** TODO: send email invitation email */
 
+    /** Save to db */
     await add({
       variables: {
         objects: {
-          ...values,
-          slug,
-          image,
-          club_id: club.id,
-          positions: [values.positions],
+          club_id: club.info.id,
           prev_club: "",
-        },
-      },
-    });
+          slug,
+          team_id,
+          positions: [positions],
+          user: {
+            data: {
+              email,
+              first_name,
+              last_name,
+              photo: image
+            }
+          }
+        }
+      }
+    })
 
     setSubmiting(false);
+
   };
 
   const saveImage = async (file: File, imageSrc: any) => {
@@ -157,7 +165,8 @@ const Player_A_Modal: React.FC<ModalProps> = ({
                   >
                     <CustomeInput placeholder="Last Name" />
                   </Form.Item>
-                  <Form.Item
+
+                  {/* <Form.Item
                     name="mobile"
                     rules={[
                       { required: true, message: "Mobile Number is required." },
@@ -178,7 +187,8 @@ const Player_A_Modal: React.FC<ModalProps> = ({
                       dropdownStyle={phone_dropstyle}
                       specialLabel={"Player Mobile Number"}
                     />
-                  </Form.Item>
+                  </Form.Item> */}
+
                   <Form.Item
                     name="email"
                     rules={[
@@ -299,4 +309,4 @@ const Player_A_Modal: React.FC<ModalProps> = ({
   );
 };
 
-export default Player_A_Modal;
+export default Player_A_Modal

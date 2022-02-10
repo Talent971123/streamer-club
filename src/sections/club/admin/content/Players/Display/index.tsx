@@ -14,7 +14,9 @@ import { DisplayWrapper } from "./display.style";
 import _ from "lodash";
 import { Text } from "components/Text";
 import DefaultSrc from "assets/images/layout/group.png";
-import { ClubAdminContext } from "pages/club/[club_slug]/admin";
+
+import { useSelector, RootStateOrAny } from "react-redux";
+
 const Action: React.FC<{ level: string; pid: number; onHandleEdit: any }> = ({
   level,
   pid,
@@ -26,16 +28,16 @@ const Action: React.FC<{ level: string; pid: number; onHandleEdit: any }> = ({
         <Col>
           <Text
             mode="p"
-            fSize={16}
+            fSize={1}
             fColor={level == "Player Pro" ? "green.100" : "red.100"}
           >
             {level}
           </Text>
         </Col>
-        <Col>
+        {/* <Col>
           <div onClick={() => onHandleEdit(pid)}>
             <Text
-              fSize={16}
+              fSize={1}
               bColor="primary"
               bSize="small"
               tDecorations="underline"
@@ -45,18 +47,19 @@ const Action: React.FC<{ level: string; pid: number; onHandleEdit: any }> = ({
               {"Edit"}
             </Text>
           </div>
-        </Col>
+        </Col> */}
       </Row>
     </>
   );
 };
 
-const DisplaySection: React.FC = () => {
+const DisplaySection: React.FC = (props: any) => {
   const { move } = useRouter();
-  const club = useContext(ClubAdminContext);
   const [a_show, setAShow] = useState<boolean>(false);
   const [u_show, setUShow] = useState<boolean>(false);
   const [pid, setPid] = useState<any>(null);
+
+  const { players, club } = useSelector((state: RootStateOrAny) => state)
 
   const _handleClose = () => {
     setUShow(false);
@@ -67,14 +70,14 @@ const DisplaySection: React.FC = () => {
     setUShow(true);
   };
 
-  const onHandleClick = (item: number) => {
-    const player_slug: any = club?.players;
-    const path = `/club/${club?.slug}/player/${player_slug[item]?.slug}`;
+  const onHandleClick = (item: any) => {
+    const path = `/club/${club.info?.slug}/player/${item?.item_data?.slug}`;
     move(path);
   };
 
   const datasource = () => {
-    if (_.isUndefined(club?.players)) {
+
+    if (_.isUndefined(players)) {
       return [
         {
           No: "",
@@ -85,17 +88,19 @@ const DisplaySection: React.FC = () => {
         },
       ];
     }
-    return club.players.map((player: any, index: number) => ({
+
+    return players.list.map((player: any, index: number) => ({
+      item_data: player,
       No: index + 1,
       "Player Photo": (
         <Avatar
-          src={_.isNull(player.image) ? DefaultSrc : player.image}
+          src={_.isNull(player.user.photo) ? DefaultSrc : player.user.photo}
           position="center"
           radius="circle"
           mode="small"
         />
       ),
-      "Player Name": `${player.first_name} ${player.last_name}`,
+      "Player Name": `${player.user.first_name} ${player.user.last_name}`,
       Team: player.team?.name,
       Status: (
         <Action
@@ -134,4 +139,4 @@ const DisplaySection: React.FC = () => {
   );
 };
 
-export default DisplaySection;
+export default DisplaySection

@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import { themeGet } from "@styled-system/theme-get";
 import { defaultTheme } from "theme";
 // -------------------------------------------------
-import {Avatar} from "components/Avatar"
+import { Avatar } from "components/Avatar";
 
 export const HeaderWrapper = styled.div`
   height: 62px;
@@ -18,10 +18,11 @@ export const HeaderWrapper = styled.div`
 `;
 
 export const MenuItem = styled.div<{ mode: String }>`
-  @media screen and (max-width:${defaultTheme.mediaSize.lg}px){
+  white-space: nowrap !important;
+  @media screen and (max-width: ${defaultTheme.mediaSize.lg}px) {
     display: none;
   }
-  @media screen and (min-width:${defaultTheme.mediaSize.lg}px){
+  @media screen and (min-width: ${defaultTheme.mediaSize.lg}px) {
     display: inline-block;
     position: relative;
     cursor: pointer;
@@ -59,7 +60,7 @@ export const MenuItem = styled.div<{ mode: String }>`
 `;
 
 export const Border = styled.div`
-  @media screen and (max-width:${defaultTheme.mediaSize.md}px){
+  @media screen and (max-width: ${defaultTheme.mediaSize.md}px) {
     display: none;
   }
   height: 24px;
@@ -68,13 +69,15 @@ export const Border = styled.div`
 `;
 
 export const MenuItemBody = styled.div`
-  @media screen and (max-width:${defaultTheme.mediaSize.sm}px){
+  display: flex;
+  @media screen and (max-width: ${defaultTheme.mediaSize.sm}px) {
     display: none;
   }
 `;
 
 export const MenuItemBodyMobile = styled.div`
-  @media screen and (min-width:${defaultTheme.mediaSize.sm}px){
+  display: flex;
+  @media screen and (min-width: ${defaultTheme.mediaSize.sm}px) {
     display: none;
   }
 `;

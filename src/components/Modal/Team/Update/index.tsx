@@ -260,7 +260,7 @@ const Team_U_Modal: React.FC<EditProps> = ({
                       />
                     </Row>
                     <Row flexDirection="column" gap={10}>
-                      <Text fSize={16} fWeight={700} mode="p"></Text>
+                      <Text fSize={1} fWeight={700} mode="p"></Text>
                       <CustomText css={{ fontSize: "15px", fontWeight: 700 }}>
                         {"Photo Guidelines:"}
                       </CustomText>

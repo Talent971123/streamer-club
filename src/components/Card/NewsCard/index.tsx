@@ -22,7 +22,7 @@ const NewsCard: React.FC<NewsProps> = ({
           <Text mode="p" fColor="gray.300">
             {timeline}
           </Text>
-          <Text mode="p" fColor="white" fSize={16} padding="7px 0 0 0">
+          <Text mode="p" fColor="white" fSize={1} padding="7px 0 0 0">
             {title}
           </Text>
           <Text mode="p" fColor="gray.300" padding="10px 0 0 0">

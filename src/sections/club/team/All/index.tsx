@@ -24,7 +24,7 @@ const TeamAllView: React.FC = () => {
   };
   return (
     <PlayerAllWrapper>
-      <Text fColor="white" fSize={22} fWeight={700}>
+      <Text fColor="white" fSize={1.375} fWeight={700}>
         {"All Teams"}
       </Text>
       <Row

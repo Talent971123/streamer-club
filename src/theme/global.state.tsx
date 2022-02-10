@@ -1,6 +1,7 @@
 import styled, { createGlobalStyle, css } from "styled-components";
 import { get } from "styled-system";
 import { defaultTheme } from "theme";
+import photo from "assets/images/home/default-bg.png";
 
 export const GlobalStyle = createGlobalStyle(({ theme }) =>
   css({
@@ -17,6 +18,18 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
       overflowX: "hidden",
       margin: 0,
       padding: 0,
+    },
+    ".poster": {
+      position: "absolute",
+      backgroundSize: "cover",
+      top: 0,
+      left: 0,
+      bottom: 0,
+      right: 0,
+      width: "100%",
+      height: "100%",
+      zIndex: 9999,
+      backgroundImage: `url(${photo.src})`,
     },
     body: {
       scrollBehavior: "smooth",
@@ -206,22 +219,61 @@ export const CarouselBody = styled.div`
   }
 `;
 
-export const GameCardBody = styled.div`
-  @media screen and (min-width: ${defaultTheme.mediaSize.lg}px) {
-    width: 20%;
+export const CardBody = styled.div`
+  @media screen and (min-width: ${defaultTheme.mediaSize.md}px) {
+    width: 30%;
   }
 
-  @media screen and (min-width: ${defaultTheme.mediaSize
-      .md}px) and (max-width: ${defaultTheme.mediaSize.lg}px) {
-    width: 33%;
-  }
-
-  @media screen and (min-width: ${defaultTheme.mediaSize
-      .sm}px) and (max-width: ${defaultTheme.mediaSize.md}px) {
+  @media screen and (max-width: ${defaultTheme.mediaSize.md}px) {
     width: 50%;
   }
 
   @media screen and (max-width: ${defaultTheme.mediaSize.sm}px) {
-    width: 100%;
+    width: 90%;
   }
+`;
+
+// include Card style
+
+export const CardWrapper = styled.div`
+  width: 98%;
+  border-radius: 10px;
+  contain: content;
+  cursor: pointer;
+  margin: 0 5px;
+`;
+
+export const CardContent = styled.div`
+  @media screen and (min-width: ${defaultTheme.mediaSize.md}px) {
+    height: 290px;
+  }
+
+  @media screen and (max-width: ${defaultTheme.mediaSize.md}px) {
+    height: 272px;
+  }
+
+  @media screen and (max-width: ${defaultTheme.mediaSize.sm}px) {
+    height: 247px;
+  }
+  width: 100%;
+  position: relative;
+`;
+
+export const CardFooter = styled.div`
+  padding: 10px 12px;
+  background-color: rgba(29, 29, 29, 0.4);
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+`;
+
+export const LiveWrapper = styled.div`
+  background-color: #fa3737;
+  width: 45px;
+  height: 25px;
+  text-align: center;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

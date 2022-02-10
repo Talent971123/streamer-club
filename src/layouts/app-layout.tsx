@@ -8,7 +8,11 @@ import { TeamHeader } from "layouts/clubv/team";
 import { WithContainer } from "components/Container";
 import { useUser } from "@auth0/nextjs-auth0";
 // styled component
-import { AppLayoutWrapper, MenuItemList, MenuItemBody } from "./app-layout.style";
+import {
+  AppLayoutWrapper,
+  MenuItemList,
+  MenuItemBody,
+} from "./app-layout.style";
 import _ from "lodash";
 // -----------------------------------------------------------
 const MenuItems = (club_slug: string, user: any) => {
@@ -30,53 +34,54 @@ const Layout = ({ children }) => {
 
   const { move, path, param, asPath }: any = useRouter();
   const [flag, setFlag] = useState<string>("/");
-  const [bannerFlag, setBanner] = useState(false)
+  const [bannerFlag, setBanner] = useState(false);
 
   useEffect(() => {
     setFlag(path.split("/")[3]);
   }, [path]);
-  
+
   const { user } = useUser();
 
   const setBannerFlag = () => {
     setBanner(!bannerFlag);
-  }
+  };
 
-  const menu = MenuItems(param ? param.club_slug : '', user);
+  const menu = MenuItems(param ? param.club_slug : "", user);
   // const menu = MenuItems('param.club_slug', user);
 
   const handleMenuClick = (to: any) => {
-    setBannerFlag()
+    setBannerFlag();
     move(to);
   };
 
   return (
     <AppLayoutWrapper>
-      <WithContainer 
+      <WithContainer
         SectionView={Header}
-        sectionProps={{bannerFlag: setBannerFlag}}
+        sectionProps={{ bannerFlag: setBannerFlag }}
         mode="wrapper"
       />
       {mode === "team" ? (
-        <WithContainer 
+        <WithContainer
           SectionView={TeamHeader}
-          sectionProps={{bannerFlag: setBannerFlag}}
+          sectionProps={{ bannerFlag: setBannerFlag }}
           mode="wrapper"
         />
-      ) : null} 
+      ) : null}
       <MenuItemBody>
-        {bannerFlag && menu.map((item: any, index: number) => {
-          return (
-            <MenuItemList 
-              mode={flag === item.path.split("/")[3] ? "true" : "false"}
-              onClick={() => handleMenuClick(item.path)}
-              key={index}
-            >
-              {item.title}
-            </MenuItemList>
-          );
-        })}
-      </MenuItemBody>   
+        {bannerFlag &&
+          menu.map((item: any, index: number) => {
+            return (
+              <MenuItemList
+                mode={flag === item.path.split("/")[3] ? "true" : "false"}
+                onClick={() => handleMenuClick(item.path)}
+                key={index}
+              >
+                {item.title}
+              </MenuItemList>
+            );
+          })}
+      </MenuItemBody>
       {children}
       <Footer />
       <ScrollTop />

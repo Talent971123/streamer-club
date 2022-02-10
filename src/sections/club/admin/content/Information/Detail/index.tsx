@@ -38,10 +38,10 @@ const DetailSection: React.FC = () => {
         <Col item={24}>
           <Row justifyContent="space-between" alignItems="center">
             <Col item={12}>
-              <Text fSize={24} fWeight={700} mode="p" fColor="gray.600">
+              <Text fSize={1.5} fWeight={700} mode="p" fColor="gray.600">
                 {"Club Admin Details"}
               </Text>
-              <Text fSize={14} fWeight={500} fColor="gray.300">
+              <Text fSize={0.875} fWeight={500} fColor="gray.300">
                 {"Club Administrator users can..."}
               </Text>
             </Col>

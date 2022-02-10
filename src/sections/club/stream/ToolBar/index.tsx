@@ -1,9 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
+import { useQuery, useMutation } from "@apollo/client";
+import { useUser } from "@auth0/nextjs-auth0";
+import { query, mutate } from "graphql/match";
+
 import { useRouter } from "next/router";
 import { Button } from "components/Button";
 import { Col, Row } from "components/Layout";
 import { Text } from "components/Text";
 import { RWebShare } from "react-web-share";
+import { BlackBorder, LiveWrapper, ToobarWrapper } from "./toolbar.style";
 // icon
 import {
   AiFillFlag,
@@ -12,17 +17,51 @@ import {
 } from "react-icons/ai";
 // import { BiCopy } from "react-icons/bi";
 import { FiShare2 } from "react-icons/fi";
-import { BlackBorder, LiveWrapper, ToobarWrapper } from "./toolbar.style";
+// context
 import { StreamPageContext } from "hooks/context/StreamPageContext";
+// utils
 import { baseUrl } from "utils/constData";
-import { useUser } from "@auth0/nextjs-auth0";
+import _ from "lodash";
 
 const ToolBarView: React.FC = () => {
-  const { home_name, away_name } = useContext(StreamPageContext);
+  const { home_name, away_name, playback_id } = useContext(StreamPageContext);
+  const [isSubmit, setSubmiting] = useState<boolean>(false);
   const router = useRouter();
   const { user } = useUser();
-  const _handleSave = () => {
-    alert(user?.id);
+
+  console.log(router.query);
+
+  const { data } = useQuery(query.GET_SAVED_MATCHES, {
+    variables: {
+      id: user?.id,
+    },
+  });
+
+  const [Insert] = useMutation(mutate.INSERT_SAVED_MATCHES_ONE, {
+    onCompleted() {
+      setSubmiting(false);
+      console.log("success");
+    },
+    onError(e) {
+      setSubmiting(false);
+      console.log(e);
+    },
+  });
+
+  const _handleSave = async () => {
+    setSubmiting(true);
+    if (_.isEmpty(data.saved_matches)) {
+      //   await Insert({
+      //     variables: {
+      //       object: {
+      //         user_id: user?.id,
+      //         match_id: [playback_id],
+      //       },
+      //     },
+      //   });
+    } else {
+      console.log(21);
+    }
   };
 
   return (
@@ -41,7 +80,12 @@ const ToolBarView: React.FC = () => {
             <Row justifyContent="center" alignItems="center" gap={10}>
               {/* <HandIcon /> */}
               {/* <Image src={home_logo} width={50} height={50} /> */}
-              <Text tAlign={"center"} fSize={18} fWeight={600} wSpace="nowrap">
+              <Text
+                tAlign={"center"}
+                fSize={1.125}
+                fWeight={600}
+                wSpace="nowrap"
+              >
                 {home_name}
               </Text>
             </Row>
@@ -56,7 +100,7 @@ const ToolBarView: React.FC = () => {
                   gap={5}
                 >
                   <LiveWrapper>
-                    <Text fColor="white" fWeight={700} fSize={18}>
+                    <Text fColor="white" fWeight={700} fSize={1.125}>
                       {"Live"}
                     </Text>
                   </LiveWrapper>
@@ -66,7 +110,12 @@ const ToolBarView: React.FC = () => {
             </Row>
 
             <Row justifyContent="center" alignItems="center" gap={10}>
-              <Text tAlign={"center"} fSize={18} fWeight={600} wSpace="nowrap">
+              <Text
+                tAlign={"center"}
+                fSize={1.125}
+                fWeight={600}
+                wSpace="nowrap"
+              >
                 {away_name}
               </Text>
               {/* <Image src={away_logo} width={50} height={50} /> */}
@@ -87,7 +136,11 @@ const ToolBarView: React.FC = () => {
                 {"Share"}
               </Button>
             </RWebShare>
-            <Button icon={<AiOutlineSave />} onClick={_handleSave} />
+            <Button
+              icon={<AiOutlineSave />}
+              onClick={_handleSave}
+              disabled={isSubmit}
+            />
             {/* <Button icon={<BiCopy />} /> */}
           </Row>
         </Col>

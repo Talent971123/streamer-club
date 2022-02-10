@@ -26,14 +26,14 @@ const Action: React.FC<{ count: number; tid: number; onHandleEdit: any }> = ({
     <>
       <Row justifyContent="center" alignItems="center" gap={20}>
         <Col>
-          <Text mode="p" fSize={16}>
+          <Text mode="p" fSize={1}>
             {count}
           </Text>
         </Col>
         <Col>
           <div onClick={(e: any) => onHandleEdit(tid)}>
             <Text
-              fSize={16}
+              fSize={1}
               bColor="primary"
               bSize="small"
               tDecorations="underline"

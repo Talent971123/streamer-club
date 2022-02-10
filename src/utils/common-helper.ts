@@ -1,8 +1,9 @@
 import { s3Config } from "./constData";
-import defaultImg from "assets/images/home/default-bg.png";
+import defaultImg from "assets/images/home/WAFL.png";
 import { getDates } from "utils/helper-date";
 import moment from "moment";
 import imageExists from 'image-exists';
+import slugify from 'slugify';
 
 /**
  * 
@@ -46,3 +47,11 @@ export const progressText = (date: string, status: string) => {
 
   return "";
 };
+
+export const slugifyString = (str: string): string => {
+  const config = {
+    lower: true,
+    strict: true,
+  }
+  return slugify(str, config);
+}

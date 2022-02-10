@@ -45,10 +45,10 @@ const Profile: React.FC = () => {
     <ProfileWrapper>
       <Row flexDirection="column" gap={50}>
         <Col item={24}>
-          <Text fSize={24} fWeight={700} mode="p" fColor="gray.600">
+          <Text fSize={1.5} fWeight={700} mode="p" fColor="gray.600">
             {"Profile Details"}
           </Text>
-          <Text fSize={14} fWeight={500} fColor="gray.300">
+          <Text fSize={0.875} fWeight={500} fColor="gray.300">
             {"This information will appear on your Club Po    rtal."}
           </Text>
         </Col>
@@ -61,7 +61,7 @@ const Profile: React.FC = () => {
           >
             <Row>
               <Col item={12}>
-                <Text fSize={15} fWeight={500} fColor="gray.300">
+                <Text fSize={0.9375} fWeight={500} fColor="gray.300">
                   {"Club Name"}
                 </Text>
               </Col>
@@ -77,7 +77,7 @@ const Profile: React.FC = () => {
             </Row>
             <Row alignItems="center">
               <Col item={12}>
-                <Text fSize={15} fWeight={500} fColor="gray.300">
+                <Text fSize={0.9375} fWeight={500} fColor="gray.300">
                   {"Club Logo"}
                 </Text>
               </Col>
@@ -91,7 +91,7 @@ const Profile: React.FC = () => {
             </Row>
             <Row alignItems="center">
               <Col item={12}>
-                <Text fSize={15} fWeight={500} fColor="gray.300">
+                <Text fSize={0.9375} fWeight={500} fColor="gray.300">
                   {"Club Banner Image"}
                 </Text>
               </Col>
@@ -101,7 +101,7 @@ const Profile: React.FC = () => {
             </Row>
             <Row>
               <Col item={12}>
-                <Text fSize={15} fWeight={500} fColor="gray.300">
+                <Text fSize={0.9375} fWeight={500} fColor="gray.300">
                   {"Club Domain"}
                 </Text>
               </Col>
@@ -111,7 +111,7 @@ const Profile: React.FC = () => {
             </Row>
             <Row>
               <Col item={12}>
-                <Text fSize={15} fWeight={500} fColor="gray.300">
+                <Text fSize={0.9375} fWeight={500} fColor="gray.300">
                   {"Sport"}
                 </Text>
               </Col>

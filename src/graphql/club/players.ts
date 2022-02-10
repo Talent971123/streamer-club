@@ -36,7 +36,6 @@ const SUB_PLAYER = gql`
       club_id
       debut_date
       id
-
       image
       is_professional
       is_upgraded
@@ -52,7 +51,9 @@ const SUB_PLAYER = gql`
       }
       updated_at
       user {
+        id
         email
+        photo
         first_name
         last_name
         auth_id
@@ -119,10 +120,25 @@ const UPDATE_PLAER_BY_ID = gql`
   }
 `;
 
+export const UPDATE_USER_PLAYERS = gql`mutation UpdatePlayerUser(
+  $pid: Int!, 
+  $po_object: players_details_set_input!, 
+  $uid: Int!, 
+  $user_object: users_set_input!
+  ) {
+  update_players_details(where: {id: {_eq: $pid}}, _set: $po_object) {
+    affected_rows
+  }
+  update_users(where: {id: {_eq: $uid}}, _set: $user_object) {
+    affected_rows
+  }
+}`
+
 // ---------
 export default {
   GET_PLAYERS,
   GET_PLAYER_BY_ID,
   SUB_PLAYER,
   UPDATE_PLAER_BY_ID,
+  UPDATE_USER_PLAYERS
 };

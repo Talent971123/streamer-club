@@ -17,7 +17,8 @@ import { dateDisplayFormat } from "utils/constData";
 // import styled component
 import { SlideArrow } from "components/Button/Button";
 import { LinkWrapper, ReplayWrapper } from "./replay.style";
-import { GameCardBody } from "theme/global.state";
+import { CardBody } from "theme/global.state";
+import ThumbCard from "components/Card/ThumbCard";
 
 import { getDates } from "utils/helper-date";
 
@@ -125,8 +126,8 @@ const ReplayView: React.FC = () => {
   return (
     <ReplayWrapper>
       <Row alignItems="center" justifyContent="space-between">
-        <Text fColor="white" fSize={22} fWeight={700}>
-          {"Replays"}
+        <Text fColor="white" fSize={1.375} fWeight={700}>
+          {"Replays2"}
         </Text>
         <SeeAll
           handleClick={onHandleSeeAll}
@@ -162,13 +163,13 @@ const ReplayView: React.FC = () => {
                 };
 
                 return (
-                  <GameCardBody>
-                    <GameCard
+                  <CardBody>
+                    <ThumbCard
                       {...item}
                       key={index}
                       handleClick={() => onHandleClick(match.video_asset_id)}
                     />
-                  </GameCardBody>
+                  </CardBody>
                 );
               })}
           </ScrollingCarousel>

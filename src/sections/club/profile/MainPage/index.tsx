@@ -280,7 +280,8 @@ const savedReelsData = [
 const SeeAll = useLinkItem(LinkWrapper);
 
 const ProfilePage: React.FC = (props: any) => {
-  const { teams, matches, players, club_slug, club } = useContext(ProfileContext);
+  const { teams, matches, players, club_slug, club } =
+    useContext(ProfileContext);
   const [routeData, setRouteData] = useState<any>();
   const { user } = useUser();
   const router = useRouter();
@@ -294,14 +295,14 @@ const ProfilePage: React.FC = (props: any) => {
     router.push(`/club/${club_slug}/${category}`);
   };
   const onHandleClick = (item: any) => {
-    if(routeData === "replay"){
+    if (routeData === "replay") {
       router.push(`/club/${club_slug}/replay/${item}`);
-    } else if (routeData === "team"){
+    } else if (routeData === "team") {
       router.push(`/club/${club_slug}/team/${item}`);
-    } else if (routeData === "player"){
+    } else if (routeData === "player") {
       router.push(`/club/${club_slug}/player/${item}`);
-    } else if (routeData === "club"){
-      router.push(`/club/${club_slug}`)
+    } else if (routeData === "club") {
+      router.push(`/club/${club_slug}`);
     }
   };
 
@@ -309,7 +310,7 @@ const ProfilePage: React.FC = (props: any) => {
     <ProfileContent>
       <PContent>
         <DisplayWrapper>
-        {/* <Row flexDirection="row">
+          {/* <Row flexDirection="row">
           <Col>
             <Image
               src={user?.picture || ProfileImage}
@@ -321,7 +322,7 @@ const ProfilePage: React.FC = (props: any) => {
             />
           </Col>
           <Col>
-            <Text padding="15px 0 0 10px" fSize={22} fWeight={700}>
+            <Text padding="15px 0 0 10px" fSize={1.375} fWeight={700}>
               {"My Profile"}
             </Text>
           </Col>
@@ -329,7 +330,7 @@ const ProfilePage: React.FC = (props: any) => {
         </DisplayWrapper>
         <DisplayWrapper>
           <Row alignItems="center" justifyContent="space-between">
-            <Text fColor="white" fSize={20} fWeight={700} mode="p">
+            <Text fColor="white" fSize={1.25} fWeight={700} mode="p">
               {"Clubs Following"}
             </Text>
             {/* <SeeAll
@@ -340,30 +341,38 @@ const ProfilePage: React.FC = (props: any) => {
               alignVertical="center"
             /> */}
           </Row>
-          <Row padding="10px 0 0 0" alignItems="flex-start" justifyContent="flex-start">
+          <Row
+            padding="10px 0 0 0"
+            alignItems="flex-start"
+            justifyContent="flex-start"
+          >
             <Col>
               {/* <Slider {...settings}> */}
-                <ClubSlider onClick={() => {onHandleClick(title), setRouteData("club")}}>
-                  <Text tAlign="center">
-                    <Image
-                      src={logo}
-                      height={160}
-                      width={150}
-                      oFit="fill"
-                      mode="intrinsic"
-                    />
-                  </Text>
-                  <Text fSize={12} fWeight={700} tAlign="center">
-                    {title}
-                  </Text>
-                </ClubSlider>
+              <ClubSlider
+                onClick={() => {
+                  onHandleClick(title), setRouteData("club");
+                }}
+              >
+                <Text tAlign="center">
+                  <Image
+                    src={logo}
+                    height={160}
+                    width={150}
+                    oFit="fill"
+                    mode="intrinsic"
+                  />
+                </Text>
+                <Text fSize={0.75} fWeight={700} tAlign="center">
+                  {title}
+                </Text>
+              </ClubSlider>
               {/* </Slider> */}
             </Col>
           </Row>
         </DisplayWrapper>
         <DisplayWrapper>
           <Row alignItems="center" justifyContent="space-between">
-            <Text fColor="white" fSize={20} fWeight={700} mode="p">
+            <Text fColor="white" fSize={1.25} fWeight={700} mode="p">
               {"Teams Following"}
             </Text>
             <SeeAll
@@ -382,44 +391,49 @@ const ProfilePage: React.FC = (props: any) => {
           >
             <Col item={24}>
               <Slider {...settings}>
-              {teams &&
-                teams.map((team: any, index: number) => {
-                  const item: any = {
-                    id: team.id,
-                    logo: team.image,
-                    name: team.name,
-                    league: team.division,
-                  };
-                  return (
-                    <ClubSlider key={index} onClick={() => {onHandleClick(team.slug), setRouteData("team")}}>
-                      <Text tAlign="center">
-                        <Image
-                          src={item.logo}
-                          height={250}
-                          width={300}
-                          oFit="cover"
-                          mode="intrinsic"
-                          className="teamsWrapper"
-                        />
-                      </Text>
-                      <Col item={24}>
-                        <Text fSize={12} fWeight={700} tAlign="center">
-                          {item.league}
+                {teams &&
+                  teams.map((team: any, index: number) => {
+                    const item: any = {
+                      id: team.id,
+                      logo: team.image,
+                      name: team.name,
+                      league: team.division,
+                    };
+                    return (
+                      <ClubSlider
+                        key={index}
+                        onClick={() => {
+                          onHandleClick(team.slug), setRouteData("team");
+                        }}
+                      >
+                        <Text tAlign="center">
+                          <Image
+                            src={item.logo}
+                            height={250}
+                            width={300}
+                            oFit="cover"
+                            mode="intrinsic"
+                            className="teamsWrapper"
+                          />
                         </Text>
-                      </Col>
-                      <Text fSize={11} tAlign="center">
-                        {item.name}
-                      </Text>
-                    </ClubSlider>
-                  );
-                })}
+                        <Col item={24}>
+                          <Text fSize={0.75} fWeight={700} tAlign="center">
+                            {item.league}
+                          </Text>
+                        </Col>
+                        <Text fSize={11} tAlign="center">
+                          {item.name}
+                        </Text>
+                      </ClubSlider>
+                    );
+                  })}
               </Slider>
             </Col>
           </Row>
         </DisplayWrapper>
         <DisplayWrapper>
           <Row alignItems="center" justifyContent="space-between">
-            <Text fColor="white" fSize={20} fWeight={700} mode="p">
+            <Text fColor="white" fSize={1.25} fWeight={700} mode="p">
               {"Players Following"}
             </Text>
             <SeeAll
@@ -438,31 +452,35 @@ const ProfilePage: React.FC = (props: any) => {
           >
             <Col>
               <Slider {...playerSettings}>
-              {players &&
-                players.map((player: any, index: number) => {
-                const item: ClipProps = {
-                  id: player.id,
-                  backgroundImage: player.image,
-                  title: `${player?.user?.first_name ?? ''} ${player?.user?.last_name ?? ''}`,
-                  mode: "player",
-                  content: player.team?.name,
-                };
+                {players &&
+                  players.map((player: any, index: number) => {
+                    const item: ClipProps = {
+                      id: player.id,
+                      backgroundImage: player.image,
+                      title: `${player?.user?.first_name ?? ""} ${
+                        player?.user?.last_name ?? ""
+                      }`,
+                      mode: "player",
+                      content: player.team?.name,
+                    };
 
-                return (
-                  <ClipCard
-                    {...item}
-                    key={index}
-                    handleClick={() => {onHandleClick(player.slug), setRouteData("player")}}
-                  />
-                );
-              })}
+                    return (
+                      <ClipCard
+                        {...item}
+                        key={index}
+                        handleClick={() => {
+                          onHandleClick(player.slug), setRouteData("player");
+                        }}
+                      />
+                    );
+                  })}
               </Slider>
             </Col>
           </Row>
         </DisplayWrapper>
         <DisplayWrapper>
           <Row alignItems="center" justifyContent="space-between">
-            <Text fColor="white" fSize={20} fWeight={700} mode="p">
+            <Text fColor="white" fSize={1.25} fWeight={700} mode="p">
               {"Saved Matches"}
             </Text>
             <SeeAll
@@ -503,17 +521,20 @@ const ProfilePage: React.FC = (props: any) => {
                       <GameCard
                         {...item}
                         key={index}
-                        handleClick={() => {onHandleClick(match.video_asset_id), setRouteData("replay")}}
+                        handleClick={() => {
+                          onHandleClick(match.video_asset_id),
+                            setRouteData("replay");
+                        }}
                       />
                     );
-                })}
+                  })}
               </Slider>
             </Col>
           </Row>
         </DisplayWrapper>
         <DisplayWrapper>
           <Row alignItems="center" justifyContent="space-between">
-            <Text fColor="white" fSize={20} fWeight={700} mode="p">
+            <Text fColor="white" fSize={1.25} fWeight={700} mode="p">
               {"Saved Reel"}
             </Text>
             <SeeAll

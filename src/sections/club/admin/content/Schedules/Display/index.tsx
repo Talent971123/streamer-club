@@ -13,12 +13,12 @@ const DisplaySection: React.FC = () => {
     <DisplayWrapper>
       <TabWrapper item={item}>
         <TabItem onClick={() => setItem(true)}>
-          <Text fSize={20} fWeight={600} fColor={item ? "white" : "gray.300"}>
+          <Text fSize={1.25} fWeight={600} fColor={item ? "white" : "gray.300"}>
             {"Upcoming"}
           </Text>
         </TabItem>
         <TabItem onClick={() => setItem(false)}>
-          <Text fSize={20} fWeight={600} fColor={!item ? "white" : "gray.300"}>
+          <Text fSize={1.25} fWeight={600} fColor={!item ? "white" : "gray.300"}>
             {"Previous"}
           </Text>
         </TabItem>

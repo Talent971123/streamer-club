@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import { Player } from "bitmovin-player";
 import { UIFactory } from "bitmovin-player-ui";
-
 interface videoProps {
   playback_id?: string;
+  isLive?: any;
 }
 
 const VideoPlayer: React.FC<videoProps> = ({ playback_id }) => {
@@ -14,6 +14,22 @@ const VideoPlayer: React.FC<videoProps> = ({ playback_id }) => {
     playback: {
       autoplay: true,
     },
+    events: {
+      error: function (errObj: any) {
+        switch (errObj.code) {
+          case 1208:
+          case 1209:
+          case 1210:
+          case 1400:
+          case 1401:
+            errorHandler();
+            break;
+          default:
+            console.error("error", errObj);
+            break;
+        }
+      },
+    },
   };
 
   const playerSource = {
@@ -22,6 +38,15 @@ const VideoPlayer: React.FC<videoProps> = ({ playback_id }) => {
     thumbnailTrack: {
       url: `https://image.mux.com/${playback_id}/storyboard.vtt`,
     },
+  };
+
+  const errorHandler = () => {
+    if (playerSource.poster) {
+      const img = document.createElement("div");
+      img.className = "poster";
+      // img.src = "../../../assets/images/home/default-bg.png";
+      videoRef.current.appendChild(img);
+    }
   };
 
   useEffect(() => {
@@ -37,7 +62,6 @@ const VideoPlayer: React.FC<videoProps> = ({ playback_id }) => {
         console.log("Successfully loaded source");
       },
       () => {
-        videoRef.current = null;
         console.log("Error while loading source");
       }
     );

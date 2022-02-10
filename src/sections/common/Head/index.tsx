@@ -29,8 +29,8 @@ const HeadView: React.FC<SectionViewProps> = (props) => {
               <Image src={logo || Mark} width={89} height={90} />
             </Col>
             <Col>
-              <Text fColor="red.100" fSize={38} fWeight={800}>
-                {title || "Team"}
+              <Text fColor="red.100" fSize={2.375} fWeight={800}>
+                {title || 'Team'}
               </Text>
             </Col>
           </Row>

@@ -1,26 +1,28 @@
 import { gql } from "@apollo/client";
 
-const GET_MATCH = gql`query GetMatchByAssetId($asset_id: String!) {
-  matches(where: {video_asset_id: {_eq: $asset_id}}) {
-    id
-    home_team {
-      name
-      club{
+const GET_MATCH = gql`
+  query GetMatchByAssetId($asset_id: String!) {
+    matches(where: { video_asset_id: { _eq: $asset_id } }) {
+      id
+      home_team {
         name
-        logo
+        club {
+          name
+          logo
+        }
       }
-    }
-    away_team {
-      name
-      club{
+      away_team {
         name
-        logo
+        club {
+          name
+          logo
+        }
       }
     }
   }
-}`;
+`;
 
 // ---------
 export default {
-  GET_MATCH
+  GET_MATCH,
 };

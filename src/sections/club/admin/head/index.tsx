@@ -13,7 +13,7 @@ const HeadView: React.FC = () => {
       <Row alignItems="center">
         <Col item={24}>
           <Row alignItems="center" padding="0 50px">
-            <Text fColor="red.100" fSize={40} fWeight={800}>
+            <Text fColor="red.100" fSize={2.5} fWeight={800}>
               Club Administration
             </Text>
           </Row>

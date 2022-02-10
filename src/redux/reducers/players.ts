@@ -2,7 +2,7 @@ import * as t from "redux/types/players";
 
 const playersReducer = (
     state = {
-        list: {} /** TODO: infer type */
+        list: [] /** TODO: infer type */
     },
     action: any
 ) => {

@@ -128,7 +128,7 @@ const ImageCrop_Modal: React.FC<ImageCropProps> = ({
     <ModalWrapper show={show}>
       <ModalContent show={show}>
         <ModalHeader>
-          <Text fSize={22} fWeight={600}>
+          <Text fSize={1.375} fWeight={600}>
             {"Edit Photo"}
           </Text>
         </ModalHeader>
@@ -154,7 +154,7 @@ const ImageCrop_Modal: React.FC<ImageCropProps> = ({
           >
             <Row gap={10}>
               <Col item={5}>
-                <Text fSize={14} tAlign="right">
+                <Text fSize={0.875} tAlign="right">
                   {"Zoom"}
                 </Text>
               </Col>
@@ -170,7 +170,7 @@ const ImageCrop_Modal: React.FC<ImageCropProps> = ({
 
             <Row gap={10}>
               <Col item={5}>
-                <Text fSize={14} tAlign="right">
+                <Text fSize={0.875} tAlign="right">
                   {"Rotation"}
                 </Text>
               </Col>

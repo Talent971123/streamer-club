@@ -56,7 +56,7 @@ const ClipCard: React.FC<ClipProps> = ({
                     ? "white"
                     : "red.100"
                 }
-                fSize={mode === "clip" ? 14 : mode === "teams" ? 16 : 14}
+                fSize={mode === "clip" ? 0.875 : mode === "teams" ? 1 : 0.875}
                 tAlign={mode === "clip" ? "left" : "center"}
                 fWeight={700}
               >
@@ -73,7 +73,7 @@ const ClipCard: React.FC<ClipProps> = ({
                     : "gray.300"
                 }
                 tAlign={mode === "clip" ? "left" : "center"}
-                fSize={mode === "clip" ? 12 : mode === "teams" ? 16 : 12}
+                fSize={mode === "clip" ? 0.75 : mode === "teams" ? 1 : 0.75}
               >
                 {content}
               </Text>

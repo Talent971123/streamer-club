@@ -37,7 +37,7 @@ const TeamCard: React.FC<TeamCardProps> = ({
             <>
               <Col>
                 <LiveWrapper>
-                  <Text fColor="white" fSize={20} fWeight={600}>
+                  <Text fColor="white" fSize={1.25} fWeight={600}>
                     {"LIVE"}
                   </Text>
                 </LiveWrapper>
@@ -46,7 +46,7 @@ const TeamCard: React.FC<TeamCardProps> = ({
                 <UserWrapper>
                   <Row alignItems="center" justifyContent="center" gap={5}>
                     <UserIcon />
-                    <Text fColor="white" fSize={20} fWeight={500}>
+                    <Text fColor="white" fSize={1.25} fWeight={500}>
                       {users}
                     </Text>
                   </Row>
@@ -58,12 +58,12 @@ const TeamCard: React.FC<TeamCardProps> = ({
         <LayerWrapper>
           <Row flexDirection="column" padding="0px 10px">
             <Col item={24}>
-              <Text fColor="white" fSize={18}>
+              <Text fColor="white" fSize={1.125}>
                 {title}
               </Text>
             </Col>
             <Col item={24}>
-              <Text fColor="white" fSize={14}>
+              <Text fColor="white" fSize={0.875}>
                 {description}
               </Text>
             </Col>

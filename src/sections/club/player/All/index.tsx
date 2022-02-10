@@ -9,21 +9,21 @@ import { PlayerAllWrapper } from "./all.style";
 // types
 import { ClipProps } from "types/components/ClipCard";
 // define the data
-import { PlayersContext } from "pages/club/[club_slug]/players";
+import { connect } from "react-redux";
 
-const PlayerAllView: React.FC = () => {
+const PlayerAllView: React.FC = (props: any) => {
   const { move } = useRouter();
+  const { club, players } = props
 
-  const { players, club_slug }: any = useContext(PlayersContext);
   const onHandleClick = (slug: string) => {
     const route = {
-      path: `/club/${club_slug}/player/${slug}`,
+      path: `/club/${club.slug}/player/${slug}`,
     };
     move(route.path);
   };
   return (
     <PlayerAllWrapper>
-      <Text fColor="white" fSize={22} fWeight={700}>
+      <Text fColor="white" fSize={1.375} fWeight={700}>
         {"All Members"}
       </Text>
       <Row
@@ -32,10 +32,10 @@ const PlayerAllView: React.FC = () => {
         gap={30}
         padding="30px 0 0 0"
       >
-        {players.map((player: any, index: number) => {
+        {players && players.map((player: any, index: number) => {
           const item: ClipProps = {
             id: player.id,
-            backgroundImage: player.image,
+            backgroundImage: player.user.photo,
             title: `${player?.user?.first_name ?? ''} ${player?.user?.last_name ?? ''}`,
             mode: "player",
             content: player.team?.name,
@@ -54,4 +54,12 @@ const PlayerAllView: React.FC = () => {
   );
 };
 
-export default PlayerAllView;
+
+const mapStateToProps = (state) => ({
+  club: state.club.info,
+  players: state.players.list
+});
+
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlayerAllView);

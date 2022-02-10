@@ -4,7 +4,6 @@ import type { NextPage } from "next";
 //  apollo
 // import { SampleQuery } from "graphql/sample";
 import { initializeApollo } from "api/apollo";
-
 // import page
 import HomePage from "pages/club/main/home";
 

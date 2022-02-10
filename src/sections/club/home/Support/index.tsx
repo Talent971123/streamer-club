@@ -1,51 +1,37 @@
-import { Col, Row } from "components/Layout";
 import React from "react";
-
+import { Col, Row } from "components/Layout";
 import { SupportWrapper, ContentWrapper } from "./support.style";
-
-// assets
-import provider1 from "assets/images/home/provider1.png";
-import provider2 from "assets/images/home/provider2.png";
-import provider3 from "assets/images/home/provider3.png";
-import provider4 from "assets/images/home/provider4.png";
-import provider5 from "assets/images/home/provider5.png";
-import provider6 from "assets/images/home/provider6.png";
-import provider7 from "assets/images/home/provider7.png";
-import provider8 from "assets/images/home/provider8.png";
 import { Image } from "components/Image";
 import { Text } from "components/Text";
+import { connect } from "react-redux";
 
-const Sponsors = [
-  { image: provider1 },
-  { image: provider2 },
-  { image: provider3 },
-  { image: provider4 },
-  { image: provider5 },
-  { image: provider6 },
-];
+const SupportSection: React.FC = (props: any) => {
 
-const Parnters = [{ image: provider8 }, { image: provider7 }];
+  const { partners, sponsors } = props
 
-const SupportSection: React.FC = () => {
   return (
     <SupportWrapper>
-      <Text fColor="white" fSize={20} fWeight={700}>
+
+      <Text fColor="white" fSize={1.5} fWeight={700}>
         {"Proudly Supported By"}
       </Text>
+
       <Row>
         <ContentWrapper>
-          <Text fColor="white" fSize={17}>
+          <Text fColor="white" fSize={1.0625}>
             {"Major Sponsors"}
           </Text>
           <Row justifyContent="flex-start" alignItems="center" gap={50}>
-            {Sponsors.map((item: any, index: number) => {
+            {sponsors && sponsors.map((item: any, index: number) => {
+              const { logo, name } = item.sponsor
               return (
                 <Col key={index}>
                   <Image
-                    src={item.image}
+                    src={logo}
                     oFit="contain"
                     width={100}
                     height={80}
+                    alt={name}
                   />
                 </Col>
               );
@@ -53,20 +39,23 @@ const SupportSection: React.FC = () => {
           </Row>
         </ContentWrapper>
       </Row>
+
       <Row>
         <ContentWrapper>
-          <Text fColor="white" fSize={17}>
+          <Text fColor="white" fSize={1.0625}>
             {"Partners"}
           </Text>
           <Row justifyContent="flex-start" alignItems="center" gap={20}>
-            {Parnters.map((item: any, index: number) => {
+            {partners && partners.map((item: any, index: number) => {
+              const { logo, name } = item.partner
               return (
                 <Col key={index}>
                   <Image
-                    src={item.image}
+                    src={logo}
                     oFit="contain"
                     width={100}
                     height={80}
+                    alt={name}
                   />
                 </Col>
               );
@@ -74,8 +63,17 @@ const SupportSection: React.FC = () => {
           </Row>
         </ContentWrapper>
       </Row>
+
     </SupportWrapper>
   );
 };
 
-export default SupportSection;
+
+const mapStateToProps = (state) => ({
+  partners: state.club.info.club_partners,
+  sponsors: state.club.info.club_sponsors
+});
+
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SupportSection);

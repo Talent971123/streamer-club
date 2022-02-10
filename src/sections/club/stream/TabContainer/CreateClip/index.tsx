@@ -216,10 +216,10 @@ const CreateClipView: React.FC = () => {
                   border: 0px;
                 `}
               >
-                <Text fSize={20} fWeight={700}>
+                <Text fSize={1.25} fWeight={700}>
                   sdf
                 </Text>
-                <Text fSize={12}>asdf</Text>
+                <Text fSize={0.75}>asdf</Text>
               </Button>
               <Button
                 bColor="primary"
@@ -269,10 +269,10 @@ const CreateClipView: React.FC = () => {
                               `}
                               onClick={() => console.log(item.title)}
                             >
-                              <Text fSize={20} fWeight={700}>
+                              <Text fSize={1.25} fWeight={700}>
                                 {item.type}
                               </Text>
-                              <Text fSize={12}>{item.title}</Text>
+                              <Text fSize={0.75}>{item.title}</Text>
                             </Button>
                           </Col>
                         );
@@ -303,7 +303,7 @@ const CreateClipView: React.FC = () => {
                                   `}
                                   onClick={() => handleScore(item.value)}
                                 >
-                                  <Text fSize={16}>{item.type}</Text>
+                                  <Text fSize={1}>{item.type}</Text>
                                 </Button>
                               </Col>
                             );

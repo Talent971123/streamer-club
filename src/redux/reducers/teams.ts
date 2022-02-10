@@ -2,12 +2,12 @@ import * as t from "redux/types/teams";
 
 const teamsReducer = (
   state = {
-    list: {},
+    list: [],
   },
   action: any
 ) => {
   switch (action.type) {
-    case t.GET_TEAMS_INFO:
+    case t.SET_TEAMS_LIST:
       return {
         ...state,
         list: action.payload,

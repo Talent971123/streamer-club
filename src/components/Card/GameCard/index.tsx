@@ -53,7 +53,7 @@ const GameCard: React.FC<GameCardProps> = ({
                 <Row alignItems="center" gap={10} padding="7px 0 0 10px">
                   <Col>
                     <LiveWrapper>
-                      <Text fColor="white" fSize={15} fWeight={600}>
+                      <Text fColor="white" fSize={0.9} fWeight={600}>
                         {"LIVE"}
                       </Text>
                     </LiveWrapper>
@@ -63,7 +63,7 @@ const GameCard: React.FC<GameCardProps> = ({
                     <UserWrapper>
                       <Row alignItems="center" justifyContent="center" gap={5}>
                         <UserIcon />
-                        <Text fColor="white" fSize={15} fWeight={500}>
+                        <Text fColor="white" fSize={0.9} fWeight={500}>
                           {users}
                         </Text>
                       </Row>
@@ -111,10 +111,10 @@ const GameCard: React.FC<GameCardProps> = ({
               </Col>
               <Col>
                 <Row>
-                  <Text fColor="red.100" fSize={15} fWeight={800}>
+                  <Text fColor="red.100" fSize={0.9} fWeight={800}>
                     {leagueName ? `${leagueName} - ` : ""} &nbsp;
                   </Text>
-                  <Text fColor="red.100" fSize={15} fWeight={500}>
+                  <Text fColor="red.100" fSize={0.9} fWeight={500}>
                     {matchName + " "}
                     {roundName ? `(${roundName})` : ""}
                   </Text>
@@ -125,17 +125,17 @@ const GameCard: React.FC<GameCardProps> = ({
           <Col item={24}>
             <Row alignItems="center" justifyContent="space-between">
               <Col item={8}>
-                <Text fColor="gray.100" fSize={14} tAlign="left">
+                <Text fColor="gray.100" fSize={0.875} tAlign="left">
                   {clubName1}
                 </Text>
               </Col>
               <Col item={8}>
-                <Text fColor="gray.100" fSize={14} tAlign="center">
+                <Text fColor="gray.100" fSize={0.875} tAlign="center">
                   VS
                 </Text>
               </Col>
               <Col item={8}>
-                <Text fColor="gray.100" fSize={14} tAlign="right">
+                <Text fColor="gray.100" fSize={0.875} tAlign="right">
                   {clubName2}
                 </Text>
               </Col>
@@ -145,7 +145,7 @@ const GameCard: React.FC<GameCardProps> = ({
             <Col item={24}>
               <Row alignItems="center" justifyContent="space-between">
                 <Col item={23}>
-                  <Text fColor="gray.100" fSize={14} tAlign="center">
+                  <Text fColor="gray.100" fSize={0.875} tAlign="center">
                     {" "}
                     {date}{" "}
                   </Text>
@@ -154,7 +154,7 @@ const GameCard: React.FC<GameCardProps> = ({
             </Col>
           )}
           <Col item={24}>
-            <Text fColor="gray.100" fSize={14} tAlign="center" fWeight={500}>
+            <Text fColor="gray.100" fSize={0.875} tAlign="center" fWeight={500}>
               {progress}
             </Text>
           </Col>

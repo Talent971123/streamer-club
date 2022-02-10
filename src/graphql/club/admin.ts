@@ -18,6 +18,12 @@ const ADD_PLAYER = gql`
   }
 `;
 
+const ADD_USER_PLAYER = gql`mutation InsertUserPlayer($objects: [players_details_insert_input!] = {}) {
+  insert_players_details(objects: $objects) {
+    affected_rows
+  }
+}`
+
 const SUB_ALL_CLUBS = gql`
   subscription SubAllClubs {
     clubs {
@@ -111,10 +117,12 @@ const UPDATE_TEAM_BY_ID = gql`
     }
   }
 `;
+
 // ---------
 export default {
   ADD_TEAM,
   ADD_PLAYER,
+  ADD_USER_PLAYER,
 
   SUB_CLUB,
   SUB_ALL_CLUBS,

@@ -18,7 +18,7 @@ const CopyRightSection = () => {
         responsive={{ 600: { flexDirection: "column", gap: 12 } }}
       >
         <Col>
-          <Text fSize={15}>
+          <Text fSize={0.9375}>
             © All rights reserved Streamer {getThisYear()}.
           </Text>
         </Col>

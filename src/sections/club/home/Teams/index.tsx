@@ -39,7 +39,7 @@ const TeamView: React.FC = () => {
   return (
     <TeamWrapper>
       <Row flexDirection="column" gap={5}>
-        <Text fColor="white" fSize={20} fWeight={700}>
+        <Text fColor="white" fSize={1.5} fWeight={700}>
           {"Our Teams"}
         </Text>
         <SeeAll
@@ -52,33 +52,33 @@ const TeamView: React.FC = () => {
       </Row>
       <Row padding="10px 0 0 0">
         <Col item={24}>
-            {club.teams &&
-              <ScrollingCarousel
-                leftIcon={<SlideArrow position='left' />}
-                rightIcon={<SlideArrow position='right' />}
-              >
-                {
-                  club.teams.map((team: any, index: number) => {
-                    const item: ClipProps = {
-                      id: team.id,
-                      backgroundImage: team.image,
-                      title: team.name,
-                      mode: "teams",
-                      content: team.division,
-                    };
-                    return (
-                      <CarouselBody>
-                        <ClipCard
-                          {...item}
-                          key={index}
-                          handleClick={() => onHandleClick(team.slug)}
-                        />
-                      </CarouselBody>
-                    );
-                  })
-                }
-              </ScrollingCarousel>
-            }
+          {club.teams &&
+            <ScrollingCarousel
+              leftIcon={<SlideArrow position='left' />}
+              rightIcon={<SlideArrow position='right' />}
+            >
+              {
+                club.teams.map((team: any, index: number) => {
+                  const item: ClipProps = {
+                    id: team.id,
+                    backgroundImage: team.image,
+                    title: team.name,
+                    mode: "teams",
+                    content: team.division,
+                  };
+                  return (
+                    <CarouselBody>
+                      <ClipCard
+                        {...item}
+                        key={`team-view-key-${index}`}
+                        handleClick={() => onHandleClick(team.slug)}
+                      />
+                    </CarouselBody>
+                  );
+                })
+              }
+            </ScrollingCarousel>
+          }
         </Col>
       </Row>
     </TeamWrapper>

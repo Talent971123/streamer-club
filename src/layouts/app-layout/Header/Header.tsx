@@ -29,9 +29,11 @@ import { UserProfile, useUser } from "@auth0/nextjs-auth0";
 import { initializeApollo } from "api/apollo";
 import { HomeQL } from "graphql/club";
 
-import { useQuery } from "@apollo/client";
+import { useQuery, useSubscription } from "@apollo/client";
 
 import _ from "lodash";
+import { setPlayerList } from "redux/actions/players";
+import { setTeamList } from "redux/actions/teams";
 
 /** Refactor later */
 const MenuItems = (club_slug: string, user: any) => {
@@ -47,20 +49,24 @@ const MenuItems = (club_slug: string, user: any) => {
   return user ? menus : _.filter(menus, ["public", true]);
 };
 const Header = (props: any) => {
-  const { club, setClubInfo, clubInfo } = props;
+  const { setTeamList, setClubInfo, setPlayerList, clubInfo } = props;
   const { move, path, param, asPath }: any = useRouter();
   const [flag, setFlag] = useState<string>("/");
   const { user } = useUser();
 
   const menu = MenuItems(param.club_slug, user);
 
-  /** TODO: move this logic to middlewars */
-  const { refetch } = useQuery(HomeQL.GET_CLUB, {
+  useSubscription(HomeQL.SUB_CLUB, {
     variables: {
       club_slug: param.club_slug,
     },
-    onCompleted(data) {
-      data && setClubInfo(data.clubs[0]);
+    onSubscriptionData({ subscriptionData: { data } }) {
+      if (data) {
+        setClubInfo(data.clubs[0]);
+        setPlayerList(data.clubs[0].players);
+        setPlayerList(data.clubs[0].players);
+        setTeamList(data.clubs[0].teams);
+      }
     },
   });
 
@@ -105,7 +111,7 @@ const Header = (props: any) => {
                   >
                     <Text
                       fColor="white"
-                      fSize={16}
+                      fSize={1}
                       hoverStyle={{ fColor: "white.200", hfWeight: "700" }}
                     >
                       {item.title}
@@ -138,7 +144,7 @@ const Header = (props: any) => {
                       />
                     </Col>{" "}
                     <Col>
-                      <Text fColor="white" fSize={14}>
+                      <Text fColor="white" fSize={0.875}>
                         {user?.name}
                       </Text>
                     </Col>
@@ -205,7 +211,7 @@ const Header = (props: any) => {
                     <BellIcon />
                   </Col> */}
                   {/* <Col>
-                    <Text fColor="white" fSize={14}>
+                    <Text fColor="white" fSize={0.875}>
                       {user?.name}
                     </Text>
                   </Col> */}
@@ -231,6 +237,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   setClubInfo: setClubInfo,
+  setPlayerList: setPlayerList,
+  setTeamList: setTeamList,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

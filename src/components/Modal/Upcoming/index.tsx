@@ -12,7 +12,7 @@ import { Col, Row } from "components/Layout";
 import { Text } from "components/Text";
 import { useMutation } from "@apollo/client";
 
-import { Form, FormikProvider, useFormik } from "formik"; //TODO: Refactor please use antd form
+import { Form, FormikProvider, useFormik, Field } from "formik"; //TODO: Refactor please use antd form
 
 import { BsSave } from "react-icons/bs";
 import { ImCancelCircle } from "react-icons/im";
@@ -30,6 +30,11 @@ import { apiBaseUrl, baseUrl } from "utils/constData";
 import { mutate } from "graphql/match";
 
 import { connect } from "react-redux";
+
+import { Switch, Tooltip } from 'antd';
+import {
+  InfoCircleOutlined
+} from '@ant-design/icons';
 
 const defaultFieldsValues = {
   is_historic: false,
@@ -65,6 +70,7 @@ const UpcomingModal: React.FC<ModalProps> = ({
   const formik = useFormik<Partial<any>>({
     initialValues: formInitialValues,
     onSubmit: async (values, { resetForm }) => {
+
       /** request mux data */
       axios
         .post(apiBaseUrl + "/mux/live-stream", {
@@ -113,18 +119,18 @@ const UpcomingModal: React.FC<ModalProps> = ({
         <FormikProvider value={formik}>
           <Form onSubmit={handleSubmit}>
             <ModalHeader>
-              <Text fSize={22} fWeight={600}>
+              <Text fSize={1.375} fWeight={600}>
                 {"Add Upcoming Match"}
               </Text>
             </ModalHeader>
             <ModalBody>
               <Row flexDirection="column" gap={5}>
-                <Text fWeight={600} fSize={17}>
+                <Text fWeight={600} fSize={1.0625}>
                   {"Match Details"}
                 </Text>
                 <Row templateCol="1fr 1fr" display="grid" gap={10}>
                   <Col>
-                    <Text fSize={14} padding="0 0 7px 0">
+                    <Text fSize={0.875} padding="0 0 7px 0">
                       {"Date & Time"}
                     </Text>
                     <DateTimeInput
@@ -134,7 +140,7 @@ const UpcomingModal: React.FC<ModalProps> = ({
                   </Col>
                   <Col></Col>
                   <Col>
-                    <Text fSize={14} padding="0 0 7px 0">
+                    <Text fSize={0.875} padding="0 0 7px 0">
                       {"League Name"}
                     </Text>
                     <LeaugeFuzzySearch
@@ -143,7 +149,7 @@ const UpcomingModal: React.FC<ModalProps> = ({
                     />
                   </Col>
                   <Col>
-                    <Text fSize={14} padding="0 0 7px 0">
+                    <Text fSize={0.875} padding="0 0 7px 0">
                       {"Round Name"}
                     </Text>
                     <Input
@@ -157,7 +163,7 @@ const UpcomingModal: React.FC<ModalProps> = ({
                     />
                   </Col>
                   <Col>
-                    <Text fSize={14} padding="0 0 7px 0">
+                    <Text fSize={0.875} padding="0 0 7px 0">
                       {"Select Team"}
                     </Text>
                     <TeamsDropdown
@@ -166,7 +172,7 @@ const UpcomingModal: React.FC<ModalProps> = ({
                     />
                   </Col>
                   <Col>
-                    <Text fSize={14} padding="0 0 7px 0">
+                    <Text fSize={0.875} padding="0 0 7px 0">
                       {"Home/Away Name"}
                     </Text>
                     <Input
@@ -180,7 +186,7 @@ const UpcomingModal: React.FC<ModalProps> = ({
                     />
                   </Col>
                   <Col>
-                    <Text fSize={14} padding="0 0 7px 0">
+                    <Text fSize={0.875} padding="0 0 7px 0">
                       {"Opposition Club"}
                     </Text>
                     <ClubFuzzySearch
@@ -189,18 +195,60 @@ const UpcomingModal: React.FC<ModalProps> = ({
                     />
                   </Col>
                   <Col>
-                    <Text fSize={14} padding="0 0 7px 0">
+                    <Text fSize={0.875} padding="0 0 7px 0">
                       {"Opposition Team"}
                     </Text>
                     <TeamFuzzySearch club_id={awayClubId} name="away_team_id" />
                   </Col>
                 </Row>
-                <Text fWeight={600} fSize={17} padding="10px 0 0 0">
+
+                <Text fWeight={600} fSize={1.0625} padding="10px 0 0 0">
+                  {"Stream Settings"}
+                </Text>
+                <Row templateCol="1fr 1fr" display="grid" gap={10}>
+
+                  <Col>
+                    <Text fSize={0.875} padding="0 0 7px 0">
+                      {"Managed stream "}
+                      <Tooltip
+                        title="Turn this on if you will be using external streaming service. e.g. OBS streamlabs"
+                        color={'black'}
+                      >
+                        <InfoCircleOutlined />
+                      </Tooltip>
+                    </Text>
+                    <Field name="ext_managed" >
+                      {({
+                        form: { touched, errors, setFieldValue }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+                      }) => (<Switch onChange={e => setFieldValue('ext_managed', e)} />)}
+                    </Field>
+                  </Col>
+                  <Col>
+                    <Text fSize={0.875} padding="0 0 7px 0">
+                      {"External Scoring "}
+                      <Tooltip
+                        title="Tunn this on if you will be overlaying your own scoring and timekeeping via a video mixer e.g. using a service such as LIGR"
+                        color={'black'}
+                      >
+                        <InfoCircleOutlined />
+                      </Tooltip>
+                    </Text>
+                    <Field name="ext_scoring" >
+                      {({
+                        form: { touched, errors, setFieldValue }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+                      }) => (<Switch onChange={e => setFieldValue('ext_scoring', e)} />)}
+                    </Field>
+                  </Col>
+
+                </Row>
+
+
+                <Text fWeight={600} fSize={1.0625} padding="10px 0 0 0">
                   {"Stream Details"}
                 </Text>
                 <Row flexDirection="column" gap={7}>
                   <Col>
-                    <Text fSize={14} padding="0 0 7px 0">
+                    <Text fSize={0.875} padding="0 0 7px 0">
                       {"RTMP Server URL"}
                     </Text>
                     <Input
@@ -214,7 +262,7 @@ const UpcomingModal: React.FC<ModalProps> = ({
                     />
                   </Col>
                   <Col>
-                    <Text fSize={14} padding="0 0 7px 0">
+                    <Text fSize={0.875} padding="0 0 7px 0">
                       {"Stream Key"}
                     </Text>
                     <Input
@@ -228,7 +276,7 @@ const UpcomingModal: React.FC<ModalProps> = ({
                     />
                   </Col>
                   <Col>
-                    <Text fSize={14} padding="0 0 7px 0">
+                    <Text fSize={0.875} padding="0 0 7px 0">
                       {"Stream URL"}
                     </Text>
                     <Input

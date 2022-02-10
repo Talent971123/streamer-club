@@ -17,21 +17,23 @@ const Table: React.FC<any> = ({ data, onHandleClick }) => {
       <EmptyWrapper>
         <Row flexDirection="column" justifyContent="center" alignItems="center">
           <AiOutlineWarning size={100} />
-          <Text fSize={17}>{"No Data"}</Text>
+          <Text fSize={1.0625}>{"No Data"}</Text>
         </Row>
       </EmptyWrapper>
     );
   }
+
   return (
     <TableMarkup
-      titles={Object.keys(data[0])}
+      titles={_.without(Object.keys(data[0]), 'item_data')}
       data={data}
       _onClick={_onHandleChange}
     />
   );
 };
-const TableMarkup = ({ titles, data, _onClick }) => (
-  <StyledTable>
+const TableMarkup = ({ titles, data, _onClick }) => {
+
+  return <StyledTable>
     <table>
       <thead>
         <tr>
@@ -42,7 +44,7 @@ const TableMarkup = ({ titles, data, _onClick }) => (
       </thead>
       <tbody>
         {data.map((item: any, index: number) => (
-          <tr key={index} onClick={() => _onClick(index)}>
+          <tr key={index} onClick={() => _onClick(item)}>
             {titles.map((title: string, index: number) => (
               <td key={index}>{item[title]}</td>
             ))}
@@ -51,6 +53,6 @@ const TableMarkup = ({ titles, data, _onClick }) => (
       </tbody>
     </table>
   </StyledTable>
-);
+};
 
 export default Table;

@@ -24,7 +24,7 @@ const Accordion: React.FC<HeaderWrapperProps> = ({
       <Row justifyContent="space-between" alignItems="center">
         <Col>
           <Text
-            fSize={16}
+            fSize={1}
             fWeight={900}
             fColor="whites.100"
             tTransForm="uppercase"

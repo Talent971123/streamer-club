@@ -30,7 +30,7 @@ const Content: React.FC = () => {
                 <Text
                   //   fColor={select !== item.path ? "gray.300" : "white"}
                   fWeight={600}
-                  fSize={20}
+                  fSize={1.25}
                   padding="8px 0"
                   //   hoverStyle={
                   // select !== item.path ? { fColor: "gray.200" } : {}

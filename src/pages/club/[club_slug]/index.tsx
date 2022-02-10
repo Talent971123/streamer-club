@@ -5,6 +5,7 @@ import { HomeQL } from "graphql/club";
 import React, { createContext, useEffect } from "react";
 import { connect } from "react-redux";
 import { setClubInfo } from "redux/actions/club";
+import { setPlayerList } from "redux/actions/players";
 // import views
 import {
   BannerView,
@@ -22,11 +23,12 @@ import { ClubCtx } from "types/common/club";
 export const ClubContext = createContext<Partial<ClubCtx>>({});
 
 const HomePage: React.FC = (props: any) => {
-  const { club, setClubInfo } = props;
+  const { club, setClubInfo, setPlayerList } = props;
 
-  useEffect(() => {
-    setClubInfo(club);
-  }, [club]);
+  // useEffect(() => {
+  //   setClubInfo(club);
+  //   setPlayerList(club.players)
+  // }, [club]);
 
   return (
     <>
@@ -69,6 +71,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   setClubInfo: setClubInfo,
+  setPlayerList: setPlayerList
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

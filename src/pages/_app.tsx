@@ -26,7 +26,7 @@ import "react-phone-input-2/lib/style.css";
 import "@mux/videojs-kit/dist/index.css";
 import "bitmovin-player/bitmovinplayer-ui.css";
 import "antd/dist/antd.css";
-
+import './style.css';
 NProgress.configure({ showSpinner: false });
 
 function Streamer({ Component, pageProps }: AppProps) {

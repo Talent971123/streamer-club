@@ -67,7 +67,7 @@ const GallerySection: React.FC = () => {
   return (
     <GalleryWrapper>
       <Row alignItems="flex-end" gap={50}>
-        <Text fColor="white" fSize={22} fWeight={700}>
+        <Text fColor="white" fSize={1.375} fWeight={700}>
           {"Media Gallery"}
         </Text>
         <Text fColor="red.100">{"WAFL - Mens Division 1: Round 15"}</Text>
@@ -80,7 +80,7 @@ const GallerySection: React.FC = () => {
           justifyContent="center"
         >
           <Col item={24}>
-            <Text fColor="white" fSize={18} fWeight={700} mode="p">
+            <Text fColor="white" fSize={1.125} fWeight={700} mode="p">
               {"Photos"}
             </Text>
             <Row padding="10px 0 0 0">
@@ -95,7 +95,7 @@ const GallerySection: React.FC = () => {
           </Col>
           <Col item={24}>
             <Col item={24}>
-              <Text fColor="white" fSize={18} fWeight={700} mode="p">
+              <Text fColor="white" fSize={1.125} fWeight={700} mode="p">
                 {"Videos"}
               </Text>
               <Row padding="10px 0 0 0">

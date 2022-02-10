@@ -102,7 +102,7 @@ const ClipView: React.FC = () => {
   return (
     <ClipWrapper>
       <Row alignItems="center" justifyContent="space-between">
-        <Text fColor="white" fSize={22} fWeight={700}>
+        <Text fColor="white" fSize={1.375} fWeight={700}>
           {"Featured Clips"}
         </Text>
         <SeeAll

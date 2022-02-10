@@ -15,14 +15,14 @@ export const MenuItemBody = styled.div`
 `;
 
 export const MenuItemList = styled.div<{ mode: String }>`
-  @media screen and (max-width:${defaultTheme.mediaSize.lg}px){
+  @media screen and (max-width: ${defaultTheme.mediaSize.lg}px) {
     width: 100%;
     font-size: 14px;
     padding: 16px;
     margin-top: 2px;
-    background-color: rgba(80,80,80,0.1);
+    background-color: rgba(80, 80, 80, 0.1);
   }
-  @media screen and (min-width:${defaultTheme.mediaSize.lg}px){
+  @media screen and (min-width: ${defaultTheme.mediaSize.lg}px) {
     display: none;
   }
   ${({ mode }) => {

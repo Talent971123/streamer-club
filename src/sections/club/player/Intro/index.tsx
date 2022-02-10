@@ -2,7 +2,7 @@ import React, { useContext, useState, useRef } from "react";
 import { useRouter } from "next/router";
 
 import { useMutation } from "@apollo/client";
-import { PLAYERQL } from "graphql/club";
+import { PLAYERQL, USERQL } from "graphql/club";
 
 import { Button } from "components/Button";
 import { Avatar } from "components/Avatar";
@@ -32,10 +32,16 @@ import d_photo from "assets/images/player/default-player-image.png";
 import { PlayerContext } from "pages/club/[club_slug]/player/[player_slug]";
 import { RWebShare } from "react-web-share";
 import { baseUrl } from "utils/constData";
-const IntroSection: React.FC = () => {
-  const { player, teams } = useContext<any>(PlayerContext);
-  const router = useRouter();
+import { connect } from "react-redux";
 
+import { UserProfile, useUser } from "@auth0/nextjs-auth0";
+
+
+const IntroSection: React.FC = (props: any) => {
+  const { player } = useContext<any>(PlayerContext);
+  const router = useRouter();
+  const { teams } = props
+  const { user } = useUser();
   const tlist = teams
     ? teams.map((item: any) => ({ label: item.name, value: item.id }))
     : [];
@@ -45,11 +51,12 @@ const IntroSection: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isSubmit, setisSubmit] = useState<boolean>(false);
   const [imageSrc, setiimageSrc] = useState<any>(
-    player?.image ? player.image : d_photo
+    player?.user?.photo ? player?.user?.photo : d_photo
   );
   const [store, setStore] = useState<any>(null);
 
-  const [Imageupdate] = useMutation(PLAYERQL.UPDATE_PLAER_BY_ID, {
+
+  const [userUpdate] = useMutation(USERQL.UPDATE_USERS, {
     onCompleted() {
       setiimageSrc(store);
       setShow(false);
@@ -59,7 +66,7 @@ const IntroSection: React.FC = () => {
     },
   });
 
-  const [update] = useMutation(PLAYERQL.UPDATE_PLAER_BY_ID, {
+  const [update] = useMutation(PLAYERQL.UPDATE_USER_PLAYERS, {
     onCompleted() {
       setisSubmit(false);
       setFlag(false);
@@ -71,32 +78,37 @@ const IntroSection: React.FC = () => {
   });
 
   const onFinish = async (values: any) => {
-    console.log(player);
+
+    const { first_name, last_name, ...rest } = values
+
     // setisSubmit(true);
-    // await update({
-    //   variables: {
-    //     id: player.id,
-    //     data: {
-    //       email: player.user.email,
-    //       auth_id: player.user.auth_id,
-    //       first_name: values.first_name,
-    //       last_name: values.last_name,
-    //     },
-    //     debut_date: values.debut._i,
-    //     positions: [values.positions],
-    //     bio: values.bio,
-    //     team_id: values.team_id,
-    //     prev_club: values.prev_club,
-    //   },
-    // });
+
+    await update({
+      variables: {
+        pid: player.id,
+        uid: player.user.id,
+        po_object: {
+          ...rest,
+          positions: rest.positions.split(",")
+        },
+        user_object: {
+          first_name,
+          last_name
+        }
+      }
+    })
+
+    setFlag(false)
+
   };
 
   const saveImage = async (file: File, imageSrc: any) => {
     setStore(imageSrc);
-    let image: string | null = null;
+    let photo: string | null = null;
     const s3res: any = await s3UploadFile("Players", player.slug, file);
-    image = s3res.location;
-    await Imageupdate({ variables: { id: player.id, object: { image } } });
+    photo = s3res.location;
+    setiimageSrc(`${s3res.location}?${Math.random()}`)
+    await userUpdate({ variables: { uid: player.user.id, object: { photo } } });
   };
 
   const onTargetClick = () => {
@@ -124,12 +136,8 @@ const IntroSection: React.FC = () => {
           last_name: player?.user?.last_name ?? "",
           bio: player.bio,
           team_id: player.teams[0].id,
-          debut: moment(
-            player.debut_date
-              ? player.debut_date
-              : new Intl.DateTimeFormat("en-US").format(Date.now())
-          ),
-          positions: player.positions.join(", "),
+          debut_date: player.debut_date ? moment(player.debut_date) : moment(),
+          positions: "",
           prev_club: player.prev_club,
         }}
       >
@@ -148,13 +156,15 @@ const IntroSection: React.FC = () => {
                   style={{ display: "none" }}
                   accept="image/png, image/jpeg"
                 />
-                <Button
+
+                {user && <Button
                   onClick={onTargetClick}
                   bColor="primary"
                   icon={<EditIcon />}
                   disabled={isSubmit}
                   css={{ border: "none" }}
-                />
+                />}
+
               </Row>
             </Col>
             <Col item={20}>
@@ -164,9 +174,8 @@ const IntroSection: React.FC = () => {
                     {!flag ? (
                       <>
                         <CustomText strong css={{ fontSize: "24px" }}>
-                          {`${player?.user?.first_name ?? ""} ${
-                            player?.user?.last_name ?? ""
-                          }`}
+                          {`${player?.user?.first_name ?? ""} ${player?.user?.last_name ?? ""
+                            }`}
                         </CustomText>
                       </>
                     ) : (
@@ -208,7 +217,7 @@ const IntroSection: React.FC = () => {
                     <CustomText>{"121 Followers"}</CustomText>
                     {!flag ? (
                       <>
-                        <CustomForm.Item>
+                        {user && <CustomForm.Item>
                           <Button
                             bColor="warning"
                             icon={<EditIcon />}
@@ -216,7 +225,7 @@ const IntroSection: React.FC = () => {
                           >
                             {"Edit"}
                           </Button>
-                        </CustomForm.Item>
+                        </CustomForm.Item>}
                         <Button bColor="warning" icon={<FiUserPlus />}>
                           {"Follow Player"}
                         </Button>
@@ -321,18 +330,14 @@ const IntroSection: React.FC = () => {
                   </CustomText>
                   {!flag ? (
                     <CustomText>
-                      {moment(player.debut_date).format("LL")}
+                      {player.debut_date ? moment(player.debut_date).format("LL") : ""}
                     </CustomText>
                   ) : (
-                    <CustomForm.Item name="debut">
+                    <CustomForm.Item name="debut_date">
                       <CustomDatePicker
                         format={"YYYY/MM/DD"}
                         placeholder="Debut Date"
-                        // defaultValue={moment(player.debut_date)}
                         disabled={isSubmit}
-                        // onChange={(e, date) => {
-                        //   setDebut(date);
-                        // }}
                       />
                     </CustomForm.Item>
                   )}
@@ -343,7 +348,7 @@ const IntroSection: React.FC = () => {
                     {"Positions: "}
                   </CustomText>
                   {!flag ? (
-                    <CustomText>{player.positions.join(", ")}</CustomText>
+                    <CustomText>{player.positions.join(', ')}</CustomText>
                   ) : (
                     <CustomForm.Item name="positions">
                       <CustomInput
@@ -391,4 +396,10 @@ const IntroSection: React.FC = () => {
   );
 };
 
-export default IntroSection;
+const mapStateToProps = (state) => ({
+  teams: state.teams.list
+});
+
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(IntroSection);

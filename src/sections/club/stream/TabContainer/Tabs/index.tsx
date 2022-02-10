@@ -18,12 +18,16 @@ const TabsView: React.FC<{
         {menudata.map((item: commonItem, index: number) => {
           return (
             <Col item={32} key={index}>
-              <MenuItem onClick={() => onHandleClick(item.path)} mode={select === item.path ? "true" : "false"}>
+              <MenuItem
+                onClick={() => onHandleClick(item.path)}
+                mode={select === item.path ? "true" : "false"}
+              >
                 <Text
                   fColor={select !== item.path ? "gray.300" : "white"}
-                  fWeight={600}
-                  fSize={12}
+                  fWeight={select !== item.path ? 100 : 800}
+                  fSize={1}
                   padding="8px 0"
+                  wSpace="nowrap"
                   hoverStyle={
                     select !== item.path ? { fColor: "gray.200" } : {}
                   }

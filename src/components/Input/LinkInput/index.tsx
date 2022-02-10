@@ -26,7 +26,7 @@ const LinkInput: React.FC<{ prefix: string; onCopyLink?: any }> = ({
     <InputWrapper>
       <Col item={10.5}>
         <LinkContent>
-          <Text fColor="black.100" fSize={16}>
+          <Text fColor="black.100" fSize={1}>
             {link}
           </Text>
         </LinkContent>

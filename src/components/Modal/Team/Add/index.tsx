@@ -252,7 +252,7 @@ const Team_A_Modal: React.FC<ModalProps> = ({ show = false, handleClose }) => {
                       />
                     </Row>
                     <Row flexDirection="column" gap={10}>
-                      <Text fSize={16} fWeight={700} mode="p"></Text>
+                      <Text fSize={1} fWeight={700} mode="p"></Text>
                       <CustomText css={{ fontSize: "15px", fontWeight: 700 }}>
                         {"Photo Guidelines:"}
                       </CustomText>

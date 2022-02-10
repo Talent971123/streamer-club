@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 // import component
 import { Col, Row } from "components/Layout";
-import { GameCard } from "components/Card";
 import { Text } from "components/Text";
-import {ScrollingCarousel} from '@trendyol-js/react-carousel';
+import { ScrollingCarousel } from "@trendyol-js/react-carousel";
 import { useLinkItem } from "components/hoc";
 import { IoArrowRedoOutline } from "react-icons/io5";
 // import styled component
-import {SlideArrow} from "components/Button/Button"
+import { SlideArrow } from "components/Button/Button";
 import { ReplayWrapper, LinkWrapper } from "./replay.style";
-import { GameCardBody } from "theme/global.state";
+import { CardBody } from "theme/global.state";
+import ThumbCard from "components/Card/ThumbCard";
 // import types
 import { GameCardProps } from "types/components/GameCard";
 
@@ -23,6 +23,7 @@ import { thumbNailLink } from "utils/common-helper";
 import moment from "moment";
 
 import { dateDisplayFormat } from "utils/constData";
+import { number } from "yup";
 
 const SeeAll = useLinkItem(LinkWrapper);
 
@@ -47,14 +48,19 @@ const ReplyView: React.FC = () => {
   };
 
   const onHandleClick = (id: number) => {
-    router.push(`/club/${club_slug}/replay/` + id);
+    router.push({
+      pathname: `/club/${club_slug}/replay/${id}`,
+      query: {
+        assetId: 1,
+      },
+    });
   };
 
   return (
     <ReplayWrapper>
       <Row alignItems="center" justifyContent="space-between">
-        <Text fColor="white" fSize={20} fWeight={700}>
-          {"Replays"}
+        <Text fColor="white" fSize={1.5} fWeight={700}>
+          {"Replays1"}
         </Text>
         <SeeAll
           handleClick={onHandleSeeAll}
@@ -67,8 +73,8 @@ const ReplyView: React.FC = () => {
       <Row padding="10px 0 0 0">
         <Col item={24}>
           <ScrollingCarousel
-            leftIcon={<SlideArrow position='left' />}
-            rightIcon={<SlideArrow position='right' />}
+            leftIcon={<SlideArrow position="left" />}
+            rightIcon={<SlideArrow position="right" />}
           >
             {matches &&
               matches.map((match: any, index: number) => {
@@ -90,13 +96,13 @@ const ReplyView: React.FC = () => {
                 };
 
                 return (
-                  <GameCardBody>
-                    <GameCard
+                  <CardBody>
+                    <ThumbCard
                       {...item}
                       key={index}
                       handleClick={() => onHandleClick(match.video_asset_id)}
                     />
-                  </GameCardBody>
+                  </CardBody>
                 );
               })}
           </ScrollingCarousel>

@@ -34,13 +34,13 @@ const HeadView: React.FC = () => {
               <Image src={logo} width={89} height={90} />
             </Col>
             <Col>
-              <Text fColor="red.100" fSize={38} fWeight={800}>
+              <Text fColor="red.100" fSize={3} fWeight={800}>
                 {title}
               </Text>
             </Col>
           </Row>
         </Col>
-        <Col item={12}>
+        <Col item={12} >
           <Row flexDirection="row-reverse" padding="0 20px 0 0">
             <RWebShare
               data={{

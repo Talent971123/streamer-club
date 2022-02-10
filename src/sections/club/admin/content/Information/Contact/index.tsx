@@ -11,10 +11,10 @@ const ContactSection: React.FC = () => {
     <ContactWrapper>
       <Row flexDirection="column" gap={20}>
         <Col item={24}>
-          <Text fSize={24} fWeight={700} mode="p" fColor="gray.600">
+          <Text fSize={1.5} fWeight={700} mode="p" fColor="gray.600">
             {"Contact Details"}
           </Text>
-          <Text fSize={14} fWeight={500} fColor="gray.300">
+          <Text fSize={0.875} fWeight={500} fColor="gray.300">
             {"This information will not be shared publicly."}
           </Text>
         </Col>
@@ -23,7 +23,7 @@ const ContactSection: React.FC = () => {
             <Col item={12}>
               <Row flexDirection="column">
                 <Col item={24}>
-                  <Text fSize={14} fWeight={500} fColor="gray.300">
+                  <Text fSize={0.875} fWeight={500} fColor="gray.300">
                     {"Address Line 1"}
                   </Text>
                   <Input
@@ -39,7 +39,7 @@ const ContactSection: React.FC = () => {
             <Col item={12}>
               <Row flexDirection="column">
                 <Col item={24}>
-                  <Text fSize={14} fWeight={500} fColor="gray.300">
+                  <Text fSize={0.875} fWeight={500} fColor="gray.300">
                     {"Address Line 2"}
                   </Text>
                   <Input
@@ -59,7 +59,7 @@ const ContactSection: React.FC = () => {
             <Col item={8}>
               <Row flexDirection="column">
                 <Col item={24}>
-                  <Text fSize={14} fWeight={500} fColor="gray.300">
+                  <Text fSize={0.875} fWeight={500} fColor="gray.300">
                     {"City"}
                   </Text>
                   <Input
@@ -75,7 +75,7 @@ const ContactSection: React.FC = () => {
             <Col item={8}>
               <Row flexDirection="column">
                 <Col item={24}>
-                  <Text fSize={14} fWeight={500} fColor="gray.300">
+                  <Text fSize={0.875} fWeight={500} fColor="gray.300">
                     {"State"}
                   </Text>
                   <Input
@@ -91,7 +91,7 @@ const ContactSection: React.FC = () => {
             <Col item={8}>
               <Row flexDirection="column">
                 <Col item={24}>
-                  <Text fSize={14} fWeight={500} fColor="gray.300">
+                  <Text fSize={0.875} fWeight={500} fColor="gray.300">
                     {"PostCode"}
                   </Text>
                   <Input

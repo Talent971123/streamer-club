@@ -48,7 +48,7 @@ const PreviousSection: React.FC = () => {
       <Row flexDirection="column" gap={20}>
         <Col item={24}>
           <Row justifyContent="space-between" alignItems="center">
-            <Text fSize={15} fColor="gray.200">
+            <Text fSize={0.9375} fColor="gray.200">
               {
                 "Add any past matches with replays available to appear on your Club Page."
               }

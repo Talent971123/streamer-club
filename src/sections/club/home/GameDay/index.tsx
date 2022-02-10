@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 // import component
 import { Col, Row } from "components/Layout";
-import { GameCard } from "components/Card";
 import { Text } from "components/Text";
 import { ScrollingCarousel } from "@trendyol-js/react-carousel";
 import { useLinkItem } from "components/hoc";
@@ -9,7 +8,7 @@ import { IoArrowRedoOutline } from "react-icons/io5";
 // import styled component
 import { SlideArrow } from "components/Button/Button";
 import { GameDayWrapper, LinkWrapper } from "./gameday.style";
-import { GameCardBody } from "theme/global.state";
+import { CardBody } from "theme/global.state";
 // import types
 import { GameCardProps } from "types/components/GameCard";
 // define example data
@@ -19,6 +18,7 @@ import { connect } from "react-redux";
 import { useSubscription } from "@apollo/client";
 import { subscribe } from "graphql/match/index";
 import { progressText, thumbNailLink } from "utils/common-helper";
+import ThumbCard from "components/Card/ThumbCard";
 
 const SeeAll = useLinkItem(LinkWrapper);
 
@@ -52,7 +52,7 @@ const GameDayView: React.FC = (props: any) => {
   return (
     <GameDayWrapper>
       <Row alignItems="center" justifyContent="space-between">
-        <Text fColor="white" fSize={20} fWeight={700} mode="p">
+        <Text fColor="white" fSize={1.5} fWeight={700} mode="p">
           {"Game Day - Live & Upcoming"}
         </Text>
         <SeeAll
@@ -90,13 +90,13 @@ const GameDayView: React.FC = (props: any) => {
               };
 
               return (
-                <GameCardBody>
-                  <GameCard
+                <CardBody>
+                  <ThumbCard
                     {...item}
-                    key={index}
+                    key={`game-day-view-key${index}`}
                     handleClick={() => onHandleClick(match.video_asset_id)}
                   />
-                </GameCardBody>
+                </CardBody>
               );
             })}
           </ScrollingCarousel>

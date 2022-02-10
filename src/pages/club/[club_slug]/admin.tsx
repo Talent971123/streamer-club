@@ -19,6 +19,7 @@ const AdminPage: React.FC<{ user: any }> = withPageAuthRequired(({ user }) => {
     query: { club_slug },
   } = useRouter();
 
+  /** Convert Context to redux */
   const [club, setClub] = useState<Partial<ClubCtx>>({});
   const [league, setLeague] = useState<Partial<Array<LeagueCtx>>>([]);
 

@@ -12,6 +12,8 @@ import { ClipProps } from "types/components/ClipCard";
 //  import styled component
 import { SlideArrow } from "components/Button/Button";
 import { ClipWrapper, LinkWrapper } from "./clip.style";
+import { CardBody } from "theme/global.state";
+import ThumbCard from "components/Card/ThumbCard";
 
 //  define the example data
 import backImage from "assets/images/home/gameday.png";
@@ -65,7 +67,7 @@ const ClipView: React.FC = () => {
   return (
     <ClipWrapper>
       <Row alignItems="center" justifyContent="space-between">
-        <Text fColor="white" fSize={20} fWeight={700}>
+        <Text fColor="white" fSize={1.5} fWeight={700}>
           {"Featured Clips"}
         </Text>
         <SeeAll
@@ -83,7 +85,11 @@ const ClipView: React.FC = () => {
             rightIcon={<SlideArrow position="right" />}
           >
             {data.map((item: ClipProps, index: number) => {
-              return <ClipCard {...item} key={index} />;
+              return (
+                <CardBody>
+                  <ThumbCard {...item} mode="Clip" key={index} />
+                </CardBody>
+              )
             })}
           </ScrollingCarousel>
         </Col>

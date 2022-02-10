@@ -38,10 +38,10 @@ const Banner: React.FC = () => {
               <Col>
                 <Row gap={70}>
                   <Col>
-                    <Text mode="p" fColor="white" fSize={16}>
+                    <Text mode="p" fColor="white" fSize={1}>
                       Perth
                     </Text>
-                    <Text fColor="white" fSize={20} fWeight={800}>
+                    <Text fColor="white" fSize={1.25} fWeight={800}>
                       Demons
                     </Text>
                   </Col>
@@ -50,7 +50,7 @@ const Banner: React.FC = () => {
                       <Text
                         tAlign="center"
                         fColor="red.100"
-                        fSize={25}
+                        fSize={1.15625}
                         fWeight={900}
                         lHeight={30}
                         padding="10px"
@@ -60,10 +60,10 @@ const Banner: React.FC = () => {
                     </VSWrapper>
                   </Col>
                   <Col>
-                    <Text mode="p" fColor="white" fSize={16}>
+                    <Text mode="p" fColor="white" fSize={1}>
                       Peel
                     </Text>
-                    <Text fColor="white" fSize={20} fWeight={800}>
+                    <Text fColor="white" fSize={1.25} fWeight={800}>
                       Thunder
                     </Text>
                   </Col>
