@@ -2,17 +2,20 @@ import React from "react";
 // components
 import { Hidden } from "components/Hidden";
 // views
-import HeaderView from "./Header";
-// HOC
+import { DeskHeader } from "./desktop/Header";
+import { MobileHeader } from "./mobile/Header";
 // styled component
-import { HeaderWrapper } from "./Header.style";
+import { HeaderWrapper } from "./desktop/Header.style";
 
 // -------------------------------------------------------------------
-const Header = (props) => {
+const Header = (props: any) => {
   return (
     <HeaderWrapper>
-      <Hidden>
-        <HeaderView bannerFlag={props.bannerFlag}/>
+      <Hidden wHide={[768]}>
+        <DeskHeader menu={props.menu} />
+      </Hidden>
+      <Hidden wShow={[768]}>
+        <MobileHeader menu={props.menu} />
       </Hidden>
     </HeaderWrapper>
   );

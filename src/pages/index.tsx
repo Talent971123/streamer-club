@@ -5,19 +5,14 @@ import type { NextPage } from "next";
 // import { SampleQuery } from "graphql/sample";
 import { initializeApollo } from "api/apollo";
 // import page
-import HomePage from "pages/club/main/home";
+import HomePage from "pages/main/home";
 
 const Home: NextPage = () => {
-  // return <HomePage />;
-  return <></>;
+  return <HomePage />;
 };
 
 export async function getServerSideProps() {
   const apolloClient = initializeApollo();
-
-  // await apolloClient.query({
-  //   query: SampleQuery.GET_SAMPLE_DATA,
-  // });
 
   return {
     props: {

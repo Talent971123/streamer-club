@@ -1,56 +1,48 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { themeGet } from "@styled-system/theme-get";
 import { HiMenuAlt2 } from "react-icons/hi";
-import { defaultTheme } from "theme";
-import {
-  FootballIcon,
-  //   BellIcon,
-    DownIcon,
-  //   BasketIcon,
-  //   AflIcon,
-  //   HockeyIcon,
-  CriketIcon,
-} from "assets/icon";
+import { FootballIcon } from "assets/icon";
 
 const MarkWrapper = styled.div``;
 
-export const RedMarker = styled.div`
+export const RedMarker = styled.div<{ type: string }>`
   width: 62px;
   height: 62px;
   position: relative;
-  @media screen and (max-width:${defaultTheme.mediaSize.md}px){
-    svg:first-child {
-      display: none;
-    }
-    svg:last-child {
-      position: absolute;
-      width: 30px;
-      height: 20px;
-      left: 25px;
-      top: 15px;
-    }
-  }
-  @media screen and (min-width:${defaultTheme.mediaSize.md}px){
-    background-color: ${themeGet("colors.red.100")};
-    svg:first-child {
-      position: absolute;
-      left: 18px;
-      top: 18px;
-    }
-    svg:last-child {
-      display: none;
-    }
+  background-color: ${themeGet("colors.red.100")};
+  svg:first-child {
+    position: absolute;
+    ${({ type }) => {
+      if (type === "mobile") {
+        return css`
+          width: 30px;
+          height: 30px;
+          left: 15px;
+          top: 15px;
+        `;
+      } else {
+        return css`
+          left: 18px;
+          top: 18px;
+        `;
+      }
+    }};
   }
 `;
 
-const MarkIcon: React.FC = () => {
+const MarkIcon: React.FC<{ type?: string }> = ({ type = "default" }) => {
   return (
     <MarkWrapper>
-      <RedMarker>
-        <FootballIcon />
-        <HiMenuAlt2 />
-      </RedMarker>
+      {type === "mobile" ? (
+        <RedMarker type={type}>
+          <HiMenuAlt2 />
+        </RedMarker>
+      ) : (
+        <RedMarker type={type}>
+          <FootballIcon />
+        </RedMarker>
+      )}
     </MarkWrapper>
   );
 };

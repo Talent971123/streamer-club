@@ -397,12 +397,12 @@ const ProfilePage: React.FC = (props: any) => {
                             className="teamsWrapper"
                           />
                         </Text>
-                      <Text fSize={0.75} tAlign="center">
-                        {item.name}
-                      </Text>
-                    </ClubSlider>
-                  );
-                })}
+                        <Text fSize={0.75} tAlign="center">
+                          {item.name}
+                        </Text>
+                      </ClubSlider>
+                    );
+                  })}
               </Slider>
             </Col>
           </Row>
