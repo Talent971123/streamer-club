@@ -14,6 +14,8 @@ import { AiOutlineWarning } from "react-icons/ai";
 import { useSubscription } from "@apollo/client";
 import { PLAYERQL, TEAMQL } from "graphql/club";
 import { initializeApollo } from "api/apollo";
+import { Page } from "components/Page";
+import d_photo from "assets/images/player/default-player-image.png";
 import _ from "lodash";
 
 export const PlayerContext = createContext<any>(null);
@@ -48,14 +50,19 @@ const PlayerPage: React.FC = ({ club_slug, player_slug }: any) => {
   }
 
   return (
-    <>
+    <Page
+      description={
+        player?.user?.first_name ?? "" + player?.user?.last_name ?? ""
+      }
+      image={player?.user?.photo ?? d_photo}
+    >
       <PlayerContext.Provider value={{ player }}>
         <WithContainer mode="container" SectionView={IntroSection} />
         <WithContainer mode="container" SectionView={ClipSection} />
         <WithContainer mode="container" SectionView={GamesSection} />
         <WithContainer mode="container" SectionView={GallerySection} />
       </PlayerContext.Provider>
-    </>
+    </Page>
   );
 };
 

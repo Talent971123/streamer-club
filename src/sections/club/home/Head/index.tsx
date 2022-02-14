@@ -13,8 +13,8 @@ import { HeadWrapper } from "./head.style";
 import Mark from "assets/images/home/team2.png";
 import { RWebShare } from "react-web-share";
 import { baseUrl } from "utils/constData";
+// import { toast } from "react-toastify";
 import _ from "lodash";
-import { toast } from "react-toastify";
 
 const HeadView: React.FC = () => {
   const club = useContext(ClubContext);
@@ -49,7 +49,6 @@ const HeadView: React.FC = () => {
                 url: `${baseUrl + router.asPath}`,
                 title: `Streamer - ${club.name}`,
               }}
-              onClick={() => toast.success("Shared successfully !")}
             >
               <Button bColor="primary" bSize="small" icon={<FiShare2 />}>
                 {"Share"}

@@ -19,7 +19,7 @@ export const RedMarker = styled.div`
   width: 62px;
   height: 62px;
   position: relative;
-  @media screen and (max-width:${defaultTheme.mediaSize.lg}px){
+  @media screen and (max-width:${defaultTheme.mediaSize.md}px){
     svg:first-child {
       display: none;
     }
@@ -31,7 +31,7 @@ export const RedMarker = styled.div`
       top: 15px;
     }
   }
-  @media screen and (min-width:${defaultTheme.mediaSize.lg}px){
+  @media screen and (min-width:${defaultTheme.mediaSize.md}px){
     background-color: ${themeGet("colors.red.100")};
     svg:first-child {
       position: absolute;

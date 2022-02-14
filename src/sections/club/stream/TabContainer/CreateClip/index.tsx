@@ -1,192 +1,113 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Col, Row } from "components/Layout";
-import { Text } from "components/Text";
 import { themeGet } from "@styled-system/theme-get";
 import { Border, CommentaryWrapper, ContentWrapper } from "./commentary.style";
-import UndoIcon from "assets/icon/undo";
 import { Button } from "components/Button";
-import Slider from "react-slick";
-import { Switch } from "components/Switch";
 import { ScreenContext } from "hooks/context/ScreenContext";
 import CloseIcon from "assets/icon/close";
-import { DropdownContainer } from "./commentary.style";
-import BackIcon from "assets/icon/back";
-import { Input } from "components/Input";
+import TimeRangeSlider from 'react-time-range-slider';
+import 'react-time-range-slider/dist/styles.css';
+import axios from "axios";
+import { muxVideoAssetUrl, muxAssetBaseUrl, muxAuthToken } from "utils/constData";
+import { useRouter } from "next/router";
 
-const Comments = [
-  {
-    type: "OUT!",
-    title: "Over 41.2",
-    name: "James Entwisle",
-    statement:
-      " is clean bowled by Martin Wells. Never looked comfortable and he'll be relieved to be walking back to the pavillion.",
-    updated: "- Updated by @AdrianCasey",
-  },
-  {
-    type: "FOUR",
-    title: "Over 40.2",
-    name: "James Entwisle",
-    statement:
-      " gets a nice healthy edge over a packed slip cordon and the balls races away to boundary for 4.",
-    updated: "- Updated by @AdrianCasey",
-  },
-  {
-    type: "SIX",
-    title: "Over 39.5",
-    name: "Martin Wells",
-    statement:
-      " drops it in short and it's despatched by @AdrianCasey right over the fence and on to the road for 6.",
-    updated: "- Updated by @RealScorer",
-  },
-  {
-    type: "50",
-    title: "Over 39.4",
-    name: "Adrian Casey",
-    statement:
-      " cover drives for a quick 2 and that brings up the 50. What a knock!",
-    updated: "- Updated by @RealScorer",
-  },
-];
-
-const Next: React.FC = (props: any) => {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{
-        ...style,
-        display: "block",
-        position: "absolute",
-        top: "50px",
-      }}
-      onClick={onClick}
-    />
-  );
+const defaultTime = {
+  start: "00:00",
+  end: "23:59"
 };
-
-const Before: React.FC = (props: any) => {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{
-        ...style,
-        display: "block",
-        position: "absolute",
-        top: "50px",
-      }}
-      onClick={onClick}
-    />
-  );
+const defaultBoundaryTime = {
+  min: "00:00",
+  max: "23:59"
 };
-
-const settings = {
-  infinite: false,
-  speed: 500,
-  slidesToShow: 7,
-  slidesToScroll: 7,
-  nextArrow: <Next />,
-  prevArrow: <Before />,
-};
-
-const Scoring: any = [
-  {
-    type: "+1",
-    title: "Behind - Home",
-  },
-  {
-    type: "+6",
-    title: "Goal - Home",
-  },
-  {
-    type: "+1",
-    title: "Behind - Away",
-  },
-  {
-    type: "+6",
-    title: "Goal - Away",
-  },
-  {
-    type: <UndoIcon />,
-    title: "Undo last action",
-  },
-];
-
-const ScoreTypes = [
-  {
-    type: "Mark",
-    value: "mark",
-  },
-  {
-    type: "Contested Mark",
-    value: "contesteMark",
-  },
-  {
-    type: "Free Kick",
-    value: "freeKick",
-  },
-  {
-    type: "Bounce",
-    value: "bounce",
-  },
-  {
-    type: "Handball",
-    value: "handball",
-  },
-  {
-    type: "Kick",
-    value: "kick",
-  },
-  {
-    type: "Hitout",
-    value: "hitout",
-  },
-  {
-    type: "Turnover",
-    value: "turnover",
-  },
-  {
-    type: "Tackle",
-    value: "tackle",
-  },
-  {
-    type: "Clearance",
-    value: "clearance",
-  },
-];
 
 const CreateClipView: React.FC = () => {
-  const { Option } = DropdownContainer;
+  const router = useRouter();
   const { createClip, setCreateClipShow } = useContext(ScreenContext);
-  const [keymoment, showKeymoment] = useState<boolean>(false);
-  const [scoring, setScoring] = useState<string>("scoring");
-  const [scoreOption, setScoreOption] = useState<string>("");
-  const options = [
-    {
-      title: "Scoring",
-      value: "scoring",
-      // selectedBackgroundColor: "#0097e6",
-    },
-    {
-      title: "Key Moments",
-      value: "keyMoments",
-      // selectedBackgroundColor: "#0097e6",
-    },
-  ];
-
-  const onChange = (value: any) => {
-    setScoring(value.target.value);
-  };
-
-  const handleScore = (value: any) => {
-    setScoreOption(value);
-    showKeymoment(true);
-  };
-
+ 
   const closeEventButton = () => {
     setCreateClipShow(false);
-    setScoring("scoring");
   };
+
+  const getTotalSeconds = (time: string) => {
+    var actualTime = time.split(':');
+    
+    var totalSeconds = 0;
+    if(actualTime.length == 3){
+      totalSeconds = (+actualTime[0]) * 60 * 60 + (+actualTime[1]) * 60 + (+actualTime[2]);
+    } else if(actualTime.length == 2){
+      totalSeconds = (+actualTime[0]) * 60 + (+actualTime[1]);
+    } else if(actualTime.length == 1){
+      totalSeconds = (+actualTime[0]);
+    }
+    return totalSeconds;
+  }
+
+  const saveClip = () => {
+    const { asset_id } = router.query;
+    /** request mux data */
+    axios
+    .post(muxVideoAssetUrl, {
+      playback_policy: "public",
+      input: [
+        {
+          "url": muxAssetBaseUrl + '/' + asset_id,
+          "start_time": getTotalSeconds(timeValue.start),
+          "end_time": getTotalSeconds(timeValue.end)
+        }
+      ],
+    }, {auth: muxAuthToken})
+    .then((res) => {
+      // save clip
+      console.log('successfully created clip',res)
+      // add logic here to save the clip to user's profile -> clip table
+    }).catch((err) => {
+      console.error("MUX request error:", err);
+    });
+  }
+  
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      var video = document.getElementById("bitmovinplayer-video-player-container") as HTMLVideoElement | null;
+      
+      var onDurationChange = function(){
+          if(video?.readyState){
+            //to your thing
+            if (video.duration > 0) {
+              var minutes = Math.trunc(video.duration / 60);
+              var seconds = Math.trunc(video.duration % 60);  
+              
+              setTimeValue({
+                start: "00:00",
+                end: minutes+':'+seconds
+              })
+              setBoundaryTime({
+                min: "00:00",
+                max: minutes+':'+seconds
+              })
+            }
+          }
+        };
+        video?.addEventListener('durationchange', onDurationChange);
+      	onDurationChange();
+     }
+  },[createClip])
+
+  const [timeValue, setTimeValue] = useState<any>(defaultTime);
+  const [boundaryTime, setBoundaryTime] = useState<any>(defaultBoundaryTime);
+
+  const changeStartHandler = (time) => {
+      console.log("Start Handler Called", time);
+  }
+
+  const timeChangeHandler = (time) => {
+      setTimeValue(time);
+  }
+
+  const changeCompleteHandler = (time) => {
+      console.log("Complete Handler Called", time);
+  }
+
+
   return (
     <CommentaryWrapper>
       <ContentWrapper>
@@ -207,113 +128,41 @@ const CreateClipView: React.FC = () => {
               `}
               gap={20}
             >
+                 <div style={{ width: "300px", margin: "20px" }}>
+                  <div className="time-range">
+                    <b>Start Time:</b> {timeValue.start} <b>End Time:</b>{" "}
+                    {timeValue.end}
+                  </div>
+                  <div className="time-range-slider">
+                    <TimeRangeSlider
+                      disabled={false}
+                      format={24}
+                      maxValue={boundaryTime.max}
+                      minValue={boundaryTime.min}
+                      name={"time_range"}
+                      onChangeStart={changeStartHandler}
+                      onChangeComplete={changeCompleteHandler}
+                      onChange={timeChangeHandler}
+                      step={1}
+                      value={timeValue}/>
+                    </div>
+                 </div>
               <Button
                 fColor="gray.100"
                 css={`
-                  height: 90px;
-                  width: 150px;
+                  height: 50px;
+                  width: 100px;
                   background-color: #4a4949;
                   border: 0px;
                 `}
-              >
-                <Text fSize={1.25} fWeight={700}>
-                  sdf
-                </Text>
-                <Text fSize={0.75}>asdf</Text>
-              </Button>
+                onClick={saveClip}
+              >Save Clip</Button>
               <Button
                 bColor="primary"
                 css={{ border: "none" }}
                 icon={<CloseIcon />}
                 onClick={closeEventButton}
               />
-              {/* {!keymoment && (
-                <>
-                  <Row>
-                    <Col item={24}>
-                      <Row
-                        alignItems="center"
-                        justifyContent="center"
-                        css={{ marginTop: 15, height: 30 }}
-                      >
-                        <Switch
-                          data={options}
-                          onChange={onChange}
-                          defaultValue={options[0].value}
-                        />
-                      </Row>
-                    </Col>
-                    <Col item={2}>
-                    <Row alignItems="flex-end" justifyContent="flex-end" css={{ marginTop: 15 }}>
-                      
-                    </Row>
-                    </Col>
-                  </Row>
-                  {scoring === "scoring" && (
-                    <Row
-                      alignItems="center"
-                      justifyContent="center"
-                      gap={50}
-                      css={{ marginBottom: 20 }}
-                    >
-                      {Scoring.map((item: any, index: number) => {
-                        return (
-                          <Col key={index}>
-                            <Button
-                              fColor="gray.100"
-                              css={`
-                                height: 90px;
-                                width: 150px;
-                                background-color: #4a4949;
-                                border: 0px;
-                              `}
-                              onClick={() => console.log(item.title)}
-                            >
-                              <Text fSize={1.25} fWeight={700}>
-                                {item.type}
-                              </Text>
-                              <Text fSize={0.75}>{item.title}</Text>
-                            </Button>
-                          </Col>
-                        );
-                      })}
-                    </Row>
-                  )}
-                  {scoring === "keyMoments" && (
-                    <Row
-                      css={{
-                        marginBottom: 20,
-                        paddingRight: 18,
-                        paddingLeft: 28,
-                      }}
-                    >
-                      <Col item={24}>
-                        <Slider {...settings}>
-                          {ScoreTypes.map((item: any, index: number) => {
-                            return (
-                              <Col key={index}>
-                                <Button
-                                  fColor="gray.100"
-                                  css={`
-                                    height: 90px;
-                                    width: 150px;
-                                    background-color: #4a4949;
-                                    border: 0px;
-                                    margin-left: 60px;
-                                  `}
-                                  onClick={() => handleScore(item.value)}
-                                >
-                                  <Text fSize={1}>{item.type}</Text>
-                                </Button>
-                              </Col>
-                            );
-                          })}
-                        </Slider>
-                      </Col>
-                    </Row>
-                  )}
-                </>
-              )} */}
             </Row>
           )}
         </Row>

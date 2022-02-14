@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { ContainerWrapper } from "components/Container";
 import { ContentWrapper, Content } from "./tabcontainer.style";
 import { commonItem } from "types/common/common";
 import { Col, Row } from "components/Layout";
 import TabsView from "./Tabs";
-// import CommentaryView from "./Commentary";
+import CommentaryView from "./Commentary";
 import CreateClipView from "./CreateClip";
 // import TeamView from "./Team";
 import MatchStatsView from "./MatchStats";
@@ -18,7 +18,7 @@ const menudata: commonItem[] = [
   {
     title: "Commentary",
     path: "commentary",
-    component: <CreateClipView />,
+    component: <CommentaryView />,
   },
   // {
   //   title: "Team",
@@ -51,7 +51,7 @@ const TabContainerView: React.FC = () => {
   };
 
   const createClipFunc = () => {
-    setCreateClipShow(true);
+    setCreateClipShow(!createClip);
   };
 
   const addEvent = () => {
@@ -120,6 +120,7 @@ const TabContainerView: React.FC = () => {
               </Col>
             </Row>
           </Row>
+          <CreateClipView></CreateClipView>
           <Row alignItems="center" justifyContent="center" display="flex">
             <Content>
               {menudata.map((item: commonItem, index: number) => {

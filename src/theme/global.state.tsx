@@ -28,7 +28,7 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
       right: 0,
       width: "100%",
       height: "100%",
-      zIndex: 9999,
+      zIndex: 10,
       backgroundImage: `url(${photo.src})`,
     },
     body: {
@@ -165,6 +165,30 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
     ".bmpui-seekbar-playbackposition-marker": {
       border: `.35rem solid ${get(theme, "colors.primary.regular")} !important`,
     },
+    ".bmpui-ui-selectbox": {
+      color: `${get(theme, "colors.primary.regular")} !important`,
+    },
+
+    ".bmpui-on": {
+      filter: "invert(1) !important",
+    },
+    ".bmpui-ui-fullscreentogglebutton:hover": {
+      // filter: "invert(1) !important",
+    },
+    ".bmpui-on.bmpui-ui-audiotracksettingstogglebutton:hover, .bmpui-on.bmpui-ui-settingstogglebutton:hover, .bmpui-on.bmpui-ui-subtitlesettingstogglebutton:hover":
+      {
+        filter: "invert(1) !important",
+      },
+
+    ".bmpui-ui-airplaytogglebutton, .bmpui-ui-audiotracksettingstogglebutton, .bmpui-ui-button, .bmpui-ui-casttogglebutton, .bmpui-ui-clickoverlay, .bmpui-ui-closebutton, .bmpui-ui-fullscreentogglebutton, .bmpui-ui-hugeplaybacktogglebutton, .bmpui-ui-hugereplaybutton, .bmpui-ui-listbox .bmpui-ui-listbox-button, .bmpui-ui-piptogglebutton, .bmpui-ui-playbacktogglebutton, .bmpui-ui-settingspanelpagebackbutton, .bmpui-ui-settingspanelpageopenbutton, .bmpui-ui-settingstogglebutton, .bmpui-ui-skin-ads .bmpui-ui-ads-status .bmpui-ui-button-ad-skip, .bmpui-ui-subtitlesettingsresetbutton, .bmpui-ui-subtitlesettingstogglebutton, .bmpui-ui-volumetogglebutton, .bmpui-ui-vrtogglebutton, .bmpui-ui-watermark":
+      {
+        fontSize: "1.2rem !important",
+      },
+    ".bmpui-ui-seekbar-label .bmpui-seekbar-label-inner>.bmpui-container-wrapper .bmpui-seekbar-thumbnail":
+      {
+        width: "12rem !important",
+      },
+
     // custom
     "#nprogress": {
       pointerEvents: "none",
@@ -220,15 +244,15 @@ export const CarouselBody = styled.div`
 
 export const CardBody = styled.div`
   @media screen and (min-width: ${defaultTheme.mediaSize.md}px) {
-    width: 30%;
+    width: 324px;
   }
 
   @media screen and (max-width: ${defaultTheme.mediaSize.md}px) {
-    width: 50%;
+    width: 272px;
   }
 
   @media screen and (max-width: ${defaultTheme.mediaSize.sm}px) {
-    width: 90%;
+    width: 222px;
   }
 `;
 
@@ -236,7 +260,7 @@ export const CardBody = styled.div`
 
 export const CardWrapper = styled.div`
   width: 98%;
-  border-radius: 10px;
+  border-radius: 6px;
   contain: content;
   cursor: pointer;
   margin: 0 5px;
@@ -244,32 +268,48 @@ export const CardWrapper = styled.div`
 
 export const CardContent = styled.div`
   @media screen and (min-width: ${defaultTheme.mediaSize.md}px) {
-    height: 290px;
+    height: 212px;
   }
 
   @media screen and (max-width: ${defaultTheme.mediaSize.md}px) {
-    height: 272px;
+    height: 182px;
   }
 
   @media screen and (max-width: ${defaultTheme.mediaSize.sm}px) {
-    height: 247px;
+    height: 147px;
   }
   width: 100%;
   position: relative;
 `;
 
 export const CardFooter = styled.div`
-  padding: 10px 12px;
+  @media screen and (min-width: ${defaultTheme.mediaSize.md}px) {
+    padding: 3px 6%;
+  }
+
+  @media screen and (max-width: ${defaultTheme.mediaSize.md}px) {
+    padding: 2px 6%;
+  }
+
+  @media screen and (max-width: ${defaultTheme.mediaSize.sm}px) {
+    padding: 0 6%;
+  }
   background-color: rgba(29, 29, 29, 0.4);
   position: absolute;
   bottom: 0px;
   width: 100%;
+
+  p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 `;
 
 export const LiveWrapper = styled.div`
   background-color: #fa3737;
-  width: 45px;
-  height: 25px;
+  width: 39px;
+  height: 19px;
   text-align: center;
   position: absolute;
   display: flex;

@@ -310,25 +310,6 @@ const ProfilePage: React.FC = (props: any) => {
     <ProfileContent>
       <PContent>
         <DisplayWrapper>
-          {/* <Row flexDirection="row">
-          <Col>
-            <Image
-              src={user?.picture || ProfileImage}
-              height={60}
-              width={60}
-              oFit="cover"
-              mode="intrinsic"
-              css={{ borderRadius: "50%" }}
-            />
-          </Col>
-          <Col>
-            <Text padding="15px 0 0 10px" fSize={1.375} fWeight={700}>
-              {"My Profile"}
-            </Text>
-          </Col>
-        </Row> */}
-        </DisplayWrapper>
-        <DisplayWrapper>
           <Row alignItems="center" justifyContent="space-between">
             <Text fColor="white" fSize={1.25} fWeight={700} mode="p">
               {"Clubs Following"}
@@ -416,17 +397,12 @@ const ProfilePage: React.FC = (props: any) => {
                             className="teamsWrapper"
                           />
                         </Text>
-                        <Col item={24}>
-                          <Text fSize={0.75} fWeight={700} tAlign="center">
-                            {item.league}
-                          </Text>
-                        </Col>
-                        <Text fSize={11} tAlign="center">
-                          {item.name}
-                        </Text>
-                      </ClubSlider>
-                    );
-                  })}
+                      <Text fSize={0.75} tAlign="center">
+                        {item.name}
+                      </Text>
+                    </ClubSlider>
+                  );
+                })}
               </Slider>
             </Col>
           </Row>

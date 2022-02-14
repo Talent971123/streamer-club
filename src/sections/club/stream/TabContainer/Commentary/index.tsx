@@ -12,39 +12,31 @@ import CloseIcon from "assets/icon/close";
 import { DropdownContainer } from "./commentary.style";
 import BackIcon from "assets/icon/back";
 import { Input } from "components/Input";
+import { StreamPageContext } from "hooks/context/StreamPageContext";
 
 const Comments = [
   {
-    type: "OUT!",
-    title: "Over 41.2",
+    type: "Goal",
+    title: "Q2 - 06:18 (22:58)",
     name: "James Entwisle",
     statement:
-      " is clean bowled by Martin Wells. Never looked comfortable and he'll be relieved to be walking back to the pavillion.",
-    updated: "- Updated by @AdrianCasey",
+      "An absolute bomber of a Goal once again. It will be hard for the opposition to claw back from this one",
+    team: "Brisbane Heat",
   },
   {
-    type: "FOUR",
-    title: "Over 40.2",
+    type: "Mark",
+    title: "Q1 - 10:12 (15:45)",
     name: "James Entwisle",
     statement:
-      " gets a nice healthy edge over a packed slip cordon and the balls races away to boundary for 4.",
-    updated: "- Updated by @AdrianCasey",
+      "A super Mark once again. Proving once again why he was 2021's MVP of the League",
+    team: "Brisbane Heat",
   },
   {
-    type: "SIX",
-    title: "Over 39.5",
-    name: "Martin Wells",
-    statement:
-      " drops it in short and it's despatched by @AdrianCasey right over the fence and on to the road for 6.",
-    updated: "- Updated by @RealScorer",
-  },
-  {
-    type: "50",
-    title: "Over 39.4",
-    name: "Adrian Casey",
-    statement:
-      " cover drives for a quick 2 and that brings up the 50. What a knock!",
-    updated: "- Updated by @RealScorer",
+    type: "Mark",
+    title: "Q1 - 10:12 (15:45)",
+    name: "James Entwisle",
+    statement: "",
+    team: "Brisbane Heat",
   },
 ];
 
@@ -158,19 +150,20 @@ const ScoreTypes = [
 const CommentaryView: React.FC = () => {
   const { Option } = DropdownContainer;
   const { show, setEventShow } = useContext(ScreenContext);
+  const { home_name, home_players, away_players, away_name }: any = useContext(StreamPageContext);
   const [keymoment, showKeymoment] = useState<boolean>(false);
   const [scoring, setScoring] = useState<string>("scoring");
   const [scoreOption, setScoreOption] = useState<string>("");
+  const [teamPlayers, setTeamPlayers] = useState<any>([]);
+  const [defaultTeam, setDefaultTeam] = useState<string>("");
   const options = [
     {
       title: "Scoring",
       value: "scoring",
-      // selectedBackgroundColor: "#0097e6",
     },
     {
       title: "Key Moments",
       value: "keyMoments",
-      // selectedBackgroundColor: "#0097e6",
     },
   ];
 
@@ -179,13 +172,38 @@ const CommentaryView: React.FC = () => {
   };
 
   const handleScore = (value: any) => {
-    setScoreOption(value);
+    console.log(value, "yehey")
+    if(value === "Goal - Home" || value === "Behind - Home"){
+      setDefaultTeam(home_name);
+      setTeamPlayers(home_players);
+    } else if (value === "Goal - Away" || value === "Behind - Away"){
+      setDefaultTeam(away_name);
+      setTeamPlayers(away_players);
+    } else {
+      setDefaultTeam("");
+      setTeamPlayers([]);
+    }
     showKeymoment(true);
+  };
+
+  const handleTeamChange = (value: any) => {
+    if (value === "home") {
+      setTeamPlayers(home_players);
+    } else {
+      setTeamPlayers(away_players);
+    }
+  };
+
+  const handlePlayersChange = (value: any) => {
+    //TODO - discussion ongoing
   };
 
   const closeEventButton = () => {
     setEventShow(false);
+    setDefaultTeam("");
+    setTeamPlayers([]);
     setScoring("scoring");
+
   };
   return (
     <CommentaryWrapper>
@@ -252,7 +270,7 @@ const CommentaryView: React.FC = () => {
                                 background-color: #4a4949;
                                 border: 0px;
                               `}
-                              onClick={() => console.log(item.title)}
+                              onClick={() => handleScore(item.title)}
                             >
                               <Text fSize={1.25} fWeight={700}>
                                 {item.type}
@@ -313,33 +331,36 @@ const CommentaryView: React.FC = () => {
                           bColor="primary"
                           css={{ border: "none" }}
                           icon={<BackIcon />}
-                          onClick={() => showKeymoment(false)}
+                          onClick={() => {showKeymoment(false), setScoring("scoring")}}
                         />
                       </Col>
                       <Col item={6}>
                         <DropdownContainer
-                          placeholder="Select Team (mandatory)"
-                          onChange={(e: any) => console.log(e)}
+                          placeholder={"Select Team (mandatory)"}
+                          onChange={(e: any) => handleTeamChange(e)}
+                          defaultValue={defaultTeam ? defaultTeam : null}
                         >
-                          <Option value={"t1"} key={1}>
-                            {"Team 1"}
+                          <Option value={"home"} key={1}>
+                              {home_name}
                           </Option>
-                          <Option value={"t2"} key={2}>
-                            {"Team 2"}
+                          <Option value={"away"} key={2}>
+                            {away_name}
                           </Option>
                         </DropdownContainer>
                       </Col>
                       <Col item={6}>
                         <DropdownContainer
                           placeholder="Select Player (non-mandatory)"
-                          onChange={(e: any) => console.log(e)}
+                          onChange={(e: any) => handlePlayersChange(e)}
                         >
-                          <Option value={"p1"} key={1}>
-                            {"Player 1"}
-                          </Option>
-                          <Option value={"p2"} key={2}>
-                            {"Player 2"}
-                          </Option>
+                          {teamPlayers &&
+                            teamPlayers.map((item: any, index: number) => {
+                              return (
+                                <Option value={item.id} key={index}>
+                                  {`${item?.user?.first_name} ${item?.user?.last_name}`}
+                                </Option>
+                              );
+                            })}
                         </DropdownContainer>
                       </Col>
                       <Col item={6}>
@@ -404,7 +425,7 @@ const CommentaryView: React.FC = () => {
               )}
             </Row>
           )}
-          {scoring !== "keyMoments" &&
+          { !show &&
             Comments.map((item: any, index: number) => {
               return (
                 <Row
@@ -430,14 +451,11 @@ const CommentaryView: React.FC = () => {
                   </Col>
                   <Col item={24}>
                     <Row>
-                      <Text fColor="white" fSize={0.75} fWeight={700}>
+                      <Text fColor="red.100" fSize={0.75} fWeight={700}>
                         {item.title}
                       </Text>
                     </Row>
                     <Row>
-                      <Text fColor="white" fSize={1} fWeight={700}>
-                        {item.name}&nbsp;
-                      </Text>
                       <Text fColor="white" fSize={1} fWeight={200}>
                         {item.statement}
                       </Text>
@@ -449,7 +467,7 @@ const CommentaryView: React.FC = () => {
                         fWeight={200}
                         css={{ paddingTop: 24 }}
                       >
-                        {item.updated}
+                        {`${item.name} - ${item.team}`}
                       </Text>
                     </Row>
                   </Col>

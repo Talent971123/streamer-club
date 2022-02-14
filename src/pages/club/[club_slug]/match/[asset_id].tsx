@@ -7,6 +7,7 @@ import {
   ToolbarView,
   TabContainerView,
 } from "sections/club/stream";
+import { Page } from "components/Page";
 
 import { StreamPageCtx } from "types/common/club";
 import { initializeApollo } from "api/apollo";
@@ -19,11 +20,16 @@ const MatchStreamPage: React.FC<{ streamInfo: StreamPageCtx }> = ({
 }) => {
   // TODO: use redux instead of context api
   return (
-    <StreamPageContext.Provider value={streamInfo}>
-      <WithContainer mode="wrapper" SectionView={DisplayView} />
-      <WithContainer mode="wrapper" SectionView={ToolbarView} />
-      <WithContainer mode="wrapper" SectionView={TabContainerView} />
-    </StreamPageContext.Provider>
+    <Page
+      description={streamInfo.home_name + " vs " + streamInfo.away_name}
+      image={`https://image.mux.com/${streamInfo.playback_id}/thumbnail.png`}
+    >
+      <StreamPageContext.Provider value={streamInfo}>
+        <WithContainer mode="wrapper" SectionView={DisplayView} />
+        <WithContainer mode="wrapper" SectionView={ToolbarView} />
+        <WithContainer mode="wrapper" SectionView={TabContainerView} />
+      </StreamPageContext.Provider>
+    </Page>
   );
 };
 
@@ -46,6 +52,8 @@ export const getServerSideProps = async (context: any) => {
         home_logo: match.home_team.club.logo,
         away_name: match.away_team.club.name,
         away_logo: match.away_team.club.logo,
+        home_players: match.home_team.players,
+        away_players: match.away_team.players,
       },
     },
   };

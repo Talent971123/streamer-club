@@ -13,21 +13,21 @@ const data = [
     Name: "Adrian Casey",
     Email: "adrian@harken.cc",
     Mobile: "+61 491 570 156",
-    action: (
-      <Button bColor="primary" bSize="small">
-        {"Edit"}
-      </Button>
-    ),
+    // action: (
+    //   <Button bColor="primary" bSize="small">
+    //     {"Edit"}
+    //   </Button>
+    // ),
   },
   {
     Name: "Gideon",
     Email: "gideon@harken.cc",
     Mobile: "0491570159",
-    action: (
-      <Button bColor="primary" bSize="small">
-        {"Edit"}
-      </Button>
-    ),
+    // action: (
+    //   <Button bColor="primary" bSize="small">
+    //     {"Edit"}
+    //   </Button>
+    // ),
   },
 ];
 
@@ -46,11 +46,11 @@ const DetailSection: React.FC = () => {
               </Text>
             </Col>
             <Col item={12}>
-              <Row justifyContent="flex-end">
+              {/* <Row justifyContent="flex-end">
                 <Button bColor="primary" bSize="small" icon={<BsPlus />}>
-                  {"Add Club ADmin"}
+                  {"Add Club Admin"}
                 </Button>
-              </Row>
+              </Row> */}
             </Col>
           </Row>
         </Col>

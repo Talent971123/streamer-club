@@ -104,6 +104,7 @@ const SUB_CLUB_REPLAYS = gql`
       status
       video_asset_id
       round
+      round_name
       start_datetime
       away_team {
         id

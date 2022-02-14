@@ -28,13 +28,13 @@ import { FiSave, FiShare2, FiUserPlus } from "react-icons/fi";
 
 import EditIcon from "assets/icon/edit";
 import { s3UploadFile } from "utils/s3-helper";
-import d_photo from "assets/images/player/default-player-image.png";
 import { PlayerContext } from "pages/club/[club_slug]/player/[player_slug]";
 import { RWebShare } from "react-web-share";
 import { baseUrl } from "utils/constData";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import { UserProfile, useUser } from "@auth0/nextjs-auth0";
+import d_photo from "assets/images/player/default-player-image.png";
 
 const IntroSection: React.FC = (props: any) => {
   const { player } = useContext<any>(PlayerContext);
@@ -239,7 +239,6 @@ const IntroSection: React.FC = (props: any) => {
                               player?.user?.first_name ?? ""
                             } ${player?.user?.last_name ?? ""}`,
                           }}
-                          onClick={() => toast.success("Shared successfully !")}
                         >
                           <Button
                             bColor="primary"

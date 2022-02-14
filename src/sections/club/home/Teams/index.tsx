@@ -38,7 +38,7 @@ const TeamView: React.FC = () => {
 
   return (
     <TeamWrapper>
-      <Row flexDirection="column" gap={5}>
+      <Row alignItems="center" justifyContent="space-between">
         <Text fColor="white" fSize={1.5} fWeight={700}>
           {"Our Teams"}
         </Text>

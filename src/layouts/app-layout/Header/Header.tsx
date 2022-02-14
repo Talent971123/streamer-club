@@ -16,24 +16,18 @@ import ProfileImage from "assets/images/layout/profile.png";
 import { connect } from "react-redux";
 import { setClubInfo } from "redux/actions/club";
 // styled component
-import {
-  HeaderWrapper,
-  MenuItem,
-  Border,
-  MenuItemBody,
-  MenuItemBodyMobile,
-} from "./Header.style";
+import { HeaderWrapper, MenuItem, Border, MenuItemBody, MenuItemBodyMobile, ProfileWrapper, StyledMenu, StyledItemMenu } from "./Header.style";
 import { Text } from "components/Text";
 // -------------------------------------------------------------------
-import { UserProfile, useUser } from "@auth0/nextjs-auth0";
-import { initializeApollo } from "api/apollo";
+import { useUser } from "@auth0/nextjs-auth0";
 import { HomeQL } from "graphql/club";
 
-import { useQuery, useSubscription } from "@apollo/client";
+import { useSubscription } from "@apollo/client";
 
 import _ from "lodash";
 import { setPlayerList } from "redux/actions/players";
 import { setTeamList } from "redux/actions/teams";
+import { Dropdown } from "antd";
 
 /** Refactor later */
 const MenuItems = (club_slug: string, user: any) => {
@@ -48,6 +42,8 @@ const MenuItems = (club_slug: string, user: any) => {
 
   return user ? menus : _.filter(menus, ["public", true]);
 };
+
+// Yamata
 const Header = (props: any) => {
   const { setTeamList, setClubInfo, setPlayerList, clubInfo } = props;
   const { move, path, param, asPath }: any = useRouter();
@@ -79,8 +75,24 @@ const Header = (props: any) => {
   };
 
   const bannerFlag = () => {
-    props.bannerFlag();
+    props.bannerFlag()
   };
+
+  const dropdownItems = (
+    <StyledMenu>
+      <StyledItemMenu key="0" onClick={() => handleMenuClick(user ? `/club/${param.club_slug}/profile` : '')}>
+        <Text fColor="white" fSize={0.875} tAlign="center">
+          {"My Profile"}
+        </Text>
+      </StyledItemMenu>
+      <StyledItemMenu key="1" onClick={() => handleMenuClick("/api/auth/logout")}>
+        <Text fColor="white" fSize={0.875} tAlign="center">
+          {"Logout"}
+        </Text>
+      </StyledItemMenu>
+    </StyledMenu>
+  );
+
   return (
     <HeaderWrapper>
       <ContainerWrapper>
@@ -121,7 +133,7 @@ const Header = (props: any) => {
               })}
             </Row>
           </Col>
-          <Col item={11.5}>
+          <Col item={7}>
             <Row
               gap={18}
               alignItems="center"
@@ -132,7 +144,9 @@ const Header = (props: any) => {
                 {user && (
                   <Row alignItems="center" gap={10}>
                     <Col>
-                      <BellIcon />
+                      <Text fColor="white" fSize={0.875} tAlign="center" padding="10px 10px">
+                        {user?.name}
+                      </Text>
                     </Col>
                     <Col className="ImageWrapper">
                       <Image
@@ -142,15 +156,17 @@ const Header = (props: any) => {
                         oFit="cover"
                         mode="intrinsic"
                       />
-                    </Col>{" "}
-                    <Col>
-                      <Text fColor="white" fSize={0.875}>
-                        {user?.name}
-                      </Text>
                     </Col>
-                    <Col>
-                      <a href="/api/auth/logout">Logout</a>
+                    <Col className="DropdownWrapper">
+                      <Dropdown overlay={dropdownItems} trigger={['hover']}>
+                        <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+                          <DownIcon />
+                        </a>
+                      </Dropdown>
                     </Col>
+                    {/* <Col>
+                      <BellIcon />
+                    </Col> */}
                   </Row>
                 )}
 
@@ -217,12 +233,6 @@ const Header = (props: any) => {
                   </Col> */}
                 </Row>
               </MenuItemBodyMobile>
-              <Col>
-                <Border />
-              </Col>
-              <Col>
-                <SearchInput />
-              </Col>
             </Row>
           </Col>
         </Row>

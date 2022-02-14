@@ -40,44 +40,53 @@ const SUB_ALL_CLUBS = gql`
  * TODO: transfer to common query file
  * */
 const SUB_CLUB = gql`
-  subscription MyClubSubscription($club_slug: String!) {
-    clubs(where: { slug: { _eq: $club_slug } }) {
-      name
-      banner_image
-      logo
+subscription MyClubSubscription($club_slug: String!) {
+  clubs(where: {slug: {_eq: $club_slug}}) {
+    name
+    banner_image
+    logo
+    id
+    slug
+    address_1
+    address_2
+    city
+    created_at
+    postcode
+    sport_id
+    state
+    teams {
       id
+      image
+      name
       slug
-      teams {
-        id
-        image
-        name
-        slug
-        division
-        league_id
-        players {
-          id
-          last_name
-          first_name
-        }
-      }
+      division
+      league_id
       players {
         id
-        first_name
-        last_name
-        image
-        mobile
-        email
-        positions
-        team_id
-        club_id
-        slug
-        is_professional
-        team {
-          name
+        user {
+          first_name
+          last_name
         }
       }
     }
+    players {
+      id
+      image
+      user {
+        first_name
+        last_name
+      }
+      positions
+      team_id
+      club_id
+      slug
+      is_professional
+      team {
+        name
+      }
+    }
   }
+}
 `;
 
 const SUB_ALL_TEAMS = gql`
@@ -118,6 +127,13 @@ const UPDATE_TEAM_BY_ID = gql`
   }
 `;
 
+const UPDATE_CLUB_BY_ID = gql`
+mutation UpdateClubById($id: Int!, $_set: clubs_set_input = {}) {
+  update_clubs_by_pk(pk_columns: {id: $id}, _set: $_set) {
+    updated_at
+  }
+}
+`;
 // ---------
 export default {
   ADD_TEAM,
@@ -131,4 +147,5 @@ export default {
 
   UPDATE_PLAER_BY_ID,
   UPDATE_TEAM_BY_ID,
+  UPDATE_CLUB_BY_ID,
 };

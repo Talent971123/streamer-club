@@ -8,10 +8,11 @@ import { Text } from "components/Text";
 import { GameCardProps } from "types/components/GameCard";
 // styled component
 import { CardWrapper, CardContent, CardFooter, LiveWrapper } from "theme/global.state";
-import { UserWrapper } from "./ThumbCard.styled";
+import { UserWrapper, LeagueWrapper, ThumbCardImage, PlayWrapper } from "./ThumbCard.styled";
 //  import asssets
 import { UserIcon } from "assets/icon";
 import Play from "assets/images/home/play.png";
+import moment from "moment";
 
 const ThumbCard: React.FC<GameCardProps> = ({
   id,
@@ -29,7 +30,7 @@ const ThumbCard: React.FC<GameCardProps> = ({
   users = 0,
   mode = "Day",
   roundName,
-  matchName,
+  matchName, /** home/away */
   handleClick,
   isLive,
   title,
@@ -41,7 +42,7 @@ const ThumbCard: React.FC<GameCardProps> = ({
     <CardWrapper onClick={() => onHandleClick(id)}>
       <CardContent>
         <Image src={backgroundImage} mode="fill" oFit="fill" zIndex={-1} />
-        {mode == "Day" && isLive &&(
+        {mode == "Day" && isLive && (
           <LiveWrapper>
             <Text fColor="white" fSize={0.9} fWeight={600}>
               {"LIVE"}
@@ -51,64 +52,75 @@ const ThumbCard: React.FC<GameCardProps> = ({
         {mode == "Day" && (
           <UserWrapper><FaRegUser />{users}</UserWrapper>
         )}
-        {(mode == "Day" || mode == "Replay")&& (
-          <Col item={24} style={{display: 'flex', height: "100%"}}>
-            <Row
-              alignItems="center"
-              justifyContent="space-between"
-              padding="50px"            
-            >
-              <Col>
-                <Image src={clubImage1} width={100} height={100} />
-              </Col>
-              {mode === "Replay" ? (
-                <Col className="playwrapper">
-                  <Image src={Play} width={69} height={69} />
+
+
+        {(mode == "Day") && (
+          <Col item={24}>
+            <Row>
+              <ThumbCardImage>
+
+                <Col>
+                  <Image src={clubImage1} width={85} height={90} />
                 </Col>
-              ) : null}
-              <Col>
-                <Image src={clubImage2} width={100} height={100} />
-              </Col>
+
+                <Col>
+                  <Image src={clubImage2} width={85} height={90} />
+                </Col>
+
+              </ThumbCardImage>
             </Row>
           </Col>
         )}
-        <CardFooter>
-        {(mode == "Day" || mode == "Replay") && (
-          <>
-            <Col item={24}>
-              <Row alignItems="center" justifyContent="space-between">
-                <Col item={11}>
-                  <Text fColor="white" fSize={0.875} tAlign="left" fWeight={800}>
-                    {clubName1}
-                  </Text>
-                </Col>
-                <Col item={1}>
-                  <Text fColor="white" fSize={0.875} tAlign="center" fWeight={400}>
-                    vs
-                  </Text>
-                </Col>
-                <Col item={11}>
-                  <Text fColor="white" fSize={0.875} tAlign="right" fWeight={800}>
-                    {clubName2}
-                  </Text>
-                </Col>
-              </Row>
-            </Col>
-            <Text fColor="white" fSize={0.875} tAlign="left" fWeight={400}>
-              {matchName + " "}
-              {leagueName ? `(${leagueName})` : ""}
-            </Text>
-            <Text fColor="white" fSize={0.875} tAlign="left">
-              {/* {date} */}
-              Saturday, 15 January 12:00PM
-            </Text>
-          </>
+
+
+        {mode === "Replay" && (
+          <PlayWrapper>
+            <Image src={Play} width={69} height={69} />
+          </PlayWrapper>
         )}
-        {title && (
-          <Text fColor="white" fSize={1} fWeight={600}>
-            {title}
-          </Text>
-        )}
+
+
+
+        <CardFooter style={{ lineHeight: "1rem" }}>
+          {(mode == "Day" || mode == "Replay") && (
+            <>
+              <Col item={24} style={{ display: "flex" }}>
+                <Text fColor="white" fSize={0.875} tAlign="left" fWeight={800}>
+                  {clubName1}
+                </Text>
+                &nbsp;
+                <Text fColor="white" fSize={0.875} tAlign="center" fWeight={400} style={{ textOverflow: "unset", width: "1rem" }}>
+                  vs
+                </Text>
+                &nbsp;
+                <Text fColor="white" fSize={0.875} tAlign="right" fWeight={800}>
+                  {clubName2}
+                </Text>
+              </Col>
+              <Text fColor="white" fSize={0.875} tAlign="left" fWeight={400}>
+                {matchName}
+              </Text>
+
+              <LeagueWrapper>
+
+                <Image src={leagueImage} width={22} height={22} />
+
+                <Text fColor="white" fSize={0.875} tAlign="left" fWeight={400} padding={'0px 0px 0px 5px'}>
+                  {leagueName ? `League (${leagueName}) - ` : ""}
+                  {roundName ? `${roundName}` : ""}
+                </Text>
+              </LeagueWrapper>
+
+              <Text fColor="white" fSize={0.875} tAlign="left">
+                {moment(date).format('LL hh:mmA ')}
+              </Text>
+            </>
+          )}
+          {title && (
+            <Text fColor="white" fSize={1} fWeight={600}>
+              {title}
+            </Text>
+          )}
         </CardFooter>
       </CardContent>
     </CardWrapper>

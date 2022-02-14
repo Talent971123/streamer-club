@@ -1,17 +1,19 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
 
 import { Button } from "components/Button";
 import { Row } from "components/Layout";
+import { ProfileImageContext } from "..";
 
 export const CommonBrowser: React.FC = () => {
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [files, setFiles] = useState([]);
+  const {image, setImage, fileInputRef, files, setFiles, flag, setFlag} = useContext(ProfileImageContext);
   const onFileInputChange = (event: any) => {
+    setImage(event);
     const newFiles = event.target.files;
 
     setFiles(files.concat(newFiles));
-    // do something with your files...
+    setFlag(true);
   };
+
   const onTargetClick = () => {
     if (fileInputRef && fileInputRef.current) {
       fileInputRef?.current.click();

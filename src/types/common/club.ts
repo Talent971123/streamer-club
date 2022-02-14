@@ -7,6 +7,11 @@ export interface ClubCtx {
   banner_image: string;
   logo: string;
   slug: string;
+  address_1: string;
+  address_2: string;
+  city: string;
+  postcode: number;
+  state: string;
   teams: Array<Teams>;
   players: Array<Players>;
 }
@@ -17,6 +22,8 @@ export interface StreamPageCtx {
   home_logo: string;
   away_name: string;
   away_logo: string;
+  home_players: Array<Players>;
+  away_players: Array<Players>;
 }
 
 export interface LeagueCtx {

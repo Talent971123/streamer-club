@@ -191,7 +191,6 @@ const ToolBarView: React.FC = (props: any) => {
                 url: `${baseUrl + router.asPath}`,
                 title: `Streamer - ${home_name} : ${away_name}`,
               }}
-              onClick={() => toast.success("shared successfully !")}
             >
               <Button bColor="primary" bSize="small" icon={<FiShare2 />}>
                 {"Share"}

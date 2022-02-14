@@ -93,3 +93,10 @@ export const baseUrl =
   typeof window !== "undefined"
     ? `${window.location.protocol}//${window.location.host}`
     : "";
+
+export const muxVideoAssetUrl = process.env.NEXT_PUBLIC_MUX_VIDEO_ASSET_URL || '';
+export const muxAuthToken = {
+  username: process.env.NEXT_PUBLIC_MUX_TOKEN_ID || '',
+  password: process.env.NEXT_PUBLIC_MUX_TOKEN_SECRET || ''
+};
+export const muxAssetBaseUrl = process.env.NEXT_PUBLIC_MUX_ASSET_BASE_URL;

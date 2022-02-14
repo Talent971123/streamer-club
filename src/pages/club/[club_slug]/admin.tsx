@@ -13,6 +13,7 @@ import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 
 export const ClubAdminContext = createContext<Partial<ClubCtx>>({});
 export const ClubLeagueContext = createContext<Partial<Array<LeagueCtx>>>([]);
+export const ClubDetailsContext = createContext<any>({});
 
 const AdminPage: React.FC<{ user: any }> = withPageAuthRequired(({ user }) => {
   const {
@@ -22,6 +23,7 @@ const AdminPage: React.FC<{ user: any }> = withPageAuthRequired(({ user }) => {
   /** Convert Context to redux */
   const [club, setClub] = useState<Partial<ClubCtx>>({});
   const [league, setLeague] = useState<Partial<Array<LeagueCtx>>>([]);
+  const [clubDetails, setClubDetails] = useState<any>({});
 
   useSubscription(ADMINQL.SUB_CLUB, {
     variables: {
@@ -39,15 +41,22 @@ const AdminPage: React.FC<{ user: any }> = withPageAuthRequired(({ user }) => {
     },
   });
 
+  const values = {
+    clubDetails,
+    setClubDetails,
+  }
+
   return (
     <ClubAdminContext.Provider value={club}>
       <ClubLeagueContext.Provider value={league}>
-        <WithContainer
-          mode="wrapper"
-          SectionView={HeadView}
-          cColor="black.200"
-        />
-        <WithContainer cColor="black.200" SectionView={ContentView} />
+        <ClubDetailsContext.Provider value={values}>
+          <WithContainer
+            mode="wrapper"
+            SectionView={HeadView}
+            cColor="black.200"
+          />
+          <WithContainer cColor="black.200" SectionView={ContentView} />
+        </ClubDetailsContext.Provider>
       </ClubLeagueContext.Provider>
     </ClubAdminContext.Provider>
   );

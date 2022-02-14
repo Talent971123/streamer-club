@@ -40,6 +40,7 @@ export default class CustomDocument extends Document {
     return (
       <Html lang="en">
         <Head>
+          <title>{"Streamer"}</title>
           <link rel="shortcut icon" href="/logo.ico" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link

@@ -73,7 +73,8 @@ const UpcomingModal: React.FC<ModalProps> = ({
 
   const [addMatch] = useMutation(mutate.INSERT_MATCH, {
     onCompleted() {
-      toast.success("Inserted new yeah.");
+      toast.success("Match saved");
+      handleClose && handleClose();
     },
     onError(e) {
       toast.error("Error Happened.");
@@ -84,6 +85,7 @@ const UpcomingModal: React.FC<ModalProps> = ({
     initialValues: formInitialValues,
     validationSchema: validationSchema,
     onSubmit: async (values, { resetForm }) => {
+
       /** request mux data */
       axios
         .post(apiBaseUrl + "/mux/live-stream", {
@@ -115,6 +117,7 @@ const UpcomingModal: React.FC<ModalProps> = ({
           };
 
           addMatch({ variables: { objects } });
+
         })
         .catch((err) => {
           console.error("MUX request error:", err);

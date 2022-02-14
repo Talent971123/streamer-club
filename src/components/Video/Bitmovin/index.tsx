@@ -18,6 +18,9 @@ const VideoPlayer: React.FC<videoProps> = ({ playback_id, setLiveShow }) => {
     playback: {
       autoplay: true,
     },
+    cast: {
+      enable: true,
+    },
     events: {
       error: function (errObj: any) {
         switch (errObj.code) {
@@ -69,6 +72,7 @@ const VideoPlayer: React.FC<videoProps> = ({ playback_id, setLiveShow }) => {
         toast.error("Error while loading source");
       }
     );
+    console.log('videoRef', videoRef)
   };
 
   return (

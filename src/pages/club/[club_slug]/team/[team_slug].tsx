@@ -1,5 +1,5 @@
 // import react
-import React, { createContext } from "react";
+import React, { createContext, useState } from "react";
 import { WithContainer } from "components/Container";
 
 import { GameDayView, ClipView } from "sections/club/home";
@@ -13,18 +13,29 @@ import {
 import { initializeApollo } from "api/apollo";
 import { ClubCtx } from "types/common/club";
 import { HomeQL } from "graphql/club";
+import { Page } from "components/Page";
 import _ from "lodash";
 
 export const ClubContext = createContext<Partial<ClubCtx>>({});
 
-const TeamPage: React.FC = ({ club, players, team }: any) => {
+const TeamPage: React.FC = (props: any) => {
+  const { club, players, team } = props;
+  const [banner, setBanner] = useState<any>(team.image);
+  const fallback = `https://via.placeholder.com/900x600.png/000/fff?text=${encodeURI(
+    team.name || ""
+  )}`;
+
+  if (_.isUndefined(team.image)) {
+    setBanner(fallback);
+  }
+
   return (
-    <>
+    <Page description={club.name + " - " + team.name} image={banner}>
       <ClubContext.Provider value={club}>
         <WithContainer
           mode="wrapper"
-          sectionProps={{ bannerImage: team.image }}
           SectionView={BannerView}
+          sectionProps={{ banner }}
         />
         <WithContainer
           mode="wrapper"
@@ -40,7 +51,7 @@ const TeamPage: React.FC = ({ club, players, team }: any) => {
           SectionView={PlayerView}
         />
       </ClubContext.Provider>
-    </>
+    </Page>
   );
 };
 

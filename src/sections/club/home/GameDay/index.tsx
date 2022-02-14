@@ -53,7 +53,7 @@ const GameDayView: React.FC = (props: any) => {
     <GameDayWrapper>
       <Row alignItems="center" justifyContent="space-between">
         <Text fColor="white" fSize={1.5} fWeight={700} mode="p">
-          {"Game Day - Live & Upcoming"}
+          {"Live & Upcoming"}
         </Text>
         <SeeAll
           handleClick={onHandleSeeAll}
@@ -70,6 +70,7 @@ const GameDayView: React.FC = (props: any) => {
             rightIcon={<SlideArrow position="right" />}
           >
             {data.map((match: any, index: number) => {
+
               const item: GameCardProps = {
                 id: match.id,
                 backgroundImage: thumbNailLink(match.video_asset_id, 200),
@@ -78,7 +79,7 @@ const GameDayView: React.FC = (props: any) => {
                 clubImage2: match.away_team.club.logo,
                 clubName2: match.away_team.club.name,
                 leagueImage: match.league.logo ? match.league.logo : marker,
-                leagueDivisionName: match.home_team.division,
+                leagueName: match.league.name,
                 roundName: match.round_name,
                 matchName: match.name,
                 mode: "Day",
@@ -87,6 +88,7 @@ const GameDayView: React.FC = (props: any) => {
                   progressText(match.start_datetime, match.status) ===
                   "In Progress",
                 users: 0, //TODO: get the number of users watching
+                date: match.start_datetime
               };
 
               return (

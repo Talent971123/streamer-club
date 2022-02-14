@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import component
-import { Row } from "components/Layout";
+import { Col, Row } from "components/Layout";
 import { GameCard } from "components/Card";
+import ThumbCard from "components/Card/ThumbCard";
 import { Text } from "components/Text";
 // import styled component
 import { GameDayWrapper } from "./upcoming.style";
@@ -14,10 +15,20 @@ import { connect } from "react-redux";
 import { progressText, thumbNailLink } from "utils/common-helper";
 
 import { useRouter } from "next/router";
+import { ScrollingCarousel } from "@trendyol-js/react-carousel";
+import { SlideArrow } from "components/Button/Button";
+import { CardBody } from "theme/global.state";
+
 
 const UpcomeSection = (props) => {
   const router = useRouter();
   const { liveList, clubInfo } = props;
+
+  let temp: any = [];
+  liveList.map((item: any) => {
+    temp.push(item.round_name);
+  });
+  const rounds: any = [...new Set(temp)];
 
   const onClick = (id: number) => {
     router.push(`/club/${clubInfo.slug}/match/` + id);
@@ -25,46 +36,69 @@ const UpcomeSection = (props) => {
 
   return (
     <GameDayWrapper>
-      <Row alignItems="center" justifyContent="space-between">
-        <Text fColor="white" fSize={1.375} fWeight={700} mode="p">
-          {"Round 15 - Western Australia Football League"}
-        </Text>
-      </Row>
-      <Row
-        padding="10px 0 0 0"
-        display="grid"
-        templateCol="repeat(4, 1fr)"
-        gap={"20px 10px"}
-      >
-        {liveList.map((match: any, index: number) => {
-          const item: GameCardProps = {
-            id: match.id,
-            backgroundImage: thumbNailLink(match.video_asset_id, 200),
-            clubImage1: match.home_team.club.logo,
-            clubName1: match.home_team.club.name,
-            clubImage2: match.away_team.club.logo,
-            clubName2: match.away_team.club.name,
-            leagueImage: match.league.logo ? match.league.logo : marker,
-            leagueDivisionName: match.home_team.division,
-            roundName: match.round_name,
-            matchName: match.name,
-            mode: "Day",
-            progress: progressText(match.start_datetime, match.status),
-            isLive:
-              progressText(match.start_datetime, match.status) ===
-              "In Progress",
-            users: 0 /** TODO: get the number of users watching */,
-          };
-
+      {rounds ? (
+        rounds.map((item: any, index: number) => {
           return (
-            <GameCard
-              {...item}
-              key={index}
-              handleClick={() => onClick(match.video_asset_id)}
-            />
+            <GameDayWrapper>
+              <Row
+                alignItems="center"
+                justifyContent="space-between"
+                key={index}
+              >
+                <Text fColor="white" fSize={1.375} fWeight={700} mode="p">
+                  {`${item} - Western Australia Football League`}
+                </Text>
+              </Row>
+              <Row padding="10px 0 0 0">
+                <Col item={24}>
+                  <ScrollingCarousel
+                    leftIcon={<SlideArrow position="left" />}
+                    rightIcon={<SlideArrow position="right" />}
+                  >
+                    {liveList
+                      .filter((val) => val.round_name === item)
+                      .map((item: any, index: number) => {
+                        const values: GameCardProps = {
+                          id: item.id,
+                          backgroundImage: thumbNailLink(item.video_asset_id, 200),
+                          clubImage1: item.home_team.club.logo,
+                          clubName1: item.home_team.club.name,
+                          clubImage2: item.away_team.club.logo,
+                          clubName2: item.away_team.club.name,
+                          leagueImage: item.league.logo ? item.league.logo : marker,
+                          leagueName: item.league.name,
+                          roundName: item.round_name,
+                          matchName: item.name,
+                          mode: "Day",
+                          progress: progressText(item.start_datetime, item.status),
+                          isLive:
+                            progressText(item.start_datetime, item.status) ===
+                            "In Progress",
+                          users: 0 /** TODO: get the number of users watching */,
+                          date: item.start_datetime
+                        };
+
+                        return (
+                          <CardBody>
+                            <ThumbCard
+                              {...values}
+                              key={`game-day-view-key${index}`}
+                              handleClick={() => onClick(item.video_asset_id)}
+                            />
+                          </CardBody>
+                        );
+                      })}
+                  </ScrollingCarousel>
+                </Col>
+              </Row>
+            </GameDayWrapper>
           );
-        })}
-      </Row>
+        })
+      ) : (
+        <Text tFont="roboto" tAlign="center" fSize={1}>
+          No Match Found
+        </Text>
+      )}
     </GameDayWrapper>
   );
 };

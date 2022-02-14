@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
 
 import { UploadIcon } from "assets/icon";
 
@@ -8,6 +8,8 @@ import { Row } from "components/Layout";
 // define the styled component
 import styled from "styled-components";
 import { themeGet } from "@styled-system/theme-get";
+import { ProfileImageContext } from "..";
+import { ClubDetailsContext } from "pages/club/[club_slug]/admin";
 
 const ContentWrapper = styled.div`
   border: 1px solid ${themeGet("colors.gray.300")};
@@ -16,11 +18,14 @@ const ContentWrapper = styled.div`
 `;
 
 export const ImageBroswer: React.FC = () => {
+  const {clubDetails, setClubDetails} = useContext(ClubDetailsContext);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [files, setFiles] = useState([]);
+  
   const onFileInputChange = (event: any) => {
     const newFiles = event.target.files;
-
+    setClubDetails({...clubDetails, banner: newFiles[0]});
+    
     setFiles(files.concat(newFiles));
     // do something with your files...
   };
