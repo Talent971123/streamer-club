@@ -30,15 +30,30 @@ const ClipCard: React.FC<ClipProps> = ({
   return (
     <ClipCardWrapper mode={mode} onClick={() => onHandleClick(id)}>
       <ClipContent mode={mode}>
-        <Image
-          src={backgroundImage || DefaultPlayerImage}
-          oFit="cover"
-          mode={mode === "teams" ? "fill" : "intrinsic"}
-          width={["photos", "videos", "player"].includes(mode) ? 142 : 0}
-          height={["photos", "videos", "player"].includes(mode) ? 142 : 0}
-        />
+        {mode == "club" ? (
+          <Image
+            src={backgroundImage || DefaultPlayerImage}
+            oFit="cover"
+            objectFit={"unset"}
+            width={160}
+            height={200}
+          />
+        ) : (
+          <Image
+            src={backgroundImage || DefaultPlayerImage}
+            oFit="cover"
+            mode={mode === "teams" ? "fill" : "intrinsic"}
+            width={
+              ["photos", "videos", "player", "club"].includes(mode) ? 180 : 0
+            }
+            height={
+              ["photos", "videos", "player", "club"].includes(mode) ? 180 : 0
+            }
+          />
+        )}
+
         {(mode === "clip" || mode === "videos") && (
-          <PlayWrapper mode={mode}>
+          <PlayWrapper>
             <Image src={Play} width={69} height={69} />
           </PlayWrapper>
         )}

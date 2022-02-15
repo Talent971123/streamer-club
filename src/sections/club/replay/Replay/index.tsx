@@ -30,15 +30,9 @@ const ReplyView: React.FC = () => {
   });
   const replays: any = [...new Set(temp)];
 
-  const onHandleClick = (video_asset_id: number, id: number) => {
-    router.push({
-      pathname: `/club/${club_slug}/replay/${video_asset_id}`,
-      query: {
-        assetId: id,
-      },
-    });
-  }
-
+  const onHandleClick = (id: number) => {
+    router.push(`/club/${club_slug}/replay/${id}`);
+  };
   return (
     <>
       {replays ? (
@@ -69,19 +63,21 @@ const ReplyView: React.FC = () => {
                           clubName1: match.home_team.club.name,
                           clubImage2: match.away_team.club.logo,
                           clubName2: match.away_team.club.name,
-                          leagueImage: match.league.logo ? match.league.logo : marker,
+                          leagueImage: match.league.logo
+                            ? match.league.logo
+                            : marker,
                           leagueName: match.league.name,
                           roundName: match.round_name,
                           matchName: match.name,
                           mode: "Replay",
-                          date: match.start_datetime
+                          date: match.start_datetime,
                         };
                         return (
                           <CardBody>
                             <ThumbCard
                               {...item}
                               key={`replay-view-key${index}`}
-                              handleClick={() => onHandleClick(match.video_asset_id, match.id)}
+                              handleClick={() => onHandleClick(match.id)}
                             />
                           </CardBody>
                         );

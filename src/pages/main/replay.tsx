@@ -5,9 +5,7 @@ import { WithContainer } from "components/Container";
 import { ReplaySection } from "sections/club/replay";
 const ReplayPage: React.FC = () => {
   return (
-    <>
-      <WithContainer mode="container" SectionView={ReplaySection} />
-    </>
+    <>{/* <WithContainer mode="container" SectionView={ReplaySection} /> */}</>
   );
 };
 

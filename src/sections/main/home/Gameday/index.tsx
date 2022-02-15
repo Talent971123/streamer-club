@@ -1,20 +1,18 @@
 import React, { useState } from "react";
+import { Router, useRouter } from "next/router";
 // import component
-import { Col, Row } from "components/Layout";
 import { Text } from "components/Text";
+import { Col, Row } from "components/Layout";
 import { ScrollingCarousel } from "@trendyol-js/react-carousel";
 import { useLinkItem } from "components/hoc";
-import { IoArrowRedoOutline } from "react-icons/io5";
-// import styled component
 import { SlideArrow } from "components/Button/Button";
+// import styled component
 import { GameDayWrapper, LinkWrapper } from "./gameday.style";
 import { CardBody } from "theme/global.state";
 // import types
 import { GameCardProps } from "types/components/GameCard";
 // define example data
 import marker from "assets/images/home/mark.png";
-import { useRouter } from "next/router";
-import { connect } from "react-redux";
 import { useSubscription } from "@apollo/client";
 import { subscribe } from "graphql/match/index";
 import { progressText, thumbNailLink } from "utils/common-helper";
@@ -23,18 +21,18 @@ import ThumbCard from "components/Card/ThumbCard";
 const SeeAll = useLinkItem(LinkWrapper);
 
 const GameDayView: React.FC = (props: any) => {
+  const { type } = props;
   const router = useRouter();
-  const { club_slug } = router.query;
-  const { clubInfo } = props;
+  const variables =
+    type !== "Replays"
+      ? { status: { _neq: "completed" }, is_historic: { _eq: false } }
+      : { status: { _eq: "completed" } };
 
   const [data, setData] = useState([]);
-
-  useSubscription(subscribe.SUB_MATCHES, {
+  useSubscription(subscribe.SUB_FILTER_MATCHES, {
     variables: {
       where: {
-        club_id: { _eq: clubInfo.id },
-        status: { _neq: "completed" },
-        is_historic: { _eq: false },
+        ...variables,
       },
     },
     onSubscriptionData({ subscriptionData: { data } }) {
@@ -42,26 +40,35 @@ const GameDayView: React.FC = (props: any) => {
     },
   });
 
-  const onHandleSeeAll = () => {
-    router.push(`/club/${club_slug}/live`);
-  };
+  // const onHandleSeeAll = () => {
+  //   if (type !== "Replays") {
+  //     router.push(`/main/live`);
+  //   } else {
+  //     router.push(`/main/replay`);
+  //   }
+  // };
 
   const onHandleClick = (id: number) => {
-    router.push(`/club/${clubInfo.slug}/match/${id}`);
+    if (type !== "Replays") {
+      router.push(`/club/main/match/${id}`);
+    } else {
+      router.push(`/club/main/replay/${id}`);
+    }
   };
+
   return (
     <GameDayWrapper>
       <Row alignItems="center" justifyContent="space-between">
         <Text fColor="white" fSize={1.5} fWeight={700} mode="p">
-          {"Live & Upcoming"}
+          {type}
         </Text>
-        <SeeAll
+        {/* <SeeAll
           handleClick={onHandleSeeAll}
           title="See all"
           icon={<IoArrowRedoOutline />}
           iconDirection="row-reverse"
           alignVertical="center"
-        />
+        /> */}
       </Row>
       <Row padding="10px 0 0 0">
         <Col item={24}>
@@ -81,7 +88,7 @@ const GameDayView: React.FC = (props: any) => {
                 leagueName: match.league.name,
                 roundName: match.round_name,
                 matchName: match.name,
-                mode: "Day",
+                mode: type !== "Replays" ? "Day" : "Replay",
                 progress: progressText(match.start_datetime, match.status),
                 isLive:
                   progressText(match.start_datetime, match.status) ===
@@ -107,8 +114,4 @@ const GameDayView: React.FC = (props: any) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  clubInfo: state.club.info,
-});
-
-export default connect(mapStateToProps)(GameDayView);
+export default GameDayView;

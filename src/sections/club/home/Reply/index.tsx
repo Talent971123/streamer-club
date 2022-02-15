@@ -50,13 +50,8 @@ const ReplayView: React.FC = () => {
     router.push(`/club/${club_slug}/replays`);
   };
 
-  const onHandleClick = (video_asset_id: number, id: number) => {
-    router.push({
-      pathname: `/club/${club_slug}/replay/${video_asset_id}`,
-      query: {
-        assetId: id,
-      },
-    });
+  const onHandleClick = (id: number) => {
+    router.push(`/club/${club_slug}/replay/${id}`);
   };
 
   return (
@@ -103,9 +98,7 @@ const ReplayView: React.FC = () => {
                     <ThumbCard
                       {...item}
                       key={index}
-                      handleClick={() =>
-                        onHandleClick(match.video_asset_id, match.id)
-                      }
+                      handleClick={() => onHandleClick(match.id)}
                     />
                   </CardBody>
                 );

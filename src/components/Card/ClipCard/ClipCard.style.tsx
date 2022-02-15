@@ -46,18 +46,9 @@ export const ClipContent = styled.div<{ mode: string }>`
 
 export const ClipFooter = styled.div<{ mode: string }>`
   padding: 10px 5px;
-
-  /* ${({ mode }) => {
-    if (mode === "teams") {
-      return css`
-        background-color: ${themeGet("colors.primary.regular")};
-        border-radius: 0 0 4px 4px;
-      `;
-    }
-  }} */
 `;
 
-export const PlayWrapper = styled.div<{ mode: string }>`
+export const PlayWrapper = styled.div`
   position: absolute;
   display: flex;
   justify-content: center;

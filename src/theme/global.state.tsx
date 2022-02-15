@@ -222,37 +222,55 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
   })
 );
 
-export const CarouselBody = styled.div`
-  @media screen and (min-width: ${defaultTheme.mediaSize.lg}px) {
-    width: 15% !important;
+// export const CarouselBody = styled.div`
+//   @media screen and (min-width: ${defaultTheme.mediaSize.lg}px) {
+//     width: 20% !important;
+//   }
+
+//   @media screen and (min-width: ${defaultTheme.mediaSize
+//       .md}px) and (max-width: ${defaultTheme.mediaSize.lg}px) {
+//     width: 25% !important;
+//   }
+
+//   @media screen and (min-width: ${defaultTheme.mediaSize
+//       .sm}px) and (max-width: ${defaultTheme.mediaSize.md}px) {
+//     width: 33% !important;
+//   }
+
+//   @media screen and (max-width: ${defaultTheme.mediaSize.sm}px) {
+//     width: 40% !important;
+//   }
+// `;
+
+export const ClubBody = styled.div`
+  @media screen and (min-width: ${defaultTheme.mediaSize.md}px) {
+    width: 250px;
   }
 
-  @media screen and (min-width: ${defaultTheme.mediaSize
-      .md}px) and (max-width: ${defaultTheme.mediaSize.lg}px) {
-    width: 25% !important;
-  }
-
-  @media screen and (min-width: ${defaultTheme.mediaSize
-      .sm}px) and (max-width: ${defaultTheme.mediaSize.md}px) {
-    width: 33% !important;
+  @media screen and (max-width: ${defaultTheme.mediaSize.md}px) {
+    width: 200px;
   }
 
   @media screen and (max-width: ${defaultTheme.mediaSize.sm}px) {
-    width: 100% !important;
+    width: 150px;
+  }
+
+  @media screen and (max-width: ${defaultTheme.mediaSize.xs}px) {
+    width: 100px;
   }
 `;
 
 export const CardBody = styled.div`
   @media screen and (min-width: ${defaultTheme.mediaSize.md}px) {
-    width: 324px;
+    width: 360px;
   }
 
   @media screen and (max-width: ${defaultTheme.mediaSize.md}px) {
-    width: 272px;
+    width: 300px;
   }
 
   @media screen and (max-width: ${defaultTheme.mediaSize.sm}px) {
-    width: 222px;
+    width: 240px;
   }
 `;
 

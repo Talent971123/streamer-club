@@ -22,7 +22,7 @@ export const thumbNailLink = (
   width: number = 300
 ): string | StaticImageData => {
   let image_url = `https://image.mux.com/${id}/thumbnail.png?width=${width}`;
-  return imageExists(image_url, (e) => e) ? image_url : defaultImg;
+  return imageExists(image_url, (e: any) => e) ? image_url : defaultImg;
 };
 
 export const getS3Config = (dirName: string = "Club") => ({

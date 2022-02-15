@@ -46,6 +46,8 @@ export const HeaderWrapper = styled.div`
   height: 62px;
   width: 100%;
   border-bottom: 1px solid ${themeGet("colors.gray.300")};
+  display: flex;
+
   .ImageWrapper {
     contain: content;
     img {
@@ -54,6 +56,9 @@ export const HeaderWrapper = styled.div`
   }
   .DropdownWrapper {
     padding: 10px 10px;
+  }
+  .fitbox {
+    padding-right: 15px;
   }
 `;
 
