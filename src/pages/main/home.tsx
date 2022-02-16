@@ -2,21 +2,29 @@
 import React from "react";
 import { WithContainer } from "components/Container";
 // import views
-import { GameDayView, ClubView } from "sections/main/home";
+import {
+  HeadView,
+  GameDayView,
+  ReplyView,
+  ClipView,
+  TeamsView,
+  PlayerView,
+  BannerView,
+  NewsView,
+  SupportView,
+} from "sections/club/home";
 const HomePage: React.FC = () => {
   return (
     <>
-      <WithContainer
-        mode="container"
-        SectionView={GameDayView}
-        sectionProps={{ type: "Live & Upcoming" }}
-      />
-      <WithContainer
-        mode="container"
-        SectionView={GameDayView}
-        sectionProps={{ type: "Replays" }}
-      />
-      <WithContainer mode="container" SectionView={ClubView} />
+      {/* <WithContainer mode="wrapper" SectionView={BannerView} /> */}
+      {/* <WithContainer mode="wrapper" SectionView={HeadView} />
+      <WithContainer mode="container" SectionView={GameDayView} />
+      <WithContainer mode="container" SectionView={ReplyView} />
+      <WithContainer mode="container" SectionView={ClipView} />
+      <WithContainer mode="container" SectionView={TeamsView} />
+      <WithContainer mode="container" SectionView={PlayerView} />
+      <WithContainer mode="container" SectionView={NewsView} />
+      <WithContainer mode="container" SectionView={SupportView} /> */}
     </>
   );
 };

@@ -9,16 +9,7 @@ const GET_SAVED_MATCHES = gql`
   }
 `;
 
-const GET_MATCH_BY_PK = gql`
-  query MyQuery($id: Int!) {
-    matches_by_pk(id: $id) {
-      video_asset_id
-    }
-  }
-`;
-
 // ---------
 export default {
   GET_SAVED_MATCHES,
-  GET_MATCH_BY_PK,
 };

@@ -23,15 +23,15 @@ const MenuItems = (club_slug: string, path: string, user: any) => {
   if (path === "/" || path.split("/")[1] === "main") {
     menus = [
       { title: "Home", path: `/`, public: true },
-      // {
-      //   title: "Live & Upcoming",
-      //   path: `/main/live`,
-      //   public: true,
-      // },
-      // { title: "Replays", path: `/main/replays`, public: true },
-      // { title: "Clips", path: `/main/clips`, public: true },
-      // { title: "Clubs", path: `/main/clubs`, public: true },
-      // { title: "My Profile", path: `/main/profile`, public: false },
+      {
+        title: "Live & Upcoming",
+        path: `/main/live`,
+        public: true,
+      },
+      { title: "Replays", path: `/main/replays`, public: true },
+      { title: "Clips", path: `/main/clips`, public: true },
+      { title: "Clubs", path: `/main/clubs`, public: true },
+      { title: "My Profile", path: `/main/profile`, public: true },
     ];
   } else {
     menus = [
@@ -59,7 +59,7 @@ const Layout = (props) => {
 
   useSubscription(HomeQL.SUB_CLUB, {
     variables: {
-      club_slug: param.club_slug !== "main" ? param.club_slug : undefined,
+      club_slug: param.club_slug,
     },
     onSubscriptionData({ subscriptionData: { data } }) {
       if (data) {

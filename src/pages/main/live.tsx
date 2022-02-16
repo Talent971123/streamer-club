@@ -2,7 +2,7 @@
 import React from "react";
 import { WithContainer } from "components/Container";
 // import views
-import { UpcomeSection } from "sections/main/live";
+import { UpcomeSection } from "sections/club/live";
 const LivePage: React.FC = () => {
   return (
     <>

@@ -31,7 +31,6 @@ export const getDates = function (date: string | undefined) {
     dateLong: mome.format("MMM Do YYYY"),
     timeShort: mome.format("HH:mm"),
     datefull: mome.format("DD MMMM YYYY HH:mm a"),
-    timestamp: mome.format("YYYY-MM-DDTHH:mm:ss.SSS"),
   };
 };
 

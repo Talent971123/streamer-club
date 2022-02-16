@@ -27,7 +27,7 @@ import _ from "lodash";
 
 const ToolBarView: React.FC = (props: any) => {
   const { isLive } = props;
-  const { home_name, away_name } = useContext(StreamPageContext);
+  const { home_name, away_name, playback_id } = useContext(StreamPageContext);
   const [isSubmit, setSubmiting] = useState<boolean>(false);
   const router = useRouter();
   const { user } = useUser();
@@ -50,12 +50,9 @@ const ToolBarView: React.FC = (props: any) => {
   });
 
   const _handleSave = async () => {
-    if (_.isUndefined(user?.id)) {
-      return toast.warn("please sign in.");
-    }
     if (
       !data?.saved_matches.every(
-        (item: any) => item.match_id == router.query.asset_id
+        (item: any) => item.match_id == router.query.assetId
       )
     ) {
       setSubmiting(true);
@@ -63,7 +60,7 @@ const ToolBarView: React.FC = (props: any) => {
         variables: {
           object: {
             user_id: user?.id,
-            match_id: router.query.asset_id,
+            match_id: router.query.assetId,
           },
         },
       });

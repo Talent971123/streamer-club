@@ -1,7 +1,5 @@
 import React, { useContext } from "react";
 import dynamic from "next/dynamic";
-import { useQuery } from "@apollo/client";
-import { query } from "graphql/match";
 //  import component
 import { Col, Row } from "components/Layout";
 
@@ -11,21 +9,16 @@ const VideoPlayer = dynamic(() => import("components/Video/Bitmovin"), {
 
 // import styled
 import { DisplayWrpper } from "./display.style";
-import { useRouter } from "next/router";
+import { StreamPageContext } from "hooks/context/StreamPageContext";
 
 const Banner: React.FC = () => {
-  const router = useRouter();
-  const { loading, data } = useQuery(query.GET_MATCH_BY_PK, {
-    variables: { id: router.query.asset_id },
-  });
-
-  if (loading) return <></>;
+  const { playback_id } = useContext(StreamPageContext);
 
   return (
     <DisplayWrpper>
       <Row>
         <Col item={24}>
-          <VideoPlayer playback_id={data.matches_by_pk.video_asset_id} />
+          <VideoPlayer playback_id={playback_id} />
         </Col>
       </Row>
     </DisplayWrpper>

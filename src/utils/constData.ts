@@ -1,3 +1,83 @@
+export const footerLinkData = {
+  site: [
+    { title: "Gift Cards", url: "#" },
+    { title: "Best Sellers", url: "#" },
+    { title: "Best Price Guarantee", url: "#" },
+    { title: "Current Specials", url: "#" },
+    { title: "Supplement Awards 2021", url: "#" },
+    { title: "Max's & Maxine's Challenge", url: "#" },
+    { title: "Become a NW Ambassador", url: "#" },
+    { title: "Personal Trainer", url: "#" },
+    { title: "Wholesale Enquires", url: "#" },
+    { title: "Defence Force V.I.P", url: "#" },
+    { title: "Click & Collect", url: "#" },
+    { title: "Careers", url: "#" },
+  ],
+  brand: [
+    { title: "Lose Weight", url: "#" },
+    { title: "Gain Muscle", url: "#" },
+    { title: "Increase Energy", url: "#" },
+    { title: "Build Endurance", url: "#" },
+    { title: "Womens Health", url: "#" },
+    { title: "Health & Wellbeing", url: "#" },
+  ],
+  shop: [
+    { title: "Lose Weight", url: "#" },
+    { title: "Gain Muscle", url: "#" },
+    { title: "Increase Energy", url: "#" },
+    { title: "Build Endurance", url: "#" },
+    { title: "Womens Health", url: "#" },
+    { title: "Health & Wellbeing", url: "#" },
+  ],
+  category: {
+    first: [
+      { title: "Amino Acids", url: "#" },
+      { title: "Carbohydrates", url: "#" },
+      { title: "Creatine", url: "#" },
+      { title: "Endurance", url: "#" },
+      { title: "General Health", url: "#" },
+      { title: "Hormonal Support", url: "#" },
+      { title: "Healthy Snacks & Foods", url: "#" },
+      { title: "Nox Boosters", url: "#" },
+      { title: "Pre-Workout", url: "#" },
+    ],
+    second: [
+      { title: "Protein Powder", url: "#" },
+      { title: "Protein Bars & Cookies", url: "#" },
+      { title: "Test Boosters", url: "#" },
+      { title: "Vitamins & Minerals", url: "#" },
+      { title: "Weight Loss", url: "#" },
+      { title: "Accessories", url: "#" },
+      { title: "Apparel", url: "#" },
+      { title: "Specialty Packs", url: "#" },
+    ],
+  },
+  shopgoal: [
+    { title: "Optimum Nutrition", url: "#" },
+    { title: "EHP Labs", url: "#" },
+    { title: "BSN Supplements", url: "#" },
+    { title: "ATP Science", url: "#" },
+    { title: "Max’s", url: "#" },
+    { title: "Cellular", url: "#" },
+    { title: "b Raw", url: "#" },
+    { title: "Anabolix", url: "#" },
+    { title: "Genetix", url: "#" },
+    { title: "Body Science", url: "#" },
+  ],
+  stack: [
+    { title: "Optimum Nutrition", url: "#" },
+    { title: "EHP Labs", url: "#" },
+    { title: "BSN Supplements", url: "#" },
+    { title: "ATP Science", url: "#" },
+    { title: "Max’s", url: "#" },
+    { title: "Cellular", url: "#" },
+    { title: "b Raw", url: "#" },
+    { title: "Anabolix", url: "#" },
+    { title: "Genetix", url: "#" },
+    { title: "Body Science", url: "#" },
+  ],
+};
+
 export const dateDisplayFormat = "DD MMMM YYYY";
 
 export const s3Config = {
@@ -14,11 +94,9 @@ export const baseUrl =
     ? `${window.location.protocol}//${window.location.host}`
     : "";
 
-export const muxVideoApiBaseUrl = process.env.NEXT_PUBLIC_MUX_VIDEO_API_BASE_URL || '';
-export const muxPostAuthToken = {
+export const muxVideoAssetUrl = process.env.NEXT_PUBLIC_MUX_VIDEO_ASSET_URL || '';
+export const muxAuthToken = {
   username: process.env.NEXT_PUBLIC_MUX_TOKEN_ID || '',
-  password: process.env.NEXT_PUBLIC_MUX_TOKEN_SECRET || '',
+  password: process.env.NEXT_PUBLIC_MUX_TOKEN_SECRET || ''
 };
-export const muxGetAuthToken = Buffer.from(`${process.env.NEXT_PUBLIC_MUX_TOKEN_ID}:${process.env.NEXT_PUBLIC_MUX_TOKEN_SECRET}`, 'utf8').toString('base64')
-
 export const muxAssetBaseUrl = process.env.NEXT_PUBLIC_MUX_ASSET_BASE_URL;

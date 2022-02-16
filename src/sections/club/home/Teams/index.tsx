@@ -12,7 +12,7 @@ import { ClipProps } from "types/components/ClipCard";
 //  import styled component
 import { SlideArrow } from "components/Button/Button";
 import { TeamWrapper, LinkWrapper } from "./teams.style";
-import { CardBody } from "theme/global.state";
+import { CarouselBody } from "theme/global.state";
 
 //  define the example data
 import TeamsImage from "assets/images/home/team.png";
@@ -52,31 +52,33 @@ const TeamView: React.FC = () => {
       </Row>
       <Row padding="10px 0 0 0">
         <Col item={24}>
-          {club.teams && (
+          {club.teams &&
             <ScrollingCarousel
-              leftIcon={<SlideArrow position="left" />}
-              rightIcon={<SlideArrow position="right" />}
+              leftIcon={<SlideArrow position='left' />}
+              rightIcon={<SlideArrow position='right' />}
             >
-              {club.teams.map((team: any, index: number) => {
-                const item: ClipProps = {
-                  id: team.id,
-                  backgroundImage: team.image,
-                  title: team.name,
-                  mode: "teams",
-                  content: team.division,
-                };
-                return (
-                  <CardBody>
-                    <ClipCard
-                      {...item}
-                      key={`team-view-key-${index}`}
-                      handleClick={() => onHandleClick(team.slug)}
-                    />
-                  </CardBody>
-                );
-              })}
+              {
+                club.teams.map((team: any, index: number) => {
+                  const item: ClipProps = {
+                    id: team.id,
+                    backgroundImage: team.image,
+                    title: team.name,
+                    mode: "teams",
+                    content: team.division,
+                  };
+                  return (
+                    <CarouselBody>
+                      <ClipCard
+                        {...item}
+                        key={`team-view-key-${index}`}
+                        handleClick={() => onHandleClick(team.slug)}
+                      />
+                    </CarouselBody>
+                  );
+                })
+              }
             </ScrollingCarousel>
-          )}
+          }
         </Col>
       </Row>
     </TeamWrapper>

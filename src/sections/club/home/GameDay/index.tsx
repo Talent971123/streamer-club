@@ -70,6 +70,7 @@ const GameDayView: React.FC = (props: any) => {
             rightIcon={<SlideArrow position="right" />}
           >
             {data.map((match: any, index: number) => {
+
               const item: GameCardProps = {
                 id: match.id,
                 backgroundImage: thumbNailLink(match.video_asset_id, 200),
@@ -87,7 +88,7 @@ const GameDayView: React.FC = (props: any) => {
                   progressText(match.start_datetime, match.status) ===
                   "In Progress",
                 users: 0, //TODO: get the number of users watching
-                date: match.start_datetime,
+                date: match.start_datetime
               };
 
               return (
@@ -95,7 +96,7 @@ const GameDayView: React.FC = (props: any) => {
                   <ThumbCard
                     {...item}
                     key={`game-day-view-key${index}`}
-                    handleClick={() => onHandleClick(match.id)}
+                    handleClick={() => onHandleClick(match.video_asset_id)}
                   />
                 </CardBody>
               );

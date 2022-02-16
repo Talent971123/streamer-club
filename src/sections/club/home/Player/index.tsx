@@ -12,9 +12,10 @@ import { ClipProps } from "types/components/ClipCard";
 import { SlideArrow } from "components/Button/Button";
 //  import styled component
 import { PlayerWrapper, LinkWrapper } from "./player.style";
-import { ClubBody } from "theme/global.state";
+import { CarouselBody } from "theme/global.state";
 
 //  define the example data
+import { ClubContext } from "pages/club/[club_slug]";
 import { connect } from "react-redux";
 
 const SeeAll = useLinkItem(LinkWrapper);
@@ -67,13 +68,13 @@ const PlayerView: React.FC = (props: any) => {
                 };
 
                 return (
-                  <ClubBody>
+                  <CarouselBody>
                     <ClipCard
                       {...item}
                       key={`player-view-key-${index}`}
                       handleClick={() => onHandleClick(player.slug)}
                     />
-                  </ClubBody>
+                  </CarouselBody>
                 );
               })}
             </ScrollingCarousel>

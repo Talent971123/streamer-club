@@ -19,7 +19,6 @@ const MatchStreamPage: React.FC<{ streamInfo: StreamPageCtx }> = ({
   streamInfo,
 }) => {
   // TODO: use redux instead of context api
-
   return (
     <Page
       description={streamInfo.home_name + " vs " + streamInfo.away_name}

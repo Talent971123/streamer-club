@@ -1,6 +1,7 @@
 import React from "react";
 import { useRouter } from "hooks";
 // components
+import { ContainerWrapper } from "components/Container";
 import { Row, Col } from "components/Layout";
 import { Image } from "components/Image";
 import MarkIcon from "components/MarkIcon";
@@ -19,7 +20,7 @@ import {
   StyledItemMenu,
 } from "./Header.style";
 import { Text } from "components/Text";
-// --------------------------------------- ----------------------------
+// -------------------------------------------------------------------
 import { useUser } from "@auth0/nextjs-auth0";
 import { Dropdown } from "antd";
 import _ from "lodash";
@@ -57,122 +58,125 @@ export const DeskHeader = (props: any) => {
 
   return (
     <HeaderWrapper>
-      <Row alignItems="center" justifyContent="space-between">
-        <Col>
-          <Row alignItems="center" gap={15}>
-            {asPath === "/" || asPath.split("/")[1] === "main" ? (
-              <div className="fitbox" />
-            ) : (
+      <ContainerWrapper>
+        <Row alignItems="center" justifyContent="space-between">
+          <Col>
+            <Row alignItems="center" gap={15}>
               <Col>
                 <MarkIcon />
               </Col>
-            )}
-            <Col>
-              <Image src={LogoImage} height={35} width={120} mode="intrinsic" />
-            </Col>
-            <Col>
-              <Border />
-            </Col>
+              <Col>
+                <Image
+                  src={LogoImage}
+                  height={35}
+                  width={120}
+                  mode="intrinsic"
+                />
+              </Col>
+              <Col>
+                <Border />
+              </Col>
 
-            {menu.map((item: any, index: number) => {
-              return (
-                <MenuItem
-                  mode={asPath === item.path ? "true" : "false"}
-                  key={index}
-                  onClick={() => handleMenuClick(item.path)}
-                >
-                  <Text
-                    fColor="white"
-                    fSize={1}
-                    hoverStyle={{ fColor: "white.200", hfWeight: "700" }}
+              {menu.map((item: any, index: number) => {
+                return (
+                  <MenuItem
+                    mode={asPath === item.path ? "true" : "false"}
+                    key={index}
+                    onClick={() => handleMenuClick(item.path)}
                   >
-                    {item.title}
-                  </Text>
-                </MenuItem>
-              );
-            })}
-          </Row>
-        </Col>
-        <Col item={7}>
-          <Row
-            gap={18}
-            alignItems="center"
-            flexDirection="row-reverse"
-            padding="0 20px"
-          >
-            <MenuItemBody>
-              {user && (
-                <Row alignItems="center" gap={10}>
-                  <Col>
                     <Text
                       fColor="white"
-                      fSize={0.875}
-                      tAlign="center"
-                      padding="10px 10px"
+                      fSize={1}
+                      hoverStyle={{ fColor: "white.200", hfWeight: "700" }}
                     >
-                      {user?.name}
+                      {item.title}
                     </Text>
-                  </Col>
-                  <Col className="ImageWrapper">
-                    <Image
-                      src={user?.picture || ProfileImage}
-                      height={40}
-                      width={40}
-                      oFit="cover"
-                      mode="intrinsic"
-                    />
-                  </Col>
-                  <Col className="DropdownWrapper">
-                    <Dropdown overlay={dropdownItems} trigger={["hover"]}>
-                      <a
-                        className="ant-dropdown-link"
-                        onClick={(e) => e.preventDefault()}
+                  </MenuItem>
+                );
+              })}
+            </Row>
+          </Col>
+          <Col item={7}>
+            <Row
+              gap={18}
+              alignItems="center"
+              flexDirection="row-reverse"
+              padding="0 20px"
+            >
+              <MenuItemBody>
+                {user && (
+                  <Row alignItems="center" gap={10}>
+                    <Col>
+                      <Text
+                        fColor="white"
+                        fSize={0.875}
+                        tAlign="center"
+                        padding="10px 10px"
                       >
-                        <DownIcon />
-                      </a>
-                    </Dropdown>
-                  </Col>
-                </Row>
-              )}
+                        {user?.name}
+                      </Text>
+                    </Col>
+                    <Col className="ImageWrapper">
+                      <Image
+                        src={user?.picture || ProfileImage}
+                        height={40}
+                        width={40}
+                        oFit="cover"
+                        mode="intrinsic"
+                      />
+                    </Col>
+                    <Col className="DropdownWrapper">
+                      <Dropdown overlay={dropdownItems} trigger={["hover"]}>
+                        <a
+                          className="ant-dropdown-link"
+                          onClick={(e) => e.preventDefault()}
+                        >
+                          <DownIcon />
+                        </a>
+                      </Dropdown>
+                    </Col>
+                  </Row>
+                )}
 
-              {!user && (
-                <Row
-                  gap={18}
-                  alignItems="center"
-                  flexDirection="row-reverse"
-                  padding="0 20px"
-                >
-                  <Col>
-                    <Button
-                      bColor="warning"
-                      bSize="big"
-                      css={{ width: "110px", height: "20px", fontSize: 14 }}
-                      onClick={() => handleMenuClick("/api/auth/signup")}
-                    >
-                      {"Sign up"}
-                    </Button>
-                  </Col>
-                  <Col>
-                    <Button
-                      bColor="primary"
-                      bSize="big"
-                      css={{
-                        width: "50px",
-                        height: "20px",
-                        fontSize: 14,
-                        border: "none",
-                      }}
-                      onClick={() => handleMenuClick("/api/auth/login")}
-                    >
-                      {"Login"}
-                    </Button>
-                  </Col>
-                </Row>
-              )}
-            </MenuItemBody>
-          </Row>
-        </Col>
-      </Row>
+                {!user && (
+                  <Row
+                    gap={18}
+                    alignItems="center"
+                    flexDirection="row-reverse"
+                    padding="0 20px"
+                  >
+                    <Col>
+                      <Button
+                        bColor="warning"
+                        bSize="big"
+                        css={{ width: "110px", height: "20px", fontSize: 14 }}
+                        onClick={() => handleMenuClick("/api/auth/signup")}
+                      >
+                        {"Sign up"}
+                      </Button>
+                    </Col>
+                    <Col>
+                      <Button
+                        bColor="primary"
+                        bSize="big"
+                        css={{
+                          width: "50px",
+                          height: "20px",
+                          fontSize: 14,
+                          border: "none",
+                        }}
+                        onClick={() => handleMenuClick("/api/auth/login")}
+                      >
+                        {"Login"}
+                      </Button>
+                    </Col>
+                  </Row>
+                )}
+              </MenuItemBody>
+            </Row>
+          </Col>
+        </Row>
+      </ContainerWrapper>
     </HeaderWrapper>
   );
 };
