@@ -9,11 +9,11 @@ import {
   HeadView,
   ReplyView,
 } from "sections/club/home";
+import { Page } from "components/Page";
 
 import { initializeApollo } from "api/apollo";
 import { ClubCtx } from "types/common/club";
 import { HomeQL } from "graphql/club";
-import { Page } from "components/Page";
 import _ from "lodash";
 
 export const ClubContext = createContext<Partial<ClubCtx>>({});
@@ -34,8 +34,8 @@ const TeamPage: React.FC = (props: any) => {
       <ClubContext.Provider value={club}>
         <WithContainer
           mode="wrapper"
+          sectionProps={{ bannerImage: team.image }}
           SectionView={BannerView}
-          sectionProps={{ banner }}
         />
         <WithContainer
           mode="wrapper"

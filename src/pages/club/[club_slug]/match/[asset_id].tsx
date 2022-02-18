@@ -7,18 +7,21 @@ import {
   ToolbarView,
   TabContainerView,
 } from "sections/club/stream";
-import { Page } from "components/Page";
 
 import { StreamPageCtx } from "types/common/club";
 import { initializeApollo } from "api/apollo";
 import { query } from "graphql/stream";
+import { Page } from "components/Page";
 
 import { StreamPageContext } from "hooks/context/StreamPageContext";
+
+import { siteSettings } from "hooks";
 
 const MatchStreamPage: React.FC<{ streamInfo: StreamPageCtx }> = ({
   streamInfo,
 }) => {
   // TODO: use redux instead of context api
+
   return (
     <Page
       description={streamInfo.home_name + " vs " + streamInfo.away_name}
@@ -26,8 +29,12 @@ const MatchStreamPage: React.FC<{ streamInfo: StreamPageCtx }> = ({
     >
       <StreamPageContext.Provider value={streamInfo}>
         <WithContainer mode="wrapper" SectionView={DisplayView} />
-        <WithContainer mode="wrapper" SectionView={ToolbarView} />
-        <WithContainer mode="wrapper" SectionView={TabContainerView} />
+        {siteSettings("game_day_page.toolbar") && (
+          <WithContainer mode="wrapper" SectionView={ToolbarView} />
+        )}
+        {siteSettings("game_day_page.commentary") && (
+          <WithContainer mode="wrapper" SectionView={TabContainerView} />
+        )}
       </StreamPageContext.Provider>
     </Page>
   );
@@ -35,6 +42,7 @@ const MatchStreamPage: React.FC<{ streamInfo: StreamPageCtx }> = ({
 
 export const getServerSideProps = async (context: any) => {
   const { asset_id } = context.query;
+
   const apolloClient = initializeApollo();
 
   const { data } = await apolloClient.query({
@@ -47,7 +55,8 @@ export const getServerSideProps = async (context: any) => {
   return {
     props: {
       streamInfo: {
-        playback_id: asset_id,
+        playback_id: match.video_asset_id,
+        start_datetime: match.start_datetime,
         home_name: match.home_team.club.name,
         home_logo: match.home_team.club.logo,
         away_name: match.away_team.club.name,

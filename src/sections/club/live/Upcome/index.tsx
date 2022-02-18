@@ -19,19 +19,18 @@ import { ScrollingCarousel } from "@trendyol-js/react-carousel";
 import { SlideArrow } from "components/Button/Button";
 import { CardBody } from "theme/global.state";
 
-
 const UpcomeSection = (props) => {
   const router = useRouter();
-  const { liveList, clubInfo } = props;
+  const { liveList } = props;
 
   let temp: any = [];
   liveList.map((item: any) => {
-    temp.push(item.round_name);
+    temp.push({ roundName: item.round_name, leagueName: item.league.name });
   });
   const rounds: any = [...new Set(temp)];
 
   const onClick = (id: number) => {
-    router.push(`/club/${clubInfo.slug}/match/` + id);
+    router.push(`/club/${router.query.club_slug}/match/${id}`);
   };
 
   return (
@@ -46,7 +45,7 @@ const UpcomeSection = (props) => {
                 key={index}
               >
                 <Text fColor="white" fSize={1.375} fWeight={700} mode="p">
-                  {`${item} - Western Australia Football League`}
+                  {`${item.roundName} - ${item.leagueName}`}
                 </Text>
               </Row>
               <Row padding="10px 0 0 0">
@@ -56,26 +55,34 @@ const UpcomeSection = (props) => {
                     rightIcon={<SlideArrow position="right" />}
                   >
                     {liveList
-                      .filter((val) => val.round_name === item)
+                      .filter((val) => val.round_name === item.roundName)
                       .map((item: any, index: number) => {
                         const values: GameCardProps = {
                           id: item.id,
-                          backgroundImage: thumbNailLink(item.video_asset_id, 200),
+                          backgroundImage: thumbNailLink(
+                            item.video_asset_id,
+                            200
+                          ),
                           clubImage1: item.home_team.club.logo,
                           clubName1: item.home_team.club.name,
                           clubImage2: item.away_team.club.logo,
                           clubName2: item.away_team.club.name,
-                          leagueImage: item.league.logo ? item.league.logo : marker,
+                          leagueImage: item.league.logo
+                            ? item.league.logo
+                            : marker,
                           leagueName: item.league.name,
                           roundName: item.round_name,
                           matchName: item.name,
                           mode: "Day",
-                          progress: progressText(item.start_datetime, item.status),
+                          progress: progressText(
+                            item.start_datetime,
+                            item.status
+                          ),
                           isLive:
                             progressText(item.start_datetime, item.status) ===
                             "In Progress",
                           users: 0 /** TODO: get the number of users watching */,
-                          date: item.start_datetime
+                          date: item.start_datetime,
                         };
 
                         return (
@@ -83,7 +90,7 @@ const UpcomeSection = (props) => {
                             <ThumbCard
                               {...values}
                               key={`game-day-view-key${index}`}
-                              handleClick={() => onClick(item.video_asset_id)}
+                              handleClick={() => onClick(item.id)}
                             />
                           </CardBody>
                         );

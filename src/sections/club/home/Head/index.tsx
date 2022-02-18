@@ -1,14 +1,13 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 // component
-import { Button } from "components/Button";
 import { Image } from "components/Image";
 import { Col, Row } from "components/Layout";
 import { Text } from "components/Text";
 import { ClubContext } from "pages/club/[club_slug]";
 import { FiShare2 } from "react-icons/fi";
 // import styled component
-import { HeadWrapper } from "./head.style";
+import { HeadWrapper, ShareButton, HeadClubName } from "./head.style";
 // import assets
 import Mark from "assets/images/home/team2.png";
 import { RWebShare } from "react-web-share";
@@ -29,20 +28,22 @@ const HeadView: React.FC = () => {
   return (
     <HeadWrapper>
       <Row alignItems="center">
-        <Col item={12}>
+        <Col item={18}>
           <Row alignItems="center" gap={20}>
             <Col>
               <Image src={logo} width={89} height={90} />
             </Col>
             <Col>
-              <Text fColor="red.100" fSize={3} fWeight={800}>
-                {title}
-              </Text>
+              <HeadClubName>
+                <Text fColor="red.100" fWeight={800} className="col-md">
+                  {title}
+                </Text>
+              </HeadClubName>
             </Col>
           </Row>
         </Col>
-        <Col item={12}>
-          <Row flexDirection="row-reverse" padding="0 20px 0 0">
+        <Col item={6}>
+          <Row flexDirection="row-reverse" padding="0 20px 0 20px">
             <RWebShare
               data={{
                 text: "Share Profile",
@@ -50,9 +51,9 @@ const HeadView: React.FC = () => {
                 title: `Streamer - ${club.name}`,
               }}
             >
-              <Button bColor="primary" bSize="small" icon={<FiShare2 />}>
+              <ShareButton bColor="primary" bSize="small" icon={<FiShare2 />}>
                 {"Share"}
-              </Button>
+              </ShareButton>
             </RWebShare>
           </Row>
         </Col>

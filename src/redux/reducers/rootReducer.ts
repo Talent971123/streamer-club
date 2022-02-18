@@ -7,6 +7,7 @@ const rootReducer = combineReducers({
   teams: R.Teams,
   match: R.Match,
   watch: R.Watch,
+  site: R.Site
 });
 
 export default rootReducer;

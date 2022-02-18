@@ -1,3 +1,4 @@
+import { siteSettings } from 'hooks';
 import React from 'react';
 
 import { Button } from './Button';
@@ -37,8 +38,12 @@ export const Header = ({ user, onLogin, onLogout, onCreateAccount }: HeaderProps
           <Button size="small" onClick={onLogout} label="Log out" />
         ) : (
           <>
-            <Button size="small" onClick={onLogin} label="Log in" />
-            <Button primary size="small" onClick={onCreateAccount} label="Sign up" />
+            {siteSettings('header_menu.login') && (
+              <Button size="small" onClick={onLogin} label="Log in" />
+            )}
+            {siteSettings('header_menu.sign_up') && (
+              <Button primary size="small" onClick={onCreateAccount} label="Sign up" />
+            )}
           </>
         )}
       </div>

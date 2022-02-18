@@ -27,3 +27,7 @@
   src: url("../assets/fonts/HeyWow/HeyWow-ExtraBold.woff") format("woff");
   font-weight: 800;
 }
+
+* {
+  font-family: "HeyWow" !important;
+}

@@ -5,10 +5,9 @@ import { Text } from "components/Text";
 import { useUser } from "@auth0/nextjs-auth0";
 import { useLinkItem } from "components/hoc";
 import { ClipCard, GameCard } from "components/Card";
-import Slider from "react-slick";
+import { ScrollingCarousel } from "@trendyol-js/react-carousel";
 import { thumbNailLink, progressText } from "utils/common-helper";
 import marker from "assets/images/home/mark.png";
-import { IoArrowRedoOutline } from "react-icons/io5";
 import {
   ClubSlider,
   DisplayWrapper,
@@ -16,12 +15,16 @@ import {
   PContent,
   ProfileContent,
 } from "./profile-view.style";
+import { CardBody, CarouselBody } from "theme/global.state";
+import ThumbCard from "components/Card/ThumbCard";
+import { SlideArrow } from "components/Button/Button";
 import { ProfileContext } from "pages/club/[club_slug]/profile";
 import { GameCardProps } from "types/components/GameCard";
 import { useRouter } from "next/router";
 import { ClipProps } from "types/components/ClipCard";
 import Mark from "assets/images/home/team2.png";
 import _ from "lodash";
+import { IoIosArrowForward } from "react-icons/io";
 
 const NextArrow: React.FC = (props: any) => {
   const { className, style, onClick } = props;
@@ -328,7 +331,6 @@ const ProfilePage: React.FC = (props: any) => {
             justifyContent="flex-start"
           >
             <Col>
-              {/* <Slider {...settings}> */}
               <ClubSlider
                 onClick={() => {
                   onHandleClick(title), setRouteData("club");
@@ -359,7 +361,7 @@ const ProfilePage: React.FC = (props: any) => {
             <SeeAll
               handleClick={() => onHandleSeeAll("teams")}
               title="See all"
-              icon={<IoArrowRedoOutline />}
+              icon={<IoIosArrowForward />}
               iconDirection="row-reverse"
               alignVertical="center"
             />
@@ -371,7 +373,10 @@ const ProfilePage: React.FC = (props: any) => {
             flexDirection="row"
           >
             <Col item={24}>
-              <Slider {...settings}>
+              <ScrollingCarousel
+                leftIcon={<SlideArrow position="left" />}
+                rightIcon={<SlideArrow position="right" />}
+              >
                 {teams &&
                   teams.map((team: any, index: number) => {
                     const item: any = {
@@ -381,29 +386,31 @@ const ProfilePage: React.FC = (props: any) => {
                       league: team.division,
                     };
                     return (
-                      <ClubSlider
-                        key={index}
-                        onClick={() => {
-                          onHandleClick(team.slug), setRouteData("team");
-                        }}
-                      >
-                        <Text tAlign="center">
-                          <Image
-                            src={item.logo}
-                            height={250}
-                            width={300}
-                            oFit="cover"
-                            mode="intrinsic"
-                            className="teamsWrapper"
-                          />
-                        </Text>
-                        <Text fSize={0.75} tAlign="center">
-                          {item.name}
-                        </Text>
-                      </ClubSlider>
+                      <CarouselBody>
+                        <ClubSlider
+                          key={index}
+                          onClick={() => {
+                            onHandleClick(team.slug), setRouteData("team");
+                          }}
+                        >
+                          <Text tAlign="center">
+                            <Image
+                              src={item.logo}
+                              height={250}
+                              width={300}
+                              oFit="cover"
+                              mode="intrinsic"
+                              className="teamsWrapper"
+                            />
+                          </Text>
+                          <Text fSize={0.75} tAlign="center">
+                            {item.name}
+                          </Text>
+                        </ClubSlider>
+                      </CarouselBody>
                     );
                   })}
-              </Slider>
+              </ScrollingCarousel>
             </Col>
           </Row>
         </DisplayWrapper>
@@ -415,7 +422,7 @@ const ProfilePage: React.FC = (props: any) => {
             <SeeAll
               handleClick={() => onHandleSeeAll("players")}
               title="See all"
-              icon={<IoArrowRedoOutline />}
+              icon={<IoIosArrowForward />}
               iconDirection="row-reverse"
               alignVertical="center"
             />
@@ -426,8 +433,11 @@ const ProfilePage: React.FC = (props: any) => {
             justifyContent="center"
             flexDirection="row"
           >
-            <Col>
-              <Slider {...playerSettings}>
+            <Col item={24}>
+              <ScrollingCarousel
+                leftIcon={<SlideArrow position="left" />}
+                rightIcon={<SlideArrow position="right" />}
+              >
                 {players &&
                   players.map((player: any, index: number) => {
                     const item: ClipProps = {
@@ -441,16 +451,18 @@ const ProfilePage: React.FC = (props: any) => {
                     };
 
                     return (
-                      <ClipCard
-                        {...item}
-                        key={index}
-                        handleClick={() => {
-                          onHandleClick(player.slug), setRouteData("player");
-                        }}
-                      />
+                      <CarouselBody>
+                        <ClipCard
+                          {...item}
+                          key={index}
+                          handleClick={() => {
+                            onHandleClick(player.slug), setRouteData("player");
+                          }}
+                        />
+                      </CarouselBody>
                     );
                   })}
-              </Slider>
+              </ScrollingCarousel>
             </Col>
           </Row>
         </DisplayWrapper>
@@ -462,7 +474,7 @@ const ProfilePage: React.FC = (props: any) => {
             <SeeAll
               handleClick={() => onHandleSeeAll("replays")}
               title="See all"
-              icon={<IoArrowRedoOutline />}
+              icon={<IoIosArrowForward />}
               iconDirection="row-reverse"
               alignVertical="center"
             />
@@ -474,7 +486,10 @@ const ProfilePage: React.FC = (props: any) => {
             flexDirection="row"
           >
             <Col item={24}>
-              <Slider {...savedSettings}>
+              <ScrollingCarousel
+                leftIcon={<SlideArrow position="left" />}
+                rightIcon={<SlideArrow position="right" />}
+              >
                 {matches &&
                   matches.map((match: any, index: number) => {
                     const item: GameCardProps = {
@@ -494,17 +509,19 @@ const ProfilePage: React.FC = (props: any) => {
                     };
 
                     return (
-                      <GameCard
-                        {...item}
-                        key={index}
-                        handleClick={() => {
-                          onHandleClick(match.video_asset_id),
-                            setRouteData("replay");
-                        }}
-                      />
+                      <CardBody>
+                        <ThumbCard
+                          {...item}
+                          key={index}
+                          handleClick={() => {
+                            onHandleClick(match.video_asset_id),
+                              setRouteData("replay");
+                          }}
+                        />
+                      </CardBody>
                     );
                   })}
-              </Slider>
+              </ScrollingCarousel>
             </Col>
           </Row>
         </DisplayWrapper>
@@ -516,7 +533,7 @@ const ProfilePage: React.FC = (props: any) => {
             <SeeAll
               handleClick={() => console.log("Button in progress")}
               title="See all"
-              icon={<IoArrowRedoOutline />}
+              icon={<IoIosArrowForward />}
               iconDirection="row-reverse"
               alignVertical="center"
             />
@@ -528,7 +545,10 @@ const ProfilePage: React.FC = (props: any) => {
             flexDirection="row"
           >
             <Col item={24}>
-              <Slider {...savedSettings}>
+              <ScrollingCarousel
+                leftIcon={<SlideArrow position="left" />}
+                rightIcon={<SlideArrow position="right" />}
+              >
                 {savedReelsData.map((reel: any, index: number) => {
                   const item: any = {
                     id: reel.id,
@@ -541,22 +561,19 @@ const ProfilePage: React.FC = (props: any) => {
                     leagueDivisionName: reel.home_team.division,
                     roundName: reel.round_name ? reel.round_name : "Round 1",
                     matchName: reel.name,
-                    mode: "Day",
-                    progress: progressText(reel.start_datetime, reel.status),
-                    isLive:
-                      progressText(reel.start_datetime, reel.status) ===
-                      "In Progress",
-                    users: 0,
+                    mode: "Replay",
                   };
                   return (
-                    <GameCard
-                      {...item}
-                      key={index}
-                      handleClick={() => console.log(reel.video_asset_id)}
-                    />
+                    <CardBody>
+                      <ThumbCard
+                        {...item}
+                        key={index}
+                        handleClick={() => console.log(reel.video_asset_id)}
+                      />
+                    </CardBody>
                   );
                 })}
-              </Slider>
+              </ScrollingCarousel>
             </Col>
           </Row>
         </DisplayWrapper>

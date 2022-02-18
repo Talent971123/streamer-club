@@ -5,6 +5,7 @@ import { UIFactory } from "bitmovin-player-ui";
 import { connect } from "react-redux";
 import { setLiveShow } from "redux/actions/watch";
 import { toast } from "react-toastify";
+import { DisplayWrpper } from "./bitmovin.styles";
 
 interface videoProps {
   playback_id?: string;
@@ -63,22 +64,23 @@ const VideoPlayer: React.FC<videoProps> = ({ playback_id, setLiveShow }) => {
   const setupPlayer = () => {
     const player = new Player(videoRef.current, playerConfig);
     UIFactory.buildDefaultUI(player);
-    player.load(playerSource).then(
-      () => {
-        setLiveShow(true);
-      },
-      () => {
-        setLiveShow(false);
-        toast.error("Error while loading source");
-      }
-    );
-    console.log('videoRef', videoRef)
+    if (playback_id) {
+      player.load(playerSource).then(
+        () => {
+          setLiveShow(true);
+        },
+        () => {
+          setLiveShow(false);
+          // toast.error("Error while loading source");
+        }
+      );
+    }
   };
 
   return (
     <>
       <div id="player">
-        <div id="player-container" ref={videoRef} />
+        <DisplayWrpper id="player-container" ref={videoRef} />
       </div>
     </>
   );

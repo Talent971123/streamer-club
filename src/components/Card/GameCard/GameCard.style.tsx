@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { themeGet } from "@styled-system/theme-get";
-import { defaultTheme } from "theme";
+// import { defaultTheme } from "theme";
 
 export const GameCardWrapper = styled.div`
   width: 98%;

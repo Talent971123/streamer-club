@@ -4,12 +4,15 @@ import { useInputHOC } from "components/hoc";
 import { Col, Row } from "components/Layout";
 // import styled component
 import { ContactWrapper, Commmon } from "./contact.style";
-import { ClubAdminContext, ClubDetailsContext } from "pages/club/[club_slug]/admin";
+import {
+  ClubAdminContext,
+  ClubDetailsContext,
+} from "pages/club/[club_slug]/admin";
 const Input = useInputHOC(Commmon);
 
 const ContactSection: React.FC = () => {
   const club = useContext(ClubAdminContext);
-  const {clubDetails, setClubDetails} = useContext(ClubDetailsContext);
+  const { clubDetails, setClubDetails } = useContext(ClubDetailsContext);
   useEffect(() => {
     setClubDetails({
       ...clubDetails,
@@ -47,7 +50,12 @@ const ContactSection: React.FC = () => {
                     iRadius="small"
                     placeholder="Address Line 1"
                     defaultValue={club?.address_1}
-                    onChange={(e) => setClubDetails({...clubDetails, address_1: e.target.value})}
+                    onChange={(e) =>
+                      setClubDetails({
+                        ...clubDetails,
+                        address_1: e.target.value,
+                      })
+                    }
                   />
                 </Col>
               </Row>
@@ -65,7 +73,12 @@ const ContactSection: React.FC = () => {
                     iRadius="small"
                     placeholder="Address Line 2"
                     defaultValue={club?.address_2}
-                    onChange={(e) => setClubDetails({...clubDetails, address_2: e.target.value})}
+                    onChange={(e) =>
+                      setClubDetails({
+                        ...clubDetails,
+                        address_2: e.target.value,
+                      })
+                    }
                   />
                 </Col>
               </Row>
@@ -87,7 +100,9 @@ const ContactSection: React.FC = () => {
                     iRadius="small"
                     placeholder="City"
                     defaultValue={club?.city}
-                    onChange={(e) => setClubDetails({...clubDetails, city: e.target.value})}
+                    onChange={(e) =>
+                      setClubDetails({ ...clubDetails, city: e.target.value })
+                    }
                   />
                 </Col>
               </Row>
@@ -105,7 +120,9 @@ const ContactSection: React.FC = () => {
                     iRadius="small"
                     placeholder="State"
                     defaultValue={club?.state}
-                    onChange={(e) => setClubDetails({...clubDetails, state: e.target.value})}
+                    onChange={(e) =>
+                      setClubDetails({ ...clubDetails, state: e.target.value })
+                    }
                   />
                 </Col>
               </Row>
@@ -123,7 +140,12 @@ const ContactSection: React.FC = () => {
                     iRadius="small"
                     placeholder="PostCode"
                     defaultValue={club?.postcode}
-                    onChange={(e) => setClubDetails({...clubDetails, postcode: e.target.value})}
+                    onChange={(e) =>
+                      setClubDetails({
+                        ...clubDetails,
+                        postcode: e.target.value,
+                      })
+                    }
                   />
                 </Col>
               </Row>

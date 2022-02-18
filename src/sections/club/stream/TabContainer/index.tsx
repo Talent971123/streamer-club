@@ -7,12 +7,14 @@ import TabsView from "./Tabs";
 import CommentaryView from "./Commentary";
 import CreateClipView from "./CreateClip";
 // import TeamView from "./Team";
+import { Text } from "components/Text";
 import MatchStatsView from "./MatchStats";
 import MediaGalleryView from "./MediaGallery";
 import GameDayWriteupView from "./GameDayWriteup";
 import { Button } from "components/Button";
 import { themeGet } from "@styled-system/theme-get";
 import { ScreenContext } from "hooks/context/ScreenContext";
+import { ButtonsPanel } from "sections/club/stream";
 
 const menudata: commonItem[] = [
   {
@@ -43,7 +45,7 @@ const menudata: commonItem[] = [
 ];
 const TabContainerView: React.FC = () => {
   const [select, setSelect] = useState<string>(menudata[0].path);
-  const [show, setEventShow] = useState<boolean>(false);
+  const [show, setEventShow] = useState<"" | "scoring" | "keyMoments">("");
   const [createClip, setCreateClipShow] = useState<boolean>(false);
 
   const onHandleSelect = (item: string) => {
@@ -51,11 +53,15 @@ const TabContainerView: React.FC = () => {
   };
 
   const createClipFunc = () => {
-    setCreateClipShow(!createClip);
+    setCreateClipShow(true);
   };
 
-  const addEvent = () => {
-    setEventShow(true);
+  const toggleEvent = (eventType: "scoring" | "keyMoments") => {
+    if (show === eventType) {
+      setEventShow("");
+    } else {
+      setEventShow(eventType);
+    }
   };
 
   const values = {
@@ -69,13 +75,21 @@ const TabContainerView: React.FC = () => {
     <ScreenContext.Provider value={values}>
       <ContainerWrapper>
         <ContentWrapper>
+          <Row>
+            <Col item={24}>
+              <ButtonsPanel
+                toggleEvent={toggleEvent}
+                createClip={createClipFunc}
+              />
+            </Col>
+          </Row>
           <Row
             css={`
               border-bottom: 1px solid ${themeGet("colors.gray.300")};
               border-radius: 5px;
             `}
             responsive={{
-              900: {
+              834: {
                 flexDirection: "column",
               },
             }}
@@ -87,40 +101,64 @@ const TabContainerView: React.FC = () => {
                 onHandleSelect={onHandleSelect}
               />
             </Col>
-            <Row alignItems="flex-end" justifyContent="flex-end">
-              <Col>
+            {/* <Row alignItems="flex-end" justifyContent="flex-end"> */}
+            {/* <Col>
                 <Button
                   bColor="primary"
                   css={{
-                    padding: 10,
+                    padding: 8,
                     marginBottom: 16,
                     marginRight: 16,
-                    fontSize: 12,
-                    whiteSpace: "nowrap",
                   }}
                   onClick={() => createClipFunc()}
                 >
-                  {"Create Clip"}
+                  <Text
+                    fSize={0.906}
+                    wSpace="nowrap"
+                    responsive={{
+                      480: {
+                        fSize: 0.656,
+                      },
+                      834: {
+                        fSize: 0.844,
+                      },
+                    }}
+                  >
+                    {"Create Clip"}
+                  </Text>
                 </Button>
-              </Col>
-              <Col>
+              </Col> */}
+            {/* <Col>
                 <Button
                   bColor="primary"
                   css={{
-                    padding: 10,
+                    padding: 8,
+
                     marginBottom: 16,
                     marginRight: 16,
-                    fontSize: 12,
+                    fontSize: 13,
                     whiteSpace: "nowrap",
                   }}
                   onClick={addEvent}
                 >
-                  {"Add Event"}
+                  <Text
+                    fSize={0.906}
+                    wSpace="nowrap"
+                    responsive={{
+                      480: {
+                        fSize: 0.656,
+                      },
+                      834: {
+                        fSize: 0.844,
+                      },
+                    }}
+                  >
+                    {"Add Event"}
+                  </Text>
                 </Button>
-              </Col>
-            </Row>
+              </Col> */}
+            {/* </Row> */}
           </Row>
-          <CreateClipView></CreateClipView>
           <Row alignItems="center" justifyContent="center" display="flex">
             <Content>
               {menudata.map((item: commonItem, index: number) => {

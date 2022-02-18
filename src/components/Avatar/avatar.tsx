@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Image } from "components/Image";
 import { compose, variant, border, space, layout } from "styled-system";
 import css from "@styled-system/css";
-import themeGet from "@styled-system/theme-get";
+// import themeGet from "@styled-system/theme-get";
 
 interface StyledProps {
   radius?: "circle" | "small";

@@ -9,7 +9,7 @@ import Slider from "react-slick";
 import { Switch } from "components/Switch";
 import { ScreenContext } from "hooks/context/ScreenContext";
 import CloseIcon from "assets/icon/close";
-import { DropdownContainer } from "./commentary.style";
+import { DropdownContainer, SectionWrapper } from "./commentary.style";
 import BackIcon from "assets/icon/back";
 import { Input } from "components/Input";
 import { StreamPageContext } from "hooks/context/StreamPageContext";
@@ -99,7 +99,7 @@ const Scoring: any = [
     title: "Goal - Away",
   },
   {
-    type: <UndoIcon />,
+    type: <UndoIcon iSize={{ x: 15, y: 15 }} />,
     title: "Undo last action",
   },
 ];
@@ -150,9 +150,9 @@ const ScoreTypes = [
 const CommentaryView: React.FC = () => {
   const { Option } = DropdownContainer;
   const { show, setEventShow } = useContext(ScreenContext);
-  const { home_name, home_players, away_players, away_name }: any = useContext(StreamPageContext);
+  const { home_name, home_players, away_players, away_name }: any =
+    useContext(StreamPageContext);
   const [keymoment, showKeymoment] = useState<boolean>(false);
-  const [scoring, setScoring] = useState<string>("scoring");
   const [scoreOption, setScoreOption] = useState<string>("");
   const [teamPlayers, setTeamPlayers] = useState<any>([]);
   const [defaultTeam, setDefaultTeam] = useState<string>("");
@@ -168,15 +168,15 @@ const CommentaryView: React.FC = () => {
   ];
 
   const onChange = (value: any) => {
-    setScoring(value.target.value);
+    setEventShow(value.target.value);
   };
 
   const handleScore = (value: any) => {
-    console.log(value, "yehey")
-    if(value === "Goal - Home" || value === "Behind - Home"){
+    console.log(value, "yehey");
+    if (value === "Goal - Home" || value === "Behind - Home") {
       setDefaultTeam(home_name);
       setTeamPlayers(home_players);
-    } else if (value === "Goal - Away" || value === "Behind - Away"){
+    } else if (value === "Goal - Away" || value === "Behind - Away") {
       setDefaultTeam(away_name);
       setTeamPlayers(away_players);
     } else {
@@ -199,12 +199,11 @@ const CommentaryView: React.FC = () => {
   };
 
   const closeEventButton = () => {
-    setEventShow(false);
+    setEventShow("");
     setDefaultTeam("");
     setTeamPlayers([]);
-    setScoring("scoring");
-
   };
+
   return (
     <CommentaryWrapper>
       <ContentWrapper>
@@ -227,7 +226,7 @@ const CommentaryView: React.FC = () => {
             >
               {!keymoment && (
                 <>
-                  <Row>
+                  <Row responsive={{ 480: { display: "none" } }}>
                     <Col item={24}>
                       <Row
                         alignItems="center"
@@ -242,77 +241,95 @@ const CommentaryView: React.FC = () => {
                       </Row>
                     </Col>
                     <Col item={2}>
-                    <Row alignItems="flex-end" justifyContent="flex-end" css={{ marginTop: 15 }}>
-                      <Button
-                        bColor="primary"
-                        css={{ border: "none" }}
-                        icon={<CloseIcon />}
-                        onClick={closeEventButton}
-                      />
-                    </Row>
+                      <Row
+                        alignItems="flex-end"
+                        justifyContent="flex-end"
+                        css={{ marginTop: 15 }}
+                      >
+                        <Button
+                          bColor="primary"
+                          css={{ border: "none" }}
+                          icon={<CloseIcon />}
+                          onClick={closeEventButton}
+                        />
+                      </Row>
                     </Col>
                   </Row>
-                  {scoring === "scoring" && (
+                  {show === "scoring" && (
                     <Row
-                      alignItems="center"
+                      gap={12}
                       justifyContent="center"
-                      gap={50}
-                      css={{ marginBottom: 20 }}
+                      css={{
+                        whiteSpace: "nowrap",
+                        overflowX: "auto",
+                      }}
+                      responsive={{
+                        834: {
+                          justifyContent: "flex-start",
+                        },
+                      }}
                     >
                       {Scoring.map((item: any, index: number) => {
                         return (
-                          <Col key={index}>
-                            <Button
-                              fColor="gray.100"
-                              css={`
-                                height: 90px;
-                                width: 150px;
-                                background-color: #4a4949;
-                                border: 0px;
-                              `}
-                              onClick={() => handleScore(item.title)}
-                            >
-                              <Text fSize={1.25} fWeight={700}>
-                                {item.type}
-                              </Text>
-                              <Text fSize={0.75}>{item.title}</Text>
-                            </Button>
-                          </Col>
+                          <Button
+                            key={index}
+                            fColor="gray.100"
+                            css={`
+                              width: 100px;
+                              height: 50px;
+                              background-color: #4a4949;
+                              border: 0px;
+                              border-radius: 8px;
+                            `}
+                            onClick={() => console.log(item.title)}
+                          >
+                            <Text fSize={1} fWeight={700}>
+                              {item.type}
+                            </Text>
+                            <Text fSize={0.75}>{item.title}</Text>
+                          </Button>
                         );
                       })}
                     </Row>
                   )}
-                  {scoring === "keyMoments" && (
+                  {show === "keyMoments" && (
                     <Row
+                      gap={12}
+                      justifyContent="center"
                       css={{
-                        marginBottom: 20,
-                        paddingRight: 18,
-                        paddingLeft: 28,
+                        whiteSpace: "nowrap",
+                        overflowX: "auto",
+                      }}
+                      responsive={{
+                        834: {
+                          justifyContent: "flex-start",
+                        },
                       }}
                     >
-                      <Col item={24}>
-                        <Slider {...settings}>
-                          {ScoreTypes.map((item: any, index: number) => {
-                            return (
-                              <Col key={index}>
-                                <Button
-                                  fColor="gray.100"
-                                  css={`
-                                    height: 90px;
-                                    width: 150px;
-                                    background-color: #4a4949;
-                                    border: 0px;
-                                    margin-left: 60px;
-                                  `}
-                                  onClick={() => handleScore(item.value)}
-                                >
-                                  <Text fSize={1}>{item.type}</Text>
-                                </Button>
-                              </Col>
-                            );
-                          })}
-                        </Slider>
-                      </Col>
+                      {/* <Col> */}
+                      {/* <Slider {...settings}> */}
+                      {ScoreTypes.map((item: any, index: number) => {
+                        return (
+                          <Button
+                            key={index}
+                            fColor="gray.100"
+                            css={`
+                              min-width: 100px;
+                              height: 50px;
+                              background-color: #4a4949;
+                              border: 0px;
+                              border-radius: 8px;
+                              marginleft: 6px;
+                              marginright: 6px;
+                            `}
+                            onClick={() => handleScore(item.value)}
+                          >
+                            <Text fSize={1}>{item.type}</Text>
+                          </Button>
+                        );
+                      })}
+                      {/* </Slider> */}
+                      {/* </Col> */}
                     </Row>
                   )}
                 </>
@@ -322,18 +339,25 @@ const CommentaryView: React.FC = () => {
                   flexDirection="column"
                   alignItems="center"
                   justifyContent="center"
-                  gap={30}
+                  gap={10}
                 >
-                  <Col item={24}>
+                  <Col
+                    item={6}
+                    responsive={{
+                      480: {
+                        item: 24,
+                      },
+                    }}
+                  >
                     <Row gap={50} css={{ marginTop: 20 }}>
-                      <Col>
+                      {/* <Col>
                         <Button
                           bColor="primary"
                           css={{ border: "none" }}
                           icon={<BackIcon />}
                           onClick={() => {showKeymoment(false), setScoring("scoring")}}
                         />
-                      </Col>
+                      </Col> */}
                       <Col item={6}>
                         <DropdownContainer
                           placeholder={"Select Team (mandatory)"}
@@ -341,14 +365,21 @@ const CommentaryView: React.FC = () => {
                           defaultValue={defaultTeam ? defaultTeam : null}
                         >
                           <Option value={"home"} key={1}>
-                              {home_name}
+                            {home_name}
                           </Option>
                           <Option value={"away"} key={2}>
                             {away_name}
                           </Option>
                         </DropdownContainer>
                       </Col>
-                      <Col item={6}>
+                      <Col
+                        item={6}
+                        responsive={{
+                          480: {
+                            item: 24,
+                          },
+                        }}
+                      >
                         <DropdownContainer
                           placeholder="Select Player (non-mandatory)"
                           onChange={(e: any) => handlePlayersChange(e)}
@@ -363,7 +394,15 @@ const CommentaryView: React.FC = () => {
                             })}
                         </DropdownContainer>
                       </Col>
-                      <Col item={6}>
+
+                      <Col
+                        item={6}
+                        responsive={{
+                          480: {
+                            item: 24,
+                          },
+                        }}
+                      >
                         <DropdownContainer
                           placeholder="Adjust Timestamp (non-mandatory)"
                           onChange={(e: any) => console.log(e)}
@@ -376,7 +415,14 @@ const CommentaryView: React.FC = () => {
                           </Option>
                         </DropdownContainer>
                       </Col>
-                      <Col item={6}>
+                      <Col
+                        item={6}
+                        responsive={{
+                          480: {
+                            item: 24,
+                          },
+                        }}
+                      >
                         <DropdownContainer
                           placeholder="Confirm Event (mandatory)"
                           onChange={(e: any) => console.log(e)}
@@ -389,19 +435,25 @@ const CommentaryView: React.FC = () => {
                           </Option>
                         </DropdownContainer>
                       </Col>
-                      <Col>
-                        <Button
-                          bColor="primary"
-                          css={{ border: "none" }}
-                          icon={<CloseIcon />}
-                          onClick={() => showKeymoment(false)}
-                        />
-                      </Col>
                     </Row>
                   </Col>
 
                   <Col item={24}>
-                    <Row gap={20} css={{ marginBottom: 20, marginLeft: 90 }}>
+                    <Row
+                      flexDirection="row"
+                      alignItems="center"
+                      justifyContent="center"
+                      css={{
+                        marginBottom: 20,
+
+                        marginRight: 10,
+                      }}
+                      responsive={{
+                        480: {
+                          flexDirection: "column",
+                        },
+                      }}
+                    >
                       <Col item={24}>
                         <Input
                           css={{ borderRadius: 8 }}
@@ -410,70 +462,112 @@ const CommentaryView: React.FC = () => {
                           placeholder="Add Comment to be added to Commentary Stream... (non-mandatory)"
                         />
                       </Col>
-                      <Col item={4}>
+                      <Row
+                        justifyContent="flex-end"
+                        responsive={{
+                          480: {
+                            padding: "10px",
+                          },
+                        }}
+                      >
+                        <Button
+                          bColor="primary"
+                          bSize="normal"
+                          css={{
+                            borderRadius: 12,
+                            height: 44,
+                            width: "30%",
+                          }}
+                        >
+                          {"Cancel"}
+                        </Button>
+
                         <Button
                           bColor="warning"
                           bSize="normal"
-                          css={{ borderRadius: 8, height: 44, width: "60%" }}
+                          css={{
+                            borderRadius: 12,
+                            height: 44,
+                            width: "30%",
+                            marginLeft: 10,
+                          }}
                         >
                           {"Submit"}
                         </Button>
-                      </Col>
+                      </Row>
                     </Row>
                   </Col>
                 </Row>
               )}
             </Row>
           )}
-          { !show &&
-            Comments.map((item: any, index: number) => {
-              return (
+          {!show && (
+            <>
+              {Comments.map((item: any, index: number) => (
                 <Row
-                  justifyContent="center"
-                  alignItems="center"
                   key={index}
                   css={`
                     background-color: ${themeGet("colors.gray.900")};
+                    min-height: 120px;
                   `}
                 >
                   <Border mode={index} />
-                  <Col item={1}>
-                    <Row alignItems="center" justifyContent="center">
+                  <Row
+                    responsive={{
+                      480: { flexDirection: "column" },
+                    }}
+                  >
+                    {/* <SectionWrapper>
+                          <Text
+                            fColor="white"
+                            fSize={1}
+                            fWeight={700}
+                            css={{ marginLeft: 13 }}
+                          >
+                            {item.type}
+                          </Text>
+                        </SectionWrapper> */}
+                    <SectionWrapper>
                       <Text
                         fColor="white"
                         fSize={1}
                         fWeight={700}
-                        css={{ paddingBottom: 24 }}
+                        css={{ marginLeft: 13 }}
                       >
-                        {item.type}
+                        {item.name}
                       </Text>
-                    </Row>
-                  </Col>
-                  <Col item={24}>
-                    <Row>
-                      <Text fColor="red.100" fSize={0.75} fWeight={700}>
+                    </SectionWrapper>
+                    <SectionWrapper>
+                      <Text
+                        fColor="white"
+                        fSize={0.75}
+                        fWeight={700}
+                        css={{ marginLeft: 13 }}
+                      >
                         {item.title}
                       </Text>
-                    </Row>
-                    <Row>
-                      <Text fColor="white" fSize={1} fWeight={200}>
+                      <Text
+                        fColor="white"
+                        fSize={1}
+                        fWeight={200}
+                        css={{ marginTop: 5, marginLeft: 13 }}
+                      >
                         {item.statement}
                       </Text>
-                    </Row>
-                    <Row>
                       <Text
                         fColor="red.100"
                         fSize={0.75}
                         fWeight={200}
-                        css={{ paddingTop: 24 }}
+                        css={{ marginTop: 5, marginLeft: 13 }}
                       >
                         {`${item.name} - ${item.team}`}
                       </Text>
-                    </Row>
-                  </Col>
+                    </SectionWrapper>
+                  </Row>
                 </Row>
-              );
-            })}
+              ))}
+            </>
+          )}
         </Row>
       </ContentWrapper>
     </CommentaryWrapper>

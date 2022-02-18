@@ -1,6 +1,6 @@
 const fonts = {
-  base: '"Roboto" , sans-serif !important',
-  MartelSans: `'Martel Sans', sans-serif !important`,
+  base: '"Roboto" , sans-serif, "HeyWow" !important',
+  MartelSans: `'Martel Sans', sans-serif, "HeyWow" !important`,
 };
 
 export default fonts;

@@ -8,15 +8,14 @@ import {
   ClipSection,
   IntroSection,
 } from "sections/club/player";
+import { Page } from "components/Page";
 import { Row } from "components/Layout";
 import { Text } from "components/Text";
 import { AiOutlineWarning } from "react-icons/ai";
 import { useSubscription } from "@apollo/client";
-import { PLAYERQL, TEAMQL } from "graphql/club";
-import { initializeApollo } from "api/apollo";
-import { Page } from "components/Page";
+import { PLAYERQL } from "graphql/club";
+// import { initializeApollo } from "api/apollo";
 import d_photo from "assets/images/player/default-player-image.png";
-import _ from "lodash";
 
 export const PlayerContext = createContext<any>(null);
 
@@ -43,7 +42,7 @@ const PlayerPage: React.FC = ({ club_slug, player_slug }: any) => {
           alignItems="center"
         >
           <AiOutlineWarning size={100} />
-          <Text fSize={17}>{"No Data"}</Text>
+          <Text fSize={1.0625}>{"No Data"}</Text>
         </Row>
       </>
     );
@@ -67,7 +66,7 @@ const PlayerPage: React.FC = ({ club_slug, player_slug }: any) => {
 };
 
 export const getServerSideProps = async (context) => {
-  const apolloClient = initializeApollo();
+  // const apolloClient = initializeApollo();
   const { club_slug, player_slug } = context.query;
 
   return {

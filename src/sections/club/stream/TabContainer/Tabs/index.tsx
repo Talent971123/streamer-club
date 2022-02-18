@@ -13,8 +13,19 @@ const TabsView: React.FC<{
     onHandleSelect(path);
   };
   return (
-    <TabWrapper>
-      <Row flexDirection="row" justifyContent="flex-start">
+    <TabWrapper
+      css={`
+        @media only screen and (max-width: 480px) {
+          white-space: nowrap;
+          overflow-x: scroll;
+        }
+      `}
+    >
+      <Row
+        flexDirection="row"
+        justifyContent="flex-start"
+        gap={40}
+      >
         {menudata.map((item: commonItem, index: number) => {
           return (
             <Col key={index}>
@@ -25,16 +36,18 @@ const TabsView: React.FC<{
                 <Text
                   fColor={select !== item.path ? "gray.300" : "white"}
                   fWeight={select !== item.path ? 100 : 800}
-                  fSize={1}
-                  padding="8px 0"
+                  fSize={0.906}
+                  padding="5px 0px"
                   wSpace="nowrap"
                   hoverStyle={
                     select !== item.path ? { fColor: "gray.200" } : {}
                   }
                   responsive={{
-                    600: {
+                    480: {
                       fSize: 0.656,
-                      padding: "4px 0",
+                    },
+                    834: {
+                      fSize: 0.844,
                     },
                   }}
                 >

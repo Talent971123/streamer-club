@@ -6,7 +6,6 @@ import { ClipCard } from "components/Card";
 import { Text } from "components/Text";
 import { ScrollingCarousel } from "@trendyol-js/react-carousel";
 import { useLinkItem } from "components/hoc";
-import { IoArrowRedoOutline } from "react-icons/io5";
 //  import types
 import { ClipProps } from "types/components/ClipCard";
 import { SlideArrow } from "components/Button/Button";
@@ -17,6 +16,8 @@ import { CarouselBody } from "theme/global.state";
 //  define the example data
 import { ClubContext } from "pages/club/[club_slug]";
 import { connect } from "react-redux";
+import { SeeAllWrapper } from "../GameDay/gameday.style";
+import { IoIosArrowForward } from "react-icons/io";
 
 const SeeAll = useLinkItem(LinkWrapper);
 
@@ -37,17 +38,25 @@ const PlayerView: React.FC = (props: any) => {
 
   return (
     <PlayerWrapper>
-      <Row alignItems="center" justifyContent="space-between">
-        <Text fColor="white" fSize={1.5} fWeight={700}>
-          {"Our Players"}
-        </Text>
-        <SeeAll
-          handleClick={onHandleSeeAll}
-          title="See all"
-          icon={<IoArrowRedoOutline />}
-          iconDirection="row-reverse"
-          alignVertical="center"
-        />
+      <Row alignItems="center">
+        <Col item={24}>
+          <Row>
+            <Text fColor="white" fSize={1.5} fWeight={700}>
+              {"Our Players"}
+            </Text>
+          </Row>
+        </Col>
+        <Col item={24}>
+          <SeeAllWrapper flexDirection="row-reverse">
+            <SeeAll
+              handleClick={onHandleSeeAll}
+              title="See all"
+              icon={<IoIosArrowForward />}
+              iconDirection="row-reverse"
+              alignVertical="center"
+            />
+          </SeeAllWrapper>
+        </Col>
       </Row>
       <Row padding="10px 0 0 0">
         <Col item={24}>
@@ -66,12 +75,10 @@ const PlayerView: React.FC = (props: any) => {
                   mode: "player",
                   content: player.team?.name,
                 };
-
                 return (
-                  <CarouselBody>
+                  <CarouselBody key={`player-view-key-${index}`}>
                     <ClipCard
                       {...item}
-                      key={`player-view-key-${index}`}
                       handleClick={() => onHandleClick(player.slug)}
                     />
                   </CarouselBody>

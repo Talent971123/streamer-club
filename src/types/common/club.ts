@@ -22,6 +22,7 @@ export interface StreamPageCtx {
   home_logo: string;
   away_name: string;
   away_logo: string;
+  start_datetime: string;
   home_players: Array<Players>;
   away_players: Array<Players>;
 }

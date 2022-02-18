@@ -134,11 +134,28 @@ export const UPDATE_USER_PLAYERS = gql`mutation UpdatePlayerUser(
   }
 }`
 
+const GET_PLAYER_FEATURED_CLIPS = gql`{
+  player_featured_clips {
+    video_asset_id
+    created_at
+  }
+}`
+
+const INSERT_PLAYER_FEATURED_CLIP = gql`
+  mutation InsertPlayerFeaturedClipMutation($objects: [player_featured_clips_insert_input!] = {}) {
+    insert_player_featured_clips(objects: $objects) {
+      affected_rows
+    }
+  }
+`;
+
 // ---------
 export default {
   GET_PLAYERS,
   GET_PLAYER_BY_ID,
   SUB_PLAYER,
   UPDATE_PLAER_BY_ID,
-  UPDATE_USER_PLAYERS
+  UPDATE_USER_PLAYERS,
+  GET_PLAYER_FEATURED_CLIPS,
+  INSERT_PLAYER_FEATURED_CLIP
 };

@@ -11,6 +11,7 @@ import {
   ClipContent,
   ClipFooter,
   PlayWrapper,
+  ClipCardTitle,
 } from "./ClipCard.style";
 //  import asssets
 import Play from "assets/images/home/play.png";
@@ -30,15 +31,29 @@ const ClipCard: React.FC<ClipProps> = ({
   return (
     <ClipCardWrapper mode={mode} onClick={() => onHandleClick(id)}>
       <ClipContent mode={mode}>
-        <Image
-          src={backgroundImage || DefaultPlayerImage}
-          oFit="cover"
-          mode={mode === "teams" ? "fill" : "intrinsic"}
-          width={["photos", "videos", "player"].includes(mode) ? 142 : 0}
-          height={["photos", "videos", "player"].includes(mode) ? 142 : 0}
-        />
+        {mode == "club" ? (
+          <Image
+            src={backgroundImage || DefaultPlayerImage}
+            oFit="fill"
+            width={160}
+            height={175}
+          />
+        ) : (
+          <Image
+            src={backgroundImage || DefaultPlayerImage}
+            oFit="cover"
+            mode={mode === "teams" ? "fill" : "intrinsic"}
+            width={
+              ["photos", "videos", "player", "club"].includes(mode) ? 180 : 0
+            }
+            height={
+              ["photos", "videos", "player", "club"].includes(mode) ? 180 : 0
+            }
+          />
+        )}
+
         {(mode === "clip" || mode === "videos") && (
-          <PlayWrapper mode={mode}>
+          <PlayWrapper>
             <Image src={Play} width={69} height={69} />
           </PlayWrapper>
         )}
@@ -64,19 +79,20 @@ const ClipCard: React.FC<ClipProps> = ({
               </Text>
             </Col>
             <Col item={24}>
-              <Text
-                fColor={
-                  mode === "clip"
-                    ? "gray.600"
-                    : mode === "teams"
-                    ? "white"
-                    : "gray.300"
-                }
-                tAlign={mode === "clip" ? "left" : "center"}
-                fSize={mode === "clip" ? 0.75 : mode === "teams" ? 1 : 0.75}
-              >
-                {content}
-              </Text>
+              <ClipCardTitle mode={mode}>
+                <Text
+                  fColor={
+                    mode === "clip"
+                      ? "white"
+                      : mode === "teams"
+                      ? "white"
+                      : "white"
+                  }
+                  tAlign={mode === "clip" ? "left" : "center"}
+                >
+                  {content}
+                </Text>
+              </ClipCardTitle>
             </Col>
           </Row>
         </ClipFooter>

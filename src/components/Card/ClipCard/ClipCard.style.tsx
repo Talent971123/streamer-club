@@ -6,8 +6,9 @@ export const ClipCardWrapper = styled.div<{ mode: string }>`
   ${({ mode }) => {
     if (mode === "teams" || mode === "clip")
       return `
-      border: 1px solid black;
-      border-radius: 7px;
+      img {
+        border-radius: 2px;
+      }
     `;
   }};
   width: 98%;
@@ -35,6 +36,11 @@ export const ClipContent = styled.div<{ mode: string }>`
           border-radius: 50%;
         }
       `;
+    } else if (mode === "club") {
+      return css`
+        max-height: 175px;
+        /* border-radius: 50%; */
+      `;
     }
   }}
   flex: 1;
@@ -57,11 +63,26 @@ export const ClipFooter = styled.div<{ mode: string }>`
   }} */
 `;
 
-export const PlayWrapper = styled.div<{ mode: string }>`
+export const PlayWrapper = styled.div`
   position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
+`;
+
+export const ClipCardTitle = styled.div<{ mode: string }>`
+  font-weight: bold;
+  @media screen and (min-width: ${defaultTheme.mediaSize.lg}px) {
+    font-size: 1rem !important;
+  }
+
+  @media screen and (max-width: ${defaultTheme.mediaSize.lg}px) {
+    font-size: 0.875rem !important;
+  }
+
+  @media screen and (max-width: ${defaultTheme.mediaSize.md}px) {
+    font-size: 0.688rem !important;
+  }
 `;

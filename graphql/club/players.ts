@@ -5,20 +5,20 @@ import { gql } from "@apollo/client";
  * TODO: transfer to common query file
  * */
 const GET_PLAYERS = gql`
-query PlayersQuery($club_slug: String!) {
-  players_details(where: { club: { slug: { _eq: $club_slug } } }) {
-    id
-    image
-    slug
-    team {
-      name
-    }
-    user{
-      first_name
-      last_name
+  query PlayersQuery($club_slug: String!) {
+    players_details(where: { club: { slug: { _eq: $club_slug } } }) {
+      id
+      image
+      slug
+      team {
+        name
+      }
+      user {
+        first_name
+        last_name
+      }
     }
   }
-}
 `;
 /** gql
  * TODO: transfer to common query file

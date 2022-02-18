@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useRouter } from "hooks";
+import { siteSettings, useRouter } from "hooks";
 // components
 import { ContainerWrapper } from "components/Container";
 import { Row, Col } from "components/Layout";
@@ -24,6 +24,7 @@ import { Text } from "components/Text";
 import { useUser } from "@auth0/nextjs-auth0";
 import { Dropdown } from "antd";
 import _ from "lodash";
+import { Hidden } from "components/Hidden";
 
 // Yamata
 export const MobileHeader = (props: any) => {
@@ -77,7 +78,7 @@ export const MobileHeader = (props: any) => {
               </Col>
             </Row>
           </Col>
-          <Col item={12}>
+          <Col>
             <Row
               gap={18}
               alignItems="center"
@@ -85,7 +86,28 @@ export const MobileHeader = (props: any) => {
               padding="0 20px"
             >
               {user && (
-                <>
+                <Row alignItems="center" gap={10}>
+                  <Col>
+                    <Text
+                      fColor="white"
+                      fSize={0.875}
+                      tAlign="center"
+                      padding="10px 10px"
+                    >
+                      {user?.name}
+                    </Text>
+                  </Col>
+                  <Hidden wHide={[375]}>
+                    <Col className="ImageWrapper">
+                      <Image
+                        src={user?.picture || ProfileImage}
+                        height={40}
+                        width={40}
+                        oFit="cover"
+                        mode="intrinsic"
+                      />
+                    </Col>
+                  </Hidden>
                   <Col className="DropdownWrapper">
                     <Dropdown overlay={dropdownItems} trigger={["hover"]}>
                       <a
@@ -96,56 +118,7 @@ export const MobileHeader = (props: any) => {
                       </a>
                     </Dropdown>
                   </Col>
-                  <Col className="ImageWrapper">
-                    <Image
-                      src={user?.picture || ProfileImage}
-                      height={40}
-                      width={40}
-                      oFit="cover"
-                      mode="intrinsic"
-                    />
-                  </Col>
-                  <NameLabel>
-                    <Text
-                      fColor="white"
-                      fSize={0.875}
-                      tAlign="center"
-                      padding="10px 10px"
-                    >
-                      {user?.name}
-                    </Text>
-                  </NameLabel>
-                </>
-              )}
-
-              {!user && (
-                <>
-                  <Col>
-                    <Button
-                      bColor="warning"
-                      bSize="big"
-                      css={{ width: "110px", height: "20px", fontSize: 14 }}
-                      onClick={() => handleMenuClick("/api/auth/signup")}
-                    >
-                      {"Sign up"}
-                    </Button>
-                  </Col>
-                  <Col>
-                    <Button
-                      bColor="primary"
-                      bSize="big"
-                      css={{
-                        width: "50px",
-                        height: "20px",
-                        fontSize: 14,
-                        border: "none",
-                      }}
-                      onClick={() => handleMenuClick("/api/auth/login")}
-                    >
-                      {"Login"}
-                    </Button>
-                  </Col>
-                </>
+                </Row>
               )}
             </Row>
           </Col>
@@ -157,13 +130,33 @@ export const MobileHeader = (props: any) => {
             return (
               <MenuItem
                 mode={asPath === item.path ? "true" : "false"}
-                onClick={() => handleMenuClick(item.path)}
                 key={index}
+                onClick={() => handleMenuClick(item.path)}
               >
-                {item.title}
+                <Text
+                  fColor="white"
+                  fSize={1}
+                  hoverStyle={{ fColor: "white.200", hfWeight: "700" }}
+                >
+                  {item.title}
+                </Text>
               </MenuItem>
             );
           })}
+        {show && siteSettings('header_menu.login') && (
+          <MenuItem
+            mode="true"
+            onClick={() => handleMenuClick(user ? "logout" : "login")}
+          >
+            <Text
+              fColor="white"
+              fSize={1}
+              hoverStyle={{ fColor: "white.200", hfWeight: "700" }}
+            >
+              {user ? "Log Out" : "Login"}
+            </Text>
+          </MenuItem>
+        )}
       </MenuItemBody>
     </HeaderWrapper>
   );

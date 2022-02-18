@@ -1,7 +1,6 @@
 import React from "react";
 import { useRouter } from "hooks";
 // components
-import { ContainerWrapper } from "components/Container";
 import { Row, Col } from "components/Layout";
 import { Image } from "components/Image";
 import MarkIcon from "components/MarkIcon";
@@ -18,12 +17,14 @@ import {
   MenuItemBody,
   StyledMenu,
   StyledItemMenu,
+  StreamLogoWrapper,
 } from "./Header.style";
 import { Text } from "components/Text";
-// -------------------------------------------------------------------
+// --------------------------------------- ----------------------------
 import { useUser } from "@auth0/nextjs-auth0";
 import { Dropdown } from "antd";
 import _ from "lodash";
+import { siteSettings } from 'hooks'
 
 // Yamata
 export const DeskHeader = (props: any) => {
@@ -35,7 +36,8 @@ export const DeskHeader = (props: any) => {
   };
   const dropdownItems = (
     <StyledMenu>
-      <StyledItemMenu
+
+      {siteSettings('header_menu.profile') && <StyledItemMenu
         key="0"
         onClick={() =>
           handleMenuClick(user ? `/club/${param.club_slug}/profile` : "")
@@ -44,7 +46,10 @@ export const DeskHeader = (props: any) => {
         <Text fColor="white" fSize={0.875} tAlign="center">
           {"My Profile"}
         </Text>
-      </StyledItemMenu>
+      </StyledItemMenu>}
+
+
+
       <StyledItemMenu
         key="1"
         onClick={() => handleMenuClick("/api/auth/logout")}
@@ -58,93 +63,94 @@ export const DeskHeader = (props: any) => {
 
   return (
     <HeaderWrapper>
-      <ContainerWrapper>
-        <Row alignItems="center" justifyContent="space-between">
-          <Col>
-            <Row alignItems="center" gap={15}>
+      <Row alignItems="center" justifyContent="space-between">
+        <Col>
+          <Row alignItems="center" gap={15}>
+            {asPath === "/" || asPath.split("/")[1] === "main" ? (
+              <div className="fitbox" />
+            ) : (
               <Col>
                 <MarkIcon />
               </Col>
-              <Col>
-                <Image
-                  src={LogoImage}
-                  height={35}
-                  width={120}
-                  mode="intrinsic"
-                />
-              </Col>
-              <Col>
-                <Border />
-              </Col>
+            )}
+            <Col>
+              <StreamLogoWrapper onClick={() => handleMenuClick('/')}>
+                <Image src={LogoImage} height={35} width={120} mode="intrinsic" />
+              </StreamLogoWrapper>
+            </Col>
+            <Col>
+              <Border />
+            </Col>
 
-              {menu.map((item: any, index: number) => {
-                return (
-                  <MenuItem
-                    mode={asPath === item.path ? "true" : "false"}
-                    key={index}
-                    onClick={() => handleMenuClick(item.path)}
+            {menu.map((item: any, index: number) => {
+              return (
+                <MenuItem
+                  mode={asPath === item.path ? "true" : "false"}
+                  key={index}
+                  onClick={() => handleMenuClick(item.path)}
+                >
+                  <Text
+                    fColor="white"
+                    fSize={1}
+                    hoverStyle={{ fColor: "white.200", hfWeight: "700" }}
                   >
+                    {item.title}
+                  </Text>
+                </MenuItem>
+              );
+            })}
+          </Row>
+        </Col>
+        <Col item={7}>
+          <Row
+            gap={18}
+            alignItems="center"
+            flexDirection="row-reverse"
+            padding="0 20px"
+          >
+            <MenuItemBody>
+              {user && (
+                <Row alignItems="center" gap={10}>
+                  <Col>
                     <Text
                       fColor="white"
-                      fSize={1}
-                      hoverStyle={{ fColor: "white.200", hfWeight: "700" }}
+                      fSize={0.875}
+                      tAlign="center"
+                      padding="10px 10px"
                     >
-                      {item.title}
+                      {user?.name}
                     </Text>
-                  </MenuItem>
-                );
-              })}
-            </Row>
-          </Col>
-          <Col item={7}>
-            <Row
-              gap={18}
-              alignItems="center"
-              flexDirection="row-reverse"
-              padding="0 20px"
-            >
-              <MenuItemBody>
-                {user && (
-                  <Row alignItems="center" gap={10}>
-                    <Col>
-                      <Text
-                        fColor="white"
-                        fSize={0.875}
-                        tAlign="center"
-                        padding="10px 10px"
+                  </Col>
+                  <Col className="ImageWrapper">
+                    <Image
+                      src={user?.picture || ProfileImage}
+                      height={40}
+                      width={40}
+                      oFit="cover"
+                      mode="intrinsic"
+                    />
+                  </Col>
+                  <Col className="DropdownWrapper">
+                    <Dropdown overlay={dropdownItems} trigger={["hover"]}>
+                      <a
+                        className="ant-dropdown-link"
+                        onClick={(e) => e.preventDefault()}
                       >
-                        {user?.name}
-                      </Text>
-                    </Col>
-                    <Col className="ImageWrapper">
-                      <Image
-                        src={user?.picture || ProfileImage}
-                        height={40}
-                        width={40}
-                        oFit="cover"
-                        mode="intrinsic"
-                      />
-                    </Col>
-                    <Col className="DropdownWrapper">
-                      <Dropdown overlay={dropdownItems} trigger={["hover"]}>
-                        <a
-                          className="ant-dropdown-link"
-                          onClick={(e) => e.preventDefault()}
-                        >
-                          <DownIcon />
-                        </a>
-                      </Dropdown>
-                    </Col>
-                  </Row>
-                )}
+                        <DownIcon />
+                      </a>
+                    </Dropdown>
+                  </Col>
+                </Row>
+              )}
 
-                {!user && (
-                  <Row
-                    gap={18}
-                    alignItems="center"
-                    flexDirection="row-reverse"
-                    padding="0 20px"
-                  >
+              {!user && (
+                <Row
+                  gap={18}
+                  alignItems="center"
+                  flexDirection="row-reverse"
+                  padding="0 20px"
+                >
+                  {siteSettings('header_menu.sign_up') && (
                     <Col>
                       <Button
                         bColor="warning"
@@ -155,6 +161,9 @@ export const DeskHeader = (props: any) => {
                         {"Sign up"}
                       </Button>
                     </Col>
+                  )}
+
+                  {siteSettings('header_menu.login') && (
                     <Col>
                       <Button
                         bColor="primary"
@@ -170,13 +179,13 @@ export const DeskHeader = (props: any) => {
                         {"Login"}
                       </Button>
                     </Col>
-                  </Row>
-                )}
-              </MenuItemBody>
-            </Row>
-          </Col>
-        </Row>
-      </ContainerWrapper>
+                  )}
+                </Row>
+              )}
+            </MenuItemBody>
+          </Row>
+        </Col>
+      </Row>
     </HeaderWrapper>
   );
 };

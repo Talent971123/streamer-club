@@ -7,12 +7,18 @@ import { Text } from "components/Text";
 // import type
 import { GameCardProps } from "types/components/GameCard";
 // styled component
-import { CardWrapper, CardContent, CardFooter, LiveWrapper } from "theme/global.state";
-import { UserWrapper, LeagueWrapper, ThumbCardImage, PlayWrapper } from "./ThumbCard.styled";
+import {
+  CardWrapper,
+  CardContent,
+  CardFooter,
+  LiveWrapper,
+} from "theme/global.state";
+import { ThumbCardImage, UserWrapper } from "./ThumbCard.styled";
 //  import asssets
-import { UserIcon } from "assets/icon";
-import Play from "assets/images/home/play.png";
+// import { UserIcon } from "assets/icon";
+import { siteSettings } from "hooks";
 import moment from "moment";
+import defaultImg from "assets/images/home/WAFL.png";
 
 const ThumbCard: React.FC<GameCardProps> = ({
   id,
@@ -30,7 +36,7 @@ const ThumbCard: React.FC<GameCardProps> = ({
   users = 0,
   mode = "Day",
   roundName,
-  matchName, /** home/away */
+  matchName /** home/away */,
   handleClick,
   isLive,
   title,
@@ -38,10 +44,20 @@ const ThumbCard: React.FC<GameCardProps> = ({
   const onHandleClick = (id: number) => {
     handleClick && handleClick(id);
   };
+
+  const bgSource = () => {
+    if (mode == "Replay" || mode == "Clip" || (mode == "Day" && isLive)) {
+      return backgroundImage;
+    }
+
+    return defaultImg;
+  };
+
   return (
     <CardWrapper onClick={() => onHandleClick(id)}>
       <CardContent>
-        <Image src={backgroundImage} mode="fill" oFit="fill" zIndex={-1} />
+        <Image src={bgSource()} mode="fill" oFit="fill" zIndex={-1} />
+        {/* <img src='https://www.svgrepo.com/show/361567/person.svg' /> */}
         {mode == "Day" && isLive && (
           <LiveWrapper>
             <Text fColor="white" fSize={0.9} fWeight={600}>
@@ -49,16 +65,16 @@ const ThumbCard: React.FC<GameCardProps> = ({
             </Text>
           </LiveWrapper>
         )}
-        {mode == "Day" && (
-          <UserWrapper><FaRegUser />{users}</UserWrapper>
+        {mode == "Day" && siteSettings("components.user_view_count") && (
+          <UserWrapper>
+            <FaRegUser />
+            {users}
+          </UserWrapper>
         )}
-
-
-        {(mode == "Day") && (
+        {mode == "Day" && (
           <Col item={24}>
             <Row>
               <ThumbCardImage>
-
                 <Col>
                   <Image src={clubImage1} width={85} height={90} />
                 </Col>
@@ -66,21 +82,10 @@ const ThumbCard: React.FC<GameCardProps> = ({
                 <Col>
                   <Image src={clubImage2} width={85} height={90} />
                 </Col>
-
               </ThumbCardImage>
             </Row>
           </Col>
         )}
-
-
-        {mode === "Replay" && (
-          <PlayWrapper>
-            <Image src={Play} width={69} height={69} />
-          </PlayWrapper>
-        )}
-
-
-
         <CardFooter style={{ lineHeight: "1rem" }}>
           {(mode == "Day" || mode == "Replay") && (
             <>
@@ -89,7 +94,13 @@ const ThumbCard: React.FC<GameCardProps> = ({
                   {clubName1}
                 </Text>
                 &nbsp;
-                <Text fColor="white" fSize={0.875} tAlign="center" fWeight={400} style={{ textOverflow: "unset", width: "1rem" }}>
+                <Text
+                  fColor="white"
+                  fSize={0.875}
+                  tAlign="center"
+                  fWeight={400}
+                  style={{ textOverflow: "unset", width: "1rem" }}
+                >
                   vs
                 </Text>
                 &nbsp;
@@ -98,21 +109,14 @@ const ThumbCard: React.FC<GameCardProps> = ({
                 </Text>
               </Col>
               <Text fColor="white" fSize={0.875} tAlign="left" fWeight={400}>
-                {matchName}
+                {leagueName
+                  ? roundName
+                    ? `${leagueName} - ${roundName}`
+                    : ""
+                  : ""}
               </Text>
-
-              <LeagueWrapper>
-
-                <Image src={leagueImage} width={22} height={22} />
-
-                <Text fColor="white" fSize={0.875} tAlign="left" fWeight={400} padding={'0px 0px 0px 5px'}>
-                  {leagueName ? `League (${leagueName}) - ` : ""}
-                  {roundName ? `${roundName}` : ""}
-                </Text>
-              </LeagueWrapper>
-
               <Text fColor="white" fSize={0.875} tAlign="left">
-                {moment(date).format('LL hh:mmA ')}
+                {moment(date).format("LL hh:mmA ")}
               </Text>
             </>
           )}
@@ -124,7 +128,7 @@ const ThumbCard: React.FC<GameCardProps> = ({
         </CardFooter>
       </CardContent>
     </CardWrapper>
-  )
+  );
 };
 
 export default ThumbCard;

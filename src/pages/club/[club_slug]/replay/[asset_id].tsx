@@ -12,6 +12,7 @@ import { StreamPageCtx } from "types/common/club";
 import { WithContainer } from "components/Container";
 import { StreamPageContext } from "hooks/context/StreamPageContext";
 import { Page } from "components/Page";
+import { siteSettings } from "hooks";
 
 const StreamPage: React.FC<{ streamInfo: StreamPageCtx }> = ({
   streamInfo,
@@ -24,8 +25,12 @@ const StreamPage: React.FC<{ streamInfo: StreamPageCtx }> = ({
     >
       <StreamPageContext.Provider value={streamInfo}>
         <WithContainer mode="wrapper" SectionView={DisplayView} />
-        <WithContainer mode="wrapper" SectionView={ToolbarView} />
-        <WithContainer mode="wrapper" SectionView={TabContainerView} />
+        {siteSettings("replays_page.toolbar") && (
+          <WithContainer mode="wrapper" SectionView={ToolbarView} />
+        )}
+        {siteSettings("replays_page.commentary") && (
+          <WithContainer mode="wrapper" SectionView={TabContainerView} />
+        )}
       </StreamPageContext.Provider>
     </Page>
   );
@@ -45,7 +50,7 @@ export const getServerSideProps = async (context: any) => {
   return {
     props: {
       streamInfo: {
-        playback_id: asset_id,
+        playback_id: match.video_asset_id,
         home_name: match.home_team.club.name,
         home_logo: match.home_team.club.logo,
         away_name: match.away_team.club.name,

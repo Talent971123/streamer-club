@@ -9,64 +9,116 @@ import { useUser } from "@auth0/nextjs-auth0";
 // styled component
 import { AppLayoutWrapper } from "./app-layout.style";
 import _ from "lodash";
-// redux
+import { connect } from "react-redux";
+import { useSubscription, useQuery } from "@apollo/client";
+
+import { SITEQL } from "graphql/club";
+import { HomeQL } from "graphql/club";
+import { setSiteSettings, setSiteClubs } from "redux/actions/site";
 import { setPlayerList } from "redux/actions/players";
 import { setTeamList } from "redux/actions/teams";
 import { setClubInfo } from "redux/actions/club";
-import { connect } from "react-redux";
 
-import { HomeQL } from "graphql/club";
-import { useSubscription } from "@apollo/client";
+import { siteSettings } from "hooks";
+
 // -----------------------------------------------------------
 const MenuItems = (club_slug: string, path: string, user: any) => {
   let menus: any = [];
-  if (path === "/" || path.split("/")[1] === "main") {
+  if (path === "/" || path.split("/")[2] === "main") {
     menus = [
-      { title: "Home", path: `/`, public: true },
       {
-        title: "Live & Upcoming",
-        path: `/main/live`,
+        title: "Home",
+        path: `/`,
         public: true,
+        display: siteSettings("header_menu.home"),
       },
-      { title: "Replays", path: `/main/replays`, public: true },
-      { title: "Clips", path: `/main/clips`, public: true },
-      { title: "Clubs", path: `/main/clubs`, public: true },
-      { title: "My Profile", path: `/main/profile`, public: true },
     ];
   } else {
     menus = [
-      { title: "Home", path: `/club/${club_slug}`, public: true },
+      {
+        title: "Home",
+        path: `/club/${club_slug}`,
+        public: true,
+        display: siteSettings("header_menu.home"),
+      },
       {
         title: "Live & Upcoming",
         path: `/club/${club_slug}/live`,
         public: true,
+        display: siteSettings("header_menu.live"),
       },
-      { title: "Replays", path: `/club/${club_slug}/replays`, public: true },
-      { title: "Teams", path: `/club/${club_slug}/teams`, public: true },
-      { title: "Players", path: `/club/${club_slug}/players`, public: true },
-      { title: "Admin", path: `/club/${club_slug}/admin`, public: false },
+      {
+        title: "Replays",
+        path: `/club/${club_slug}/replays`,
+        public: true,
+        display: siteSettings("header_menu.replays"),
+      },
+      {
+        title: "Teams",
+        path: `/club/${club_slug}/teams`,
+        public: true,
+        display: siteSettings("header_menu.teams"),
+      },
+      {
+        title: "Players",
+        path: `/club/${club_slug}/players`,
+        public: true,
+        display: siteSettings("header_menu.players"),
+      },
+      {
+        title: "Admin",
+        path: `/club/${club_slug}/admin`,
+        public: false,
+        display: siteSettings("header_menu.admin"),
+      },
     ];
   }
+  menus = _.filter(menus, ["display", true]);
 
   return user ? menus : _.filter(menus, ["public", true]);
 };
 
 const Layout = (props) => {
-  const { setTeamList, setClubInfo, setPlayerList, children } = props;
+  const {
+    setSettings,
+    setClubInfo,
+    setPlayerList,
+    setTeamList,
+    setSiteClubs,
+    children,
+  } = props;
   const { param, asPath }: any = useRouter();
   const { user } = useUser();
   const menu = MenuItems(param ? param.club_slug : "", asPath, user);
 
+  /** 
+   * TODO: Refactor to query
+   * TODO: Fix hooks error see source
+  useSubscription(SITEQL.SUB_SITE_SETTINGS, {
+    variables: { where: { name: { _eq: "main" } } },
+    onSubscriptionData({ subscriptionData: { data } }) {
+      setSettings(data.site_settings[0].values);
+    },
+  });
+  */
+
+  /** hydrate redux */
   useSubscription(HomeQL.SUB_CLUB, {
     variables: {
       club_slug: param.club_slug,
     },
     onSubscriptionData({ subscriptionData: { data } }) {
       if (data) {
-        setClubInfo(data.clubs[0]);
-        setPlayerList(data.clubs[0].players);
-        setTeamList(data.clubs[0].teams);
+        setClubInfo(data.clubs[0] ?? []);
+        setPlayerList(data.clubs[0]?.players ?? []);
+        setTeamList(data.clubs[0]?.teams ?? []);
       }
+    },
+  });
+
+  const { data } = useQuery(SITEQL.GET_SITE_CLUBS, {
+    onCompleted() {
+      setSiteClubs(data?.clubs);
     },
   });
 
@@ -74,10 +126,9 @@ const Layout = (props) => {
     <AppLayoutWrapper>
       <WithContainer
         SectionView={Header}
-        mode="wrapper"
         sectionProps={{ menu }}
+        mode="wrapper"
       />
-
       {children}
       <Footer />
       <ScrollTop />
@@ -85,14 +136,14 @@ const Layout = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  clubInfo: state.club.info,
-});
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = {
+  setSettings: setSiteSettings,
   setClubInfo: setClubInfo,
   setPlayerList: setPlayerList,
   setTeamList: setTeamList,
+  setSiteClubs: setSiteClubs,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);

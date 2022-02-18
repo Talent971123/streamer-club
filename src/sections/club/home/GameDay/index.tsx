@@ -4,10 +4,9 @@ import { Col, Row } from "components/Layout";
 import { Text } from "components/Text";
 import { ScrollingCarousel } from "@trendyol-js/react-carousel";
 import { useLinkItem } from "components/hoc";
-import { IoArrowRedoOutline } from "react-icons/io5";
 // import styled component
 import { SlideArrow } from "components/Button/Button";
-import { GameDayWrapper, LinkWrapper } from "./gameday.style";
+import { GameDayWrapper, LinkWrapper, SeeAllWrapper } from "./gameday.style";
 import { CardBody } from "theme/global.state";
 // import types
 import { GameCardProps } from "types/components/GameCard";
@@ -19,6 +18,7 @@ import { useSubscription } from "@apollo/client";
 import { subscribe } from "graphql/match/index";
 import { progressText, thumbNailLink } from "utils/common-helper";
 import ThumbCard from "components/Card/ThumbCard";
+import { IoIosArrowForward } from "react-icons/io";
 
 const SeeAll = useLinkItem(LinkWrapper);
 
@@ -32,9 +32,12 @@ const GameDayView: React.FC = (props: any) => {
   useSubscription(subscribe.SUB_MATCHES, {
     variables: {
       where: {
-        club_id: { _eq: clubInfo.id },
         status: { _neq: "completed" },
         is_historic: { _eq: false },
+        _or: [
+          { away_club_id: { _eq: clubInfo.id } },
+          { club_id: { _eq: clubInfo.id } },
+        ],
       },
     },
     onSubscriptionData({ subscriptionData: { data } }) {
@@ -51,17 +54,25 @@ const GameDayView: React.FC = (props: any) => {
   };
   return (
     <GameDayWrapper>
-      <Row alignItems="center" justifyContent="space-between">
-        <Text fColor="white" fSize={1.5} fWeight={700} mode="p">
-          {"Live & Upcoming"}
-        </Text>
-        <SeeAll
-          handleClick={onHandleSeeAll}
-          title="See all"
-          icon={<IoArrowRedoOutline />}
-          iconDirection="row-reverse"
-          alignVertical="center"
-        />
+      <Row alignItems="center">
+        <Col item={24}>
+          <Row>
+            <Text fColor="white" fSize={1.5} fWeight={700} mode="p">
+              {"Live & Upcoming"}
+            </Text>
+          </Row>
+        </Col>
+        <Col item={24}>
+          <SeeAllWrapper flexDirection="row-reverse">
+            <SeeAll
+            handleClick={onHandleSeeAll}
+            title="See all"
+            icon={<IoIosArrowForward/>}
+            iconDirection="row-reverse"
+            alignVertical="center"
+            />
+          </SeeAllWrapper>
+        </Col>
       </Row>
       <Row padding="10px 0 0 0">
         <Col item={24}>
@@ -70,14 +81,14 @@ const GameDayView: React.FC = (props: any) => {
             rightIcon={<SlideArrow position="right" />}
           >
             {data.map((match: any, index: number) => {
-
+              console.log(match, "test");
               const item: GameCardProps = {
                 id: match.id,
                 backgroundImage: thumbNailLink(match.video_asset_id, 200),
                 clubImage1: match.home_team.club.logo,
-                clubName1: match.home_team.club.name,
+                clubName1: match.home_team.club.display_name,
                 clubImage2: match.away_team.club.logo,
-                clubName2: match.away_team.club.name,
+                clubName2: match.away_team.club.display_name,
                 leagueImage: match.league.logo ? match.league.logo : marker,
                 leagueName: match.league.name,
                 roundName: match.round_name,
@@ -88,15 +99,14 @@ const GameDayView: React.FC = (props: any) => {
                   progressText(match.start_datetime, match.status) ===
                   "In Progress",
                 users: 0, //TODO: get the number of users watching
-                date: match.start_datetime
+                date: match.start_datetime,
               };
 
               return (
-                <CardBody>
+                <CardBody key={`game-day-view-key${index}`}>
                   <ThumbCard
                     {...item}
-                    key={`game-day-view-key${index}`}
-                    handleClick={() => onHandleClick(match.video_asset_id)}
+                    handleClick={() => onHandleClick(match.id)}
                   />
                 </CardBody>
               );

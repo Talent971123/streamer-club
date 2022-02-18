@@ -21,7 +21,10 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
     },
     ".poster": {
       position: "absolute",
-      backgroundSize: "cover",
+      backgroundSize: "contain",
+      backgroundRepeat: "no-repeat",
+      backgroundColor: "#121113",
+      backgroundPosition: "center",
       top: 0,
       left: 0,
       bottom: 0,
@@ -37,7 +40,7 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
       color: get(theme, "colors.white"),
       margin: "0 auto",
       transition: get(theme, "transition.normal"),
-      fontFamily: '"Roboto" ,sans-serif !important',
+      fontFamily: "HeyWow !important",
       fontWeight: "400",
       fontSize: "12px",
       lineHeight: "1.5",
@@ -155,7 +158,10 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
     img: {
       maxWidth: "100%",
     },
-
+    ".bmpui-ui-uicontainer": {
+      fontFamily: "HeyWow !important",
+      fontSize: "1.1rem !important",
+    },
     ".bmpui-ui-watermark": {
       display: "none",
     },
@@ -168,25 +174,24 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
     ".bmpui-ui-selectbox": {
       color: `${get(theme, "colors.primary.regular")} !important`,
     },
-
-    ".bmpui-on": {
-      filter: "invert(1) !important",
+    ".bmpui-ui-fullscreentogglebutton bmpui-off": {
+      filter: "unset !important",
     },
-    ".bmpui-ui-fullscreentogglebutton:hover": {
-      // filter: "invert(1) !important",
-    },
-    ".bmpui-on.bmpui-ui-audiotracksettingstogglebutton:hover, .bmpui-on.bmpui-ui-settingstogglebutton:hover, .bmpui-on.bmpui-ui-subtitlesettingstogglebutton:hover":
+    ".bmpui-on.bmpui-ui-audiotracksettingstogglebutton:hover, .bmpui-on.bmpui-ui-settingstogglebutton:hover":
       {
         filter: "invert(1) !important",
       },
 
-    ".bmpui-ui-airplaytogglebutton, .bmpui-ui-audiotracksettingstogglebutton, .bmpui-ui-button, .bmpui-ui-casttogglebutton, .bmpui-ui-clickoverlay, .bmpui-ui-closebutton, .bmpui-ui-fullscreentogglebutton, .bmpui-ui-hugeplaybacktogglebutton, .bmpui-ui-hugereplaybutton, .bmpui-ui-listbox .bmpui-ui-listbox-button, .bmpui-ui-piptogglebutton, .bmpui-ui-playbacktogglebutton, .bmpui-ui-settingspanelpagebackbutton, .bmpui-ui-settingspanelpageopenbutton, .bmpui-ui-settingstogglebutton, .bmpui-ui-skin-ads .bmpui-ui-ads-status .bmpui-ui-button-ad-skip, .bmpui-ui-subtitlesettingsresetbutton, .bmpui-ui-subtitlesettingstogglebutton, .bmpui-ui-volumetogglebutton, .bmpui-ui-vrtogglebutton, .bmpui-ui-watermark":
+    ".bmpui-ui-fullscreentogglebutton.bmpui-on": {
+      filter: "invert(1) !important",
+    },
+    ".bmpui-ui-seekbar-label": {
+      width: "180px !important",
+    },
+
+    ".bmpui-ui-seekbar-label .bmpui-seekbar-label-inner > .bmpui-container-wrapper .bmpui-seekbar-thumbnail":
       {
-        fontSize: "1.2rem !important",
-      },
-    ".bmpui-ui-seekbar-label .bmpui-seekbar-label-inner>.bmpui-container-wrapper .bmpui-seekbar-thumbnail":
-      {
-        width: "12rem !important",
+        width: "100% !important",
       },
 
     // custom
@@ -242,6 +247,23 @@ export const CarouselBody = styled.div`
   }
 `;
 
+export const ClubBody = styled.div`
+  @media screen and (min-width: ${defaultTheme.mediaSize.md}px) {
+    width: 250px;
+  }
+
+  @media screen and (max-width: ${defaultTheme.mediaSize.md}px) {
+    width: 200px;
+  }
+
+  @media screen and (max-width: ${defaultTheme.mediaSize.sm}px) {
+    width: 150px;
+  }
+
+  @media screen and (max-width: ${defaultTheme.mediaSize.xs}px) {
+    width: 100px;
+  }
+`;
 export const CardBody = styled.div`
   @media screen and (min-width: ${defaultTheme.mediaSize.md}px) {
     width: 324px;

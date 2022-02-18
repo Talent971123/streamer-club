@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { StyledFuzzyDropDownSearch } from './FuzzySearch.style'
 import { useSubscription } from "@apollo/client";
 import { ADMINQL } from 'graphql/club';
-import _ from 'lodash'
 import { Field } from "formik"; //TODO: Refactor please use antd form
 import slugify from 'slugify';
 

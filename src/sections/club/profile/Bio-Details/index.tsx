@@ -42,56 +42,56 @@ const BioDetailsView: React.FC = () => {
 
   return (
     <UserDetails.Provider value={values}>
-    <ContainerWrapper>
-      <ContentWrapper>
-        <Row flexDirection="row">
-          <Col>
-            <Image
-              src={user?.picture || ProfileImage}
-              height={67}
-              width={67}
-              oFit="cover"
-              mode="intrinsic"
-              css={{ borderRadius: "50%" }}
-            />
-          </Col>
-          <Col>
-            <Text padding="0 0 0 30px" fSize={1.375} fWeight={700}>
-              {"My Profile"}
-            </Text>
-            <EditButton onClick={() => showDetails(true)}>
-              {"Edit Details"}
-            </EditButton>
-          </Col>
-        </Row>
-        {details && (
-          <DetailsContent>
-            <Row alignItems="flex-start" justifyContent="flex-start">
-              <Col item={4}>
-                <TabsView
-                  menudata={menudata}
-                  select={select}
-                  onHandleSelect={onHandleSelect}
-                />
-              </Col>
-            </Row>
-            <Row alignItems="center" justifyContent="center" display="flex">
-              <Content>
-                {menudata.map((item: commonItem, index: number) => {
-                  if (item.path === select) {
-                    return (
-                      <div key={index} css={{ width: "100%" }}>
-                        {item.component}
-                      </div>
-                    );
-                  }
-                })}
-              </Content>
-            </Row>
-          </DetailsContent>
-        )}
-      </ContentWrapper>
-    </ContainerWrapper>
+      <ContainerWrapper>
+        <ContentWrapper>
+          <Row flexDirection="row">
+            <Col>
+              <Image
+                src={user?.picture || ProfileImage}
+                height={67}
+                width={67}
+                oFit="cover"
+                mode="intrinsic"
+                css={{ borderRadius: "50%" }}
+              />
+            </Col>
+            <Col>
+              <Text padding="0 0 0 30px" fSize={1.375} fWeight={700}>
+                {"My Profile"}
+              </Text>
+              <EditButton onClick={() => showDetails(true)}>
+                {"Edit Details"}
+              </EditButton>
+            </Col>
+          </Row>
+          {details && (
+            <DetailsContent>
+              <Row alignItems="flex-start" justifyContent="flex-start">
+                <Col item={4}>
+                  <TabsView
+                    menudata={menudata}
+                    select={select}
+                    onHandleSelect={onHandleSelect}
+                  />
+                </Col>
+              </Row>
+              <Row alignItems="center" justifyContent="center" display="flex">
+                <Content>
+                  {menudata.map((item: commonItem, index: number) => {
+                    if (item.path === select) {
+                      return (
+                        <div key={index} css={{ width: "100%" }}>
+                          {item.component}
+                        </div>
+                      );
+                    }
+                  })}
+                </Content>
+              </Row>
+            </DetailsContent>
+          )}
+        </ContentWrapper>
+      </ContainerWrapper>
     </UserDetails.Provider>
   );
 };

@@ -95,7 +95,7 @@ const SUB_CLUB_REPLAYS = gql`
           { home_team: { club: { slug: { _eq: $club_slug } } } }
         ]
         status: { _eq: "completed" }
-      }
+      }, order_by: {start_datetime: desc}
     ) {
       id
       is_historic
@@ -142,7 +142,7 @@ const SUB_TEAM_REPLAYS = gql`
           { away_team: { slug: { _eq: $team_slug } } }
           { home_team: { slug: { _eq: $team_slug } } }
         ]
-      }
+      }, order_by: {start_datetime: desc}
     ) {
       id
       is_historic

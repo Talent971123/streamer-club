@@ -59,7 +59,7 @@ const DisplaySection: React.FC = (props: any) => {
   const [u_show, setUShow] = useState<boolean>(false);
   const [pid, setPid] = useState<any>(null);
 
-  const { players, club } = useSelector((state: RootStateOrAny) => state)
+  const { players, club } = useSelector((state: RootStateOrAny) => state);
 
   const _handleClose = () => {
     setUShow(false);
@@ -76,7 +76,6 @@ const DisplaySection: React.FC = (props: any) => {
   };
 
   const datasource = () => {
-
     if (_.isUndefined(players)) {
       return [
         {
@@ -139,4 +138,4 @@ const DisplaySection: React.FC = (props: any) => {
   );
 };
 
-export default DisplaySection
+export default DisplaySection;

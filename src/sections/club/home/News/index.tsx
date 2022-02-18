@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Row } from "components/Layout";
+import { Col, Row } from "components/Layout";
 import { NewsCard } from "components/Card";
 import { Text } from "components/Text";
 import { useLinkItem } from "components/hoc";
@@ -15,6 +15,8 @@ import news2 from "assets/images/home/news2.png";
 import news3 from "assets/images/home/news3.png";
 import news4 from "assets/images/home/news4.png";
 import { useRouter } from "hooks";
+import { SeeAllWrapper } from "../GameDay/gameday.style";
+import { IoIosArrowForward } from "react-icons/io";
 
 const data: NewsProps[] = [
   {
@@ -56,17 +58,25 @@ const NewsSection: React.FC = () => {
   };
   return (
     <NewsWrapper>
-      <Row alignItems="center" justifyContent="space-between">
-        <Text fColor="white" fSize={1.5} fWeight={700} mode="p">
-          {"Club News"}
-        </Text>
-        <SeeAll
-          handleClick={onHandleSeeAll}
-          title="See all"
-          icon={<IoArrowRedoOutline />}
-          iconDirection="row-reverse"
-          alignVertical="center"
-        />
+      <Row alignItems="center">
+        <Col item={24}>
+          <Row>
+            <Text fColor="white" fSize={1.5} fWeight={700} mode="p">
+              {"Club News"}
+            </Text>
+          </Row>
+        </Col>
+        <Col item={24}>
+          <SeeAllWrapper flexDirection="row-reverse">
+            <SeeAll
+              handleClick={onHandleSeeAll}
+              title="See all"
+              icon={<IoIosArrowForward />}
+              iconDirection="row-reverse"
+              alignVertical="center"
+            />
+          </SeeAllWrapper>
+        </Col>
       </Row>
       <Row
         display="grid"

@@ -9,6 +9,10 @@ export const ProfileWrapper = styled.div`
   width: 100%;
 `;
 
+export const StreamLogoWrapper = styled.div`
+  cursor: pointer;
+`
+
 export const StyledMenu = styled(Menu)`
   background-color: ${themeGet("colors.gray.900")};
   border-bottom: none;
@@ -46,6 +50,8 @@ export const HeaderWrapper = styled.div`
   height: 62px;
   width: 100%;
   border-bottom: 1px solid ${themeGet("colors.gray.300")};
+  display: flex;
+
   .ImageWrapper {
     contain: content;
     img {
@@ -54,6 +60,9 @@ export const HeaderWrapper = styled.div`
   }
   .DropdownWrapper {
     padding: 10px 10px;
+  }
+  .fitbox {
+    padding-right: 15px;
   }
 `;
 

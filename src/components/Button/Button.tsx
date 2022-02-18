@@ -90,11 +90,11 @@ export const SlideArrow = styled.div<{ position: string }>`
   display: block;
   position: absolute;
   ${({ position }) => {
-    if (position == "right") return `right: -30px;`;
+    if(position == "right") return `right: -30px;`;
     return `left: -30px;`;
   }};
   z-index: 100;
-`;
+`
 
 const rotate = keyframes`
   from {transform: rotate(0deg);}

@@ -1,0 +1,61 @@
+{
+    "title": "Streamer",
+    "home_page": {
+        "gameday": true,
+        "replays": true,
+        "clips": true,
+        "clubs": true
+    },
+    "club_page": {
+        "news": true,
+        "clips": true,
+        "teams": true,
+        "banner": true,
+        "follow": true,
+        "gameday": true,
+        "players": true,
+        "replays": true,
+        "sponsors": true
+    },
+    "components": {
+        "user_view_count": true
+    },
+    "header_menu": {
+        "home": true,
+        "live": true,
+        "admin": true,
+        "teams": true,
+        "players": true,
+        "profile": true,
+        "replays": true,
+        "sign_up": true,
+        "login": false
+    },
+    "replays_page": {
+        "share": true,
+        "toolbar": true,
+        "carousel": true,
+        "thumbnail": true,
+        "commentary": true,
+        "save_match": true,
+        "create_clip": true,
+        "become_a_fan": true
+    },
+    "game_day_page": {
+        "cheer": true,
+        "share": true,
+        "toolbar": true,
+        "carousel": true,
+        "thumbnail": true,
+        "commentary": true,
+        "save_match": true,
+        "create_clip": true,
+        "become_a_fan": true
+    },
+    "player_profile": {
+        "bio": true,
+        "clips": true,
+        "follow": true,
+        "profile": true
+    }
+}

@@ -13,3 +13,8 @@ export interface ImageCropProps extends ModalProps {
   saveImage: any;
   cropShape?: "rect" | "round";
 }
+
+export interface ClipAssetProps extends ModalProps {
+  playbackId?: string;
+  title?: string
+}

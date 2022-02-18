@@ -17,6 +17,8 @@ import { CarouselBody } from "theme/global.state";
 //  define the example data
 import TeamsImage from "assets/images/home/team.png";
 import { ClubContext } from "pages/club/[club_slug]";
+import { SeeAllWrapper } from "../GameDay/gameday.style";
+import { IoIosArrowForward } from "react-icons/io";
 
 const SeeAll = useLinkItem(LinkWrapper);
 
@@ -38,47 +40,53 @@ const TeamView: React.FC = () => {
 
   return (
     <TeamWrapper>
-      <Row alignItems="center" justifyContent="space-between">
-        <Text fColor="white" fSize={1.5} fWeight={700}>
-          {"Our Teams"}
-        </Text>
-        <SeeAll
-          handleClick={onHandleSeeAll}
-          title="See all"
-          icon={<IoArrowRedoOutline />}
-          iconDirection="row-reverse"
-          alignVertical="center"
-        />
+      <Row alignItems="center">
+        <Col item={24}>
+          <Row>
+            <Text fColor="white" fSize={1.5} fWeight={700}>
+              {"Our Teams"}
+            </Text>
+          </Row>
+        </Col>
+        <Col item={24}>
+          <SeeAllWrapper flexDirection="row-reverse">
+            <SeeAll
+              handleClick={onHandleSeeAll}
+              title="See all"
+              icon={<IoIosArrowForward />}
+              iconDirection="row-reverse"
+              alignVertical="center"
+            />
+          </SeeAllWrapper>
+        </Col>
       </Row>
       <Row padding="10px 0 0 0">
         <Col item={24}>
-          {club.teams &&
+          {club.teams && (
             <ScrollingCarousel
-              leftIcon={<SlideArrow position='left' />}
-              rightIcon={<SlideArrow position='right' />}
+              leftIcon={<SlideArrow position="left" />}
+              rightIcon={<SlideArrow position="right" />}
             >
-              {
-                club.teams.map((team: any, index: number) => {
-                  const item: ClipProps = {
-                    id: team.id,
-                    backgroundImage: team.image,
-                    title: team.name,
-                    mode: "teams",
-                    content: team.division,
-                  };
-                  return (
-                    <CarouselBody>
-                      <ClipCard
-                        {...item}
-                        key={`team-view-key-${index}`}
-                        handleClick={() => onHandleClick(team.slug)}
-                      />
-                    </CarouselBody>
-                  );
-                })
-              }
+              {club.teams.map((team: any, index: number) => {
+                const item: ClipProps = {
+                  id: team.id,
+                  backgroundImage: team.image,
+                  title: team.name,
+                  mode: "teams",
+                  content: team.division,
+                };
+                return (
+                  <CarouselBody>
+                    <ClipCard
+                      {...item}
+                      key={`team-view-key-${index}`}
+                      handleClick={() => onHandleClick(team.slug)}
+                    />
+                  </CarouselBody>
+                );
+              })}
             </ScrollingCarousel>
-          }
+          )}
         </Col>
       </Row>
     </TeamWrapper>

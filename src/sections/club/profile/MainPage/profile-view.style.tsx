@@ -15,6 +15,7 @@ export const DisplayWrapper = styled.div`
 `;
 
 export const ClubSlider = styled.div`
+  margin: 0 5px;
   cursor: pointer;
   .playerWrapper {
     border-radius: 50%;

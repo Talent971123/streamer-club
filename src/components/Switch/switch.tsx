@@ -1,6 +1,7 @@
 import React from "react";
 import { Radio } from "antd";
 import styled from "styled-components";
+import { Text } from "components/Text";
 
 interface switchProps {
   data: any;
@@ -50,7 +51,7 @@ const Switch: React.FC<switchProps> = ({ data, onChange, defaultValue }) => {
     >
       {data.map((item: any, index: number) => (
         <Radio.Button value={item.value} key={index} style={radioStyle(index)}>
-          {item.title}
+          <Text>{item.title}</Text>
         </Radio.Button>
       ))}
     </SwitchSelector>

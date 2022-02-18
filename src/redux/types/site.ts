@@ -1,0 +1,2 @@
+export const SET_SITE_SETTINGS = "SET_SITE_SETTINGS";
+export const SET_SITE_CLUBS = "SET_SITE_CLUBS";

@@ -20,6 +20,8 @@ import ThumbCard from "components/Card/ThumbCard";
 import { getDates } from "utils/helper-date";
 
 import _ from "lodash";
+import { SeeAllWrapper } from "../GameDay/gameday.style";
+import { IoIosArrowForward } from "react-icons/io";
 
 const SeeAll = useLinkItem(LinkWrapper);
 
@@ -50,28 +52,35 @@ const ReplayView: React.FC = () => {
     router.push(`/club/${club_slug}/replays`);
   };
 
-  const onHandleClick = (video_asset_id: number, id: number) => {
-    router.push({
-      pathname: `/club/${club_slug}/replay/${video_asset_id}`,
-      query: {
-        assetId: id,
-      },
-    });
+  const onHandleClick = (id: number) => {
+    router.push(`/club/${club_slug}/replay/${id}`);
   };
+
+  if (!matches) {
+    return <></>;
+  }
 
   return (
     <ReplayWrapper>
-      <Row alignItems="center" justifyContent="space-between">
-        <Text fColor="white" fSize={1.375} fWeight={700}>
-          {"Replays"}
-        </Text>
-        <SeeAll
-          handleClick={onHandleSeeAll}
-          title="See all"
-          icon={<IoArrowRedoOutline />}
-          iconDirection="row-reverse"
-          alignVertical="center"
-        />
+      <Row alignItems="center">
+        <Col item={24}>
+          <Row>
+            <Text fColor="white" fSize={1.375} fWeight={700}>
+              {"Replays"}
+            </Text>
+          </Row>
+        </Col>
+        <Col item={24}>
+          <SeeAllWrapper flexDirection="row-reverse">
+            <SeeAll
+              handleClick={onHandleSeeAll}
+              title="See all"
+              icon={<IoIosArrowForward />}
+              iconDirection="row-reverse"
+              alignVertical="center"
+            />
+          </SeeAllWrapper>
+        </Col>
       </Row>
       <Row padding="10px 0 0 0">
         <Col item={24}>
@@ -99,13 +108,10 @@ const ReplayView: React.FC = () => {
                 };
 
                 return (
-                  <CardBody>
+                  <CardBody key={"reply" + index}>
                     <ThumbCard
                       {...item}
-                      key={index}
-                      handleClick={() =>
-                        onHandleClick(match.video_asset_id, match.id)
-                      }
+                      handleClick={() => onHandleClick(match.id)}
                     />
                   </CardBody>
                 );

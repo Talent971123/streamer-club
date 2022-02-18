@@ -14,10 +14,13 @@ const LivePage: React.FC = (props: any) => {
   useSubscription(subscribe.SUB_MATCHES, {
     variables: {
       where: {
-        club_id: { _eq: clubInfo.id },
-        status: { _neq: "completed" },
-        is_historic: { _eq: false },
-      },
+        status: { "_neq": "completed" },
+        is_historic: { "_eq": false },
+        _or: [
+          { away_club_id: { "_eq": clubInfo.id } },
+          { club_id: { "_eq": clubInfo.id } }
+        ]
+      }
     },
     onSubscriptionData({ subscriptionData: { data } }) {
       data && setLiveMatches(data.matches);

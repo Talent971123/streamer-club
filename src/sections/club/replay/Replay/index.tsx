@@ -26,18 +26,13 @@ const ReplyView: React.FC = () => {
 
   let temp: any = [];
   data.map((item: any) => {
-    temp.push(item.round_name);
+    temp.push({ roundName: item.round_name, leagueName: item.league.name });
   });
   const replays: any = [...new Set(temp)];
 
-  const onHandleClick = (video_asset_id: number, id: number) => {
-    router.push({
-      pathname: `/club/${club_slug}/replay/${video_asset_id}`,
-      query: {
-        assetId: id,
-      },
-    });
-  }
+  const onHandleClick = (id: number) => {
+    router.push(`/club/${club_slug}/replay/${id}`);
+  };
 
   return (
     <>
@@ -47,7 +42,7 @@ const ReplyView: React.FC = () => {
             <ReplayWrapper>
               <Row alignItems="center" justifyContent="space-between">
                 <Text fColor="white" fSize={1.375} fWeight={700}>
-                  {`${value} - Western Australia Football League`}
+                  {`${value.roundName} - ${value.leagueName}`}
                 </Text>
               </Row>
               <Row padding="10px 0 0 0">
@@ -57,7 +52,7 @@ const ReplyView: React.FC = () => {
                     rightIcon={<SlideArrow position="right" />}
                   >
                     {data
-                      .filter((val) => val.round_name === value)
+                      .filter((val) => val.round_name === value.roundName)
                       .map((match: any, index: number) => {
                         const item: GameCardProps = {
                           id: match.id,
@@ -69,19 +64,21 @@ const ReplyView: React.FC = () => {
                           clubName1: match.home_team.club.name,
                           clubImage2: match.away_team.club.logo,
                           clubName2: match.away_team.club.name,
-                          leagueImage: match.league.logo ? match.league.logo : marker,
+                          leagueImage: match.league.logo
+                            ? match.league.logo
+                            : marker,
                           leagueName: match.league.name,
                           roundName: match.round_name,
                           matchName: match.name,
                           mode: "Replay",
-                          date: match.start_datetime
+                          date: match.start_datetime,
                         };
                         return (
                           <CardBody>
                             <ThumbCard
                               {...item}
                               key={`replay-view-key${index}`}
-                              handleClick={() => onHandleClick(match.video_asset_id, match.id)}
+                              handleClick={() => onHandleClick(match.id)}
                             />
                           </CardBody>
                         );

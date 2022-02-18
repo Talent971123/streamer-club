@@ -3,7 +3,7 @@ import type { AppProps } from "next/app";
 import { Router } from "next/router";
 import NProgress from "nprogress";
 // import React
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 // import layout
 import AppLayout from "layouts/app-layout";
 // import context providers
@@ -27,6 +27,7 @@ import "react-multi-carousel/lib/styles.css";
 import "bitmovin-player/bitmovinplayer-ui.css";
 import "react-toastify/dist/ReactToastify.css";
 import { GlobalStyle } from "theme/global.state";
+import TagManager from 'react-gtm-module';
 
 NProgress.configure({ showSpinner: false });
 
@@ -45,6 +46,10 @@ function Streamer({ Component, pageProps }: AppProps) {
     if (jssStyles?.parentElement) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
+
+    /** Google Tag Manager */
+    TagManager.initialize({ gtmId: process.env.NEXT_PUBLIC_GTAG });
+
   }, []);
 
   return (

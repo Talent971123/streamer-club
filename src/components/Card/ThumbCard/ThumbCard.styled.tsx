@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { themeGet } from "@styled-system/theme-get";
+// import { themeGet } from "@styled-system/theme-get";
 import { defaultTheme } from "theme";
 
 export const UserWrapper = styled.div`
@@ -12,25 +12,6 @@ export const UserWrapper = styled.div`
   align-items: center;
   justify-content: space-evenly;
 `;
-
-export const PlayWrapper = styled.div`
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-  height: 80px;
-  @media screen and (min-width: ${defaultTheme.mediaSize.md}px) {
-    height: 150px;
-  }
-`
-
-export const LeagueWrapper = styled.div`
-  display: flex;
-  img{
-    border-radius: 50%;
-    padding-right: 10px;
-  }
-`
 
 export const ThumbCardImage = styled.div`
   display: flex;

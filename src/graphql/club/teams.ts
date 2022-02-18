@@ -25,8 +25,22 @@ const SUB_LEAGUES = gql`
     }
   }
 `;
+
+const SUB_CLUB_FILTER = gql`
+  subscription SUB_CLUB_FILTER($limit: Int = 7) {
+    clubs(limit: $limit) {
+      logo
+      id
+      display_name
+      name
+      slug
+    }
+  }
+`;
+
 // ---------
 export default {
   GET_TEAMS,
   SUB_LEAGUES,
+  SUB_CLUB_FILTER,
 };

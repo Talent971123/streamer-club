@@ -1,4 +1,4 @@
-import React, { useState, ReactNode } from "react";
+import React, { useState } from "react";
 import { DateTimeSelect } from "./DateTimeInput.style";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
