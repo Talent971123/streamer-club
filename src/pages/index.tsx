@@ -6,9 +6,14 @@ import type { NextPage } from "next";
 import { initializeApollo } from "api/apollo";
 // import page
 import HomePage from "pages/main/home";
+import { Page } from "components/Page";
 
 const Home: NextPage = () => {
-  return <HomePage />;
+  return (
+    <Page>
+      <HomePage />
+    </Page>
+  );
 };
 
 export async function getServerSideProps() {

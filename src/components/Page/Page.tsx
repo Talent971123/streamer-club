@@ -6,8 +6,8 @@ import { PageProps } from "types/components/Page";
 // --------------------------------------------------
 
 const Page: React.FC<PageProps> = ({
-  title,
-  description,
+  title = "Streamer",
+  description = "Streamer",
   canonical,
   image,
   children,

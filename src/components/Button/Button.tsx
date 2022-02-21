@@ -51,6 +51,11 @@ const StyledButton = styled.button(
         bg: "transparent",
         border: '0.5px solid "gray.300"',
       },
+      gray: {
+        color: "white",
+        bg: "gray.300",
+        border: '0.5px solid "gray.300"',
+      },
       outlined: {
         color: "white",
         border: `1px solid white`,
@@ -90,7 +95,7 @@ export const SlideArrow = styled.div<{ position: string }>`
   display: block;
   position: absolute;
   ${({ position }) => {
-    if(position == "right") return `right: -30px;`;
+    if (position == "right") return `right: -30px;`;
     return `left: -30px;`;
   }};
   z-index: 100;

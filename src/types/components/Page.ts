@@ -1,6 +1,6 @@
 export interface PageProps {
   title?: string;
-  description: string;
+  description?: string;
   keywords?: string;
   canonical?: string;
   css?: string;

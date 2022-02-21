@@ -34,7 +34,7 @@ const Banner: React.FC = (props: any) => {
                   834: { fSize: 1 },
                 }}
               >
-                Stream commences at
+                Stream commences
                 {` ${moment(start_datetime).format("LL hh:mmA ")}`}
               </Text>
             </UpcommingDateTime>
