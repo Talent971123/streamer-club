@@ -62,9 +62,9 @@ const ReplyView: React.FC = () => {
                             match?.thumbnail_url
                           ),
                           clubImage1: match.home_team.club.logo,
-                          clubName1: match.home_team.club.name,
+                          clubName1: match.home_team.club.display_name,
                           clubImage2: match.away_team.club.logo,
-                          clubName2: match.away_team.club.name,
+                          clubName2: match.away_team.club.display_name,
                           leagueImage: match.league.logo
                             ? match.league.logo
                             : marker,

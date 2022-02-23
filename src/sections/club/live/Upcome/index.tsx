@@ -65,9 +65,9 @@ const UpcomeSection = (props) => {
                             item?.thumbnail_url,
                           ),
                           clubImage1: item.home_team.club.logo,
-                          clubName1: item.home_team.club.name,
+                          clubName1: item.home_team.club.display_name,
                           clubImage2: item.away_team.club.logo,
-                          clubName2: item.away_team.club.name,
+                          clubName2: item.away_team.club.display_name,
                           leagueImage: item.league.logo
                             ? item.league.logo
                             : marker,

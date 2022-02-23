@@ -1,19 +1,26 @@
 import React, { useEffect, useRef } from "react";
-import { Player } from "bitmovin-player";
+// import { Player } from "bitmovin-player";
 import { UIFactory } from "bitmovin-player-ui";
 
 import { connect } from "react-redux";
 import { setLiveShow } from "redux/actions/watch";
-import { toast } from "react-toastify";
 import { DisplayWrpper } from "./bitmovin.styles";
+import Script from 'next/script'
 
 interface videoProps {
   playback_id?: string;
   setLiveShow?: any;
 }
 
+declare global {
+  interface Window {
+    bitmovin:any;
+    initBitmovinMux:any;
+  }
+}
 
 const VideoPlayer: React.FC<videoProps> = ({ playback_id, setLiveShow }) => {
+
   const videoRef = useRef<any>(null);
   const playerConfig = {
     key: process.env.NEXT_PUBLIC_BITMOVIN_ENV || "",
@@ -59,15 +66,26 @@ const VideoPlayer: React.FC<videoProps> = ({ playback_id, setLiveShow }) => {
   };
 
   useEffect(() => {
-    setupPlayer();
+    const checkBitmovinExist = () => {
+      if(!window.bitmovin) {
+        return setTimeout(() => {
+          checkBitmovinExist()
+        }, 1000)
+      }
+      setupPlayer();
+    }
+    checkBitmovinExist();
   }, []);
-  
+
 
 
   const setupPlayer = () => {
-    const player = new Player(videoRef.current, playerConfig);
+    // Record the player init time
+    const playerInitTime = Date.now();
+    
+    const player = new window.bitmovin.player.Player(videoRef.current, playerConfig);
     UIFactory.buildDefaultUI(player);
-    if(playback_id){
+    if (playback_id) {
       player.load(playerSource).then(
         () => {
           setLiveShow(true);
@@ -77,12 +95,31 @@ const VideoPlayer: React.FC<videoProps> = ({ playback_id, setLiveShow }) => {
           // toast.error("Error while loading source");
         }
       );
+
+      // console.log('bitmovinMux',bitmovinMux)
+      window.initBitmovinMux(player, {
+        debug: false,
+        data: {
+          env_key: playerConfig.key, // required
+          // Metadata
+          player_name: 'My Main Player', // ex: 'My Main Player'
+          player_init_time: playerInitTime // ex: 1451606400000
+          // ... and other metadata
+        }
+      });
     }
   };
 
   return (
     <>
       <div id="player">
+        <Script src="https://bitmovin-a.akamaihd.net/bitmovin-player/stable/8/bitmovinplayer.js" 
+         strategy="afterInteractive"
+        />
+        <Script src="https://src.litix.io/bitmovin/5/bitmovin-mux.js" 
+         strategy="afterInteractive"
+        />
+
         <DisplayWrpper id="player-container" ref={videoRef} />
       </div>
     </>

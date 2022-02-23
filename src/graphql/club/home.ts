@@ -113,6 +113,7 @@ const SUB_CLUB_REPLAYS = gql`
         name
         division
         club {
+          display_name
           logo
           name
         }
@@ -123,6 +124,7 @@ const SUB_CLUB_REPLAYS = gql`
         name
         division
         club {
+          display_name
           logo
           name
         }

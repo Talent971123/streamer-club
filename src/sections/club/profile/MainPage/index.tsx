@@ -443,9 +443,8 @@ const ProfilePage: React.FC = (props: any) => {
                     const item: ClipProps = {
                       id: player.id,
                       backgroundImage: player.image,
-                      title: `${player?.user?.first_name ?? ""} ${
-                        player?.user?.last_name ?? ""
-                      }`,
+                      title: `${player?.user?.first_name ?? ""} ${player?.user?.last_name ?? ""
+                        }`,
                       mode: "player",
                       content: player.team?.name,
                     };
