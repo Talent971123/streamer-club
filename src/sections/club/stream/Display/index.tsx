@@ -4,13 +4,19 @@ import { connect } from "react-redux";
 //  import component
 import { Col, Row } from "components/Layout";
 import { Text } from "components/Text";
+import { ScoreBoard, ScoreTime } from "components/Score";
 
 const VideoPlayer = dynamic(() => import("components/Video/Bitmovin"), {
   ssr: false,
 });
 
 // import styled
-import { DisplayWrpper, UpcommingDateTime } from "./display.style";
+import {
+  DisplayWrpper,
+  UpcommingDateTime,
+  ScoreWrapper,
+  ScoreTimeWrapper,
+} from "./display.style";
 import { StreamPageContext } from "hooks/context/StreamPageContext";
 import moment from "moment";
 
@@ -23,7 +29,7 @@ const Banner: React.FC = (props: any) => {
       <Row>
         <Col item={24}>
           <VideoPlayer playback_id={playback_id} />
-          {!isLive && start_datetime && (
+          {!isLive && start_datetime ? (
             <UpcommingDateTime>
               <Text
                 tAlign={"center"}
@@ -38,6 +44,16 @@ const Banner: React.FC = (props: any) => {
                 {` ${moment(start_datetime).format("LL hh:mmA ")}`}
               </Text>
             </UpcommingDateTime>
+          ) : (
+            <>
+              <ScoreWrapper>
+                <ScoreBoard />
+              </ScoreWrapper>
+
+              <ScoreTimeWrapper>
+                <ScoreTime />
+              </ScoreTimeWrapper>
+            </>
           )}
         </Col>
       </Row>

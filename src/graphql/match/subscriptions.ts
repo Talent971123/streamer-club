@@ -78,6 +78,7 @@ const SUB_FILTER_MATCHES = gql`
       round
       round_name
       start_datetime
+      thumbnail_url
       status
       stream_id
       stream_key

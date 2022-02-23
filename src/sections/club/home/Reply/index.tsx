@@ -92,7 +92,7 @@ const ReplayView: React.FC = () => {
               matches.map((match: any, index: number) => {
                 const item: GameCardProps = {
                   id: match.id,
-                  backgroundImage: thumbNailLink(match.video_asset_id, 200),
+                  backgroundImage: thumbNailLink(match.video_asset_id, 200, match.thumbnail_url),
                   clubImage1: match.home_team.club.logo,
                   clubName1: match.home_team.club.name,
                   clubImage2: match.away_team.club.logo,
@@ -103,7 +103,7 @@ const ReplayView: React.FC = () => {
                   match_round: match.round,
                   roundName: match.round_name,
                   matchName: match.name,
-                  date: getDates(match.start_datetime).datefull,
+                  date: match.start_datetime,
                   mode: "Replay",
                 };
 

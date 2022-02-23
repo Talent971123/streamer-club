@@ -19,10 +19,11 @@ export const remoteImageSrc = (
 
 export const thumbNailLink = (
   id: string,
-  width: number = 300
+  width: number = 300,
+  thumbnail_url: string | null = null,
 ): string | StaticImageData => {
-  let image_url = `https://image.mux.com/${id}/thumbnail.png?width=${width}`;
-  return image_url;
+  const image_url = `https://image.mux.com/${id}/thumbnail.png?width=${width}`;
+  return thumbnail_url && imageExists(thumbnail_url, (e: any)=> e)? thumbnail_url: imageExists(image_url, (e: any) => e) ? image_url : defaultImg;
 };
 
 export const getS3Config = (dirName: string = "Club") => ({

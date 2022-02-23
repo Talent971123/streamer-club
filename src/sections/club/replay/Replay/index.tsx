@@ -58,7 +58,8 @@ const ReplyView: React.FC = () => {
                           id: match.id,
                           backgroundImage: thumbNailLink(
                             match.video_asset_id,
-                            200
+                            200,
+                            match?.thumbnail_url
                           ),
                           clubImage1: match.home_team.club.logo,
                           clubName1: match.home_team.club.name,

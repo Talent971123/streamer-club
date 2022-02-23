@@ -42,7 +42,7 @@ const PlayerPage: React.FC = ({ club_slug, player_slug }: any) => {
           alignItems="center"
         >
           <AiOutlineWarning size={100} />
-          <Text fSize={1.0625}>{"No Data"}</Text>
+          <Text fSize={17}>{"No Data"}</Text>
         </Row>
       </>
     );

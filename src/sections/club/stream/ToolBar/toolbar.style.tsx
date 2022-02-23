@@ -66,27 +66,24 @@ export const LiveWrapper = styled.div`
   }
 `;
 
-export const TeamLogoWrapper = styled.div`
-  width: 30px;
-  height: 30px;
+export const TeamLogo = styled.img`
   margin-left: 5px;
   margin-right: 5px;
-  @media screen and (min-width: ${defaultTheme.mediaSize.xs}px) {
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-  @media screen and (min-width: ${defaultTheme.mediaSize.md}px) {
-    width: 40px;
-    height: 40px;
-  }
-
-  @media screen and (min-width: ${defaultTheme.mediaSize.lg}px) {
+  width: 60px;
+  height: 60px;
+  @media screen and (max-width: ${defaultTheme.mediaSize.md}px) {
     width: 50px;
     height: 50px;
   }
-`;
 
-export const TeamLogo = styled.img`
-  width: 100%;
-  height: 100%;
+  @media screen and (max-width: ${defaultTheme.mediaSize.sm}px) {
+    width: 40px;
+    height: 40px;
+  }
+  @media screen and (max-width: ${defaultTheme.mediaSize.xs}px) {
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 25px;
+    height: 25px;
+  }
 `;

@@ -61,7 +61,8 @@ const UpcomeSection = (props) => {
                           id: item.id,
                           backgroundImage: thumbNailLink(
                             item.video_asset_id,
-                            200
+                            200,
+                            item?.thumbnail_url,
                           ),
                           clubImage1: item.home_team.club.logo,
                           clubName1: item.home_team.club.name,

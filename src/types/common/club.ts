@@ -25,6 +25,8 @@ export interface StreamPageCtx {
   start_datetime: string;
   home_players: Array<Players>;
   away_players: Array<Players>;
+  video_asset_id: string;
+  match_id: number;
 }
 
 export interface LeagueCtx {

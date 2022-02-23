@@ -12,6 +12,7 @@ interface videoProps {
   setLiveShow?: any;
 }
 
+
 const VideoPlayer: React.FC<videoProps> = ({ playback_id, setLiveShow }) => {
   const videoRef = useRef<any>(null);
   const playerConfig = {
@@ -60,11 +61,13 @@ const VideoPlayer: React.FC<videoProps> = ({ playback_id, setLiveShow }) => {
   useEffect(() => {
     setupPlayer();
   }, []);
+  
+
 
   const setupPlayer = () => {
     const player = new Player(videoRef.current, playerConfig);
     UIFactory.buildDefaultUI(player);
-    if (playback_id) {
+    if(playback_id){
       player.load(playerSource).then(
         () => {
           setLiveShow(true);

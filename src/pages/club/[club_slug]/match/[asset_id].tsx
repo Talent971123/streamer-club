@@ -55,6 +55,7 @@ export const getServerSideProps = async (context: any) => {
   return {
     props: {
       streamInfo: {
+        match_id: match.id,
         playback_id: match.video_asset_id,
         start_datetime: match.start_datetime,
         home_name: match.home_team.club.name,
@@ -63,6 +64,7 @@ export const getServerSideProps = async (context: any) => {
         away_logo: match.away_team.club.logo,
         home_players: match.home_team.players,
         away_players: match.away_team.players,
+        video_asset_id: match.video_asset_id
       },
     },
   };

@@ -16,7 +16,7 @@ import { ClipWrapper, LinkWrapper } from "./clip.style";
 import { CardBody } from "theme/global.state";
 import ThumbCard from "components/Card/ThumbCard";
 import { CLIPS } from "graphql/club";
-import FeatureClip_Modal from "components/Modal/FeatureClip";
+import FeatureClip_Modal from "components/Modal/FeatureClip"
 
 //  define the example data
 // import backImage from "assets/images/home/gameday.png";
@@ -33,44 +33,44 @@ const ClipView: React.FC = (props: any) => {
   };
 
   const onCloseModal = () => {
-    setModalFlag(false);
-    setModalPlaybackId("");
-  };
+    setModalFlag(false)
+    setModalPlaybackId("")
+  }
 
   const onClipClick = (playbackId, title) => {
-    setModalPlaybackId(playbackId);
-    setModalTitle(title);
-    setModalFlag(true);
-  };
+    setModalPlaybackId(playbackId)
+    setModalTitle(title)
+    setModalFlag(true)
+  }
 
   const [modalFlag, setModalFlag] = useState<boolean>(false);
   const [modalTitle, setModalTitle] = useState<string>("");
   const [modalPlaybackId, setModalPlaybackId] = useState<string>();
-  const [clipsData, setData] = useState([]);
+  const [clipsData, setData] = useState([])
 
   useSubscription(CLIPS.SUB_FEATURE_CLIPS, {
     onSubscriptionData({ subscriptionData: { data } }) {
+
       if (data.clip_asset_user_club) {
+
         const clips = data?.clip_asset_user_club.map((clipAsset) => ({
           id: clipAsset.clip_asset.id,
           playbackId: clipAsset.clip_asset.playback_id,
           backgroundImage: {
-            src:
-              "https://image.mux.com/" +
-              clipAsset.clip_asset.playback_id +
-              "/thumbnail.png?width=200",
+            src: "https://image.mux.com/" + clipAsset.clip_asset.playback_id + "/thumbnail.png?width=200",
             height: 314,
             width: 178,
           },
-          title: clipAsset.clip_asset.name,
-        }));
+          title: clipAsset.clip_asset.name
+        }))
 
-        setData(clips);
+        setData(clips)
+
       }
+
     },
   });
 
-  console.log(clipsData);
   return (
     <ClipWrapper>
       <Row alignItems="center">
@@ -106,16 +106,13 @@ const ClipView: React.FC = (props: any) => {
             leftIcon={<SlideArrow position="left" />}
             rightIcon={<SlideArrow position="right" />}
           >
+
             {clipsData?.map((item: FeaturedClip, index: number) => {
               // console.log(item)
               return (
                 <CardBody key={`clips-card-` + index}>
-                  <ThumbCard
-                    {...item}
-                    mode="Clip"
-                    key={index}
-                    handleClick={() => onClipClick(item.playbackId, item.title)}
-                  />
+                  <ThumbCard {...item} mode="Clip" key={index}
+                    handleClick={() => onClipClick(item.playbackId, item.title)} />
                 </CardBody>
               );
             })}

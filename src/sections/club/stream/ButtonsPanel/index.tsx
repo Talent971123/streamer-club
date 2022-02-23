@@ -25,11 +25,13 @@ import _ from "lodash";
 interface IButtonsPanelProps {
   toggleEvent: (s: "scoring" | "keyMoments") => void;
   createClip: () => void;
+  setThumbnailFlag: () => void;
 }
 
 const ButtonsPanel: React.FC<IButtonsPanelProps> = ({
   toggleEvent,
   createClip,
+  setThumbnailFlag
 }) => {
   const router = useRouter();
   const { user } = useUser();
@@ -111,7 +113,7 @@ const ButtonsPanel: React.FC<IButtonsPanelProps> = ({
             Create Clips
           </Text>
         </PanelButton>
-        <PanelButton>
+        <PanelButton onClick={setThumbnailFlag}>
           <BiImage size={20} style={{ marginBottom: 5 }} />
           <Text fSize={0.45} fWeight={700} wSpace="nowrap">
             Set Thumbnails
@@ -120,6 +122,18 @@ const ButtonsPanel: React.FC<IButtonsPanelProps> = ({
       </ButtonsMobilePanelWrapper>
 
       <ButtonsDesktopPanelWrapper>
+        <DesktopButtonWrapper>
+          <Button
+            onClick={setThumbnailFlag}
+            bColor="primary"
+            bSize="small"
+            icon={<BiImage />}
+          >
+            <Text tAlign={"center"} fSize={0.875} fWeight={400} wSpace="nowrap">
+              Set Thumbnail
+            </Text>
+          </Button>
+        </DesktopButtonWrapper>
         <DesktopButtonWrapper>
           <Button
             onClick={createClip}

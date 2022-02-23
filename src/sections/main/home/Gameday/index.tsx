@@ -19,7 +19,7 @@ import { progressText, thumbNailLink } from "utils/common-helper";
 import ThumbCard from "components/Card/ThumbCard";
 import { connect } from "react-redux";
 
-import _ from "lodash";
+import _ from 'lodash'
 
 const SeeAll = useLinkItem(LinkWrapper);
 
@@ -39,7 +39,7 @@ const GameDayView: React.FC = (props: any) => {
       },
     },
     onSubscriptionData({ subscriptionData: { data } }) {
-      data && setData(data.matches);
+      data && setData(type === "Replays" ? _.reverse(data.matches) : data.matches);
     },
   });
 
@@ -53,8 +53,8 @@ const GameDayView: React.FC = (props: any) => {
 
   const getSlug = (id: number): string => {
     const club = _.find(props.siteClubs, { id });
-    return club?.slug ? club?.slug : "";
-  };
+    return club?.slug ? club?.slug : ''
+  }
 
   const onHandleClick = (id: number, clubId: number) => {
     if (type !== "Replays") {
@@ -87,7 +87,7 @@ const GameDayView: React.FC = (props: any) => {
             {data.map((match: any, index: number) => {
               const item: GameCardProps = {
                 id: match.id,
-                backgroundImage: thumbNailLink(match.video_asset_id, 200),
+                backgroundImage: thumbNailLink(match.video_asset_id, 200, match?.thumbnail_url),
                 clubImage1: match.home_team.club.logo,
                 clubName1: match.home_team.club.display_name,
                 clubImage2: match.away_team.club.logo,
@@ -106,7 +106,7 @@ const GameDayView: React.FC = (props: any) => {
               };
 
               return (
-                <CardBody key={`game-day-view-key${index}`}>
+                <CardBody key={`game-day-view-key${index}`} >
                   <ThumbCard
                     {...item}
                     handleClick={() => onHandleClick(match.id, match.club_id)}

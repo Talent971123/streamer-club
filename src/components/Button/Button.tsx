@@ -99,7 +99,7 @@ export const SlideArrow = styled.div<{ position: string }>`
     return `left: -30px;`;
   }};
   z-index: 100;
-`
+`;
 
 const rotate = keyframes`
   from {transform: rotate(0deg);}

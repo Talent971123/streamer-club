@@ -57,6 +57,7 @@ export const getServerSideProps = async (context: any) => {
         away_logo: match.away_team.club.logo,
         home_players: match.home_team.players,
         away_players: match.away_team.players,
+        match_id: match.id,
       },
     },
   };

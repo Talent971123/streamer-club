@@ -10,7 +10,6 @@ import {
   LiveWrapper,
   ToobarWrapper,
   TeamLogo,
-  TeamLogoWrapper,
   ClubNameWrapper,
   AwayClubWrapper,
   HomeClubWrapper,
@@ -24,9 +23,6 @@ import { siteSettings } from "hooks";
 
 const ToolBarView: React.FC = (props: any) => {
   const { isLive } = props;
-
-  console.log(props);
-
   const { home_name, away_name, home_logo, away_logo } =
     useContext(StreamPageContext);
   const router = useRouter();
@@ -47,9 +43,7 @@ const ToolBarView: React.FC = (props: any) => {
           >
             {home_name}
           </Text>
-          <TeamLogoWrapper>
-            <TeamLogo src={home_logo} />
-          </TeamLogoWrapper>
+          <TeamLogo src={home_logo} />
         </ClubNameWrapper>
       </HomeClubWrapper>
 
@@ -67,9 +61,7 @@ const ToolBarView: React.FC = (props: any) => {
 
       <AwayClubWrapper>
         <ClubNameWrapper>
-          <TeamLogoWrapper>
-            <TeamLogo src={away_logo} />
-          </TeamLogoWrapper>
+          <TeamLogo src={away_logo} />
           <Text
             tAlign={"center"}
             fSize={1}

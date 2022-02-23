@@ -58,6 +58,7 @@ const NextArrow: React.FC = (props: any) => {
         ...style,
         display: "block",
         position: "absolute",
+        top: "100px",
       }}
       onClick={onClick}
     />
@@ -74,6 +75,7 @@ const BeforeArrow: React.FC = (props: any) => {
         ...style,
         display: "block",
         position: "absolute",
+        top: "100px",
       }}
       onClick={onClick}
     />

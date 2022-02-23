@@ -24,7 +24,7 @@ import { siteSettings } from "hooks";
 // -----------------------------------------------------------
 const MenuItems = (club_slug: string, path: string, user: any) => {
   let menus: any = [];
-  if (path === "/" || path.split("/")[2] === "main") {
+  if (path === "/" || path.split("/")[1] === "main") {
     menus = [
       {
         title: "Home",
@@ -79,14 +79,7 @@ const MenuItems = (club_slug: string, path: string, user: any) => {
 };
 
 const Layout = (props) => {
-  const {
-    setSettings,
-    setClubInfo,
-    setPlayerList,
-    setTeamList,
-    setSiteClubs,
-    children,
-  } = props;
+  const { setSettings, setClubInfo, setPlayerList, setTeamList, setSiteClubs, children } = props;
   const { param, asPath }: any = useRouter();
   const { user } = useUser();
   const menu = MenuItems(param ? param.club_slug : "", asPath, user);
@@ -109,18 +102,18 @@ const Layout = (props) => {
     },
     onSubscriptionData({ subscriptionData: { data } }) {
       if (data) {
-        setClubInfo(data.clubs[0] ?? []);
-        setPlayerList(data.clubs[0]?.players ?? []);
-        setTeamList(data.clubs[0]?.teams ?? []);
+        setClubInfo(data.clubs[0]);
+        setPlayerList(data.clubs[0].players);
+        setTeamList(data.clubs[0].teams);
       }
     },
   });
 
   const { data } = useQuery(SITEQL.GET_SITE_CLUBS, {
     onCompleted() {
-      setSiteClubs(data?.clubs);
-    },
-  });
+      setSiteClubs(data?.clubs)
+    }
+  })
 
   return (
     <AppLayoutWrapper>

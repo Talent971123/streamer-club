@@ -18,6 +18,7 @@ import {
   NameLabel,
   StyledMenu,
   StyledItemMenu,
+  StreamMobileLogoWrapper,
 } from "./Header.style";
 import { Text } from "components/Text";
 // -------------------------------------------------------------------
@@ -69,12 +70,14 @@ export const MobileHeader = (props: any) => {
                 <MarkIcon type="mobile" />
               </Col>
               <Col>
-                <Image
-                  src={LogoImage}
-                  height={35}
-                  width={120}
-                  mode="intrinsic"
-                />
+                <StreamMobileLogoWrapper onClick={() => handleMenuClick('/')}>
+                  <Image
+                    src={LogoImage}
+                    height={35}
+                    width={120}
+                    mode="intrinsic"
+                  />
+                </StreamMobileLogoWrapper>
               </Col>
             </Row>
           </Col>

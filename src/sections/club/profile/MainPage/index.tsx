@@ -494,7 +494,7 @@ const ProfilePage: React.FC = (props: any) => {
                   matches.map((match: any, index: number) => {
                     const item: GameCardProps = {
                       id: match.id,
-                      backgroundImage: thumbNailLink(match.video_asset_id, 200),
+                      backgroundImage: thumbNailLink(match.video_asset_id, 200, match?.thumbnail_url),
                       clubImage1: match.home_team.club.logo,
                       clubName1: match.home_team.club.name,
                       clubImage2: match.away_team.club.logo,
@@ -552,7 +552,7 @@ const ProfilePage: React.FC = (props: any) => {
                 {savedReelsData.map((reel: any, index: number) => {
                   const item: any = {
                     id: reel.id,
-                    backgroundImage: thumbNailLink(reel.video_asset_id, 200),
+                    backgroundImage: thumbNailLink(reel.video_asset_id, 200, reel?.thumbnail_url),
                     clubImage1: reel.home_team.club.logo,
                     clubName1: reel.home_team.club.name,
                     clubImage2: reel.away_team.club.logo,

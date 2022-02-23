@@ -84,7 +84,7 @@ const GameDayView: React.FC = (props: any) => {
               console.log(match, "test");
               const item: GameCardProps = {
                 id: match.id,
-                backgroundImage: thumbNailLink(match.video_asset_id, 200),
+                backgroundImage: thumbNailLink(match.video_asset_id, 200, match.thumbnail_url),
                 clubImage1: match.home_team.club.logo,
                 clubName1: match.home_team.club.display_name,
                 clubImage2: match.away_team.club.logo,

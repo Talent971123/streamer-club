@@ -185,14 +185,6 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
     ".bmpui-ui-fullscreentogglebutton.bmpui-on": {
       filter: "invert(1) !important",
     },
-    ".bmpui-ui-seekbar-label": {
-      width: "180px !important",
-    },
-
-    ".bmpui-ui-seekbar-label .bmpui-seekbar-label-inner > .bmpui-container-wrapper .bmpui-seekbar-thumbnail":
-      {
-        width: "100% !important",
-      },
 
     // custom
     "#nprogress": {

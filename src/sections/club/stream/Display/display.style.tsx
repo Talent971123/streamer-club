@@ -14,3 +14,17 @@ export const UpcommingDateTime = styled.div`
     bottom: 0;
   }
 `;
+
+export const ScoreWrapper = styled.div`
+  z-index: 10;
+  top: 3%;
+  left: 3%;
+  position: absolute;
+`;
+
+export const ScoreTimeWrapper = styled.div`
+  z-index: 10;
+  top: 3%;
+  right: 3%;
+  position: absolute;
+`;

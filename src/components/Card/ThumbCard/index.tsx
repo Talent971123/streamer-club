@@ -46,6 +46,7 @@ const ThumbCard: React.FC<GameCardProps> = ({
   };
 
   const bgSource = () => {
+
     if (mode == "Replay" || mode == "Clip" || (mode == "Day" && isLive)) {
       return backgroundImage;
     }

@@ -105,6 +105,7 @@ const SUB_CLUB_REPLAYS = gql`
       video_asset_id
       round
       round_name
+      thumbnail_url
       start_datetime
       away_team {
         id
@@ -152,6 +153,7 @@ const SUB_TEAM_REPLAYS = gql`
       video_asset_id
       round
       start_datetime
+      thumbnail_url
       away_team {
         id
         image

@@ -14,7 +14,6 @@ const ImageComponent: React.FC<ImageProps> = ({
   height,
   mode = "intrinsic",
   oFit = "fill",
-
   ...props
 }) => {
   return mode === "fill" ? (

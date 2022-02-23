@@ -39,7 +39,6 @@ export const ClipContent = styled.div<{ mode: string }>`
     } else if (mode === "club") {
       return css`
         max-height: 175px;
-        /* border-radius: 50%; */
       `;
     }
   }}

@@ -10,6 +10,10 @@ export const ProfileWrapper = styled.div`
   width: 100%;
 `;
 
+export const StreamMobileLogoWrapper = styled.div`
+  cursor: pointer;
+`;
+
 export const StyledMenu = styled(Menu)`
   background-color: ${themeGet("colors.gray.900")};
   border-bottom: none;

@@ -15,6 +15,7 @@ import { Button } from "components/Button";
 import { themeGet } from "@styled-system/theme-get";
 import { ScreenContext } from "hooks/context/ScreenContext";
 import { ButtonsPanel } from "sections/club/stream";
+import SetThumbnailView from "./SetThumbnail";
 
 const menudata: commonItem[] = [
   {
@@ -47,9 +48,13 @@ const TabContainerView: React.FC = () => {
   const [select, setSelect] = useState<string>(menudata[0].path);
   const [show, setEventShow] = useState<"" | "scoring" | "keyMoments">("");
   const [createClip, setCreateClipShow] = useState<boolean>(false);
+  const [thumbFlag, setFlagThumb] = useState<boolean>(false);
 
   const onHandleSelect = (item: string) => {
     setSelect(item);
+  };
+  const setThumbnailFlag  = () => {
+    setFlagThumb(!thumbFlag);
   };
 
   const createClipFunc = () => {
@@ -69,6 +74,8 @@ const TabContainerView: React.FC = () => {
     setEventShow,
     createClip,
     setCreateClipShow,
+    thumbFlag,
+    setFlagThumb,
   };
 
   return (
@@ -80,6 +87,7 @@ const TabContainerView: React.FC = () => {
               <ButtonsPanel
                 toggleEvent={toggleEvent}
                 createClip={createClipFunc}
+                setThumbnailFlag={setThumbnailFlag}
               />
             </Col>
           </Row>
@@ -103,6 +111,21 @@ const TabContainerView: React.FC = () => {
             </Col>
             {/* <Row alignItems="flex-end" justifyContent="flex-end"> */}
             {/* <Col>
+                 <Col>
+                <Button
+                  bColor="primary"
+                  css={{
+                    padding: 10,
+                    marginBottom: 16,
+                    marginRight: 16,
+                    fontSize: 12,
+                    whiteSpace: "nowrap",
+                  }}
+                  onClick={() => thumbImageFunc()}
+                >
+                  {"Set Thumbnail Image"}
+                </Button>
+              </Col>
                 <Button
                   bColor="primary"
                   css={{
@@ -159,6 +182,8 @@ const TabContainerView: React.FC = () => {
               </Col> */}
             {/* </Row> */}
           </Row>
+          <SetThumbnailView></SetThumbnailView>
+
           <Row alignItems="center" justifyContent="center" display="flex">
             <Content>
               {menudata.map((item: commonItem, index: number) => {
