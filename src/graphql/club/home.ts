@@ -46,12 +46,22 @@ const SUB_CLUB = gql`
       logo
       id
       slug
+      user_club_follows {
+        id
+        user_id
+        club_id
+      }
       teams {
         id
         image
         name
         slug
         division
+        user_team_follows {
+          id
+          user_id
+          team_id
+        }
       }
       players(where: { user_id: { _is_null: false } }) {
         id
@@ -95,7 +105,8 @@ const SUB_CLUB_REPLAYS = gql`
           { home_team: { club: { slug: { _eq: $club_slug } } } }
         ]
         status: { _eq: "completed" }
-      }, order_by: {start_datetime: desc}
+      }
+      order_by: { start_datetime: desc }
     ) {
       id
       is_historic
@@ -145,7 +156,8 @@ const SUB_TEAM_REPLAYS = gql`
           { away_team: { slug: { _eq: $team_slug } } }
           { home_team: { slug: { _eq: $team_slug } } }
         ]
-      }, order_by: {start_datetime: desc}
+      }
+      order_by: { start_datetime: desc }
     ) {
       id
       is_historic

@@ -20,6 +20,14 @@ const GET_USER = gql`query UserQuery($auth_id: String!) {
         type
       }
     }
+    user_club_follows{
+      id
+      club_id
+    }
+    user_team_follows{
+      id
+      team_id
+    }
   }
 }`;
 

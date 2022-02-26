@@ -20,7 +20,9 @@ const ProfileView: React.FC = ({ teams, players, club_slug, club }: any) => {
   });
   return (
     <>
-      <ProfileContext.Provider value={{ teams, matches, players, club_slug, club }}>
+      <ProfileContext.Provider
+        value={{ teams, matches, players, club_slug, club }}
+      >
         <WithContainer mode="container" SectionView={BioDetailsView} />
         <WithContainer mode="container" SectionView={ProfilePage} />
       </ProfileContext.Provider>
@@ -32,11 +34,11 @@ export const getServerSideProps = async (context) => {
   const apolloClient = initializeApollo();
 
   const { club_slug } = context.query;
-  
+
   const { data: playersData } = await apolloClient.query({
     query: PLAYERQL.GET_PLAYERS,
     variables: {
-      club_slug,
+      where: { club: { slug: { _eq: club_slug } } },
     },
   });
 

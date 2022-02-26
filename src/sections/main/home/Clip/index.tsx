@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useSubscription } from "@apollo/client";
 import { useRouter } from "hooks";
@@ -6,6 +6,7 @@ import { useRouter } from "hooks";
 import { Col, Row } from "components/Layout";
 import { ClipCard } from "components/Card";
 import { Text } from "components/Text";
+import { MatchSkeleton } from "components/Skeleton";
 import { ScrollingCarousel } from "@trendyol-js/react-carousel";
 import { useLinkItem } from "components/hoc";
 //  import types
@@ -16,7 +17,7 @@ import { ClipWrapper, LinkWrapper } from "./clip.style";
 import { CardBody } from "theme/global.state";
 import ThumbCard from "components/Card/ThumbCard";
 import { CLIPS } from "graphql/club";
-import FeatureClip_Modal from "components/Modal/FeatureClip"
+import FeatureClip_Modal from "components/Modal/FeatureClip";
 
 //  define the example data
 // import backImage from "assets/images/home/gameday.png";
@@ -27,49 +28,50 @@ const SeeAll = useLinkItem(LinkWrapper);
 
 const ClipView: React.FC = (props: any) => {
   const { move } = useRouter();
+  const [pack, setPack] = useState<any>([]);
 
   const onHandleSeeAll = () => {
     move("/club/match");
   };
 
   const onCloseModal = () => {
-    setModalFlag(false)
-    setModalPlaybackId("")
-  }
+    setModalFlag(false);
+    setModalPlaybackId("");
+  };
 
   const onClipClick = (playbackId, title) => {
-    setModalPlaybackId(playbackId)
-    setModalTitle(title)
-    setModalFlag(true)
-  }
+    setModalPlaybackId(playbackId);
+    setModalTitle(title);
+    setModalFlag(true);
+  };
 
   const [modalFlag, setModalFlag] = useState<boolean>(false);
   const [modalTitle, setModalTitle] = useState<string>("");
   const [modalPlaybackId, setModalPlaybackId] = useState<string>();
-  const [clipsData, setData] = useState([])
 
-  useSubscription(CLIPS.SUB_FEATURE_CLIPS, {
-    onSubscriptionData({ subscriptionData: { data } }) {
+  const { loading, data } = useSubscription(CLIPS.SUB_FEATURE_CLIPS, {});
 
-      if (data.clip_asset_user_club) {
+  // let clips = [];
 
-        const clips = data?.clip_asset_user_club.map((clipAsset) => ({
-          id: clipAsset.clip_asset.id,
-          playbackId: clipAsset.clip_asset.playback_id,
-          backgroundImage: {
-            src: "https://image.mux.com/" + clipAsset.clip_asset.playback_id + "/thumbnail.png?width=200",
-            height: 314,
-            width: 178,
-          },
-          title: clipAsset.clip_asset.name
-        }))
+  useEffect(() => {
+    const clipsData = data?.clip_asset_user_club.map((clipAsset) => ({
+      id: clipAsset.clip_asset.id,
+      playbackId: clipAsset.clip_asset.playback_id,
+      backgroundImage: {
+        src:
+          "https://image.mux.com/" +
+          clipAsset.clip_asset.playback_id +
+          "/thumbnail.png?width=200",
+        height: 314,
+        width: 178,
+      },
+      title: clipAsset.clip_asset.name,
+    }));
+    setPack(clipsData);
+  }, [data]);
 
-        setData(clips)
-
-      }
-
-    },
-  });
+  if (!loading && data?.clip_asset_user_club) {
+  }
 
   return (
     <ClipWrapper>
@@ -106,16 +108,29 @@ const ClipView: React.FC = (props: any) => {
             leftIcon={<SlideArrow position="left" />}
             rightIcon={<SlideArrow position="right" />}
           >
-
-            {clipsData?.map((item: FeaturedClip, index: number) => {
-              // console.log(item)
-              return (
-                <CardBody key={`clips-card-` + index}>
-                  <ThumbCard {...item} mode="Clip" key={index}
-                    handleClick={() => onClipClick(item.playbackId, item.title)} />
-                </CardBody>
-              );
-            })}
+            {loading
+              ? [1, 2, 3, 4, 5, 6].map((item: number) => {
+                  return (
+                    <CardBody key={`game-day-view-key-${item}`}>
+                      <MatchSkeleton />
+                    </CardBody>
+                  );
+                })
+              : pack?.map((item: FeaturedClip, index: number) => {
+                  // console.log(item)
+                  return (
+                    <CardBody key={`clips-card-` + index}>
+                      <ThumbCard
+                        {...item}
+                        mode="Clip"
+                        key={index}
+                        handleClick={() =>
+                          onClipClick(item.playbackId, item.title)
+                        }
+                      />
+                    </CardBody>
+                  );
+                })}
           </ScrollingCarousel>
         </Col>
       </Row>

@@ -8,7 +8,8 @@ module.exports = {
       'streamer-image-assets.s3.us-east-2.amazonaws.com',
       'streamer-image-assets.s3-us-east-2.amazonaws.com',
       'image.mux.com',
-      'lh3.googleusercontent.com'
+      'lh3.googleusercontent.com',
+      's.gravatar.com'
     ],
   },
   redirects() {

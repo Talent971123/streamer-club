@@ -75,10 +75,9 @@ const ReplyView: React.FC = () => {
                           date: match.start_datetime,
                         };
                         return (
-                          <CardBody>
+                          <CardBody key={`replay-view-key${index}`} >
                             <ThumbCard
                               {...item}
-                              key={`replay-view-key${index}`}
                               handleClick={() => onHandleClick(match.id)}
                             />
                           </CardBody>

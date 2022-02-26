@@ -4,6 +4,7 @@ export interface commonItem {
   title: string;
   path: string;
   component?: ReactNode;
+  display?: boolean | string;
 }
 
 export interface ParamTypes {

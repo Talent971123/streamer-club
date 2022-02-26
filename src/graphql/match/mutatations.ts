@@ -8,13 +8,11 @@ const INSERT_MATCH = gql`
   }
 `;
 
-const INSERT_SAVED_MATCHES_ONE = gql`
-  mutation INSERT_SAVED_MATCHES_ONE($object: saved_matches_insert_input = {}) {
-    insert_saved_matches_one(object: $object) {
-      created_at
-    }
+const INSERT_SAVED_MATCHES_ONE = gql`mutation INSERT_SAVED_MATCHES_ONE($object: saved_matches_insert_input = {}) {
+  insert_saved_matches_one(object: $object, on_conflict: {constraint: saved_matches_user_id_match_id_key, update_columns: []}) {
+    created_at
   }
-`;
+}`;
 
 // // ---------
 export default {

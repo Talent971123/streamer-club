@@ -11,7 +11,7 @@ import { FiShare2 } from "react-icons/fi";
 import ScoreBoardIcon from "assets/icon/scoreboard";
 import { MdScore } from "react-icons/md";
 import { useUser } from "@auth0/nextjs-auth0";
-import { baseUrl } from "utils/constData";
+import { baseUrl, USER_ROLE } from "utils/constData";
 import {
   PanelButton,
   ButtonsMobilePanelWrapper,
@@ -37,7 +37,7 @@ const ButtonsPanel: React.FC<IButtonsPanelProps> = ({
   const { user } = useUser();
   const [Insert] = useMutation(mutate.INSERT_SAVED_MATCHES_ONE, {
     onCompleted() {
-      toast.warn("Successfully !");
+      toast.warn("Saved!");
     },
     onError(e) {
       toast.error("Error Happened.");
@@ -50,27 +50,29 @@ const ButtonsPanel: React.FC<IButtonsPanelProps> = ({
     },
   });
 
+
   const _handleSave = async () => {
+
     if (_.isUndefined(user?.id)) {
       return toast.warn("please sign in.");
     }
-    if (
-      !data?.saved_matches.every(
-        (item: any) => item.match_id == router.query.assetId
-      )
-    ) {
-      await Insert({
-        variables: {
-          object: {
-            user_id: user?.id,
-            match_id: router.query.assetId,
-          },
+
+    await Insert({
+      variables: {
+        object: {
+          user_id: user?.id,
+          match_id: router.query.asset_id,
         },
-      });
-    } else {
-      return toast.warn("video already saved.");
-    }
+      },
+    });
+
   };
+
+  const adminOnly: boolean = (
+    USER_ROLE.ADMIN === user?.user_role_id ||
+    USER_ROLE.CLUB_ADMIN === user?.user_role_id ||
+    USER_ROLE.TEAM_ADMIN === user?.user_role_id
+  )
 
   return (
     <>
@@ -95,46 +97,57 @@ const ButtonsPanel: React.FC<IButtonsPanelProps> = ({
             Save
           </Text>
         </PanelButton>
-        <PanelButton onClick={() => toggleEvent("scoring")}>
+
+        {adminOnly && (<PanelButton onClick={() => toggleEvent("scoring")}>
           <ScoreBoardIcon />
           <Text fSize={0.45} fWeight={700} css={{ marginTop: 5 }}>
             Scoring
           </Text>
-        </PanelButton>
-        <PanelButton onClick={() => toggleEvent("keyMoments")}>
+        </PanelButton>)}
+
+        {adminOnly && (<PanelButton onClick={() => toggleEvent("keyMoments")}>
           <BiStar size={20} style={{ marginBottom: 5 }} />
           <Text fSize={0.45} fWeight={700}>
             Key Moments
           </Text>
-        </PanelButton>
-        <PanelButton onClick={createClip}>
+        </PanelButton>)}
+
+        {adminOnly && (<PanelButton onClick={createClip}>
           <BiCut size={20} style={{ marginBottom: 5 }} />
           <Text fSize={0.45} fWeight={700}>
             Create Clips
           </Text>
-        </PanelButton>
-        <PanelButton onClick={setThumbnailFlag}>
-          <BiImage size={20} style={{ marginBottom: 5 }} />
-          <Text fSize={0.45} fWeight={700} wSpace="nowrap">
-            Set Thumbnails
-          </Text>
-        </PanelButton>
+        </PanelButton>)}
+
+        {adminOnly && (
+          <PanelButton onClick={setThumbnailFlag}>
+            <BiImage size={20} style={{ marginBottom: 5 }} />
+            <Text fSize={0.45} fWeight={700} wSpace="nowrap">
+              Set Thumbnail
+            </Text>
+          </PanelButton>
+        )}
+
       </ButtonsMobilePanelWrapper>
 
       <ButtonsDesktopPanelWrapper>
-        <DesktopButtonWrapper>
-          <Button
-            onClick={setThumbnailFlag}
-            bColor="primary"
-            bSize="small"
-            icon={<BiImage />}
-          >
-            <Text tAlign={"center"} fSize={0.875} fWeight={400} wSpace="nowrap">
-              Set Thumbnail
-            </Text>
-          </Button>
-        </DesktopButtonWrapper>
-        <DesktopButtonWrapper>
+
+        {adminOnly && (
+          <DesktopButtonWrapper>
+            <Button
+              onClick={setThumbnailFlag}
+              bColor="primary"
+              bSize="small"
+              icon={<BiImage />}
+            >
+              <Text tAlign={"center"} fSize={0.875} fWeight={400} wSpace="nowrap">
+                Set Thumbnail
+              </Text>
+            </Button>
+          </DesktopButtonWrapper>
+        )}
+
+        {adminOnly && (<DesktopButtonWrapper>
           <Button
             onClick={createClip}
             bColor="primary"
@@ -145,8 +158,9 @@ const ButtonsPanel: React.FC<IButtonsPanelProps> = ({
               Create Clip
             </Text>
           </Button>
-        </DesktopButtonWrapper>
-        <DesktopButtonWrapper>
+        </DesktopButtonWrapper>)}
+
+        {adminOnly && (<DesktopButtonWrapper>
           <Button
             bColor="primary"
             bSize="small"
@@ -156,7 +170,8 @@ const ButtonsPanel: React.FC<IButtonsPanelProps> = ({
               Add Event
             </Text>
           </Button>
-        </DesktopButtonWrapper>
+        </DesktopButtonWrapper>)}
+
         <DesktopButtonWrapper>
           <RWebShare
             data={{

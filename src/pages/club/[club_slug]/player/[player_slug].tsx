@@ -24,8 +24,10 @@ const PlayerPage: React.FC = ({ club_slug, player_slug }: any) => {
 
   useSubscription(PLAYERQL.SUB_PLAYER, {
     variables: {
-      club_slug,
-      player_slug,
+      where: {
+        club: { slug: { _eq: club_slug } },
+        slug: { _eq: player_slug },
+      },
     },
     onSubscriptionData({ subscriptionData: { data } }) {
       data && setPlayer(data.players_details[0]);
@@ -42,7 +44,7 @@ const PlayerPage: React.FC = ({ club_slug, player_slug }: any) => {
           alignItems="center"
         >
           <AiOutlineWarning size={100} />
-          <Text fSize={17}>{"No Data"}</Text>
+          <Text fSize={1.0625}>{"No Data"}</Text>
         </Row>
       </>
     );

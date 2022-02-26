@@ -1,11 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { ContainerWrapper } from "components/Container";
 import { ContentWrapper, Content } from "./tabcontainer.style";
 import { commonItem } from "types/common/common";
 import { Col, Row } from "components/Layout";
 import TabsView from "./Tabs";
 import CommentaryView from "./Commentary";
-import CreateClipView from "./CreateClip";
 // import TeamView from "./Team";
 import { Text } from "components/Text";
 import MatchStatsView from "./MatchStats";
@@ -16,12 +15,15 @@ import { themeGet } from "@styled-system/theme-get";
 import { ScreenContext } from "hooks/context/ScreenContext";
 import { ButtonsPanel } from "sections/club/stream";
 import SetThumbnailView from "./SetThumbnail";
+import { siteSettings } from "hooks";
+import _ from "lodash";
 
-const menudata: commonItem[] = [
+const menudataRaw: commonItem[] = [
   {
     title: "Commentary",
     path: "commentary",
     component: <CommentaryView />,
+    display: siteSettings("game_day_page.commentary_tab"),
   },
   // {
   //   title: "Team",
@@ -32,18 +34,24 @@ const menudata: commonItem[] = [
     title: "Match Stats",
     path: "match-stats",
     component: <MatchStatsView />,
+    display: siteSettings("game_day_page.match_stats_tab"),
   },
   {
     title: "Media Gallery",
     path: "media-gallery",
     component: <MediaGalleryView />,
+    display: siteSettings("game_day_page.media_gallery_tab"),
   },
   {
     title: "Game Day Writeup",
     path: "game-day-writeup",
     component: <GameDayWriteupView />,
+    display: siteSettings("game_day_page.gameday_write_up"),
   },
 ];
+
+const menudata = _.filter(menudataRaw, ["display", true]);
+
 const TabContainerView: React.FC = () => {
   const [select, setSelect] = useState<string>(menudata[0].path);
   const [show, setEventShow] = useState<"" | "scoring" | "keyMoments">("");
@@ -53,7 +61,7 @@ const TabContainerView: React.FC = () => {
   const onHandleSelect = (item: string) => {
     setSelect(item);
   };
-  const setThumbnailFlag  = () => {
+  const setThumbnailFlag = () => {
     setFlagThumb(!thumbFlag);
   };
 

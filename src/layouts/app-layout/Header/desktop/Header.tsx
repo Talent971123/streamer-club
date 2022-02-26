@@ -34,13 +34,16 @@ export const DeskHeader = (props: any) => {
   const handleMenuClick = (to: any) => {
     move(to);
   };
+
+  const paramName = !_.isUndefined(user) ? `${user?.first_name ?? ''} ${user?.last_name ?? user?.email}` : '';
+
   const dropdownItems = (
     <StyledMenu>
 
       {siteSettings('header_menu.profile') && <StyledItemMenu
         key="0"
         onClick={() =>
-          handleMenuClick(user ? `/club/${param.club_slug}/profile` : "")
+          handleMenuClick(`/profile?n=${encodeURI(paramName)}`)
         }
       >
         <Text fColor="white" fSize={0.875} tAlign="center">
@@ -118,7 +121,7 @@ export const DeskHeader = (props: any) => {
                       tAlign="center"
                       padding="10px 10px"
                     >
-                      {user?.name}
+                      {`${user?.first_name ?? ''} ${user?.last_name ?? user?.email}`}
                     </Text>
                   </Col>
                   <Col className="ImageWrapper">
@@ -155,10 +158,10 @@ export const DeskHeader = (props: any) => {
                       <Button
                         bColor="warning"
                         bSize="big"
-                        css={{ width: "110px", height: "20px", fontSize: 14 }}
-                        onClick={() => handleMenuClick("/api/auth/signup")}
+                        css={{ width: "140px", height: "20px", fontSize: 14 }}
+                        onClick={() => handleMenuClick("/api/auth/login")}
                       >
-                        {"Sign up"}
+                        {"Login / Sign up"}
                       </Button>
                     </Col>
                   )}

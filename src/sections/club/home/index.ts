@@ -1,4 +1,4 @@
-export { default as HeadView } from "./Head";
+// export { default as HeadView } from "./Head";
 export { default as GameDayView } from "./GameDay";
 export { default as ReplyView } from "./Reply";
 export { default as ClipView } from "./Clip";

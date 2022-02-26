@@ -26,3 +26,12 @@ export const muxGetAuthToken = Buffer.from(
 ).toString("base64");
 
 export const muxAssetBaseUrl = process.env.NEXT_PUBLIC_MUX_ASSET_BASE_URL;
+
+export const USER_ROLE = {
+  ADMIN: 1,
+  TEAM_ADMIN: 2,
+  CLUB_ADMIN: 3,
+  PLAYER: 4,
+  USER: 5,
+  FAN: 6,
+};

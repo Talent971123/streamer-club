@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import { Router, useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 // import component
 import { Text } from "components/Text";
 import { Col, Row } from "components/Layout";
 import { ScrollingCarousel } from "@trendyol-js/react-carousel";
 import { useLinkItem } from "components/hoc";
 import { SlideArrow } from "components/Button/Button";
+import { MatchSkeleton } from "components/Skeleton";
 // import styled component
 import { GameDayWrapper, LinkWrapper } from "./gameday.style";
 import { CardBody } from "theme/global.state";
@@ -19,7 +20,7 @@ import { progressText, thumbNailLink } from "utils/common-helper";
 import ThumbCard from "components/Card/ThumbCard";
 import { connect } from "react-redux";
 
-import _ from 'lodash'
+import _ from "lodash";
 
 const SeeAll = useLinkItem(LinkWrapper);
 
@@ -31,17 +32,24 @@ const GameDayView: React.FC = (props: any) => {
       ? { status: { _neq: "completed" }, is_historic: { _eq: false } }
       : { status: { _eq: "completed" } };
 
-  const [data, setData] = useState([]);
-  useSubscription(subscribe.SUB_FILTER_MATCHES, {
+  const [pack, setPack] = useState([]);
+
+  const { loading, data } = useSubscription(subscribe.SUB_FILTER_MATCHES, {
     variables: {
       where: {
         ...variables,
       },
     },
-    onSubscriptionData({ subscriptionData: { data } }) {
-      data && setData(type === "Replays" ? _.reverse(data.matches) : data.matches);
-    },
   });
+
+  useEffect(() => {
+    setPack(
+      data && (type === "Replays" ? _.reverse(data.matches) : data.matches)
+    );
+  }, [data]);
+
+  // const pack =
+  //   data && (type === "Replays" ? _.reverse(data.matches) : data.matches);
 
   // const onHandleSeeAll = () => {
   //   if (type !== "Replays") {
@@ -53,8 +61,8 @@ const GameDayView: React.FC = (props: any) => {
 
   const getSlug = (id: number): string => {
     const club = _.find(props.siteClubs, { id });
-    return club?.slug ? club?.slug : ''
-  }
+    return club?.slug ? club?.slug : "";
+  };
 
   const onHandleClick = (id: number, clubId: number) => {
     if (type !== "Replays") {
@@ -84,36 +92,50 @@ const GameDayView: React.FC = (props: any) => {
             leftIcon={<SlideArrow position="left" />}
             rightIcon={<SlideArrow position="right" />}
           >
-            {data.map((match: any, index: number) => {
-              const item: GameCardProps = {
-                id: match.id,
-                backgroundImage: thumbNailLink(match.video_asset_id, 200, match?.thumbnail_url),
-                clubImage1: match.home_team.club.logo,
-                clubName1: match.home_team.club.display_name,
-                clubImage2: match.away_team.club.logo,
-                clubName2: match.away_team.club.display_name,
-                leagueImage: match.league.logo ? match.league.logo : marker,
-                leagueName: match.league.name,
-                roundName: match.round_name,
-                matchName: match.name,
-                mode: type !== "Replays" ? "Day" : "Replay",
-                progress: progressText(match.start_datetime, match.status),
-                isLive:
-                  progressText(match.start_datetime, match.status) ===
-                  "In Progress",
-                users: 0, //TODO: get the number of users watching
-                date: match.start_datetime,
-              };
+            {loading
+              ? [1, 2, 3, 4, 5, 6].map((item: number) => {
+                  return (
+                    <CardBody key={`game-day-view-key-${item}`}>
+                      <MatchSkeleton mode={type} />
+                    </CardBody>
+                  );
+                })
+              : pack?.map((match: any, index: number) => {
+                  const item: GameCardProps = {
+                    id: match.id,
+                    backgroundImage: thumbNailLink(
+                      match.video_asset_id,
+                      200,
+                      match?.thumbnail_url
+                    ),
+                    clubImage1: match.home_team.club.logo,
+                    clubName1: match.home_team.club.display_name,
+                    clubImage2: match.away_team.club.logo,
+                    clubName2: match.away_team.club.display_name,
+                    leagueImage: match.league.logo ? match.league.logo : marker,
+                    leagueName: match.league.name,
+                    roundName: match.round_name,
+                    matchName: match.name,
+                    mode: type !== "Replays" ? "Day" : "Replay",
+                    progress: progressText(match.start_datetime, match.status),
+                    isLive:
+                      progressText(match.start_datetime, match.status) ===
+                      "In Progress",
+                    users: 0, //TODO: get the number of users watching
+                    date: match.start_datetime,
+                  };
 
-              return (
-                <CardBody key={`game-day-view-key${index}`} >
-                  <ThumbCard
-                    {...item}
-                    handleClick={() => onHandleClick(match.id, match.club_id)}
-                  />
-                </CardBody>
-              );
-            })}
+                  return (
+                    <CardBody key={`game-day-view-key${index}`}>
+                      <ThumbCard
+                        {...item}
+                        handleClick={() =>
+                          onHandleClick(match.id, match.club_id)
+                        }
+                      />
+                    </CardBody>
+                  );
+                })}
           </ScrollingCarousel>
         </Col>
       </Row>

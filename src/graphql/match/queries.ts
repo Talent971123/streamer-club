@@ -11,5 +11,5 @@ const GET_SAVED_MATCHES = gql`
 
 // ---------
 export default {
-  GET_SAVED_MATCHES,
+  GET_SAVED_MATCHES
 };

@@ -1,2 +1,1 @@
-export { default as ScoreBoard } from "./Scoreboard";
-export { default as ScoreTime } from "./Scoretime";
+export { default as AussieScore } from "./AussieRules";

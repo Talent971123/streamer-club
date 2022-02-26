@@ -1,27 +1,30 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 // import { Player } from "bitmovin-player";
 import { UIFactory } from "bitmovin-player-ui";
 
 import { connect } from "react-redux";
 import { setLiveShow } from "redux/actions/watch";
-import { DisplayWrpper } from "./bitmovin.styles";
-import Script from 'next/script'
 
-interface videoProps {
-  playback_id?: string;
-  setLiveShow?: any;
-}
+import { DisplayWrpper, DisplayContainer } from "./bitmovin.styles";
+import CustomeLoading from "components/Loading/CustomLoading";
+
+import Script from "next/script";
 
 declare global {
   interface Window {
-    bitmovin:any;
-    initBitmovinMux:any;
+    bitmovin: any;
+    initBitmovinMux: any;
   }
 }
 
-const VideoPlayer: React.FC<videoProps> = ({ playback_id, setLiveShow }) => {
+const VideoPlayer = (props: any) => {
+  const { playback_id, setLiveShow, children } = props;
+
+  const [loading, setLoading] = useState<boolean>(false);
 
   const videoRef = useRef<any>(null);
+  // const timelabel = useRef<any>(null);
+
   const playerConfig = {
     key: process.env.NEXT_PUBLIC_BITMOVIN_ENV || "",
     playback: {
@@ -67,34 +70,56 @@ const VideoPlayer: React.FC<videoProps> = ({ playback_id, setLiveShow }) => {
 
   useEffect(() => {
     const checkBitmovinExist = () => {
-      if(!window.bitmovin) {
+      if (!window.bitmovin) {
         return setTimeout(() => {
-          checkBitmovinExist()
-        }, 1000)
+          checkBitmovinExist();
+        }, 1000);
       }
       setupPlayer();
-    }
+    };
     checkBitmovinExist();
-  }, []);
+  }, [loading]);
 
-
+  // useEffect(() => {
+  // console.log(
+  //   document.getElementsByClassName("bmpui-ui-playbacktimelabel")[0]
+  //     .textContent
+  // );
+  // }, [loading]);
 
   const setupPlayer = () => {
     // Record the player init time
     const playerInitTime = Date.now();
-    
-    const player = new window.bitmovin.player.Player(videoRef.current, playerConfig);
+
+    const player = new window.bitmovin.player.Player(
+      videoRef.current,
+      playerConfig
+    );
+
     UIFactory.buildDefaultUI(player);
     if (playback_id) {
       player.load(playerSource).then(
         () => {
           setLiveShow(true);
+          setLoading(true);
         },
         () => {
           setLiveShow(false);
+          setLoading(true);
           // toast.error("Error while loading source");
         }
       );
+
+      console.log(
+        document.getElementsByClassName("bmpui-ui-playbacktimelabel")[0]
+          .textContent
+      );
+
+      // useMe
+
+      player.on("timechanged", () => {
+        console.log(player.getCurrentTime());
+      });
 
       // console.log('bitmovinMux',bitmovinMux)
       window.initBitmovinMux(player, {
@@ -102,27 +127,34 @@ const VideoPlayer: React.FC<videoProps> = ({ playback_id, setLiveShow }) => {
         data: {
           env_key: playerConfig.key, // required
           // Metadata
-          player_name: 'My Main Player', // ex: 'My Main Player'
-          player_init_time: playerInitTime // ex: 1451606400000
+          player_name: "My Main Player", // ex: 'My Main Player'
+          player_init_time: playerInitTime, // ex: 1451606400000
           // ... and other metadata
-        }
+        },
       });
     }
   };
 
   return (
-    <>
+    <DisplayContainer>
       <div id="player">
-        <Script src="https://bitmovin-a.akamaihd.net/bitmovin-player/stable/8/bitmovinplayer.js" 
-         strategy="afterInteractive"
+        <Script
+          src="https://bitmovin-a.akamaihd.net/bitmovin-player/stable/8/bitmovinplayer.js"
+          strategy="afterInteractive"
         />
-        <Script src="https://src.litix.io/bitmovin/5/bitmovin-mux.js" 
-         strategy="afterInteractive"
+        <Script
+          src="https://src.litix.io/bitmovin/5/bitmovin-mux.js"
+          strategy="afterInteractive"
         />
 
-        <DisplayWrpper id="player-container" ref={videoRef} />
+        <DisplayWrpper id="player-container" ref={videoRef} loading={!loading}>
+          {children}
+        </DisplayWrpper>
+        <DisplayWrpper loading={loading}>
+          <CustomeLoading />
+        </DisplayWrpper>
       </div>
-    </>
+    </DisplayContainer>
   );
 };
 

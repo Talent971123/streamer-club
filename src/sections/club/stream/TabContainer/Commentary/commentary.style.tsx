@@ -1,8 +1,34 @@
 import styled, { css } from "styled-components";
 import { themeGet } from "@styled-system/theme-get";
-import { Select } from "antd";
+import { Form, Select, TimePicker } from "antd";
 
 export const CommentaryWrapper = styled.div``;
+
+export const StyledForm = styled(Form)`
+  width: 100%; 
+  padding: 0;
+  margin: 0;
+`;
+
+export const StyledFormItem = styled(Form.Item)`
+  width: 100%; 
+  padding: 0;
+  margin: 0;
+`;
+
+export const StyledTimePicker = styled(TimePicker)`
+  width: 100%;
+  margin-bottom: 6px;
+  padding: 10px 30px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background-color: ${themeGet("colors.gray.600")};
+  .ant-picker-input > input {
+    color: ${themeGet("colors.gray.300")};
+  }
+`;
+
 
 export const ContentWrapper = styled.div`
   margin: 5px 0;
@@ -11,12 +37,12 @@ export const ContentWrapper = styled.div`
   padding: 20px;
 `;
 
-export const Border = styled.div<{ mode: number }>`
+export const Border = styled.div<{ mode: string }>`
   min-height: 100%;
   width: 5px;
   background-color: ${themeGet("colors.gray.300")};
   ${({ mode }) => {
-    if (mode === 0) {
+    if (mode === "Goal") {
       return css`
         background-color: ${themeGet("colors.red.100")};
       `;
@@ -35,7 +61,7 @@ export const DropdownContainer = styled(Select)`
   width: 100%;
   min-height: 44px;
   max-height: 140px;
-  border-radius: 7px;
+  border-radius: 8px;
   overflow: auto;
   contain: content;
   background-color: ${themeGet("colors.gray.600")};

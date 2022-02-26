@@ -18,11 +18,13 @@ const ADD_PLAYER = gql`
   }
 `;
 
-const ADD_USER_PLAYER = gql`mutation InsertUserPlayer($objects: [players_details_insert_input!] = {}) {
-  insert_players_details(objects: $objects) {
-    affected_rows
+const ADD_USER_PLAYER = gql`
+  mutation InsertUserPlayer($objects: [players_details_insert_input!] = {}) {
+    insert_players_details(objects: $objects) {
+      affected_rows
+    }
   }
-}`
+`;
 
 const SUB_ALL_CLUBS = gql`
   subscription SubAllClubs {
@@ -40,53 +42,53 @@ const SUB_ALL_CLUBS = gql`
  * TODO: transfer to common query file
  * */
 const SUB_CLUB = gql`
-subscription MyClubSubscription($club_slug: String!) {
-  clubs(where: {slug: {_eq: $club_slug}}) {
-    name
-    banner_image
-    logo
-    id
-    slug
-    address_1
-    address_2
-    city
-    created_at
-    postcode
-    sport_id
-    state
-    teams {
-      id
-      image
+  subscription MyClubSubscription($club_slug: String!) {
+    clubs(where: { slug: { _eq: $club_slug } }) {
       name
+      banner_image
+      logo
+      id
       slug
-      division
-      league_id
+      address_1
+      address_2
+      city
+      created_at
+      postcode
+      sport_id
+      state
+      teams {
+        id
+        image
+        name
+        slug
+        division
+        league_id
+        players {
+          id
+          user {
+            first_name
+            last_name
+          }
+        }
+      }
       players {
         id
+        image
         user {
           first_name
           last_name
         }
-      }
-    }
-    players {
-      id
-      image
-      user {
-        first_name
-        last_name
-      }
-      positions
-      team_id
-      club_id
-      slug
-      is_professional
-      team {
-        name
+        positions
+        team_id
+        club_id
+        slug
+        is_professional
+        team {
+          name
+        }
       }
     }
   }
-}
 `;
 
 const SUB_ALL_TEAMS = gql`
@@ -128,11 +130,11 @@ const UPDATE_TEAM_BY_ID = gql`
 `;
 
 const UPDATE_CLUB_BY_ID = gql`
-mutation UpdateClubById($id: Int!, $_set: clubs_set_input = {}) {
-  update_clubs_by_pk(pk_columns: {id: $id}, _set: $_set) {
-    updated_at
+  mutation UpdateClubById($id: Int!, $_set: clubs_set_input = {}) {
+    update_clubs_by_pk(pk_columns: { id: $id }, _set: $_set) {
+      updated_at
+    }
   }
-}
 `;
 // ---------
 export default {

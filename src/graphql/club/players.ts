@@ -5,8 +5,8 @@ import { gql } from "@apollo/client";
  * TODO: transfer to common query file
  * */
 const GET_PLAYERS = gql`
-  query PlayersQuery($club_slug: String!) {
-    players_details(where: { club: { slug: { _eq: $club_slug } } }) {
+  query PlayersQuery($where: players_details_bool_exp = {}) {
+    players_details(where: $where) {
       id
       image
       slug
@@ -20,17 +20,13 @@ const GET_PLAYERS = gql`
     }
   }
 `;
+
 /** gql
  * TODO: transfer to common query file
  * */
 const SUB_PLAYER = gql`
-  subscription MyPlayerQuery($club_slug: String!, $player_slug: String!) {
-    players_details(
-      where: {
-        club: { slug: { _eq: $club_slug } }
-        slug: { _eq: $player_slug }
-      }
-    ) {
+  subscription MyPlayerQuery($where: players_details_bool_exp = {}) {
+    players_details(where: $where) {
       active
       bio
       club_id
@@ -120,29 +116,35 @@ const UPDATE_PLAER_BY_ID = gql`
   }
 `;
 
-export const UPDATE_USER_PLAYERS = gql`mutation UpdatePlayerUser(
-  $pid: Int!, 
-  $po_object: players_details_set_input!, 
-  $uid: Int!, 
-  $user_object: users_set_input!
+export const UPDATE_USER_PLAYERS = gql`
+  mutation UpdatePlayerUser(
+    $pid: Int!
+    $po_object: players_details_set_input!
+    $uid: Int!
+    $user_object: users_set_input!
   ) {
-  update_players_details(where: {id: {_eq: $pid}}, _set: $po_object) {
-    affected_rows
+    update_players_details(where: { id: { _eq: $pid } }, _set: $po_object) {
+      affected_rows
+    }
+    update_users(where: { id: { _eq: $uid } }, _set: $user_object) {
+      affected_rows
+    }
   }
-  update_users(where: {id: {_eq: $uid}}, _set: $user_object) {
-    affected_rows
-  }
-}`
+`;
 
-const GET_PLAYER_FEATURED_CLIPS = gql`{
-  player_featured_clips {
-    video_asset_id
-    created_at
+const GET_PLAYER_FEATURED_CLIPS = gql`
+  {
+    player_featured_clips {
+      video_asset_id
+      created_at
+    }
   }
-}`
+`;
 
 const INSERT_PLAYER_FEATURED_CLIP = gql`
-  mutation InsertPlayerFeaturedClipMutation($objects: [player_featured_clips_insert_input!] = {}) {
+  mutation InsertPlayerFeaturedClipMutation(
+    $objects: [player_featured_clips_insert_input!] = {}
+  ) {
     insert_player_featured_clips(objects: $objects) {
       affected_rows
     }
@@ -157,5 +159,5 @@ export default {
   UPDATE_PLAER_BY_ID,
   UPDATE_USER_PLAYERS,
   GET_PLAYER_FEATURED_CLIPS,
-  INSERT_PLAYER_FEATURED_CLIP
+  INSERT_PLAYER_FEATURED_CLIP,
 };

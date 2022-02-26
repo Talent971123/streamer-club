@@ -23,6 +23,9 @@ import { siteSettings } from "hooks";
 
 const ToolBarView: React.FC = (props: any) => {
   const { isLive } = props;
+
+  console.log(props);
+
   const { home_name, away_name, home_logo, away_logo } =
     useContext(StreamPageContext);
   const router = useRouter();

@@ -117,8 +117,46 @@ const SUB_FILTER_MATCHES = gql`
   }
 `;
 
+const SUB_SAVED_MATCHES = gql`subscription SubSavedMatches($where: saved_matches_bool_exp = {}) {
+  saved_matches(where: $where) {
+    id
+    match {
+      id
+      video_asset_id
+      round_name
+      name
+      start_datetime
+      status
+      thumbnail_url
+      is_historic
+      league {
+        logo
+        name
+      }
+      home_team {
+        division
+        club {
+          logo
+          name
+          display_name
+          slug
+        }
+      }
+      away_team {
+        division
+        club {
+          logo
+          name
+          display_name
+        }
+      }
+    }
+  }
+}`
+
 // // ---------
 export default {
   SUB_MATCHES,
   SUB_FILTER_MATCHES,
+  SUB_SAVED_MATCHES
 };

@@ -9,6 +9,7 @@ const matchReducer = (
   switch (action.type) {
     case t.SET_LIVE_WATCH:
       return { ...state, live: action.payload };
+
     default:
       return { ...state };
   }

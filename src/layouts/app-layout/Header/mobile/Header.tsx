@@ -37,12 +37,15 @@ export const MobileHeader = (props: any) => {
     move(to);
     setShow(false);
   };
+
+  const paramName = !_.isUndefined(user) ? `${user?.first_name} ${user?.last_name}` : '';
+
   const dropdownItems = (
     <StyledMenu>
       <StyledItemMenu
         key="0"
         onClick={() =>
-          handleMenuClick(user ? `/club/${param.club_slug}/profile` : "")
+          handleMenuClick(`/profile?n=${encodeURI(paramName)}`)
         }
       >
         <Text fColor="white" fSize={0.875} tAlign="center">
@@ -146,17 +149,17 @@ export const MobileHeader = (props: any) => {
               </MenuItem>
             );
           })}
-        {show && siteSettings('header_menu.login') && (
+        {show && siteSettings('header_menu.sign_up') && (
           <MenuItem
             mode="true"
-            onClick={() => handleMenuClick(user ? "logout" : "login")}
+            onClick={() => handleMenuClick(user ? "/api/auth/logout" : "/api/auth/login")}
           >
             <Text
               fColor="white"
               fSize={1}
               hoverStyle={{ fColor: "white.200", hfWeight: "700" }}
             >
-              {user ? "Log Out" : "Login"}
+              {user ? "Log Out" : "Login / Sign up"}
             </Text>
           </MenuItem>
         )}

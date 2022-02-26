@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 // import component
 import { Col, Row } from "components/Layout";
@@ -6,6 +6,7 @@ import { Text } from "components/Text";
 import { ScrollingCarousel } from "@trendyol-js/react-carousel";
 import { useLinkItem } from "components/hoc";
 import { IoArrowRedoOutline } from "react-icons/io5";
+import { AvatarSkeleton } from "components/Skeleton";
 // import styled component
 import { SlideArrow } from "components/Button/Button";
 import { GameDayWrapper, LinkWrapper } from "./club.style";
@@ -20,14 +21,15 @@ import { TEAMQL } from "graphql/club";
 const SeeAll = useLinkItem(LinkWrapper);
 
 const ClubView: React.FC = (props: any) => {
-  const [data, setData] = useState([]);
   const router = useRouter();
-  useSubscription(TEAMQL.SUB_CLUB_FILTER, {
+  const [pack, setPack] = useState([]);
+  const { loading, data } = useSubscription(TEAMQL.SUB_CLUB_FILTER, {
     variables: {},
-    onSubscriptionData({ subscriptionData: { data } }) {
-      data && setData(data.clubs);
-    },
   });
+
+  useEffect(() => {
+    setPack(data && data.clubs);
+  }, [data]);
 
   // const onHandleSeeAll = () => {
   //   router.push(`/main/clubs`);
@@ -36,6 +38,7 @@ const ClubView: React.FC = (props: any) => {
   const onHandleClick = (slug: string) => {
     router.push(`/club/${slug}`);
   };
+
   return (
     <GameDayWrapper>
       <Row alignItems="center" justifyContent="space-between">
@@ -52,30 +55,36 @@ const ClubView: React.FC = (props: any) => {
       </Row>
       <Row padding="10px 0 0 0">
         <Col item={24}>
-          {
-            <ScrollingCarousel
-              leftIcon={<SlideArrow position="left" />}
-              rightIcon={<SlideArrow position="right" />}
-            >
-              {data.map((club: any, index: number) => {
-                const item: ClipProps = {
-                  id: club.id,
-                  backgroundImage: club.logo,
-                  mode: "club",
-                  content: club.name,
-                };
+          <ScrollingCarousel
+            leftIcon={<SlideArrow position="left" />}
+            rightIcon={<SlideArrow position="right" />}
+          >
+            {loading
+              ? [1, 2, 3, 4, 5, 6].map((item: number) => {
+                  return (
+                    <ClubBody key={`game-day-view-key-${item}`}>
+                      <AvatarSkeleton />
+                    </ClubBody>
+                  );
+                })
+              : pack?.map((club: any, index: number) => {
+                  const item: ClipProps = {
+                    id: club.id,
+                    backgroundImage: club.logo,
+                    mode: "club",
+                    content: club.name,
+                  };
 
-                return (
-                  <ClubBody key={`club-body-key-${index}`} >
-                    <ClipCard
-                      {...item}
-                      handleClick={() => onHandleClick(club.slug)}
-                    />
-                  </ClubBody>
-                );
-              })}
-            </ScrollingCarousel>
-          }
+                  return (
+                    <ClubBody key={`club-body-key-${index}`}>
+                      <ClipCard
+                        {...item}
+                        handleClick={() => onHandleClick(club.slug)}
+                      />
+                    </ClubBody>
+                  );
+                })}
+          </ScrollingCarousel>
         </Col>
       </Row>
     </GameDayWrapper>

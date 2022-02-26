@@ -158,33 +158,6 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
     img: {
       maxWidth: "100%",
     },
-    ".bmpui-ui-uicontainer": {
-      fontFamily: "HeyWow !important",
-      fontSize: "1.1rem !important",
-    },
-    ".bmpui-ui-watermark": {
-      display: "none",
-    },
-    ".bmpui-seekbar-playbackposition": {
-      backgroundColor: `${get(theme, "colors.primary.regular")} !important`,
-    },
-    ".bmpui-seekbar-playbackposition-marker": {
-      border: `.35rem solid ${get(theme, "colors.primary.regular")} !important`,
-    },
-    ".bmpui-ui-selectbox": {
-      color: `${get(theme, "colors.primary.regular")} !important`,
-    },
-    ".bmpui-ui-fullscreentogglebutton bmpui-off": {
-      filter: "unset !important",
-    },
-    ".bmpui-on.bmpui-ui-audiotracksettingstogglebutton:hover, .bmpui-on.bmpui-ui-settingstogglebutton:hover":
-      {
-        filter: "invert(1) !important",
-      },
-
-    ".bmpui-ui-fullscreentogglebutton.bmpui-on": {
-      filter: "invert(1) !important",
-    },
 
     // custom
     "#nprogress": {

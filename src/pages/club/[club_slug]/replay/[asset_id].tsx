@@ -42,7 +42,11 @@ export const getServerSideProps = async (context: any) => {
 
   const { data } = await apolloClient.query({
     query: query.GET_MATCH,
-    variables: { asset_id },
+    variables: {
+      where: {
+        id: { _eq: asset_id },
+      },
+    },
   });
 
   const match = data.matches[0];
@@ -51,13 +55,16 @@ export const getServerSideProps = async (context: any) => {
     props: {
       streamInfo: {
         playback_id: match.video_asset_id,
+        home_id: match.home_team.id,
         home_name: match.home_team.club.name,
         home_logo: match.home_team.club.logo,
+        away_id: match.away_team.id,
         away_name: match.away_team.club.name,
         away_logo: match.away_team.club.logo,
         home_players: match.home_team.players,
         away_players: match.away_team.players,
         match_id: match.id,
+        scores: match.scores,
       },
     },
   };

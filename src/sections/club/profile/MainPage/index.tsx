@@ -438,29 +438,29 @@ const ProfilePage: React.FC = (props: any) => {
                 leftIcon={<SlideArrow position="left" />}
                 rightIcon={<SlideArrow position="right" />}
               >
-                {players &&
-                  players.map((player: any, index: number) => {
-                    const item: ClipProps = {
-                      id: player.id,
-                      backgroundImage: player.image,
-                      title: `${player?.user?.first_name ?? ""} ${player?.user?.last_name ?? ""
-                        }`,
-                      mode: "player",
-                      content: player.team?.name,
-                    };
+                {players?.map((player: any, index: number) => {
+                  const item: ClipProps = {
+                    id: player.id,
+                    backgroundImage: player.image,
+                    title: `${player?.user?.first_name ?? ""} ${
+                      player?.user?.last_name ?? ""
+                    }`,
+                    mode: "player",
+                    content: player.team?.name,
+                  };
 
-                    return (
-                      <CarouselBody>
-                        <ClipCard
-                          {...item}
-                          key={index}
-                          handleClick={() => {
-                            onHandleClick(player.slug), setRouteData("player");
-                          }}
-                        />
-                      </CarouselBody>
-                    );
-                  })}
+                  return (
+                    <CarouselBody>
+                      <ClipCard
+                        {...item}
+                        key={index}
+                        handleClick={() => {
+                          onHandleClick(player.slug), setRouteData("player");
+                        }}
+                      />
+                    </CarouselBody>
+                  );
+                })}
               </ScrollingCarousel>
             </Col>
           </Row>
@@ -493,7 +493,11 @@ const ProfilePage: React.FC = (props: any) => {
                   matches.map((match: any, index: number) => {
                     const item: GameCardProps = {
                       id: match.id,
-                      backgroundImage: thumbNailLink(match.video_asset_id, 200, match?.thumbnail_url),
+                      backgroundImage: thumbNailLink(
+                        match.video_asset_id,
+                        200,
+                        match?.thumbnail_url
+                      ),
                       clubImage1: match.home_team.club.logo,
                       clubName1: match.home_team.club.name,
                       clubImage2: match.away_team.club.logo,
@@ -551,7 +555,11 @@ const ProfilePage: React.FC = (props: any) => {
                 {savedReelsData.map((reel: any, index: number) => {
                   const item: any = {
                     id: reel.id,
-                    backgroundImage: thumbNailLink(reel.video_asset_id, 200, reel?.thumbnail_url),
+                    backgroundImage: thumbNailLink(
+                      reel.video_asset_id,
+                      200,
+                      reel?.thumbnail_url
+                    ),
                     clubImage1: reel.home_team.club.logo,
                     clubName1: reel.home_team.club.name,
                     clubImage2: reel.away_team.club.logo,
