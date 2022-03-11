@@ -38,6 +38,26 @@ export const MobileHeader = (props: any) => {
     setShow(false);
   };
 
+  if (asPath.includes('/club/')) {
+    if (!menu.filter(e => e.title === "Club Home").length) {
+      menu.shift()
+
+      menu.unshift({
+        display: true,
+        path: `/club/${param.club_slug}`,
+        public: true,
+        title: "Club Home"
+      })
+
+      menu.unshift({
+        display: true,
+        path: "/",
+        public: true,
+        title: "Streamer Home"
+      })
+    }
+  }
+
   const paramName = !_.isUndefined(user) ? `${user?.first_name} ${user?.last_name}` : '';
 
   const dropdownItems = (
@@ -131,7 +151,7 @@ export const MobileHeader = (props: any) => {
         </Row>
       </ContainerWrapper>
       <MenuItemBody>
-        {show &&
+        { show && 
           menu.map((item: any, index: number) => {
             return (
               <MenuItem

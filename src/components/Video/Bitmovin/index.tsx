@@ -73,19 +73,13 @@ const VideoPlayer = (props: any) => {
       if (!window.bitmovin) {
         return setTimeout(() => {
           checkBitmovinExist();
-        }, 1000);
+        }, 500);
       }
       setupPlayer();
     };
     checkBitmovinExist();
-  }, [loading]);
 
-  // useEffect(() => {
-  // console.log(
-  //   document.getElementsByClassName("bmpui-ui-playbacktimelabel")[0]
-  //     .textContent
-  // );
-  // }, [loading]);
+  }, [loading]);
 
   const setupPlayer = () => {
     // Record the player init time
@@ -96,8 +90,9 @@ const VideoPlayer = (props: any) => {
       playerConfig
     );
 
-    UIFactory.buildDefaultUI(player);
-    if (playback_id) {
+    if (!loading) {
+
+      UIFactory.buildDefaultUI(player);
       player.load(playerSource).then(
         () => {
           setLiveShow(true);
@@ -106,20 +101,8 @@ const VideoPlayer = (props: any) => {
         () => {
           setLiveShow(false);
           setLoading(true);
-          // toast.error("Error while loading source");
         }
       );
-
-      console.log(
-        document.getElementsByClassName("bmpui-ui-playbacktimelabel")[0]
-          .textContent
-      );
-
-      // useMe
-
-      player.on("timechanged", () => {
-        console.log(player.getCurrentTime());
-      });
 
       // console.log('bitmovinMux',bitmovinMux)
       window.initBitmovinMux(player, {

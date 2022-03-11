@@ -5,10 +5,13 @@ import { useMutation } from "@apollo/client";
 import { PLAYERQL, USERQL } from "graphql/club";
 
 import { Button } from "components/Button";
-import { Avatar } from "components/Avatar";
 import { Col, Row } from "components/Layout";
 import { ImageCrop_Modal } from "components/Modal";
 import ButtonLoading from "components/Loading/ButtonLoading";
+import DeskClub from "./club/desktop";
+import MobileClub from "./club/mobile";
+import TabletClub from "./club/tablet";
+
 import {
   ProfileWrapper,
   ContentWrapper,
@@ -20,6 +23,9 @@ import {
   CustomDatePicker,
   CustomText,
   CustomForm,
+  ImageContent,
+  PlayerDetailShow,
+  PlayerBtn,
 } from "./Intro.style";
 
 import moment from "moment";
@@ -35,6 +41,10 @@ import { baseUrl } from "utils/constData";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import { UserProfile, useUser } from "@auth0/nextjs-auth0";
+import DeskProfile from "./profile/desk";
+import MobileProfile from "./profile/mobile";
+import TabletProfile from "./profile/tablet";
+
 
 const IntroSection: React.FC = (props: any) => {
   const { player } = useContext<any>(PlayerContext);
@@ -81,6 +91,8 @@ const IntroSection: React.FC = (props: any) => {
     const { first_name, last_name, ...rest } = values;
 
     // setisSubmit(true);
+    console.log("test", rest) ;
+    return
 
     await update({
       variables: {
@@ -88,7 +100,7 @@ const IntroSection: React.FC = (props: any) => {
         uid: player.user.id,
         po_object: {
           ...rest,
-          positions: rest.positions.split(","),
+          positions: rest && rest.positions ? rest.positions.split(",") : "",
         },
         user_object: {
           first_name,
@@ -120,9 +132,24 @@ const IntroSection: React.FC = (props: any) => {
     setShow(true);
   };
 
+  const onClickFollow = (e: any) => {
+    setShow(user ? false : true);
+  }
+
   if (!player) {
     return <></>;
   }
+
+  const option = { 
+    onClickFollow,
+    teams,
+    show,
+    onFileInputChange,
+    onTargetClick,
+    flag, 
+    setFlag,
+    isSubmit
+  };
 
   return (
     <>
@@ -140,257 +167,15 @@ const IntroSection: React.FC = (props: any) => {
         }}
       >
         <ProfileWrapper>
-          <Row gap={20}>
-            <Col>
-              <Row alignItems="flex-start">
-                <Avatar src={imageSrc} mode="medium" />
-                <input
-                  onChange={onFileInputChange}
-                  onClick={(event: any) => {
-                    event.target.value = null;
-                  }}
-                  ref={fileInputRef}
-                  type="file"
-                  style={{ display: "none" }}
-                  accept="image/png, image/jpeg"
-                />
-
-                {user && (
-                  <Button
-                    onClick={onTargetClick}
-                    bColor="primary"
-                    icon={<EditIcon />}
-                    disabled={isSubmit}
-                    css={{ border: "none" }}
-                  />
-                )}
-              </Row>
-            </Col>
-            <Col item={20}>
-              <Row alignItems="center" justifyContent="space-between">
-                <Col>
-                  <Row gap={2}>
-                    {!flag ? (
-                      <>
-                        <CustomText strong css={{ fontSize: "24px" }}>
-                          {`${player?.user?.first_name ?? ""} ${
-                            player?.user?.last_name ?? ""
-                          }`}
-                        </CustomText>
-                      </>
-                    ) : (
-                      <>
-                        <CustomForm.Item
-                          name="first_name"
-                          rules={[
-                            {
-                              required: true,
-                              message: "First Name is required.",
-                            },
-                          ]}
-                        >
-                          <CustomInput
-                            placeholder="first name"
-                            disabled={isSubmit}
-                          />
-                        </CustomForm.Item>
-                        <CustomForm.Item
-                          name="last_name"
-                          rules={[
-                            {
-                              required: true,
-                              message: "Last Name is required.",
-                            },
-                          ]}
-                        >
-                          <CustomInput
-                            placeholder="last name"
-                            disabled={isSubmit}
-                          />
-                        </CustomForm.Item>
-                      </>
-                    )}
-                  </Row>
-                </Col>
-                <Col>
-                  <Row alignItems="center" gap={10}>
-                    <CustomText>{"121 Followers"}</CustomText>
-                    {!flag ? (
-                      <>
-                        {user && (
-                          <CustomForm.Item>
-                            <Button
-                              bColor="warning"
-                              icon={<EditIcon />}
-                              onClick={() => setFlag(true)}
-                            >
-                              {"Edit"}
-                            </Button>
-                          </CustomForm.Item>
-                        )}
-                        <Button bColor="warning" icon={<FiUserPlus />}>
-                          {"Follow Player"}
-                        </Button>
-                        <RWebShare
-                          data={{
-                            text: "Share Profile",
-                            url: `${baseUrl + router.asPath}`,
-                            title: `Streamer - ${
-                              player?.user?.first_name ?? ""
-                            } ${player?.user?.last_name ?? ""}`,
-                          }}
-                        >
-                          <Button
-                            bColor="primary"
-                            bSize="small"
-                            icon={<FiShare2 />}
-                          >
-                            {"Share"}
-                          </Button>
-                        </RWebShare>
-                      </>
-                    ) : (
-                      <>
-                        <Button
-                          type="submit"
-                          bColor="warning"
-                          icon={isSubmit ? <ButtonLoading /> : <FiSave />}
-                          disabled={isSubmit}
-                        >
-                          {"Save"}
-                        </Button>
-                        <Button
-                          bColor="warning"
-                          icon={<ImCancelCircle />}
-                          onClick={() => setFlag(false)}
-                          disabled={isSubmit}
-                        >
-                          {"Cancel"}
-                        </Button>
-                      </>
-                    )}
-                  </Row>
-                </Col>
-              </Row>
-              <ContentWrapper>
-                <Row alignItems="center" justifyContent="space-between">
-                  {!flag ? (
-                    <CustomText>{player.bio}</CustomText>
-                  ) : (
-                    <CustomForm.Item name="bio" style={{ width: "100%" }}>
-                      <CustomTextArea
-                        placeholder="Bio"
-                        rows={5}
-                        disabled={isSubmit}
-                      />
-                    </CustomForm.Item>
-                  )}
-                </Row>
-              </ContentWrapper>
-            </Col>
-          </Row>
+          <DeskProfile option={option}/>
+          <TabletProfile option={option}/>
+          <MobileProfile option={option}/>
         </ProfileWrapper>
-        <ClubWrapper>
-          <Row gap={50} alignItems="flex-start" justifyContent="center">
-            <Col item={8}>
-              <Row flexDirection="column">
-                <Row alignItems="center" justifyContent="space-between">
-                  <CustomText strong css={{ fontSize: "16px" }}>
-                    {"Current Club: "}
-                  </CustomText>
-                  <CustomText>{player.club.name}</CustomText>
-                </Row>
-                {!flag ? <BottomBorder /> : <br />}
-                <Row alignItems="center" justifyContent="space-between">
-                  <CustomText strong css={{ fontSize: "16px" }}>
-                    {"Teams:"}
-                  </CustomText>
-                  {!flag ? (
-                    player.teams.map((team: { name: string }, idx: number) => (
-                      <Button
-                        key={`player-team-${idx}`}
-                        bColor="warning"
-                        disabled={isSubmit}
-                      >
-                        {team.name}
-                      </Button>
-                    ))
-                  ) : (
-                    <CustomForm.Item name="team_id" style={{ width: "70%" }}>
-                      <CustomSelect placeholder="teams" options={tlist} />
-                    </CustomForm.Item>
-                  )}
-                </Row>
-              </Row>
-            </Col>
-            <Col item={8}>
-              <Row flexDirection="column">
-                <Row alignItems="center" justifyContent="space-between">
-                  <CustomText
-                    strong
-                    css={{ fontSize: "16px", whiteSpace: "nowrap" }}
-                  >
-                    {"Debut Date: "}
-                  </CustomText>
-                  {!flag ? (
-                    <CustomText>
-                      {player.debut_date
-                        ? moment(player.debut_date).format("LL")
-                        : ""}
-                    </CustomText>
-                  ) : (
-                    <CustomForm.Item name="debut_date">
-                      <CustomDatePicker
-                        format={"YYYY/MM/DD"}
-                        placeholder="Debut Date"
-                        disabled={isSubmit}
-                      />
-                    </CustomForm.Item>
-                  )}
-                </Row>
-                {!flag ? <BottomBorder /> : <br />}
-                <Row alignItems="center" justifyContent="space-between">
-                  <CustomText strong css={{ fontSize: "16px" }}>
-                    {"Positions: "}
-                  </CustomText>
-                  {!flag ? (
-                    <CustomText>{player.positions.join(", ")}</CustomText>
-                  ) : (
-                    <CustomForm.Item name="positions">
-                      <CustomInput
-                        placeholder="positions"
-                        disabled={isSubmit}
-                      />
-                    </CustomForm.Item>
-                  )}
-                </Row>
-              </Row>
-            </Col>
-            <Col item={8}>
-              <Row flexDirection="column">
-                <Row alignItems="center" justifyContent="space-between">
-                  <CustomText
-                    strong
-                    css={{ fontSize: "16px", whiteSpace: "nowrap" }}
-                  >
-                    {"Previous Clubs: "}
-                  </CustomText>
-                  {!flag ? (
-                    <CustomText>{player.prev_club}</CustomText>
-                  ) : (
-                    <CustomForm.Item name="prev_club">
-                      <CustomInput
-                        placeholder="Previous Club"
-                        disabled={isSubmit}
-                      />
-                    </CustomForm.Item>
-                  )}
-                </Row>
-                {!flag ? <BottomBorder /> : null}
-              </Row>
-            </Col>
-          </Row>
-        </ClubWrapper>
+        
+        <DeskClub />
+        <TabletClub />
+        <MobileClub />
+
       </CustomForm>
       <ImageCrop_Modal
         show={show}

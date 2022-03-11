@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { themeGet } from "@styled-system/theme-get";
 import { Input, DatePicker, Typography, Select, Form } from "antd";
+import { defaultTheme } from "theme";
 const { TextArea } = Input;
 const { Text } = Typography;
 
@@ -16,6 +17,16 @@ export const CustomSelect = styled(Select)`
 `;
 
 export const CustomText = styled(Text)`
+  @media screen and (min-width: ${defaultTheme.mediaSize.lg}px) {
+    font-size: 2rem;
+  }
+  @media screen and (min-width: ${defaultTheme.mediaSize.md}px) {
+    font-size: 1.625rem;
+  }
+  @media screen and (max-width: ${defaultTheme.mediaSize.md}px) {
+    font-size: 1.125rem;
+    text-align: center;
+  }
   color: white;
 `;
 
@@ -63,7 +74,12 @@ export const CustomInput = styled(Input)`
 `;
 
 export const ProfileWrapper = styled.div`
-  margin: 30px 0;
+  @media screen and (min-width: ${defaultTheme.mediaSize.md}px) {
+    margin: 12px 0;
+  }
+  @media screen and (max-width: ${defaultTheme.mediaSize.md}px) {
+    margin: 58px 0;
+  }
 `;
 
 export const ContentWrapper = styled.div`
@@ -74,9 +90,30 @@ export const ContentWrapper = styled.div`
 `;
 
 export const ImageContent = styled.div`
-  contain: content;
-  width: 100%;
-  height: 100%;
+  strong {
+    display: none;
+  }
+  @media screen and (min-width: ${defaultTheme.mediaSize.lg}px) {
+    img {
+      width: 175px;
+      height: 175px;
+    }
+  }
+  @media screen and (max-width: ${defaultTheme.mediaSize.lg}px) {
+    img {
+      width: 150px;
+      height: 150px;
+    }
+  }
+  @media screen and (max-width: ${defaultTheme.mediaSize.md}px) {
+    img {
+      width: 100px;
+      height: 100px;
+    }
+    strong {
+      display: block;
+    }
+  }
   img {
     border-radius: 50%;
   }
@@ -94,4 +131,28 @@ export const BottomBorder = styled.div`
   margin: 10px 0 !important;
   height: 1px;
   background-color: ${themeGet("colors.gray.200")};
+`;
+
+export const PlayerDetailShow = styled.div`
+  @media screen and (max-width: ${defaultTheme.mediaSize.md}px) {
+    display: none;
+  }
+  @media screen and (min-width: ${defaultTheme.mediaSize.md}px) {
+    display: block;
+  }
+`;
+
+export const PlayerBtn = styled.div`
+  @media screen and (min-width: ${defaultTheme.mediaSize.lg}px) {
+    width: 144px !important;
+    height: 36px !important;
+  }
+  @media screen and (max-width: ${defaultTheme.mediaSize.lg}px) {
+    width: 136px !important;
+    height: 28px !important;
+  }
+  @media screen and (max-width: ${defaultTheme.mediaSize.md}px) {
+    width: 88px !important;
+    height: 22px !important;
+  }
 `;

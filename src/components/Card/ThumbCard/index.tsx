@@ -40,6 +40,7 @@ const ThumbCard: React.FC<GameCardProps> = ({
   handleClick,
   isLive,
   title,
+  desc,
 }) => {
   const onHandleClick = (id: number) => {
     handleClick && handleClick(id);
@@ -120,11 +121,19 @@ const ThumbCard: React.FC<GameCardProps> = ({
               </Text>
             </>
           )}
+
           {title && (
             <Text fColor="white" fSize={1} fWeight={600}>
               {title}
             </Text>
           )}
+
+          {desc && (
+            <Text fColor="white" fSize={1} fWeight={400}>
+              {desc}
+            </Text>
+          )}
+
         </CardFooter>
       </CardContent>
     </CardWrapper>

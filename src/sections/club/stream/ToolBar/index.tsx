@@ -3,7 +3,11 @@ import { connect } from "react-redux";
 
 import { useRouter } from "next/router";
 import { Text } from "components/Text";
+import { Button } from "components/Button";
+import { RWebShare } from "react-web-share";
 // icon
+import { FiShare2 } from "react-icons/fi";
+import { AiOutlineSave } from "react-icons/ai";
 import { HandIcon } from "assets/icon";
 import {
   BlackBorder,
@@ -13,7 +17,10 @@ import {
   ClubNameWrapper,
   AwayClubWrapper,
   HomeClubWrapper,
+  ButtonsDesktopPanelWrapper,
+  DesktopButtonWrapper,
 } from "./toolbar.style";
+import { baseUrl, USER_ROLE } from "utils/constData";
 // context
 import { StreamPageContext } from "hooks/context/StreamPageContext";
 // utils
@@ -79,6 +86,31 @@ const ToolBarView: React.FC = (props: any) => {
         </ClubNameWrapper>
         {siteSettings("game_day_page.cheer") && <HandIcon />}
       </AwayClubWrapper>
+      <ButtonsDesktopPanelWrapper>
+        <RWebShare
+          data={{
+            text: "Share Profile",
+            url: `${baseUrl + router.asPath}`,
+          }}
+          onClick={() => console.log("shared successfully!")}
+        >
+          <DesktopButtonWrapper>
+            <Button bColor="primary" bSize="small" icon={<FiShare2 />}>
+              <Text
+                tAlign={"center"}
+                fSize={0.875}
+                fWeight={400}
+                wSpace="nowrap"
+              >
+                Share
+              </Text>
+            </Button>
+          </DesktopButtonWrapper>
+        </RWebShare>
+        <DesktopButtonWrapper>
+          <Button icon={<AiOutlineSave />} />
+        </DesktopButtonWrapper>
+      </ButtonsDesktopPanelWrapper>
     </ToobarWrapper>
   );
 };

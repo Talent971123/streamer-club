@@ -18,7 +18,9 @@
         "sponsors": false
     },
     "components": {
-        "user_view_count": false
+        "user_view_count": false,
+        "follow_club_count": false,
+        "follow_team_count": false
     },
     "header_menu": {
         "home": true,

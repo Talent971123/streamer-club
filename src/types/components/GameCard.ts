@@ -19,4 +19,5 @@ export interface GameCardProps {
   isLive?: boolean;
   title?: string;
   content?: string;
+  desc?: string;
 }

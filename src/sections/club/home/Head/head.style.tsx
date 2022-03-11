@@ -15,7 +15,7 @@ export const HeadWrapper = styled.div`
     align-items: center;
   }
 
-  .name-wrapper {
+  .name-wrapper{
     display: flex;
     flex-direction: row;
     align-content: center;
@@ -26,14 +26,14 @@ export const HeadWrapper = styled.div`
       align-items: center;
     }
   }
-
-  .button-wrapper {
+  
+  .button-wrapper{
     width: 310px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    @media screen and (max-width: ${defaultTheme.mediaSize.sm}px) {
+    @media screen and (max-width: ${defaultTheme.mediaSize.sm}px) { 
       justify-content: space-evenly;
     }
   }
@@ -45,7 +45,7 @@ export const HeadClubName = styled.div`
   @media screen and (max-width: ${defaultTheme.mediaSize.sm}px) {
     font-size: 2rem;
     text-align: center;
-  }
+  }   
 `;
 
 export const ShareButton = styled(Button)`
@@ -94,20 +94,16 @@ export const FollowButton = styled(Button)`
 export const FollowerText = styled.div`
   width: 80px;
 
-  @media screen and (max-width: ${defaultTheme.mediaSize.lg}px) {
-    p {
-      font-size: 0.875rem;
-    }
+  @media screen and (max-width: ${defaultTheme.mediaSize.lg}px) { 
+    p{ font-size: 0.875rem; }
   }
-  @media screen and (max-width: ${defaultTheme.mediaSize.md}px) {
-    p {
-      font-size: 0.813rem;
-    }
+  @media screen and (max-width: ${defaultTheme.mediaSize.md}px) { 
+    p{ font-size: 0.813rem; }
     width: 65px;
   }
-  @media screen and (max-width: ${defaultTheme.mediaSize.sm}px) {
-    p {
-      font-size: 0.688rem;
-    }
+  @media screen and (max-width: ${defaultTheme.mediaSize.sm}px) { 
+    p{ font-size: 0.688rem; }
   }
 `;
+
+

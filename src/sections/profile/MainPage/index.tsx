@@ -8,7 +8,7 @@ import ThumbCard from "components/Card/ThumbCard";
 import { useLinkItem } from "components/hoc";
 import { Col, Row } from "components/Layout";
 import { Text } from "components/Text";
-import { siteSettings } from "hooks";
+import { siteSettings } from 'hooks';
 import _ from "lodash";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -21,7 +21,7 @@ import {
   DisplayWrapper,
   LinkWrapper,
   PContent,
-  ProfileContent,
+  ProfileContent
 } from "./profile-view.style";
 import SavedMatchesSection from "./SavedMatches";
 import TeamsFollowSection from "./Teams";
@@ -283,13 +283,16 @@ const savedReelsData = [
 const SeeAll = useLinkItem(LinkWrapper);
 
 const ProfilePage: React.FC = (props: any) => {
+
+
   /** TEMP
    * const { teams, matches, players, club_slug, club } = useContext(ProfileContext);
    *  TODO: transfer to component
    */
-  const players: any = [];
-  let club_slug: any = "";
-  let club: any = {};
+  const players: any = []
+  let club_slug: any = ''
+  let club: any = {}
+
 
   const [routeData, setRouteData] = useState<any>();
   const { user } = useUser();
@@ -318,10 +321,11 @@ const ProfilePage: React.FC = (props: any) => {
   return (
     <ProfileContent>
       <PContent>
-        {siteSettings("profile_page.clubs") && <ClubsFollowSection />}
-        {siteSettings("profile_page.teams") && <TeamsFollowSection />}
 
-        {siteSettings("profile_page.players") && (
+        {siteSettings('profile_page.clubs') && <ClubsFollowSection />}
+        {siteSettings('profile_page.teams') && <TeamsFollowSection />}
+
+        {siteSettings('profile_page.players') && (
           <DisplayWrapper>
             <Row alignItems="center" justifyContent="space-between">
               <Text fColor="white" fSize={1.25} fWeight={700} mode="p">
@@ -351,21 +355,19 @@ const ProfilePage: React.FC = (props: any) => {
                       const item: ClipProps = {
                         id: player.id,
                         backgroundImage: player.image,
-                        title: `${player?.user?.first_name ?? ""} ${
-                          player?.user?.last_name ?? ""
-                        }`,
+                        title: `${player?.user?.first_name ?? ""} ${player?.user?.last_name ?? ""
+                          }`,
                         mode: "player",
                         content: player.team?.name,
                       };
 
                       return (
-                        <CarouselBody key={`profile-players-card-${index}`}>
+                        <CarouselBody key={`profile-players-card-${index}`} >
                           <ClipCard
                             {...item}
                             key={index}
                             handleClick={() => {
-                              onHandleClick(player.slug),
-                                setRouteData("player");
+                              onHandleClick(player.slug), setRouteData("player");
                             }}
                           />
                         </CarouselBody>
@@ -377,9 +379,9 @@ const ProfilePage: React.FC = (props: any) => {
           </DisplayWrapper>
         )}
 
-        {siteSettings("profile_page.save_match") && <SavedMatchesSection />}
+        {siteSettings('profile_page.save_match') && <SavedMatchesSection />}
 
-        {siteSettings("profile_page.reels") && (
+        {siteSettings('profile_page.reels') && (
           <DisplayWrapper>
             <Row alignItems="center" justifyContent="space-between">
               <Text fColor="white" fSize={1.25} fWeight={700} mode="p">
@@ -407,11 +409,7 @@ const ProfilePage: React.FC = (props: any) => {
                   {savedReelsData.map((reel: any, index: number) => {
                     const item: any = {
                       id: reel.id,
-                      backgroundImage: thumbNailLink(
-                        reel.video_asset_id,
-                        200,
-                        reel?.thumbnail_url
-                      ),
+                      backgroundImage: thumbNailLink(reel.video_asset_id, 200, reel?.thumbnail_url),
                       clubImage1: reel.home_team.club.logo,
                       clubName1: reel.home_team.club.name,
                       clubImage2: reel.away_team.club.logo,
@@ -437,6 +435,7 @@ const ProfilePage: React.FC = (props: any) => {
             </Row>
           </DisplayWrapper>
         )}
+
       </PContent>
     </ProfileContent>
   );

@@ -58,10 +58,9 @@ const SUB_MATCHES = gql`
 
 const SUB_FILTER_MATCHES = gql`
   subscription SUB_FILTER_MATCHES(
-    $limit: Int = 7
     $where: matches_bool_exp = {}
   ) {
-    matches(limit: $limit, order_by: { start_datetime: asc }, where: $where) {
+    matches(order_by: { start_datetime: asc }, where: $where) {
       away_club_id
       away_club_name
       away_team_id

@@ -1,57 +1,46 @@
 import { gql } from "@apollo/client";
 
 const GET_MATCH = gql`
-  query GetMatchByAssetId($where: matches_bool_exp = {}) {
-    matches(where: $where) {
+query GetMatch($where: matches_bool_exp = {}) {
+  matches(where: $where) {
+    id
+    video_asset_id
+    start_datetime
+    round_name
+    home_team {
       id
-      video_asset_id
-      start_datetime
-      home_team {
+      name
+      players {
         id
-        name
-        players {
-          id
-          user {
-            first_name
-            last_name
-          }
-        }
-        club {
-          name
-          logo
+        user {
+          first_name
+          last_name
         }
       }
-      away_team {
-        id
+      club {
         name
-        players {
-          id
-          user {
-            first_name
-            last_name
-          }
-        }
-        club {
-          name
-          logo
+        logo
+        display_name
+      }
+    }
+    away_team {
+      id
+      name
+      players(where: {user_id: {_is_null: false}}) {
+        id
+        user {
+          first_name
+          last_name
         }
       }
-      scores {
-        a_score_1
-        a_score_2
-        a_score_final
-        h_score_1
-        h_score_2
-        h_score_final
-        game_time_q_number
-        game_time_q_prefix
-        game_time_value
-        is_final
-        video_time
+      club {
+        name
+        logo
+        display_name
       }
     }
   }
-`;
+}`;
 
 const GET_EVENT_COLLECTIONS = gql`
   query EventCollection {
@@ -59,6 +48,7 @@ const GET_EVENT_COLLECTIONS = gql`
       id
       event_name
       sports_id
+      scoring
     }
   }
 `;

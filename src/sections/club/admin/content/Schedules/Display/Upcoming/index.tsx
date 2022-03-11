@@ -45,7 +45,7 @@ const UpcomingSection = (props) => {
             "Opposition Team": match.away_team.name,
             Scoring: match.ext_scoring ? "External" : "Managed",
             Stream: match.ext_managed ? "External" : "Managed",
-            "Stream Link": <a href={match.url}>Link</a>,
+            "Stream Key": match.stream_key,
           }))
         );
     },

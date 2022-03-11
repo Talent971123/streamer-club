@@ -23,7 +23,7 @@ const TermsModal: React.FC = () => {
                 visible={show}
                 onCancel={() => setShow(false)}
                 footer={null}
-                title="Terms and Condition"
+                title="Terms and Conditions"
                 width={1000}
             >
                 <Text fSize={0.875} fWeight={600}>

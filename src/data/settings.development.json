@@ -10,7 +10,7 @@
     "news": true,
     "clips": true,
     "teams": true,
-    "banner": true,
+    "banner": false,
     "follow": true,
     "gameday": true,
     "players": true,
@@ -18,7 +18,9 @@
     "sponsors": true
   },
   "components": {
-    "user_view_count": true
+    "user_view_count": true,
+    "follow_club_count": false,
+    "follow_team_count": false
   },
   "header_menu": {
     "home": true,

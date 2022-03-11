@@ -51,28 +51,22 @@ ${({ mode }) => {
         }
       }
       @media screen and (min-width: ${defaultTheme.mediaSize.sm}px) {
+        display: none !important;
         img {
-          display: none !important;
           margin-top: 15px;
         }
       }
       @media screen and (max-width: ${defaultTheme.mediaSize.sm}px) {
-        img {
-          display: block !important;
-        }
+        display: block !important;
       }
     `;
   } else {
     return `
       @media screen and (min-width: ${defaultTheme.mediaSize.sm}px) {
-        img {
-          display: block !important;
-        }
+        display: block !important;
       }
       @media screen and (max-width: ${defaultTheme.mediaSize.sm}px) {
-        img {
-          display: none !important;
-        }
+        display: none !important;
       }
     `;
   }

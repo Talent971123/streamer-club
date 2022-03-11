@@ -38,63 +38,61 @@ const GET_CLUB = gql`
   }
 `;
 
-const SUB_CLUB = gql`
-  subscription ClubSubscription($club_slug: String!) {
-    clubs(where: { slug: { _eq: $club_slug } }) {
-      name
-      banner_image
-      logo
+const SUB_CLUB = gql`subscription ClubSubscription($club_slug: String!) {
+  clubs(where: { slug: { _eq: $club_slug } }) {
+    name
+    banner_image
+    logo
+    id
+    slug
+    user_club_follows{
       id
+      user_id
+      club_id
+    }
+    teams {
+      id
+      image
+      name
       slug
-      user_club_follows {
+      division
+      user_team_follows{
         id
         user_id
-        club_id
+        team_id
       }
-      teams {
-        id
-        image
+    }
+    players(where: { user_id: { _is_null: false } }) {
+      id
+      image
+      slug
+      team {
         name
         slug
-        division
-        user_team_follows {
-          id
-          user_id
-          team_id
-        }
       }
-      players(where: { user_id: { _is_null: false } }) {
+      user {
+        first_name
+        last_name
+        photo
+        email
+      }
+    }
+    club_partners {
+      partner {
         id
-        image
-        slug
-        team {
-          name
-          slug
-        }
-        user {
-          first_name
-          last_name
-          photo
-          email
-        }
+        logo
+        name
       }
-      club_partners {
-        partner {
-          id
-          logo
-          name
-        }
-      }
-      club_sponsors {
-        sponsor {
-          id
-          logo
-          name
-        }
+    }
+    club_sponsors {
+      sponsor {
+        id
+        logo
+        name
       }
     }
   }
-`;
+}`;
 
 const SUB_CLUB_REPLAYS = gql`
   subscription MyReplaySub($club_slug: String!) {
@@ -105,8 +103,7 @@ const SUB_CLUB_REPLAYS = gql`
           { home_team: { club: { slug: { _eq: $club_slug } } } }
         ]
         status: { _eq: "completed" }
-      }
-      order_by: { start_datetime: desc }
+      }, order_by: {start_datetime: desc}
     ) {
       id
       is_historic
@@ -156,8 +153,7 @@ const SUB_TEAM_REPLAYS = gql`
           { away_team: { slug: { _eq: $team_slug } } }
           { home_team: { slug: { _eq: $team_slug } } }
         ]
-      }
-      order_by: { start_datetime: desc }
+      }, order_by: {start_datetime: desc}
     ) {
       id
       is_historic

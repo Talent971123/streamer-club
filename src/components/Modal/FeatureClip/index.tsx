@@ -21,7 +21,12 @@ const VideoPlayer = dynamic(() => import("components/Video/Bitmovin"), {
   ssr: false,
 });
 
-const FeatureClip_Modal: React.FC<ClipAssetProps> = ({ title, playbackId, show = false, handleClose }) => {
+const FeatureClip_Modal: React.FC<ClipAssetProps> = ({
+  title,
+  playbackId,
+  show = false,
+  handleClose,
+}) => {
   // functions
 
   return (
@@ -36,8 +41,7 @@ const FeatureClip_Modal: React.FC<ClipAssetProps> = ({ title, playbackId, show =
             bSize="small"
             icon={<ImCancelCircle />}
             onClick={handleClose}
-          >
-          </Button>
+          ></Button>
         </ModalHeader>
         <ModalBody>
           <Row flexDirection="column" gap={5}>
@@ -45,7 +49,7 @@ const FeatureClip_Modal: React.FC<ClipAssetProps> = ({ title, playbackId, show =
           </Row>
         </ModalBody>
         <ModalFooter>
-        <Text className="footer-text" fSize={1.5} fWeight={600}>
+          <Text className="footer-text" fSize={1.5} fWeight={600}>
             {title}
           </Text>
         </ModalFooter>

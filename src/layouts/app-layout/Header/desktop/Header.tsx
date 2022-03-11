@@ -51,8 +51,6 @@ export const DeskHeader = (props: any) => {
         </Text>
       </StyledItemMenu>}
 
-
-
       <StyledItemMenu
         key="1"
         onClick={() => handleMenuClick("/api/auth/logout")}
@@ -61,6 +59,7 @@ export const DeskHeader = (props: any) => {
           {"Logout"}
         </Text>
       </StyledItemMenu>
+
     </StyledMenu>
   );
 

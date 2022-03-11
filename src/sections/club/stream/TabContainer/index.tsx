@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { ContainerWrapper } from "components/Container";
 import { ContentWrapper, Content } from "./tabcontainer.style";
 import { commonItem } from "types/common/common";
 import { Col, Row } from "components/Layout";
 import TabsView from "./Tabs";
 import CommentaryView from "./Commentary";
+import CreateClipView from "./CreateClip";
 // import TeamView from "./Team";
 import { Text } from "components/Text";
 import MatchStatsView from "./MatchStats";
@@ -55,7 +56,7 @@ const menudata = _.filter(menudataRaw, ["display", true]);
 const TabContainerView: React.FC = () => {
   const [select, setSelect] = useState<string>(menudata[0].path);
   const [show, setEventShow] = useState<"" | "scoring" | "keyMoments">("");
-  const [createClip, setCreateClipShow] = useState<boolean>(false);
+  const [createClipFlag, setCreateClipFlag] = useState<boolean>(false);
   const [thumbFlag, setFlagThumb] = useState<boolean>(false);
 
   const onHandleSelect = (item: string) => {
@@ -66,22 +67,18 @@ const TabContainerView: React.FC = () => {
   };
 
   const createClipFunc = () => {
-    setCreateClipShow(true);
+    setCreateClipFlag(!createClipFlag);
   };
 
   const toggleEvent = (eventType: "scoring" | "keyMoments") => {
-    if (show === eventType) {
-      setEventShow("");
-    } else {
-      setEventShow(eventType);
-    }
+    setEventShow(show === eventType ? "" : eventType)
   };
 
   const values = {
     show,
     setEventShow,
-    createClip,
-    setCreateClipShow,
+    createClipFlag,
+    setCreateClipFlag,
     thumbFlag,
     setFlagThumb,
   };
@@ -190,7 +187,9 @@ const TabContainerView: React.FC = () => {
               </Col> */}
             {/* </Row> */}
           </Row>
-          <SetThumbnailView></SetThumbnailView>
+
+          {thumbFlag && <SetThumbnailView />}
+          {createClipFlag && <CreateClipView />}
 
           <Row alignItems="center" justifyContent="center" display="flex">
             <Content>

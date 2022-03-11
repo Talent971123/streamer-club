@@ -19,12 +19,13 @@ export const ButtonsDesktopPanelWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 20px;
   background-color: ${themeGet("colors.gray.900")};
 `;
 
 export const DesktopButtonWrapper = styled.div`
   margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 `;
 
 export const PanelButton = styled.div`

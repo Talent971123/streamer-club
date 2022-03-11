@@ -20,12 +20,12 @@ export const remoteImageSrc = (
 export const thumbNailLink = (
   id: string,
   width: number = 300,
-  thumbnail_url: string | null = null
+  thumbnail_url: string | null = null,
 ): string | StaticImageData => {
   const image_url = `https://image.mux.com/${id}/thumbnail.png?width=${width}`;
   // NOTE: if this cant be fix leave image_url as return
-  // return thumbnail_url && imageExists(thumbnail_url, (e: any)=> e)? thumbnail_url: imageExists(image_url, (e: any) => e) ? image_url : defaultImg;
-  return image_url;
+  // return thumbnail_url && imageExists(thumbnail_url, (e: any)=> e)? thumbnail_url: imageExists(image_url, (e: any) => e) ? image_url : defaultImg; 
+  return image_url
 };
 
 export const getS3Config = (dirName: string = "Club") => ({
@@ -58,13 +58,4 @@ export const slugifyString = (str: string): string => {
     strict: true,
   };
   return slugify(str, config);
-};
-
-export const ConvertNumberToTime = (number: number) => {
-  // const
-  const MM = Math.floor(number / 60);
-  const SS = number % 60;
-
-  const Time = (MM < 10 ? "0" + MM : MM) + ":" + (SS < 10 ? "0" + SS : SS);
-  return Time;
 };

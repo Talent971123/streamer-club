@@ -9,3 +9,8 @@ export const setSiteClubs = (clubs: any) => ({
     type: t.SET_SITE_CLUBS,
     payload: clubs,
 })
+
+export const setSiteEvents = (events: any) => ({
+    type: t.SET_EVENT_LIST,
+    payload: events,
+})

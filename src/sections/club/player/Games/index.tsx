@@ -1,13 +1,15 @@
 import React from "react";
 // import component
 import { Col, Row } from "components/Layout";
-import { GameCard } from "components/Card";
 import { Text } from "components/Text";
-import Slider from "react-slick";
+import ThumbCard from "components/Card/ThumbCard";
+import { ScrollingCarousel } from "@trendyol-js/react-carousel";
 import { useLinkItem } from "components/hoc";
 import { IoArrowRedoOutline } from "react-icons/io5";
 // import styled component
 import { GamesWrapper, LinkWrapper } from "./games.style";
+import { CardBody } from "theme/global.state";
+import { SlideArrow } from "components/Button/Button";
 // import types
 import { GameCardProps } from "types/components/GameCard";
 // define example data
@@ -75,47 +77,6 @@ const data: GameCardProps[] = [
   },
 ];
 
-// const setting for react slick
-const NextArrow: React.FC = (props: any) => {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{
-        ...style,
-        display: "block",
-        position: "absolute",
-        top: "120px",
-      }}
-      onClick={onClick}
-    />
-  );
-};
-
-const BeforeArrow: React.FC = (props: any) => {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{
-        ...style,
-        display: "block",
-        position: "absolute",
-        top: "120px",
-      }}
-      onClick={onClick}
-    />
-  );
-};
-
-const settings = {
-  infinite: false,
-  speed: 500,
-  slidesToShow: 4,
-  slidesToScroll: 4,
-  nextArrow: <NextArrow />,
-  prevArrow: <BeforeArrow />,
-};
 const SeeAll = useLinkItem(LinkWrapper);
 
 const GameDayView: React.FC = () => {
@@ -139,11 +100,18 @@ const GameDayView: React.FC = () => {
       </Row>
       <Row padding="10px 0 0 0">
         <Col item={24}>
-          <Slider {...settings}>
+          <ScrollingCarousel 
+            leftIcon={<SlideArrow position="left" />}
+            rightIcon={<SlideArrow position="right" />}
+          >
             {data.map((item: GameCardProps, index: number) => {
-              return <GameCard {...item} key={index} />;
+              return (
+                <CardBody key={`game-day-view-key${index}`}>
+                  <ThumbCard {...item} key={index} />
+                </CardBody>
+              );
             })}
-          </Slider>
+          </ScrollingCarousel>
         </Col>
       </Row>
     </GamesWrapper>

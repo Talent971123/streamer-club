@@ -2,6 +2,12 @@ import styled, { css } from "styled-components";
 import { themeGet } from "@styled-system/theme-get";
 import { Form, Select, TimePicker } from "antd";
 
+export interface SectionWrapperProps {
+  justifyContent?: | "center" | "flex-start" | "flex-end" | "initial" | "space-around" | "space-between" | "stretch";
+  flexDirection?: "row" | "column" | "row-reverse" | "column-reverse";
+  width?: string
+}
+
 export const CommentaryWrapper = styled.div``;
 
 export const StyledForm = styled(Form)`
@@ -50,12 +56,15 @@ export const Border = styled.div<{ mode: string }>`
   }}
 `;
 
-export const SectionWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 5px;
-`;
+export const SectionWrapper = styled.div(
+  (props: SectionWrapperProps) => css({
+    display: "flex",
+    flexDirection: props.flexDirection ?? "column",
+    justifyContent: props.justifyContent ?? "center",
+    padding: "5px",
+    width: props.width ?? "auto"
+  })
+);
 
 export const DropdownContainer = styled(Select)`
   width: 100%;

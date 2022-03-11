@@ -30,18 +30,14 @@ const CopyRightSection = () => {
         </Col>
         <CopyRightLogImg mode="lg">
           <Col>
-            <Image src={Logo}/>
+            <Image src={Logo} />
           </Col>
         </CopyRightLogImg>
-        <Col>
-          <TermsModal />
-        </Col>
-        <Col>
-          <PrivacyModal />
-        </Col>
+        <Col><TermsModal /></Col>
+        <Col><PrivacyModal /></Col>
       </Row>
       <CopyRightLogImg mode="sm">
-        <Image src={Logo}/>
+        <Image src={Logo} />
       </CopyRightLogImg>
     </CopyRightSectionWrapper>
   );

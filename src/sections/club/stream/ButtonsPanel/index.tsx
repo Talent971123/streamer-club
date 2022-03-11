@@ -31,7 +31,7 @@ interface IButtonsPanelProps {
 const ButtonsPanel: React.FC<IButtonsPanelProps> = ({
   toggleEvent,
   createClip,
-  setThumbnailFlag
+  setThumbnailFlag,
 }) => {
   const router = useRouter();
   const { user } = useUser();
@@ -50,9 +50,7 @@ const ButtonsPanel: React.FC<IButtonsPanelProps> = ({
     },
   });
 
-
   const _handleSave = async () => {
-
     if (_.isUndefined(user?.id)) {
       return toast.warn("please sign in.");
     }
@@ -65,14 +63,12 @@ const ButtonsPanel: React.FC<IButtonsPanelProps> = ({
         },
       },
     });
-
   };
 
-  const adminOnly: boolean = (
+  const adminOnly: boolean =
     USER_ROLE.ADMIN === user?.user_role_id ||
     USER_ROLE.CLUB_ADMIN === user?.user_role_id ||
-    USER_ROLE.TEAM_ADMIN === user?.user_role_id
-  )
+    USER_ROLE.TEAM_ADMIN === user?.user_role_id;
 
   return (
     <>
@@ -98,26 +94,32 @@ const ButtonsPanel: React.FC<IButtonsPanelProps> = ({
           </Text>
         </PanelButton>
 
-        {adminOnly && (<PanelButton onClick={() => toggleEvent("scoring")}>
-          <ScoreBoardIcon />
-          <Text fSize={0.45} fWeight={700} css={{ marginTop: 5 }}>
-            Scoring
-          </Text>
-        </PanelButton>)}
+        {adminOnly && (
+          <PanelButton onClick={() => toggleEvent("scoring")}>
+            <ScoreBoardIcon />
+            <Text fSize={0.45} fWeight={700} css={{ marginTop: 5 }}>
+              Scoring
+            </Text>
+          </PanelButton>
+        )}
 
-        {adminOnly && (<PanelButton onClick={() => toggleEvent("keyMoments")}>
-          <BiStar size={20} style={{ marginBottom: 5 }} />
-          <Text fSize={0.45} fWeight={700}>
-            Key Moments
-          </Text>
-        </PanelButton>)}
+        {adminOnly && (
+          <PanelButton onClick={() => toggleEvent("keyMoments")}>
+            <BiStar size={20} style={{ marginBottom: 5 }} />
+            <Text fSize={0.45} fWeight={700}>
+              Key Moments
+            </Text>
+          </PanelButton>
+        )}
 
-        {adminOnly && (<PanelButton onClick={createClip}>
-          <BiCut size={20} style={{ marginBottom: 5 }} />
-          <Text fSize={0.45} fWeight={700}>
-            Create Clips
-          </Text>
-        </PanelButton>)}
+        {adminOnly && (
+          <PanelButton onClick={createClip}>
+            <BiCut size={20} style={{ marginBottom: 5 }} />
+            <Text fSize={0.45} fWeight={700}>
+              Create Clips
+            </Text>
+          </PanelButton>
+        )}
 
         {adminOnly && (
           <PanelButton onClick={setThumbnailFlag}>
@@ -127,11 +129,9 @@ const ButtonsPanel: React.FC<IButtonsPanelProps> = ({
             </Text>
           </PanelButton>
         )}
-
       </ButtonsMobilePanelWrapper>
 
       <ButtonsDesktopPanelWrapper>
-
         {adminOnly && (
           <DesktopButtonWrapper>
             <Button
@@ -140,61 +140,56 @@ const ButtonsPanel: React.FC<IButtonsPanelProps> = ({
               bSize="small"
               icon={<BiImage />}
             >
-              <Text tAlign={"center"} fSize={0.875} fWeight={400} wSpace="nowrap">
-                Set Thumbnail
-              </Text>
-            </Button>
-          </DesktopButtonWrapper>
-        )}
-
-        {adminOnly && (<DesktopButtonWrapper>
-          <Button
-            onClick={createClip}
-            bColor="primary"
-            bSize="small"
-            icon={<BiCut />}
-          >
-            <Text tAlign={"center"} fSize={0.875} fWeight={400} wSpace="nowrap">
-              Create Clip
-            </Text>
-          </Button>
-        </DesktopButtonWrapper>)}
-
-        {adminOnly && (<DesktopButtonWrapper>
-          <Button
-            bColor="primary"
-            bSize="small"
-            onClick={() => toggleEvent("scoring")}
-          >
-            <Text tAlign={"center"} fSize={0.875} fWeight={400} wSpace="nowrap">
-              Add Event
-            </Text>
-          </Button>
-        </DesktopButtonWrapper>)}
-
-        <DesktopButtonWrapper>
-          <RWebShare
-            data={{
-              text: "Share Profile",
-              url: `${baseUrl + router.asPath}`,
-            }}
-            onClick={() => console.log("shared successfully!")}
-          >
-            <Button bColor="primary" bSize="small" icon={<FiShare2 />}>
               <Text
                 tAlign={"center"}
                 fSize={0.875}
                 fWeight={400}
                 wSpace="nowrap"
               >
-                Share
+                Set Thumbnail
               </Text>
             </Button>
-          </RWebShare>
-        </DesktopButtonWrapper>
-        <DesktopButtonWrapper>
-          <Button icon={<AiOutlineSave />} onClick={_handleSave} />
-        </DesktopButtonWrapper>
+          </DesktopButtonWrapper>
+        )}
+
+        {adminOnly && (
+          <DesktopButtonWrapper>
+            <Button
+              onClick={createClip}
+              bColor="primary"
+              bSize="small"
+              icon={<BiCut />}
+            >
+              <Text
+                tAlign={"center"}
+                fSize={0.875}
+                fWeight={400}
+                wSpace="nowrap"
+              >
+                Create Clip
+              </Text>
+            </Button>
+          </DesktopButtonWrapper>
+        )}
+
+        {adminOnly && (
+          <DesktopButtonWrapper>
+            <Button
+              bColor="primary"
+              bSize="small"
+              onClick={() => toggleEvent("scoring")}
+            >
+              <Text
+                tAlign={"center"}
+                fSize={0.875}
+                fWeight={400}
+                wSpace="nowrap"
+              >
+                Add Event
+              </Text>
+            </Button>
+          </DesktopButtonWrapper>
+        )}
       </ButtonsDesktopPanelWrapper>
     </>
   );

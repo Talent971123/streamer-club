@@ -49,9 +49,9 @@ export const getServerSideProps = async (context: any) => {
     query: query.GET_MATCH,
     variables: {
       where: {
-        id: { _eq: asset_id },
-      },
-    },
+        id: { _eq: asset_id }
+      }
+    }
   });
 
   const match = data.matches[0];
@@ -70,8 +70,7 @@ export const getServerSideProps = async (context: any) => {
         away_logo: match.away_team.club.logo,
         home_players: match.home_team.players,
         away_players: match.away_team.players,
-        video_asset_id: match.video_asset_id,
-        scores: match.scores,
+        video_asset_id: match.video_asset_id
       },
     },
   };

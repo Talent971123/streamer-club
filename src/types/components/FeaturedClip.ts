@@ -3,5 +3,5 @@ export interface FeaturedClip {
     title?: string;
     playbackId: string;
     backgroundImage: StaticImageData;
+    desc?: string
 }
-  

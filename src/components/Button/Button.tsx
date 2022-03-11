@@ -19,6 +19,7 @@ type Ref = HTMLButtonElement;
 const StyledButton = styled.button(
   (props: StyledProps) =>
     css({
+      margin: "0 5px",
       px: "20px",
       py: "20px",
       fontSize: "regular",
@@ -41,20 +42,42 @@ const StyledButton = styled.button(
       outline: "none",
     },
     "&:active": {
-      transform: "scale(0.99)",
+      transform: "scale(0.98)",
+      backgroundColor: "#333333"
     },
   },
   variant({
     variants: {
+      default: {
+        color: "white",
+        bg: "transparent",
+        border: "solid white 1px",
+        "&:hover": {
+          borderColor: "gray.100",
+          color: "gray.100",
+        }
+
+      },
+      /** TODO: set primary as red */
       primary: {
         color: "white",
         bg: "transparent",
-        border: '0.5px solid "gray.300"',
+        border: "solid white 1px",
+        "&:hover": {
+          borderColor: "gray.100",
+          color: "gray.100",
+        }
+      },
+      _primary: {
+        color: "white",
+        bg: "red.100",
+        border: "none",
+        "&:hover": { bg: "red.hover" }
       },
       gray: {
         color: "white",
         bg: "gray.300",
-        border: '0.5px solid "gray.300"',
+        border: "none"
       },
       outlined: {
         color: "white",
@@ -150,7 +173,7 @@ const Button = React.forwardRef<Ref, ButtonItemProps>(
 
 // eslint-disable-next-line react/display-name
 const ButtonContainer = React.forwardRef<Ref, ButtonContainerProps>(
-  ({ children, bColor = "primary", bSize = "small", ...props }, ref) => (
+  ({ children, bColor = "default", bSize = "small", ...props }, ref) => (
     <Button ref={ref} variant={bColor} size={bSize} {...props}>
       {children}
     </Button>

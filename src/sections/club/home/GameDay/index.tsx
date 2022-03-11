@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 // import component
 import { Col, Row } from "components/Layout";
 import { Text } from "components/Text";
@@ -8,7 +8,6 @@ import { useLinkItem } from "components/hoc";
 import { SlideArrow } from "components/Button/Button";
 import { GameDayWrapper, LinkWrapper, SeeAllWrapper } from "./gameday.style";
 import { CardBody } from "theme/global.state";
-import { MatchSkeleton } from "components/Skeleton";
 // import types
 import { GameCardProps } from "types/components/GameCard";
 // define example data
@@ -25,11 +24,12 @@ const SeeAll = useLinkItem(LinkWrapper);
 
 const GameDayView: React.FC = (props: any) => {
   const router = useRouter();
-  const [pack, setPack] = useState([]);
   const { club_slug } = router.query;
   const { clubInfo } = props;
 
-  const { loading, data } = useSubscription(subscribe.SUB_MATCHES, {
+  const [data, setData] = useState([]);
+
+  useSubscription(subscribe.SUB_MATCHES, {
     variables: {
       where: {
         status: { _neq: "completed" },
@@ -40,11 +40,10 @@ const GameDayView: React.FC = (props: any) => {
         ],
       },
     },
+    onSubscriptionData({ subscriptionData: { data } }) {
+      data && setData(data.matches);
+    },
   });
-
-  useEffect(() => {
-    setPack(data && data.matches);
-  }, [data]);
 
   const onHandleSeeAll = () => {
     router.push(`/club/${club_slug}/live`);
@@ -53,7 +52,6 @@ const GameDayView: React.FC = (props: any) => {
   const onHandleClick = (id: number) => {
     router.push(`/club/${clubInfo.slug}/match/${id}`);
   };
-
   return (
     <GameDayWrapper>
       <Row alignItems="center">
@@ -82,49 +80,36 @@ const GameDayView: React.FC = (props: any) => {
             leftIcon={<SlideArrow position="left" />}
             rightIcon={<SlideArrow position="right" />}
           >
-            {loading
-              ? [1, 2, 3, 4, 5, 6].map((item: number) => {
-                  return (
-                    <CardBody key={`game-day-view-key-${item}`}>
-                      <MatchSkeleton mode={"Day"} />
-                    </CardBody>
-                  );
-                })
-              : pack?.map((match: any, index: number) => {
-                  console.log(match, "test");
-                  const item: GameCardProps = {
-                    id: match.id,
-                    backgroundImage: thumbNailLink(
-                      match.video_asset_id,
-                      200,
-                      match.thumbnail_url
-                    ),
-                    clubImage1: match.home_team.club.logo,
-                    clubName1: match.home_team.club.display_name,
-                    clubImage2: match.away_team.club.logo,
-                    clubName2: match.away_team.club.display_name,
-                    leagueImage: match.league.logo ? match.league.logo : marker,
-                    leagueName: match.league.name,
-                    roundName: match.round_name,
-                    matchName: match.name,
-                    mode: "Day",
-                    progress: progressText(match.start_datetime, match.status),
-                    isLive:
-                      progressText(match.start_datetime, match.status) ===
-                      "In Progress",
-                    users: 0, //TODO: get the number of users watching
-                    date: match.start_datetime,
-                  };
+            {data.map((match: any, index: number) => {
+              const item: GameCardProps = {
+                id: match.id,
+                backgroundImage: thumbNailLink(match.video_asset_id, 200, match.thumbnail_url),
+                clubImage1: match.home_team.club.logo,
+                clubName1: match.home_team.club.display_name,
+                clubImage2: match.away_team.club.logo,
+                clubName2: match.away_team.club.display_name,
+                leagueImage: match.league.logo ? match.league.logo : marker,
+                leagueName: match.league.name,
+                roundName: match.round_name,
+                matchName: match.name,
+                mode: "Day",
+                progress: progressText(match.start_datetime, match.status),
+                isLive:
+                  progressText(match.start_datetime, match.status) ===
+                  "In Progress",
+                users: 0, //TODO: get the number of users watching
+                date: match.start_datetime,
+              };
 
-                  return (
-                    <CardBody key={`game-day-view-key${index}`}>
-                      <ThumbCard
-                        {...item}
-                        handleClick={() => onHandleClick(match.id)}
-                      />
-                    </CardBody>
-                  );
-                })}
+              return (
+                <CardBody key={`game-day-view-key${index}`}>
+                  <ThumbCard
+                    {...item}
+                    handleClick={() => onHandleClick(match.id)}
+                  />
+                </CardBody>
+              );
+            })}
           </ScrollingCarousel>
         </Col>
       </Row>

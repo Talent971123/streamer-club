@@ -87,3 +87,30 @@ export const TeamLogo = styled.img`
     height: 25px;
   }
 `;
+
+export const ButtonsDesktopPanelWrapper = styled.div`
+  @media (max-width: 480px) {
+    display: none;
+  }
+  @media (min-width: 834px) {
+    position: absolute;
+    right: 0px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 20px;
+  }
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  background-color: ${themeGet("colors.gray.900")};
+`;
+
+export const DesktopButtonWrapper = styled.div`
+  margin-right: 10px;
+`;
+
+export const Button = styled.div`
+  border: 10px solid red;
+`;

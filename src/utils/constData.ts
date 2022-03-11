@@ -33,5 +33,5 @@ export const USER_ROLE = {
   CLUB_ADMIN: 3,
   PLAYER: 4,
   USER: 5,
-  FAN: 6,
-};
+  FAN: 6
+}

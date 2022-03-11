@@ -81,7 +81,9 @@ const baseColor = {
   red: {
     regular: "#E31E31",
     dark: "#d70023",
-    100: "#FA3737",
+    hover: "#c12525",
+    active: "#FA3737",
+    100: "#F93737",
     200: "#fa7070",
   },
   purple: {

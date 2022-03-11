@@ -4,14 +4,11 @@ import { Skeleton } from "antd";
 import { CardWrapper, CardContent } from "theme/global.state";
 import { StyleContent } from "./index.style";
 
-const MatchSkeleton: React.FC<{ mode?: string; type?: string }> = ({
-  mode = "Replays",
-  type = "main",
-}) => {
+const MatchSkeleton: React.FC<{ mode?: string }> = ({ mode = "Replays" }) => {
   return (
     <CardWrapper>
       <CardContent>
-        <StyleContent type={type}>
+        <StyleContent>
           <Skeleton.Button active block />
         </StyleContent>
       </CardContent>

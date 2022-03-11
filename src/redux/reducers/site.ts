@@ -1,9 +1,17 @@
 import * as t from "redux/types/site";
+import { EventCollectionTypes } from "types/common/site";
+
+export interface SiteStateTypes {
+    settings: any
+    clubs: Array<any>
+    eventsList: Array<EventCollectionTypes>
+}
 
 const siteReducer = (
-    state = {
+    state: SiteStateTypes = {
         settings: {}, /** TODO: infer type */
-        clubs: []
+        clubs: [],
+        eventsList: []
     },
     action: any
 ) => {
@@ -18,6 +26,11 @@ const siteReducer = (
             return {
                 ...state,
                 clubs: action.payload,
+            };
+        case t.SET_EVENT_LIST:
+            return {
+                ...state,
+                eventsList: action.payload,
             };
         default:
             return { ...state };

@@ -14,15 +14,18 @@ import { useSubscription, useQuery } from "@apollo/client";
 
 import { SITEQL } from "graphql/club";
 import { HomeQL } from "graphql/club";
-import { setSiteClubs } from "redux/actions/site";
+import { setSiteSettings, setSiteClubs, setSiteEvents } from "redux/actions/site";
+import { setPlayerList } from "redux/actions/players";
 import { setTeamList } from "redux/actions/teams";
 import { setClubInfo } from "redux/actions/club";
 
 import { siteSettings } from "hooks";
 import { USER_ROLE } from "utils/constData";
 
+import { mutate, query } from "graphql/stream";
+
 /** List of no Club subpages */
-const HomePages = ["/"];
+const HomePages = ['/']
 
 // -----------------------------------------------------------
 const MenuItems = (club_slug: string, path: string, user: any) => {
@@ -91,7 +94,15 @@ const MenuItems = (club_slug: string, path: string, user: any) => {
 };
 
 const Layout = (props) => {
-  const { setClubInfo, setTeamList, setSiteClubs, children } = props;
+  const {
+    setSettings,
+    setClubInfo,
+    setPlayerList,
+    setTeamList,
+    setSiteClubs,
+    setSiteEvents,
+    children,
+  } = props;
   const { param, asPath }: any = useRouter();
   const { user } = useUser();
   const menu = MenuItems(param ? param.club_slug : "", asPath, user);
@@ -112,9 +123,11 @@ const Layout = (props) => {
       club_slug: param.club_slug,
     },
     onSubscriptionData({ subscriptionData: { data } }) {
+
       if (data) {
-        setClubInfo(data.clubs[0]);
-        setTeamList(data.clubs[0].teams);
+        setClubInfo(data.clubs[0] ?? []);
+        setPlayerList(data.clubs[0]?.players ?? []);
+        setTeamList(data.clubs[0]?.teams ?? []);
       }
     },
   });
@@ -123,6 +136,12 @@ const Layout = (props) => {
     onCompleted() {
       setSiteClubs(data?.clubs);
     },
+  });
+
+  useQuery(query.GET_EVENT_COLLECTIONS, {
+    onCompleted(data) {
+      data && setSiteEvents(data?.event_collections)
+    }
   });
 
   return (
@@ -142,9 +161,12 @@ const Layout = (props) => {
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = {
+  setSettings: setSiteSettings,
   setClubInfo: setClubInfo,
+  setPlayerList: setPlayerList,
   setTeamList: setTeamList,
   setSiteClubs: setSiteClubs,
+  setSiteEvents: setSiteEvents
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);

@@ -1,60 +1,44 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Col, Row } from "components/Layout";
-import { themeGet } from "@styled-system/theme-get";
-import { Border, CommentaryWrapper, ContentWrapper } from "./commentary.style";
+import { useMutation } from "@apollo/client";
+import axios from "axios";
 import { Button } from "components/Button";
+import { CLIPS } from "graphql/club";
+import { useUser } from "hooks";
 import { ScreenContext } from "hooks/context/ScreenContext";
-import CloseIcon from "assets/icon/close";
+import { StreamPageContext } from "hooks/context/StreamPageContext";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { connect } from "react-redux";
 import TimeRangeSlider from 'react-time-range-slider';
 import 'react-time-range-slider/dist/styles.css';
-import axios from "axios";
-import { muxVideoApiBaseUrl, muxAssetBaseUrl, muxGetAuthToken, muxPostAuthToken } from "utils/constData";
-import { useRouter } from "next/router";
-import { useMutation } from "@apollo/client";
-import { PLAYERQL } from "graphql/club";
 import { toast } from "react-toastify";
+import { apiBaseUrl, muxAssetBaseUrl } from "utils/constData";
+import { ButtonWrapper, CheckBox, CommentaryWrapper, ContentWrapper, DropdownContainer, FlexWrapper, SliderWrapper, TextInput, TimeDisplay } from "./createClip.style";
+import moment from 'moment'
 
+const CreateClipView: React.FC = (props: any) => {
+  const { isAdmin, user } = useUser()
 
-const defaultTime = {
-  start: "00:00",
-  end: "23:59"
-};
-const defaultBoundaryTime = {
-  min: "00:00",
-  max: "23:59"
-};
+  const { clubInfo } = props;
 
-const CreateClipView: React.FC = () => {
-  const router = useRouter();
-  const { createClip, setCreateClipShow } = useContext(ScreenContext);
- 
+  const { createClipFlag, setCreateClipFlag } = useContext(ScreenContext);
+  const { playback_id, home_players, match_id } = useContext(StreamPageContext);
+
+  const inputRef = useRef<HTMLInputElement>(null);
+  const checkBoxRef = useRef<any>(null);
+  const [playerDetailId, setPlayerDetailId] = useState<any>(null);
+  const [secVal, setSecVal] = useState<any>({ start: 0, end: 0 });
+
+  const { Option } = DropdownContainer;
+
   const closeEventButton = () => {
-    setCreateClipShow(false);
+    setCreateClipFlag(false);
   };
-
-  const getTotalSeconds = (time: string) => {
-    var actualTime = time.split(':');
-    
-    var totalSeconds = 0;
-    if(actualTime.length == 3){
-      totalSeconds = (+actualTime[0]) * 60 * 60 + (+actualTime[1]) * 60 + (+actualTime[2]);
-    } else if(actualTime.length == 2){
-      totalSeconds = (+actualTime[0]) * 60 + (+actualTime[1]);
-    } else if(actualTime.length == 1){
-      totalSeconds = (+actualTime[0]);
-    }
-    return totalSeconds;
-  }
 
   const getAssetIdByPlaybackId = (playback_id: any) => {
     return new Promise((resolve, reject) => {
-        axios
-        .get(muxVideoApiBaseUrl+'/playback-ids/'+playback_id, {
-          headers: {
-         'Authorization': `Basic ${muxGetAuthToken}`
-        }})
+      axios
+        .get(`${apiBaseUrl}/mux/playbacks/${playback_id}/asset`)
         .then((res) => {
-          resolve( res.data.data.object.id)
+          resolve(res.data.object.id)
         }).catch((err) => {
           console.error("MUX request error:", err);
           reject("MUX request error:" + err);
@@ -63,29 +47,31 @@ const CreateClipView: React.FC = () => {
   }
 
   const postCreateClip = (asset_id: any) => {
+
     return new Promise((resolve, reject) => {
-        axios
-        .post(muxVideoApiBaseUrl+'/assets', {
+      axios
+        .post(`${apiBaseUrl}/mux/clip-video`, {
           playback_policy: "public",
           input: [
             {
               "url": muxAssetBaseUrl + '/' + asset_id,
-              "start_time": getTotalSeconds(timeValue.start),
-              "end_time": getTotalSeconds(timeValue.end)
+              "start_time": secVal.start,
+              "end_time": secVal.end
             }
           ],
-        }, {auth: muxPostAuthToken})
+        })
         .then((res) => {
           resolve(res)
         }).catch((err) => {
-          reject("MUX request error:"+ err);
+          reject("MUX request error:" + err);
         });
     })
   }
-  
-  const [savePlayerFeaturedClip] = useMutation(PLAYERQL.INSERT_PLAYER_FEATURED_CLIP, {
+
+  const [saveFeaturedClip] = useMutation(CLIPS.INSERT_CLIP_ASSET_USER_CLUB, {
     onCompleted() {
       toast.success("Featured clip saved");
+      setCreateClipFlag(false)
     },
     onError(e) {
       toast.error("Error Happened.");
@@ -95,140 +81,150 @@ const CreateClipView: React.FC = () => {
   const [saveClipProgress, setSaveClipProgress] = useState<boolean>(false);
 
   const saveClip = () => {
+
+    const clipName: string | undefined = inputRef?.current?.value
+    const show_on_club: boolean = checkBoxRef.current.state.checked
+    /** TODO: if use is player get the player details ID from user. 
+     * null temporary */
+    const players_details_id = isAdmin ? playerDetailId : null;
+
     setSaveClipProgress(true)
-    // asset_id from URL is actually a playback_id
-    const { asset_id } = router.query;
     /** request mux data */
     // Retrieve asset ID
-    getAssetIdByPlaybackId(asset_id).then((assetId) => {
+    getAssetIdByPlaybackId(playback_id).then((assetId) => {
+
       postCreateClip(assetId).then((res: any) => {
+
         setSaveClipProgress(false);
-        
+
         const objects = {
-          // Todo: make player_details_id dynamic
-          player_details_id: 3, // static id
-          video_asset_id: res.data.data.playback_ids[0].id,
-          show_on_club: true,
-          show_on_profile: true,
+          club_id: clubInfo.id,
+          show_on_club,
+          show_on_player: true,
+          players_details_id,
+          clip_asset: {
+            data: {
+              name: clipName, //`${home_display_name} vs ${away_display_name} - ${round_name}`,
+              playback_id: res.data.playback_ids[0].id,
+              asset_id: res.data.id,
+              match_id
+            }
+          }
         };
 
-        savePlayerFeaturedClip({ variables: { objects } });
+        saveFeaturedClip({ variables: { objects } });
+
       }).catch((err) => {
         console.error("MUX request error:", err);
         setSaveClipProgress(false);
       });
+
     }).catch((err) => {
       console.error("MUX request error:", err);
       setSaveClipProgress(false);
     });
   }
-  
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       var video = document.getElementById("bitmovinplayer-video-player-container") as HTMLVideoElement | null;
-      
-      var onDurationChange = function(){
-          if(video?.readyState){
-            //to your thing
-            if (video.duration > 0) {
-              var minutes = Math.trunc(video.duration / 60);
-              var seconds = Math.trunc(video.duration % 60);  
-              
-              setTimeValue({
-                start: "00:00",
-                end: minutes+':'+seconds
-              })
-              setBoundaryTime({
-                min: "00:00",
-                max: minutes+':'+seconds
-              })
-            }
-          }
-        };
-        video?.addEventListener('durationchange', onDurationChange);
-      	onDurationChange();
-     }
-  },[createClip])
+      setSecVal({ ...secVal, end: video?.duration })
+    }
+  }, [createClipFlag])
 
-  const [timeValue, setTimeValue] = useState<any>(defaultTime);
-  const [boundaryTime, setBoundaryTime] = useState<any>(defaultBoundaryTime);
-
-  const changeStartHandler = (time) => {
-      // console.log("Start Handler Called", time);
+  const getCurrentTime = (): number => {
+    const video = document.getElementById("bitmovinplayer-video-player-container") as HTMLVideoElement | null;
+    return video?.currentTime ?? 0
   }
 
-  const timeChangeHandler = (time) => {
-      setTimeValue(time);
-  }
-
-  const changeCompleteHandler = (time) => {
-      // console.log("Complete Handler Called", time);
-  }
-
+  const displaySecondsAsTime = (sec: number) => (moment().startOf('day').seconds(sec ?? 0).format('HH:mm:ss'))
 
   return (
     <CommentaryWrapper>
-      <ContentWrapper>
-        <Row
-          flexDirection="column"
-          justifyContent="center"
-          gap={16}
-          display="flex"
-        >
-          {createClip && (
-            <Row
-              flexDirection="column"
-              alignItems="center"
-              justifyContent="space-around"
-              css={`
-                background-color: ${themeGet("colors.gray.900")};
-                padding-right: 10px;
-              `}
-              gap={20}
-            >
-                 <div style={{ width: "300px", margin: "20px" }}>
-                  <div className="time-range">
-                    <b>Start Time:</b> {timeValue.start} <b>End Time:</b>{" "}
-                    {timeValue.end}
-                  </div>
-                  <div className="time-range-slider">
-                    <TimeRangeSlider
-                      disabled={false}
-                      format={24}
-                      maxValue={boundaryTime.max}
-                      minValue={boundaryTime.min}
-                      name={"time_range"}
-                      onChangeStart={changeStartHandler}
-                      onChangeComplete={changeCompleteHandler}
-                      onChange={timeChangeHandler}
-                      step={1}
-                      value={timeValue}/>
-                    </div>
-                 </div>
-              <Button
-                fColor="gray.100"
-                css={`
-                  height: 50px;
-                  width: 100px;
-                  background-color: #4a4949;
-                  border: 0px;
-                `}
-                onClick={saveClip}
-                loading={saveClipProgress}
-              >
-                {saveClipProgress ? 'Saving' : 'Save Clip'}</Button>
-              <Button
-                bColor="primary"
-                css={{ border: "none" }}
-                icon={<CloseIcon />}
-                onClick={closeEventButton}
-              />
-            </Row>
-          )}
-        </Row>
-      </ContentWrapper>
+      {createClipFlag && (
+        <ContentWrapper>
+
+          <FlexWrapper direction="row" justify="space-between">
+            <TextInput placeholder="Add Clip Name" ref={inputRef} />
+            {isAdmin && <DropdownContainer allowClear onChange={(v) => setPlayerDetailId(v)} placeholder="Select Player (non-mandatory)" style={{ maxWidth: 320 }} >
+              {home_players &&
+                home_players?.map((item: any, index: number) => (
+                  <Option value={item.id} key={`player-create-clip-dd-${index}`}>
+                    {`${item?.user?.first_name} ${item?.user?.last_name}`}
+                  </Option>
+                ))}
+            </DropdownContainer>}
+          </FlexWrapper>
+
+          <FlexWrapper>
+            <FlexWrapper css={{
+              marginTop: 20,
+              marginBottom: 20,
+              borderRadius: 5,
+              border: "1px solid #ccc",
+              padding: "15px 0px 5px 0px",
+              backgroundColor: "#121212"
+            }} direction="row" justify="space-between" maxWidth="450px" >
+
+              <FlexWrapper direction="column" justify="space-between" maxWidth="310px" >
+                <TimeDisplay>
+                  {displaySecondsAsTime(secVal.start)}
+                </TimeDisplay>
+                <Button
+                  bColor="gray"
+                  fColor="gray.100"
+                  css={`height: 35px; width: 140px; margin-bottom: 10px;`}
+                  onClick={() => (setSecVal({ ...secVal, start: getCurrentTime() }))}
+                >Set Start time</Button>
+              </FlexWrapper>
+
+              <FlexWrapper direction="column" justify="space-between" maxWidth="310px" >
+
+                <TimeDisplay>
+                  {displaySecondsAsTime(secVal.end)}
+                </TimeDisplay>
+
+                <Button
+                  bColor="gray"
+                  fColor="gray.100"
+                  css={`height: 35px; width: 140px; margin-bottom: 10px;`}
+                  onClick={() => (setSecVal({ ...secVal, end: getCurrentTime() }))}
+                >Set End time</Button>
+              </FlexWrapper>
+
+            </FlexWrapper>
+          </FlexWrapper>
+
+          <ButtonWrapper>
+
+            <Button
+              bColor="_primary"
+              css={`height: 40px; width: 120px;`}
+              onClick={saveClip}
+              loading={saveClipProgress}
+            > {saveClipProgress ? 'Saving' : 'Save Clip'} </Button>
+
+            <Button
+              fColor="gray.100"
+              css={`height: 40px; width: 120px;`}
+              onClick={closeEventButton}
+            >Cancel</Button>
+
+            <CheckBox ref={checkBoxRef}>Add to Media Gallery</CheckBox>
+
+          </ButtonWrapper>
+
+        </ContentWrapper>
+
+      )}
+
+
     </CommentaryWrapper>
   );
 };
 
-export default CreateClipView;
+const mapStateToProps = (state) => ({
+  clubInfo: state.club.info,
+});
+
+export default connect(mapStateToProps)(CreateClipView);

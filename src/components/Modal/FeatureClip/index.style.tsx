@@ -47,7 +47,9 @@ export const ModalContent = styled.div<{ show: boolean }>`
   }
 `;
 
-export const ModalBody = styled.div``;
+export const ModalBody = styled.div`
+  background-color: ${themeGet("colors.black.regular")};
+`;
 
 export const ModalHeader = styled.div`
   padding-bottom: 10px;
@@ -61,18 +63,18 @@ export const ModalFooter = styled.div`
   gap: 20px;
   justify-content: left;
   background: ${themeGet("colors.black.300")};
-  .footer-text{
+  .footer-text {
     font-size: 24px;
   }
   @media screen and (max-width: ${defaultTheme.mediaSize.md}px) {
     padding: 15px;
-    .footer-text{
+    .footer-text {
       font-size: 20px;
     }
   }
   @media screen and (max-width: ${defaultTheme.mediaSize.sm}px) {
     padding: 10px;
-    .footer-text{
+    .footer-text {
       font-size: 14.5px;
     }
   }

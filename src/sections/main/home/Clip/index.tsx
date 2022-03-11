@@ -1,23 +1,22 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
 import { useSubscription } from "@apollo/client";
-import { useRouter } from "hooks";
-// import component
-import { Col, Row } from "components/Layout";
-import { ClipCard } from "components/Card";
-import { Text } from "components/Text";
-import { MatchSkeleton } from "components/Skeleton";
 import { ScrollingCarousel } from "@trendyol-js/react-carousel";
-import { useLinkItem } from "components/hoc";
-//  import types
-import { FeaturedClip } from "types/components/FeaturedClip";
 //  import styled component
 import { SlideArrow } from "components/Button/Button";
-import { ClipWrapper, LinkWrapper } from "./clip.style";
-import { CardBody } from "theme/global.state";
 import ThumbCard from "components/Card/ThumbCard";
-import { CLIPS } from "graphql/club";
+import { useLinkItem } from "components/hoc";
+// import component
+import { Col, Row } from "components/Layout";
 import FeatureClip_Modal from "components/Modal/FeatureClip";
+import { MatchSkeleton } from "components/Skeleton";
+import { Text } from "components/Text";
+import { CLIPS } from "graphql/club";
+import { useRouter } from "hooks";
+import _ from 'lodash';
+import React, { useState } from "react";
+import { CardBody } from "theme/global.state";
+//  import types
+import { FeaturedClip } from "types/components/FeaturedClip";
+import { ClipWrapper, LinkWrapper } from "./clip.style";
 
 //  define the example data
 // import backImage from "assets/images/home/gameday.png";
@@ -28,7 +27,6 @@ const SeeAll = useLinkItem(LinkWrapper);
 
 const ClipView: React.FC = (props: any) => {
   const { move } = useRouter();
-  const [pack, setPack] = useState<any>([]);
 
   const onHandleSeeAll = () => {
     move("/club/match");
@@ -49,12 +47,14 @@ const ClipView: React.FC = (props: any) => {
   const [modalTitle, setModalTitle] = useState<string>("");
   const [modalPlaybackId, setModalPlaybackId] = useState<string>();
 
-  const { loading, data } = useSubscription(CLIPS.SUB_FEATURE_CLIPS, {});
+  const { loading, error, data } = useSubscription(CLIPS.SUB_FEATURE_CLIPS, {
+    variables: { where: { show_on_club: { _eq: true } } }
+  });
 
-  // let clips = [];
+  let clips = [];
 
-  useEffect(() => {
-    const clipsData = data?.clip_asset_user_club.map((clipAsset) => ({
+  if (!loading && data?.clip_asset_user_club) {
+    clips = data?.clip_asset_user_club.map((clipAsset) => ({
       id: clipAsset.clip_asset.id,
       playbackId: clipAsset.clip_asset.playback_id,
       backgroundImage: {
@@ -66,13 +66,11 @@ const ClipView: React.FC = (props: any) => {
         width: 178,
       },
       title: clipAsset.clip_asset.name,
+      desc: _.isNull(clipAsset.clip_asset.match) ? "" : `${clipAsset.clip_asset.match?.home_team.club.display_name} vs ${clipAsset.clip_asset.match?.away_team.club.display_name} - ${clipAsset.clip_asset.match?.round_name}`
     }));
-    setPack(clipsData);
-  }, [data]);
-
-  if (!loading && data?.clip_asset_user_club) {
   }
 
+  if (error) return <div>Error!</div>;
   return (
     <ClipWrapper>
       <Row alignItems="center">
@@ -104,34 +102,40 @@ const ClipView: React.FC = (props: any) => {
       />
       <Row padding="10px 0 0 0">
         <Col item={24}>
-          <ScrollingCarousel
-            leftIcon={<SlideArrow position="left" />}
-            rightIcon={<SlideArrow position="right" />}
-          >
-            {loading
-              ? [1, 2, 3, 4, 5, 6].map((item: number) => {
-                  return (
-                    <CardBody key={`game-day-view-key-${item}`}>
-                      <MatchSkeleton />
-                    </CardBody>
-                  );
-                })
-              : pack?.map((item: FeaturedClip, index: number) => {
-                  // console.log(item)
-                  return (
-                    <CardBody key={`clips-card-` + index}>
-                      <ThumbCard
-                        {...item}
-                        mode="Clip"
-                        key={index}
-                        handleClick={() =>
-                          onClipClick(item.playbackId, item.title)
-                        }
-                      />
-                    </CardBody>
-                  );
-                })}
-          </ScrollingCarousel>
+          {loading ? (
+            <ScrollingCarousel
+              leftIcon={<SlideArrow position="left" />}
+              rightIcon={<SlideArrow position="right" />}
+            >
+              {[1, 2, 3, 4, 5, 6].map((item: number) => {
+                return (
+                  <CardBody key={`game-day-view-key-${item}`}>
+                    <MatchSkeleton />
+                  </CardBody>
+                );
+              })}
+            </ScrollingCarousel>
+          ) : (
+            <ScrollingCarousel
+              leftIcon={<SlideArrow position="left" />}
+              rightIcon={<SlideArrow position="right" />}
+            >
+              {clips?.map((item: FeaturedClip, index: number) => {
+                return (
+                  <CardBody key={`clips-card-` + index}>
+                    <ThumbCard
+                      {...item}
+                      mode="Clip"
+                      key={index}
+                      handleClick={() =>
+                        onClipClick(item.playbackId, item.title)
+                      }
+                    />
+                  </CardBody>
+                );
+              })}
+            </ScrollingCarousel>
+          )}
         </Col>
       </Row>
     </ClipWrapper>

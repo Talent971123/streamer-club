@@ -1,11 +1,9 @@
+import { siteSettings } from "hooks";
+import { StreamPageContext } from "hooks/context/StreamPageContext";
 import React, { useContext } from "react";
+import { ScoreTimeWrapper, ScoreWrapper } from "./index.style";
 import ScoreBoard from "./Scoreboard";
 import ScoreTime from "./Scoretime";
-import { ScoreTimeWrapper, ScoreWrapper } from "./index.style";
-import { StreamPageContext } from "hooks/context/StreamPageContext";
-import { ConvertNumberToTime } from "utils/common-helper";
-import { Score } from "types/common/score";
-import { siteSettings } from "hooks";
 // graphql
 
 const AussieRules = () => {
