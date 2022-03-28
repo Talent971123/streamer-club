@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
+import { RWebShare } from "react-web-share";
+import { baseUrl } from "utils/constData";
+import { useRouter } from "next/router";
+import { FiShare2 } from "react-icons/fi";
 import {
   ModalWrapper,
   ModalContent,
@@ -10,7 +14,6 @@ import {
 import { Button } from "components/Button";
 import { Text } from "components/Text";
 import { Row } from "components/Layout";
-
 // utils
 import { ImCancelCircle } from "react-icons/im";
 // types
@@ -28,6 +31,7 @@ const FeatureClip_Modal: React.FC<ClipAssetProps> = ({
   handleClose,
 }) => {
   // functions
+  const router = useRouter();
 
   return (
     <ModalWrapper show={show}>
@@ -41,7 +45,7 @@ const FeatureClip_Modal: React.FC<ClipAssetProps> = ({
             bSize="small"
             icon={<ImCancelCircle />}
             onClick={handleClose}
-          ></Button>
+          />
         </ModalHeader>
         <ModalBody>
           <Row flexDirection="column" gap={5}>
@@ -52,6 +56,21 @@ const FeatureClip_Modal: React.FC<ClipAssetProps> = ({
           <Text className="footer-text" fSize={1.5} fWeight={600}>
             {title}
           </Text>
+          <RWebShare
+            data={{
+              text: "Share Profile",
+              url: `${baseUrl + router.asPath.split('?')[0]}?fc=${playbackId}`,
+            }}
+          >
+            <Button
+              bColor="primary"
+              bSize="small"
+              icon={<FiShare2 />}
+              className="actionBtn"
+            >
+              {"Share"}
+            </Button>
+          </RWebShare>
         </ModalFooter>
       </ModalContent>
     </ModalWrapper>

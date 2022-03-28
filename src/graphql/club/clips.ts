@@ -26,7 +26,9 @@ const SUB_FEATURE_CLIPS = gql`subscription MySubscription(
       id
       asset_id
       match{
+        id
         round_name
+        league_id
         home_team{
           club{
             display_name

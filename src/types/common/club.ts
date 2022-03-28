@@ -31,7 +31,12 @@ export interface StreamPageCtx {
   away_players: Array<Players>;
   video_asset_id: string;
   match_id: number;
-  round_name: string
+  round_name: string;
+  asset_id: number;
+  setObject: any;
+  newObject: any;
+  away_slug: string;
+  home_slug: string;
 }
 
 export interface LeagueCtx {

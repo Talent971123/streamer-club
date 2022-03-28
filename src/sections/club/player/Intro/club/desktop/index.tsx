@@ -1,35 +1,17 @@
-import React, { useContext, useState, useRef } from "react";
-import { useRouter } from "next/router";
-
 import { useMutation } from "@apollo/client";
-import { PLAYERQL, USERQL } from "graphql/club";
-
-import { Button } from "components/Button";
-import { Col, Row } from "components/Layout";
-import {
-  ClubWrapper,
-  BottomBorder,
-  CustomInput,
-  CustomSelect,
-  CustomDatePicker,
-  CustomText,
-  CustomForm,
-} from "./club.style";
-
-import moment from "moment";
-import { ImCancelCircle } from "react-icons/im";
-import { FiSave, FiShare2, FiUserPlus } from "react-icons/fi";
-
-import EditIcon from "assets/icon/edit";
-import { s3UploadFile } from "utils/s3-helper";
+import { useUser } from "@auth0/nextjs-auth0";
 import d_photo from "assets/images/player/default-player-image.png";
+import { Button } from "components/Button";
+import { PLAYERQL, USERQL } from "graphql/club";
+import { useRouter } from "next/router";
 import { PlayerContext } from "pages/club/[club_slug]/player/[player_slug]";
-import { RWebShare } from "react-web-share";
-import { baseUrl } from "utils/constData";
+import React, { useContext, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
-import { UserProfile, useUser } from "@auth0/nextjs-auth0";
-
+import {
+  ClubWrapper, CustomForm, CustomInput,
+  CustomSelect, CustomText, FlexWrapper
+} from "./club.style";
 
 const DeskClub: React.FC = (props: any) => {
   const { player } = useContext<any>(PlayerContext);
@@ -78,70 +60,61 @@ const DeskClub: React.FC = (props: any) => {
 
   return (
     <ClubWrapper>
-      <Row gap={50} alignItems="center" justifyContent="center">
-        <Col item={8}>
-          <Row flexDirection="column">
-            <Row alignItems="center">
-              <CustomText strong css={{ fontSize: "1.125rem" }}>
-                {"Current Club: "}
-              </CustomText>
-              <CustomText strong css={{ marginLeft: "24px" }}>{player.club.name}</CustomText>
-            </Row>
-          </Row>
-        </Col>
-        <Col item={8}>
-          <Row alignItems="center">
-            <CustomText strong css={{ fontSize: "1.125rem" }}>
-                {"Teams:"}
-              </CustomText>
-              {!flag ? (
-                player.teams.map((team: { name: string }, idx: number) => (
-                  <Button
-                    key={`player-team-${idx}`}
-                    bColor="warning"
-                    disabled={isSubmit}
-                    style={{marginLeft: "24px"}}
-                  >
-                    {team.name}
-                  </Button>
-                ))
-              ) : (
-                <CustomForm.Item name="team_id" style={{ width: "70%" }}>
-                  <CustomSelect placeholder="teams" options={tlist} />
-                </CustomForm.Item>
-              )}
-            </Row>
-        </Col>
-        <Col item={8}>
-          <Row alignItems="center">
-              <CustomText strong css={{ fontSize: "1.125rem" }}>
-                {"Player Number: "}
-              </CustomText>
-              {!flag ? (
-                <CustomText strong css={{ marginLeft: "24px" }}>{player.positions && player.positions.join(", ")}</CustomText>
-              ) : (
-                <CustomForm.Item name="positions">
-                  <CustomInput
-                    placeholder="positions"
-                    disabled={isSubmit}
-                  />
-                </CustomForm.Item>
-              )}
-            </Row>
-        </Col>
-      </Row>
-      
-      <Row gap={50} alignItems="center" justifyContent="center">
-        <Col item={8}>
-          {!flag ? <BottomBorder /> : <br />}
-        </Col>
-        <Col item={8}>
-          {!flag ? <BottomBorder /> : <br />}
-        </Col>
-        <Col item={8}>
-          {!flag ? <BottomBorder /> : <br />}
-        </Col>
-      </Row>
+
+      <FlexWrapper direction="row" justify="space-evenly" >
+
+        <FlexWrapper justify="flex-start" direction="row" className="infoWrapper">
+
+          <CustomText strong css={{ fontSize: "1.125rem" }}>
+            {"Current Club: "}
+          </CustomText>
+          <CustomText strong css={{ marginLeft: "24px" }}>{player.club.name}</CustomText>
+        </FlexWrapper>
+
+        <FlexWrapper justify="flex-start" direction="row" className="infoWrapper">
+
+          <CustomText strong css={{ fontSize: "1.125rem" }}>
+            {"Teams:"}
+          </CustomText>
+          {!flag ? (
+            player.teams.map((team: { name: string }, idx: number) => (
+              <Button
+                key={`player-team-${idx}`}
+                bColor="warning"
+                disabled={isSubmit}
+                style={{ marginLeft: "24px" }}
+              >
+                {team.name}
+              </Button>
+            ))
+          ) : (
+            <CustomForm.Item name="team_id" style={{ width: "70%" }}>
+              <CustomSelect placeholder="teams" options={tlist} />
+            </CustomForm.Item>
+          )}
+
+        </FlexWrapper>
+
+        <FlexWrapper justify="flex-start" direction="row" className="infoWrapper">
+
+          <CustomText strong css={{ fontSize: "1.125rem" }}>
+            {"Player Number: "}
+          </CustomText>
+          {!flag ? (
+            <CustomText strong css={{ marginLeft: "24px" }}>{player.positions && player.positions.join(", ")}</CustomText>
+          ) : (
+            <CustomForm.Item name="positions">
+              <CustomInput
+                placeholder="positions"
+                disabled={isSubmit}
+              />
+            </CustomForm.Item>
+          )}
+
+        </FlexWrapper>
+
+      </FlexWrapper>
+
     </ClubWrapper>
   );
 };

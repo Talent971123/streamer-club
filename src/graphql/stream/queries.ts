@@ -21,6 +21,7 @@ query GetMatch($where: matches_bool_exp = {}) {
         name
         logo
         display_name
+        slug
       }
     }
     away_team {
@@ -37,6 +38,7 @@ query GetMatch($where: matches_bool_exp = {}) {
         name
         logo
         display_name
+        slug
       }
     }
   }
@@ -53,8 +55,25 @@ const GET_EVENT_COLLECTIONS = gql`
   }
 `;
 
+const GET_SCORE = gql`
+  query GETSCORE($where: score_bool_exp = {}) {
+    score(where: $where){
+      id
+      match_id
+      h_score_1
+      h_score_2
+      h_score_final
+      a_score_1
+      a_score_2
+      a_score_final
+      video_time
+    }
+  }
+`
+
 // ---------
 export default {
   GET_MATCH,
   GET_EVENT_COLLECTIONS,
+  GET_SCORE,
 };

@@ -40,6 +40,7 @@ type Props = {
     flag: boolean, 
     setFlag(e: boolean): void,
     isSubmit: boolean,
+    imageSrc: string,
   },
 }
 
@@ -54,7 +55,8 @@ const TabletProfile = (props: Props) => {
     onTargetClick,
     flag,
     setFlag,
-    isSubmit
+    isSubmit,
+    imageSrc
   } = props.option;
   const { user } = useUser();
   const tlist = teams
@@ -62,9 +64,6 @@ const TabletProfile = (props: Props) => {
     : [];
   const [meta, setMeta] = useState<any>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [imageSrc, setiimageSrc] = useState<any>(
-    player?.user?.photo ? player?.user?.photo : d_photo
-  );
 
   if (!player) {
     return <></>;
@@ -83,7 +82,7 @@ const TabletProfile = (props: Props) => {
                     }`}
                   </CustomText>
                 )}
-                <img src={imageSrc.src}/>
+                <img src={imageSrc}/>
               </ImageContent>
               <input
                 onChange={onFileInputChange}

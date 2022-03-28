@@ -10,6 +10,7 @@ import { MobileHeader } from "./Mobile/Header";
 import { connect } from "react-redux";
 // -------------------------------------------------------------------
 const Header = (props) => {
+  const { clubInfo } = props;
   const { param }: any = useRouter();
 
 

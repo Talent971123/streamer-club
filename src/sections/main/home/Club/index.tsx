@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useRouter } from "next/router";
 // import component
 import { Col, Row } from "components/Layout";
@@ -24,8 +24,11 @@ const ClubView: React.FC = (props: any) => {
   const router = useRouter();
 
   const { loading, error, data } = useSubscription(TEAMQL.SUB_CLUB_FILTER, {
-    variables: {},
+    variables: {}
   });
+
+  if (error) return <div>Error!</div>;
+
   const pack = data && data.clubs;
 
   // const onHandleSeeAll = () => {
@@ -36,7 +39,6 @@ const ClubView: React.FC = (props: any) => {
     router.push(`/club/${slug}`);
   };
 
-  if (error) return <div>Error!</div>;
   return (
     <GameDayWrapper>
       <Row alignItems="center" justifyContent="space-between">

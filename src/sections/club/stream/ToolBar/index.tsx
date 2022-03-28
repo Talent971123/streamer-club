@@ -29,17 +29,18 @@ import _ from "lodash";
 import { siteSettings } from "hooks";
 
 const ToolBarView: React.FC = (props: any) => {
-  const { isLive } = props;
-
-  console.log(props);
-
-  const { home_name, away_name, home_logo, away_logo } =
-    useContext(StreamPageContext);
   const router = useRouter();
+  const { isLive } = props;
+  const { home_name, away_name, home_logo, away_logo, away_slug, home_slug } =
+    useContext(StreamPageContext);
+
+  const onHandleClick = (club_slug:string | undefined) => {
+    router.push(`/club/${club_slug}`);
+  };
 
   return (
     <ToobarWrapper>
-      <HomeClubWrapper>
+      <HomeClubWrapper onClick={() => onHandleClick(away_slug)}>
         {siteSettings("game_day_page.cheer") && <HandIcon />}
         <ClubNameWrapper>
           <Text
@@ -53,7 +54,7 @@ const ToolBarView: React.FC = (props: any) => {
           >
             {home_name}
           </Text>
-          <TeamLogo src={home_logo} />
+          <TeamLogo src={home_logo} onClick={() => onHandleClick(home_slug)}/>
         </ClubNameWrapper>
       </HomeClubWrapper>
 
@@ -69,7 +70,7 @@ const ToolBarView: React.FC = (props: any) => {
         </>
       ) : null}
 
-      <AwayClubWrapper>
+      <AwayClubWrapper onClick={() => onHandleClick(away_slug)}>
         <ClubNameWrapper>
           <TeamLogo src={away_logo} />
           <Text

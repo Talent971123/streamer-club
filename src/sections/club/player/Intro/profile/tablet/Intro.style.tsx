@@ -72,32 +72,33 @@ export const ContentWrapper = styled.div<{ show: boolean }>`
 `;
 
 export const ImageContent = styled.div`
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   strong {
     display: none;
   }
   @media screen and (min-width: ${defaultTheme.mediaSize.lg}px) {
-    img {
-      width: 175px;
-      height: 175px;
-    }
+    width: 175px;
+    height: 175px;
   }
   @media screen and (max-width: ${defaultTheme.mediaSize.lg}px) {
-    img {
-      width: 150px;
-      height: 150px;
-    }
+    width: 150px;
+    height: 150px;
   }
   @media screen and (max-width: ${defaultTheme.mediaSize.md}px) {
-    img {
-      width: 100px;
-      height: 100px;
-    }
+    width: 100px;
+    height: 100px;
     strong {
       display: block;
     }
   }
   img {
-    border-radius: 50%;
+    min-width: 60% !important;
+    min-height: 60% !important;
+    max-height: 60% !important;
   }
 `;
 

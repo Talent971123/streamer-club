@@ -37,7 +37,7 @@ const GET_CLUB = gql`
     }
   }
 `;
-
+// !!! REMOVE SPORT_ID 
 const SUB_CLUB = gql`subscription ClubSubscription($club_slug: String!) {
   clubs(where: { slug: { _eq: $club_slug } }) {
     name
@@ -45,6 +45,11 @@ const SUB_CLUB = gql`subscription ClubSubscription($club_slug: String!) {
     logo
     id
     slug
+    sport_id
+    sport{
+      id
+      icon
+    }
     user_club_follows{
       id
       user_id
@@ -206,6 +211,21 @@ const SUB_CLUB_TEAMS = gql`
   }
 `;
 
+export const SUB_LEAGUE = gql`
+  subscription SubLeague($where: leagues_bool_exp) {
+    leagues(where: $where, order_by: { name: asc }) {
+      id
+      logo
+      name
+      slug
+      sports{
+        id
+        icon
+      }
+    }
+  }
+`;
+
 // ---------
 export default {
   GET_CLUB,
@@ -213,4 +233,5 @@ export default {
   SUB_CLUB_REPLAYS,
   SUB_TEAM_REPLAYS,
   SUB_CLUB_TEAMS,
+  SUB_LEAGUE,
 };

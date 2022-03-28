@@ -35,6 +35,26 @@ export const DeskHeader = (props: any) => {
     move(to);
   };
 
+  if (asPath.includes('/club/')) {
+    if (!menu.filter(e => e.title === "Club Home").length) {
+      menu.shift()
+
+      menu.unshift({
+        display: true,
+        path: `/club/${param.club_slug}`,
+        public: true,
+        title: "Club Home"
+      })
+
+      menu.unshift({
+        display: true,
+        path: "/",
+        public: true,
+        title: "Streamer Home"
+      })
+    }
+  }
+
   const paramName = !_.isUndefined(user) ? `${user?.first_name ?? ''} ${user?.last_name ?? user?.email}` : '';
 
   const dropdownItems = (
@@ -157,7 +177,7 @@ export const DeskHeader = (props: any) => {
                       <Button
                         bColor="warning"
                         bSize="big"
-                        css={{ width: "140px", height: "20px", fontSize: 14 }}
+                        css={{ width: "150px", height: "20px", fontSize: 14 }}
                         onClick={() => handleMenuClick("/api/auth/login")}
                       >
                         {"Login / Sign up"}

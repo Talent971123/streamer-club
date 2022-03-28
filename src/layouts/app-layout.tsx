@@ -14,10 +14,11 @@ import { useSubscription, useQuery } from "@apollo/client";
 
 import { SITEQL } from "graphql/club";
 import { HomeQL } from "graphql/club";
-import { setSiteSettings, setSiteClubs, setSiteEvents } from "redux/actions/site";
+import { setSiteSettings, setSiteClubs, setSiteEvents, setSiteSport } from "redux/actions/site";
 import { setPlayerList } from "redux/actions/players";
 import { setTeamList } from "redux/actions/teams";
 import { setClubInfo } from "redux/actions/club";
+import { setLeagueInfo } from "redux/actions/league";
 
 import { siteSettings } from "hooks";
 import { USER_ROLE } from "utils/constData";
@@ -28,7 +29,7 @@ import { mutate, query } from "graphql/stream";
 const HomePages = ['/']
 
 // -----------------------------------------------------------
-const MenuItems = (club_slug: string, path: string, user: any) => {
+const MenuItems = (league_slug: string, club_slug: string, path: string, user: any) => {
   let menus: any = [];
   if (
     HomePages.includes(path) ||
@@ -43,7 +44,17 @@ const MenuItems = (club_slug: string, path: string, user: any) => {
         display: siteSettings("header_menu.home"),
       },
     ];
-  } else {
+  } else if (path.includes("/league")) {
+    menus = [
+      {
+        title: "Home",
+        path: `/league/${league_slug}`,
+        public: true,
+        display: siteSettings("header_menu.home"),
+      }
+    ]
+  }
+  else {
     menus = [
       {
         title: "Home",
@@ -96,16 +107,18 @@ const MenuItems = (club_slug: string, path: string, user: any) => {
 const Layout = (props) => {
   const {
     setSettings,
+    setLeagueInfo,
     setClubInfo,
     setPlayerList,
     setTeamList,
     setSiteClubs,
     setSiteEvents,
+    setSiteSport,
     children,
   } = props;
   const { param, asPath }: any = useRouter();
   const { user } = useUser();
-  const menu = MenuItems(param ? param.club_slug : "", asPath, user);
+  const menu = MenuItems(param ? param.league_slug : "", param ? param?.club_slug : "", asPath, user);
   /** 
    * TODO: Refactor to query
    * TODO: Fix hooks error see source
@@ -117,17 +130,17 @@ const Layout = (props) => {
   });
   */
 
-  /** hydrate redux */
+  /** hydrate club redux */
   useSubscription(HomeQL.SUB_CLUB, {
     variables: {
       club_slug: param.club_slug,
     },
     onSubscriptionData({ subscriptionData: { data } }) {
-
       if (data) {
         setClubInfo(data.clubs[0] ?? []);
         setPlayerList(data.clubs[0]?.players ?? []);
         setTeamList(data.clubs[0]?.teams ?? []);
+        setSiteSport(data.clubs[0]?.sport ?? null);
       }
     },
   });
@@ -142,6 +155,20 @@ const Layout = (props) => {
     onCompleted(data) {
       data && setSiteEvents(data?.event_collections)
     }
+  });
+
+  /** hydrate league redux */
+  useSubscription(HomeQL.SUB_LEAGUE, {
+    variables: {
+      where: { slug: { _eq: param.league_slug } },
+    },
+    onSubscriptionData({ subscriptionData: { data } }) {
+
+      if (param.league_slug && data) {
+        setLeagueInfo(data.leagues[0]);
+        setSiteSport(data.leagues[0]?.sports ?? null);
+      }
+    },
   });
 
   return (
@@ -166,7 +193,9 @@ const mapDispatchToProps = {
   setPlayerList: setPlayerList,
   setTeamList: setTeamList,
   setSiteClubs: setSiteClubs,
-  setSiteEvents: setSiteEvents
+  setSiteEvents: setSiteEvents,
+  setLeagueInfo: setLeagueInfo,
+  setSiteSport: setSiteSport
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);

@@ -1,0 +1,1 @@
+export const SET_LEAGUE_INFO = "SET_LEAGUE_INFO";

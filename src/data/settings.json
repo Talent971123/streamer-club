@@ -1,6 +1,14 @@
 {
     "title": "Streamer",
     "home_page": {
+        "leagues": true,
+        "gameday": true,
+        "replays": true,
+        "clips": true,
+        "clubs": false
+    },
+    "league_page": {
+        "leagues": true,
         "gameday": true,
         "replays": true,
         "clips": true,
@@ -27,7 +35,7 @@
         "live": true,
         "admin": true,
         "teams": false,
-        "players": false,
+        "players": true,
         "profile": true,
         "replays": true,
         "sign_up": true,

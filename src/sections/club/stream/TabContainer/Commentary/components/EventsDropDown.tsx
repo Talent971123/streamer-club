@@ -9,6 +9,7 @@ import {
 
 import { EventContext } from "../components/EventAction";
 import { useSelector, RootStateOrAny } from "react-redux";
+
 interface Props {
     type: "scoring" | "keyMoments" | ""
     initialValue?: any
@@ -23,7 +24,9 @@ interface EventCollectionTypes {
 }
 
 const EventsDropDown: React.FC<Props> = ({ type, initialValue, name }) => {
-    const { site: { eventsList } } = useSelector((state: RootStateOrAny) => state);
+    let { site: { eventsList, currentSport } } = useSelector((state: RootStateOrAny) => state);
+    eventsList = eventsList.filter(data => data.sports_id === currentSport.id)
+
     const { Option } = DropdownContainer;
 
     const scoringOptions = () => {

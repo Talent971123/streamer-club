@@ -27,6 +27,10 @@ const VideoPlayer = (props: any) => {
 
   const playerConfig = {
     key: process.env.NEXT_PUBLIC_BITMOVIN_ENV || "",
+    analytics: {
+      key: process.env.NEXT_PUBLIC_BITMOVIN_ANALYTICS_KEY || "",
+      videoId: playback_id,
+    },
     playback: {
       autoplay: true,
     },
@@ -90,6 +94,7 @@ const VideoPlayer = (props: any) => {
       playerConfig
     );
 
+
     if (!loading) {
 
       UIFactory.buildDefaultUI(player);
@@ -104,17 +109,20 @@ const VideoPlayer = (props: any) => {
         }
       );
 
-      // console.log('bitmovinMux',bitmovinMux)
+
       window.initBitmovinMux(player, {
         debug: false,
         data: {
-          env_key: playerConfig.key, // required
+          env_key: process.env.NEXT_PUBLIC_MUX_ENV, // required
           // Metadata
           player_name: "My Main Player", // ex: 'My Main Player'
           player_init_time: playerInitTime, // ex: 1451606400000
           // ... and other metadata
+          video_id: playback_id,
         },
       });
+      
+      window.bitmovin.player.Player.addModule(window.bitmovin.analytics.PlayerModule);
     }
   };
 
@@ -129,7 +137,6 @@ const VideoPlayer = (props: any) => {
           src="https://src.litix.io/bitmovin/5/bitmovin-mux.js"
           strategy="afterInteractive"
         />
-
         <DisplayWrpper id="player-container" ref={videoRef} loading={!loading}>
           {children}
         </DisplayWrpper>

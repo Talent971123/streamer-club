@@ -4,7 +4,7 @@ import { getDates } from "utils/helper-date";
 import moment from "moment";
 import imageExists from "image-exists";
 import slugify from "slugify";
-
+import _ from 'lodash'
 /**
  *
  * @param src : image url ;
@@ -25,6 +25,11 @@ export const thumbNailLink = (
   const image_url = `https://image.mux.com/${id}/thumbnail.png?width=${width}`;
   // NOTE: if this cant be fix leave image_url as return
   // return thumbnail_url && imageExists(thumbnail_url, (e: any)=> e)? thumbnail_url: imageExists(image_url, (e: any) => e) ? image_url : defaultImg; 
+
+  if (thumbnail_url) {
+    return thumbnail_url
+  }
+
   return image_url
 };
 

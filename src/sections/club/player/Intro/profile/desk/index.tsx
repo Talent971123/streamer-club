@@ -16,6 +16,7 @@ import {
   CustomForm,
   ImageContent,
   PlayerBtn,
+  FlexWrapper,
 } from "./Intro.style";
 
 import moment from "moment";
@@ -29,24 +30,26 @@ import { PlayerContext } from "pages/club/[club_slug]/player/[player_slug]";
 import { RWebShare } from "react-web-share";
 import { baseUrl } from "utils/constData";
 import { UserProfile, useUser } from "@auth0/nextjs-auth0";
+import { Tooltip } from "antd";
 
 type Props = {
   option: {
-    onClickFollow(value: any):void,
+    onClickFollow(value: any): void,
     teams: any,
     show: boolean,
     onFileInputChange(e: any): void,
-    onTargetClick():void,
-    flag: boolean, 
+    onTargetClick(): void,
+    flag: boolean,
     setFlag(e: boolean): void,
     isSubmit: boolean,
+    imageSrc: string,
   },
 }
 
 const DeskProfile = (props: Props) => {
   const { player } = useContext<any>(PlayerContext);
   const router = useRouter();
-  const { 
+  const {
     teams,
     onClickFollow,
     show,
@@ -54,7 +57,8 @@ const DeskProfile = (props: Props) => {
     onTargetClick,
     flag,
     setFlag,
-    isSubmit
+    isSubmit,
+    imageSrc
   } = props.option;
   const { user } = useUser();
   const tlist = teams
@@ -62,177 +66,180 @@ const DeskProfile = (props: Props) => {
     : [];
   const [meta, setMeta] = useState<any>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [imageSrc, setiimageSrc] = useState<any>(
-    player?.user?.photo ? player?.user?.photo : d_photo
-  );
 
   if (!player) {
-    return <></>;
+    return <></>; //add loader or skeleton loader
   }
 
   return (
-      <DeskProfileWrapper>
-        <Row gap={20} justifyContent="space-between">
-          <Col>
-            <Row alignItems="flex-start">
-              <ImageContent >
-                <img src={imageSrc.src}/>
-              </ImageContent>
-              <input
-                onChange={onFileInputChange}
-                onClick={(event: any) => {
-                  event.target.value = null;
-                }}
-                ref={fileInputRef}
-                type="file"
-                style={{ display: "none" }}
-                accept="image/png, image/jpeg"
-              />
+    <DeskProfileWrapper>
 
-              {user && (
-                <Button
-                  onClick={onTargetClick}
-                  bColor="primary"
-                  icon={<EditIcon />}
-                  disabled={isSubmit}
-                  css={{ border: "none" }}
-                />
+      <FlexWrapper direction="row" justify="flex-start">
+
+        <FlexWrapper maxWidth="200px">
+
+          <ImageContent >
+            <img src={imageSrc} />
+            {user && (
+              <Button
+                onClick={onTargetClick} /** NOTE: This is not working */
+                bColor="primary"
+                icon={<EditIcon />}
+                disabled={isSubmit}
+              />
+            )}
+          </ImageContent>
+
+          <input
+            onChange={onFileInputChange}
+            onClick={(event: any) => {
+              event.target.value = null;
+            }}
+            ref={fileInputRef}
+            type="file"
+            style={{ display: "none" }}
+            accept="image/png, image/jpeg"
+          />
+
+        </FlexWrapper>
+
+        <FlexWrapper direction="row" justify="flex-start">
+
+          <div style={{ display: player.bio || flag ? "flex" : "", alignItems: "center", justifyContent: "space-between" }}>
+            {!flag ? (
+              <FlexWrapper direction="row" justify="flex-start">
+                <CustomText strong className="playerNameWrapper">
+                  {`${player?.user?.first_name ?? ""} ${player?.user?.last_name ?? ""}`}
+                </CustomText>
+              </FlexWrapper>
+
+            ) : (
+
+              <FlexWrapper direction="row">
+
+                <FlexWrapper direction="row">
+                  <CustomForm.Item
+                    name="first_name"
+                    rules={[
+                      {
+                        required: true,
+                        message: "First Name is required.",
+                      },
+                    ]}
+                  >
+                    <CustomInput
+                      placeholder="first name"
+                      disabled={isSubmit}
+                    />
+                  </CustomForm.Item>
+                  <CustomForm.Item
+                    name="last_name"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Last Name is required.",
+                      },
+                    ]}
+                  >
+                    <CustomInput
+                      placeholder="last name"
+                      disabled={isSubmit}
+                    />
+                  </CustomForm.Item>
+                </FlexWrapper>
+
+                <FlexWrapper direction="row" className="saveActionButton">
+                  <Button
+                    type="submit"
+                    formaction="#"
+                    bColor="warning"
+                    icon={isSubmit ? <ButtonLoading /> : <FiSave />}
+                    disabled={isSubmit}
+                    className="actionBtn"
+                  >
+                    {"Save"}
+                  </Button>
+                  <Button
+                    bColor="warning"
+                    icon={<ImCancelCircle />}
+                    onClick={() => setFlag(false)}
+                    disabled={isSubmit}
+                    className="actionBtn"
+                  >
+                    {"Cancel"}
+                  </Button>
+                </FlexWrapper>
+              </FlexWrapper>
+            )}
+
+
+            <div style={{ display: "flex", alignItems: "center" }}>
+
+              {player.bio && user && (
+                <CustomText>{"121 Followers"}</CustomText>
               )}
-            </Row>
-          </Col>
-          <Col item={20} style={{display: "flex" , alignItems: 'center'}}>
-            <div style={{width: "100%"}}>
-              {/* first */}
-              <div style={{display: player.bio || flag ? "flex" : "", alignItems: "center", justifyContent: "space-between"}}>
-                {!flag ? (
-                  <CustomText strong>
-                    {`${player?.user?.first_name ?? ""} ${
-                      player?.user?.last_name ?? ""
-                    }`}
-                  </CustomText>
-                ) : (
-                  <>
-                    <CustomForm.Item
-                      name="first_name"
-                      rules={[
-                        {
-                          required: true,
-                          message: "First Name is required.",
-                        },
-                      ]}
+
+              {!flag && <FlexWrapper direction="row" justify="flex-start" >
+
+                {user && (
+                  <CustomForm.Item>
+                    <Button
+                      bColor="warning"
+                      icon={<EditIcon />}
+                      onClick={() => setFlag(true)}
+                      className="actionBtn"
                     >
-                      <CustomInput
-                        placeholder="first name"
-                        disabled={isSubmit}
-                      />
-                    </CustomForm.Item>
-                    <CustomForm.Item
-                      name="last_name"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Last Name is required.",
-                        },
-                      ]}
-                    >
-                      <CustomInput
-                        placeholder="last name"
-                        disabled={isSubmit}
-                      />
-                    </CustomForm.Item>
-                  </>
+                      {"Edit"}
+                    </Button>
+                  </CustomForm.Item>
                 )}
-                <div style={{display: "flex", alignItems: "center"}}>
-                  {player.bio && user && (
-                    <CustomText>{"121 Followers"}</CustomText>
-                  )}
-                  {!flag ? (
-                    <>
-                      {user && (
-                        <CustomForm.Item>
-                          <Button
-                            bColor="warning"
-                            icon={<EditIcon />}
-                            onClick={() => setFlag(true)}
-                          >
-                            {"Edit"}
-                          </Button>
-                        </CustomForm.Item>
-                      )}
-                      <PlayerBtn>
-                        <Button 
-                          bColor="warning"
-                          icon={<FiUserPlus />}
-                          onClick={e => onClickFollow( user ? false : true )}
-                        >
-                          {"Follow Player"}
-                        </Button>
-                      </PlayerBtn>
-                      <RWebShare
-                        data={{
-                          text: "Share Profile",
-                          url: `${baseUrl + router.asPath}`,
-                          title: `Streamer - ${
-                            player?.user?.first_name ?? ""
-                          } ${player?.user?.last_name ?? ""}`,
-                        }}
-                      >
-                        <Button
-                          bColor="primary"
-                          bSize="small"
-                          icon={<FiShare2 />}
-                        >
-                          {"Share"}
-                        </Button>
-                      </RWebShare>
-                    </>
-                  ) : (
-                    <PlayerBtn style={{display: "flex"}}>
-                      <Button
-                        type="submit"
-                        formaction="#"
-                        bColor="warning"
-                        icon={isSubmit ? <ButtonLoading /> : <FiSave />}
-                        disabled={isSubmit}
-                      >
-                        {"Save"}
-                      </Button>
-                      <Button
-                        bColor="warning"
-                        icon={<ImCancelCircle />}
-                        onClick={() => setFlag(false)}
-                        disabled={isSubmit}
-                      >
-                        {"Cancel"}
-                      </Button>
-                    </PlayerBtn>
-                  )}
-                </div>
-                {/* /end */}
-              </div>
-              {user ? (player.bio ? (
-                (
-                  <ContentWrapper show={true}>
-                    <Row alignItems="center" justifyContent="space-between">
-                      <CustomText>{player.bio}</CustomText>
-                    </Row>
-                  </ContentWrapper>)
-              ) : null) : (
-                <> 
-                {show? (
-                  <ContentWrapper show={false}>
-                    <Row alignItems="center" justifyContent="space-between">
-                      <CustomText>Please log in or sign up to Follow Players</CustomText>
-                    </Row>
-                  </ContentWrapper>
-                ): null}
-                </>
-              )                
-              }
+
+                <PlayerBtn>
+                  <Tooltip trigger={(!user && show) ? "click" : "none"} placement="bottom" title="Please log in or sign up to Follow Players" color={"#202022"}>
+                    <Button
+                      bColor="warning"
+                      icon={<FiUserPlus />}
+                      onClick={e => onClickFollow(user ? false : true)}
+                      className="actionBtn"
+                    >
+                      {"Follow Player"}
+                    </Button>
+                  </Tooltip>
+                </PlayerBtn>
+                <RWebShare
+                  data={{
+                    text: "Share Profile",
+                    url: `${baseUrl + router.asPath}`,
+                    title: `Streamer - ${player?.user?.first_name ?? ""
+                      } ${player?.user?.last_name ?? ""}`,
+                  }}
+                >
+                  <Button
+                    bColor="primary"
+                    bSize="small"
+                    icon={<FiShare2 />}
+                    className="actionBtn"
+                  >
+                    {"Share"}
+                  </Button>
+
+                </RWebShare>
+              </FlexWrapper>}
             </div>
-          </Col>
-        </Row>
-      </DeskProfileWrapper>
+            {/* /end */}
+          </div>
+
+          {user && player.bio && <ContentWrapper show={true}>
+            <Row alignItems="center" justifyContent="space-between">
+              <CustomText>{player.bio}</CustomText>
+            </Row>
+          </ContentWrapper>}
+
+        </FlexWrapper>
+
+      </FlexWrapper>
+
+    </DeskProfileWrapper>
   );
 };
 

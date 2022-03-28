@@ -1,5 +1,5 @@
 // import react
-import React from "react";
+import React, { useState, useEffect } from "react";
 // import views
 import {
   DisplayView,
@@ -17,13 +17,15 @@ import { siteSettings } from "hooks";
 const StreamPage: React.FC<{ streamInfo: StreamPageCtx }> = ({
   streamInfo,
 }) => {
-  // TODO: use redux instead of context api
+
+  const [newObject, setObject] = useState({});
+
   return (
     <Page
       description={streamInfo.home_name + " vs " + streamInfo.away_name}
       image={`https://image.mux.com/${streamInfo.playback_id}/thumbnail.png`}
     >
-      <StreamPageContext.Provider value={streamInfo}>
+      <StreamPageContext.Provider value={{ ...streamInfo, setObject: setObject, newObject }}>
         <WithContainer mode="wrapper" SectionView={DisplayView} />
         {siteSettings("replays_page.toolbar") && (
           <WithContainer mode="wrapper" SectionView={ToolbarView} />
@@ -66,7 +68,10 @@ export const getServerSideProps = async (context: any) => {
         home_players: match.home_team.players,
         away_players: match.away_team.players,
         match_id: match.id,
-        round_name: match.round_name
+        round_name: match.round_name,
+        asset_id: asset_id,
+        away_slug: match.away_team.club.slug,
+        home_slug: match.home_team.club.slug
       },
     },
   };

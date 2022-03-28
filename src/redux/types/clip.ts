@@ -1,0 +1,1 @@
+export const SET_CLIP_LIST = "SET_CLIP_LIST";

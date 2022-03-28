@@ -8,14 +8,13 @@ import { PLAYERQL } from "graphql/club";
 import React, { createContext } from "react";
 // import views
 import {
-  ClipSection, GamesSection, IntroSection, PlayerProfileLive
+  ClipSection, IntroSection, PlayerProfileLive, RecentGames
 } from "sections/club/player";
 
 export const PlayerContext = createContext<any>(null);
 
 const PlayerPage: React.FC = (props: any) => {
   const { player } = props
-
   return (
     <Page
       description={player?.user?.first_name ?? "" + player?.user?.last_name ?? ""}
@@ -24,7 +23,7 @@ const PlayerPage: React.FC = (props: any) => {
       <PlayerContext.Provider value={{ player }}>
         <WithContainer mode="container" SectionView={IntroSection} />
         <WithContainer mode="container" SectionView={ClipSection} sectionProps={{ clubId: player.club.id, playerDetailId: player.id }} />
-        <WithContainer mode="container" SectionView={GamesSection} />
+        <WithContainer mode="container" SectionView={RecentGames} sectionProps={{ playerDetailId: player.id }} />
         <WithContainer mode="container" SectionView={PlayerProfileLive} />
       </PlayerContext.Provider>
     </Page>

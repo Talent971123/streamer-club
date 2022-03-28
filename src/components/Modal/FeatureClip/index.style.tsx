@@ -61,7 +61,7 @@ export const ModalFooter = styled.div`
   padding: 20px;
   display: flex;
   gap: 20px;
-  justify-content: left;
+  justify-content: space-between;
   background: ${themeGet("colors.black.300")};
   .footer-text {
     font-size: 24px;

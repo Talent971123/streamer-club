@@ -4,3 +4,8 @@ export interface EventCollectionTypes {
     sports_id: number
     scoring: number | null
 }
+
+export interface SportType {
+    id: number,
+    icon: string
+}

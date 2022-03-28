@@ -33,8 +33,13 @@ export const ClipContent = styled.div<{ mode: string }>`
     } else if (mode === "player") {
       return css`
         img {
-          border-radius: 50%;
+          min-width: 60% !important;
+          min-height: 60% !important;
+          max-height: 60% !important;
         }
+        border-radius: 50%;
+        background-color: white;
+        
       `;
     } else if (mode === "club") {
       return css`

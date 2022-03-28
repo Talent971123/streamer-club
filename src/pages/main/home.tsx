@@ -1,13 +1,20 @@
 // import react
 import React from "react";
 import { WithContainer } from "components/Container";
+
 // import views
-import { GameDayView, ClubView, ClipView } from "sections/main/home";
+import { GameDayView, ClubView, ClipView, LeaguesView } from "sections/main/home";
 import { siteSettings } from "hooks";
-const HomePage: React.FC = () => {
+const HomePage: React.FC = (props: any) => {
   return (
     <>
-
+      {siteSettings('home_page.leagues') && (
+        <WithContainer
+          mode="container"
+          SectionView={LeaguesView}
+          sectionProps={{ type: "Leagues" }}
+        />
+      )}
       {siteSettings('home_page.gameday') && (
         <WithContainer
           mode="container"

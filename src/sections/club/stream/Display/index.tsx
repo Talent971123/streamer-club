@@ -39,7 +39,6 @@ const Banner: React.FC = (props: any) => {
                 </Text>
               </UpcommingDateTime>
             )}
-
             <AussieScore />
           </VideoPlayer>
         </Col>

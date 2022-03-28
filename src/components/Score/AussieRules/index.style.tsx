@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 export const ScoreWrapper = styled.div`
   z-index: 1;
-  top: 3%;
-  left: 3%;
+  bottom: 14%;
+  left: 2%;
   position: absolute;
 `;
 

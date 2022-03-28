@@ -1,5 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
+import _ from "lodash";
 // import component
 import { Text } from "components/Text";
 import { Col, Row } from "components/Layout";
@@ -20,7 +21,6 @@ import { progressText, thumbNailLink } from "utils/common-helper";
 import ThumbCard from "components/Card/ThumbCard";
 import { connect } from "react-redux";
 
-import _ from "lodash";
 
 const SeeAll = useLinkItem(LinkWrapper);
 

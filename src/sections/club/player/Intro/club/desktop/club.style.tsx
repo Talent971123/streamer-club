@@ -5,12 +5,15 @@ import { defaultTheme } from "theme";
 const { Text } = Typography;
 
 export const ClubWrapper = styled.div`
+  
   @media screen and (max-width: ${defaultTheme.mediaSize.lg}px) {
-    display: none;
+  
   }
+
   @media screen and (min-width: ${defaultTheme.mediaSize.lg}px) {
     display: block;
   }
+
   margin: 30px 0;
   padding: 20px;
   border-radius: 10px;
@@ -18,6 +21,18 @@ export const ClubWrapper = styled.div`
   * {
     font-size: 1.125rem !important;
   }
+
+
+  .infoWrapper{
+    border-bottom: solid #ccc 1px;
+    min-height: 60px;
+    margin: 0px 5px;
+    max-width: 400px;
+    @media screen and (max-width: ${defaultTheme.mediaSize.md}px) {
+      padding: 20px 0px;
+    }
+  }
+
 `;
 
 export const BottomBorder = styled.div`
@@ -81,3 +96,24 @@ export const CustomForm = styled(Form)`
     margin-bottom: 0 !important;
   }
 `;
+
+interface FlexWrapperInterface {
+  direction?: "row" | "column"
+  justify?: "space-around" | "space-evenly" | "space-between" | "center" | "flex-start" | "flex-end"
+  maxWidth?: string
+}
+
+export const FlexWrapper = styled.div<FlexWrapperInterface>`
+  display: flex ;
+  flex-direction: column ;
+  justify-content: center;
+  align-items: center ;
+  width: 100%;
+  max-width: 100%;
+
+  @media screen and (min-width: ${defaultTheme.mediaSize.md}px) {
+    flex-direction: ${props => props.direction ?? 'column'} ;
+    justify-content:  ${props => props.justify ?? 'flex-start'};
+    max-width: ${props => props.maxWidth ?? '100%'};
+  }
+`

@@ -148,6 +148,9 @@ const ButtonInner = styled.div`
   & > *:not(:last-child) {
     margin-right: 5px;
   }
+  * {
+    font-weight: bold;
+  }
 `;
 // eslint-disable-next-line react/display-name
 const Button = React.forwardRef<Ref, ButtonItemProps>(
@@ -164,7 +167,7 @@ const Button = React.forwardRef<Ref, ButtonItemProps>(
         <ButtonInner>
           {loading && <Spinner />}
           {!loading && buttonIcon}
-          <div>{children}</div>
+          {children && (<div>{children}</div>)}
         </ButtonInner>
       </StyledButton>
     );

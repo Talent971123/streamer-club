@@ -28,7 +28,7 @@ export const HeadWrapper = styled.div`
   }
   
   .button-wrapper{
-    width: 310px;
+    width: auto;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -42,6 +42,7 @@ export const HeadWrapper = styled.div`
 export const HeadClubName = styled.div`
   font-size: 3rem;
   text-align: left;
+  padding: 0 1rem;
   @media screen and (max-width: ${defaultTheme.mediaSize.sm}px) {
     font-size: 2rem;
     text-align: center;
@@ -85,7 +86,7 @@ export const FollowButton = styled(Button)`
   }
   @media screen and (max-width: ${defaultTheme.mediaSize.sm}px) {
     height: 26px;
-    width: 90px;
+    width: 95px;
     font-size: 0.688rem;
     padding: 10px 6px;
   }
@@ -105,5 +106,3 @@ export const FollowerText = styled.div`
     p{ font-size: 0.688rem; }
   }
 `;
-
-

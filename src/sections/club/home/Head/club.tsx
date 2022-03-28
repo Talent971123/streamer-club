@@ -69,7 +69,6 @@ const HeadView: React.FC = (props: any) => {
 
   return (
     <HeadWrapper>
-
       <div className="name-wrapper">
         <Image src={club.logo} width={89} height={90} />
         <HeadClubName>
@@ -80,8 +79,22 @@ const HeadView: React.FC = (props: any) => {
       </div>
 
       <div className="button-wrapper">
-        {siteSettings("components.follow_club_count") && <>{club && <FollowerText><Text fSize={1}>{`${club.user_club_follows?.length || "0"} Followers`}</Text></FollowerText>}</>}
-        <FollowButton onClick={handleFollow} bColor={followed() ? "gray" : "warning"} icon={followed() ? <FiUserMinus /> : <FiUserPlus />}>
+        {siteSettings("components.follow_club_count") && (
+          <>
+            {club && (
+              <FollowerText>
+                <Text fSize={1}>{`${
+                  club.user_club_follows?.length || "0"
+                } Followers`}</Text>
+              </FollowerText>
+            )}
+          </>
+        )}
+        <FollowButton
+          onClick={handleFollow}
+          bColor={followed() ? "gray" : "warning"}
+          icon={followed() ? <FiUserMinus /> : <FiUserPlus />}
+        >
           {followed() ? "Unfollow" : "Follow Club"}
         </FollowButton>
         <RWebShare
@@ -94,12 +107,10 @@ const HeadView: React.FC = (props: any) => {
           <ShareButton bColor="primary" bSize="small" icon={<FiShare2 />}>
             {"Share"}
           </ShareButton>
-
         </RWebShare>
       </div>
-
     </HeadWrapper>
-  )
+  );
 
 };
 

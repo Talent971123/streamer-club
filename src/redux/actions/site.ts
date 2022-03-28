@@ -14,3 +14,8 @@ export const setSiteEvents = (events: any) => ({
     type: t.SET_EVENT_LIST,
     payload: events,
 })
+
+export const setSiteSport = (sport: any) => ({
+    type: t.SET_SITE_SPORT,
+    payload: sport,
+})

@@ -1,0 +1,117 @@
+import React from "react";
+import { useRouter } from "next/router";
+import { connect } from "react-redux";
+// import component
+import { Col, Row } from "components/Layout";
+import { Text } from "components/Text";
+import { ScrollingCarousel } from "@trendyol-js/react-carousel";
+import { useLinkItem } from "components/hoc";
+import { IoArrowRedoOutline } from "react-icons/io5";
+import { AvatarSkeleton } from "components/Skeleton";
+// import styled component
+import { SlideArrow } from "components/Button/Button";
+import { GameDayWrapper, LinkWrapper } from "./club.style";
+import { ClubBody } from "theme/global.state";
+import { ClipCard } from "components/Card";
+// import types
+import { ClipProps } from "types/components/ClipCard";
+// define example data
+import { useSubscription } from "@apollo/client";
+import { TEAMQL } from "graphql/club";
+
+const SeeAll = useLinkItem(LinkWrapper);
+
+const ClubView: React.FC = (props: any) => {
+  const { leagueInfo } = props;
+  const router = useRouter();
+
+  const { loading, error, data } = useSubscription(TEAMQL.SUB_CLUB_FILTER, {
+    variables: {
+      where: {
+        teams: 
+          { league_id: {
+            _eq: leagueInfo?.id
+          }
+        }
+      }
+    },
+  });
+
+  if (!leagueInfo) return <></>;
+
+  if (error) return <div>Error!</div>;
+
+  const pack = data && data.clubs;
+
+  // const onHandleSeeAll = () => {
+  //   router.push(`/main/clubs`);
+  // };
+
+  const onHandleClick = (slug: string) => {
+    router.push(`/club/${slug}`);
+  };
+
+  return (
+    <GameDayWrapper>
+      <Row alignItems="center" justifyContent="space-between">
+        <Text fColor="white" fSize={1.5} fWeight={700} mode="p">
+          {"Clubs"}
+        </Text>
+        {/* <SeeAll
+          handleClick={onHandleSeeAll}
+          title="See all"
+          icon={<IoArrowRedoOutline />}
+          iconDirection="row-reverse"
+          alignVertical="center"
+        /> */}
+      </Row>
+      <Row padding="10px 0 0 0">
+        <Col item={24}>
+          {loading ? (
+            <ScrollingCarousel
+              leftIcon={<SlideArrow position="left" />}
+              rightIcon={<SlideArrow position="right" />}
+            >
+              {[1, 2, 3, 4, 5, 6].map((item: number) => {
+                return (
+                  <ClubBody key={`game-day-view-key-${item}`}>
+                    <AvatarSkeleton />
+                  </ClubBody>
+                );
+              })}
+            </ScrollingCarousel>
+          ) : (
+            <ScrollingCarousel
+              leftIcon={<SlideArrow position="left" />}
+              rightIcon={<SlideArrow position="right" />}
+            >
+              {pack.map((club: any, index: number) => {
+                const item: ClipProps = {
+                  id: club.id,
+                  backgroundImage: club.logo,
+                  mode: "club",
+                  content: club.name,
+                };
+
+                return (
+                  <ClubBody key={`club-body-key-${index}`}>
+                    <ClipCard
+                      {...item}
+                      handleClick={() => onHandleClick(club.slug)}
+                    />
+                  </ClubBody>
+                );
+              })}
+            </ScrollingCarousel>
+          )}
+        </Col>
+      </Row>
+    </GameDayWrapper>
+  );
+};
+
+const mapStateToProps = (state) => ({
+  leagueInfo: state.league.info,
+});
+
+export default connect(mapStateToProps)(ClubView);

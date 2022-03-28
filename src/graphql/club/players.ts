@@ -175,7 +175,6 @@ const GET_PLAYER = gql`query GetPlayerInfo($where: players_details_bool_exp = {}
 }
 `
 
-
 // ---------
 export default {
   GET_PLAYER,

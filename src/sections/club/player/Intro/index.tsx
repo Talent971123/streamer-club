@@ -1,49 +1,25 @@
-import React, { useContext, useState, useRef } from "react";
-import { useRouter } from "next/router";
-
 import { useMutation } from "@apollo/client";
-import { PLAYERQL, USERQL } from "graphql/club";
-
-import { Button } from "components/Button";
-import { Col, Row } from "components/Layout";
-import { ImageCrop_Modal } from "components/Modal";
-import ButtonLoading from "components/Loading/ButtonLoading";
-import DeskClub from "./club/desktop";
-import MobileClub from "./club/mobile";
-import TabletClub from "./club/tablet";
-
-import {
-  ProfileWrapper,
-  ContentWrapper,
-  ClubWrapper,
-  BottomBorder,
-  CustomTextArea,
-  CustomInput,
-  CustomSelect,
-  CustomDatePicker,
-  CustomText,
-  CustomForm,
-  ImageContent,
-  PlayerDetailShow,
-  PlayerBtn,
-} from "./Intro.style";
-
-import moment from "moment";
-import { ImCancelCircle } from "react-icons/im";
-import { FiSave, FiShare2, FiUserPlus } from "react-icons/fi";
-
-import EditIcon from "assets/icon/edit";
-import { s3UploadFile } from "utils/s3-helper";
+import { useUser } from "@auth0/nextjs-auth0";
 import d_photo from "assets/images/player/default-player-image.png";
+import { ImageCrop_Modal } from "components/Modal";
+import { PLAYERQL, USERQL } from "graphql/club";
+import moment from "moment";
+import { useRouter } from "next/router";
 import { PlayerContext } from "pages/club/[club_slug]/player/[player_slug]";
-import { RWebShare } from "react-web-share";
-import { baseUrl } from "utils/constData";
+import React, { useContext, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
-import { UserProfile, useUser } from "@auth0/nextjs-auth0";
+import { s3UploadFile } from "utils/s3-helper";
+import DeskClub from "./club/desktop";
+import {
+  CustomForm, ProfileWrapper
+} from "./Intro.style";
 import DeskProfile from "./profile/desk";
-import MobileProfile from "./profile/mobile";
-import TabletProfile from "./profile/tablet";
+
+
+
+
+
 
 
 const IntroSection: React.FC = (props: any) => {
@@ -91,7 +67,7 @@ const IntroSection: React.FC = (props: any) => {
     const { first_name, last_name, ...rest } = values;
 
     // setisSubmit(true);
-    console.log("test", rest) ;
+    console.log("test", rest);
     return
 
     await update({
@@ -140,15 +116,16 @@ const IntroSection: React.FC = (props: any) => {
     return <></>;
   }
 
-  const option = { 
+  const option = {
     onClickFollow,
     teams,
     show,
     onFileInputChange,
     onTargetClick,
-    flag, 
+    flag,
     setFlag,
-    isSubmit
+    isSubmit,
+    imageSrc
   };
 
   return (
@@ -167,14 +144,23 @@ const IntroSection: React.FC = (props: any) => {
         }}
       >
         <ProfileWrapper>
-          <DeskProfile option={option}/>
-          <TabletProfile option={option}/>
-          <MobileProfile option={option}/>
+
+          {/* Note: Yamata
+            please use only one component for responsive  
+            this is bad implementation.
+            to many files maintain 
+            Please refactor
+            */}
+
+          <DeskProfile option={option} />
+          {/* <TabletProfile option={option} /> <-- we dont need this */}
+          {/* <MobileProfile option={option} /> <-- we dont need this */}
+
         </ProfileWrapper>
-        
+
         <DeskClub />
-        <TabletClub />
-        <MobileClub />
+        {/* <TabletClub /> <-- we dont need this  */}
+        {/* <MobileClub />  <-- we dont need this  */}
 
       </CustomForm>
       <ImageCrop_Modal

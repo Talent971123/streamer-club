@@ -21,6 +21,9 @@ export const HomeClubWrapper = styled.div`
   @media (max-width: 834px) {
     flex-direction: column-reverse;
   }
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const AwayClubWrapper = styled.div`
@@ -28,6 +31,9 @@ export const AwayClubWrapper = styled.div`
   align-items: center;
   @media (max-width: 834px) {
     flex-direction: column;
+  }
+  &:hover {
+    cursor: pointer;
   }
 `;
 

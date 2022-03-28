@@ -5,35 +5,35 @@ import { Scoring } from '../constants';
 import { useSelector, RootStateOrAny } from "react-redux";
 
 export interface EventsTypes {
-    title: string
-    value: number
-    score?: number | null
+  title: string
+  value: number
+  score?: number | null
 }
 
 function useEvents() {
 
-    const { site: { eventsList } } = useSelector((state: RootStateOrAny) => state);
+  let { site: { eventsList, currentSport } } = useSelector((state: RootStateOrAny) => state);
 
-    const [scoring, setScoring] = useState<Array<EventsTypes>>([])
-    const [keyMoment, setKeyMoment] = useState<Array<EventsTypes>>([])
+  const [scoring, setScoring] = useState<Array<EventsTypes>>([])
+  const [keyMoment, setKeyMoment] = useState<Array<EventsTypes>>([])
 
-    useEffect(() => {
+  useEffect(() => {
+    eventsList = eventsList.filter(data => data.sports_id === currentSport.id)
+    let result: EventsTypes[] = [];
+    Scoring.forEach(item => {
+      const event = _.find(eventsList, o => item.title.includes(o.event_name))
+      if (event && event.id) {
+        result.push({ title: item.title, value: event?.id, score: event?.scoring })
+      }
+    })
+    setScoring(result)
 
-        setScoring(
-            Scoring.map(item => {
-                const event = _.find(eventsList, o => item.title.includes(o.event_name))
-                return { title: item.title, value: event.id, score: event.scoring }
-            })
-        )
+    setKeyMoment(
+      _.filter(eventsList, (o) => _.isNull(o.scoring)).map(v => ({ title: v.event_name, value: v.id, score: v.scoring }))
+    )
 
-        setKeyMoment(
-            _.filter(eventsList, (o) => _.isNull(o.scoring)).map(v => ({ title: v.event_name, value: v.id, score: v.scoring }))
-        )
-
-    }, [eventsList])
-
-    return { scoring, keyMoment }
-
+  }, [eventsList])
+  return { scoring, keyMoment }
 }
 
 export default useEvents

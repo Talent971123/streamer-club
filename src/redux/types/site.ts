@@ -1,3 +1,4 @@
 export const SET_SITE_SETTINGS = "SET_SITE_SETTINGS";
 export const SET_SITE_CLUBS = "SET_SITE_CLUBS";
 export const SET_EVENT_LIST = "SET_EVENT_LIST";
+export const SET_SITE_SPORT = "SET_SITE_SPORT";

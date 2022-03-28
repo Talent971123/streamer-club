@@ -202,14 +202,10 @@ export const CarouselBody = styled.div`
     width: 25% !important;
   }
 
-  @media screen and (min-width: ${defaultTheme.mediaSize
-      .sm}px) and (max-width: ${defaultTheme.mediaSize.md}px) {
-    width: 33% !important;
+  @media screen and (max-width: ${defaultTheme.mediaSize.md}px) {
+    width: 30% !important;
   }
-
-  @media screen and (max-width: ${defaultTheme.mediaSize.sm}px) {
-    width: 100% !important;
-  }
+  margin: 0 1.3%;
 `;
 
 export const ClubBody = styled.div`
@@ -229,6 +225,25 @@ export const ClubBody = styled.div`
     width: 100px;
   }
 `;
+
+export const LeagueBody = styled.div`
+  @media screen and (min-width: ${defaultTheme.mediaSize.md}px) {
+    width: 250px;
+  }
+
+  @media screen and (max-width: ${defaultTheme.mediaSize.md}px) {
+    width: 200px;
+  }
+
+  @media screen and (max-width: ${defaultTheme.mediaSize.sm}px) {
+    width: 150px;
+  }
+
+  @media screen and (max-width: ${defaultTheme.mediaSize.xs}px) {
+    width: 100px;
+  }
+`;
+
 export const CardBody = styled.div`
   @media screen and (min-width: ${defaultTheme.mediaSize.md}px) {
     width: 324px;

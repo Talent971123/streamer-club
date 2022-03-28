@@ -27,8 +27,8 @@ const SUB_LEAGUES = gql`
 `;
 
 const SUB_CLUB_FILTER = gql`
-  subscription SUB_CLUB_FILTER($limit: Int = 7) {
-    clubs(limit: $limit) {
+  subscription SUB_CLUB_FILTER($where: clubs_bool_exp, $limit: Int = 7) {
+    clubs(where: $where, limit: $limit) {
       logo
       id
       display_name
